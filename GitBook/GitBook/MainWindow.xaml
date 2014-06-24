@@ -31,14 +31,6 @@
                   FontStyle="Italic"
                   Text="72" />
             </Grid>
-
-            <TextBox x:Name="SecondaryCommitText"
-               Background="{StaticResource WindowCommitBackgroundColor}"
-               Foreground="{StaticResource WindowCommitForegroundColor}"
-               FontFamily="Consolas"
-               FontSize="24"
-               MaxLength="72">
-            </TextBox>
          </StackPanel>
       </Border>
    </Border>
