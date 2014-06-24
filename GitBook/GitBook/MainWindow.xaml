@@ -14,11 +14,6 @@
    <Border CornerRadius="14" Padding="10" Background="{StaticResource WindowOuterBorderColor}">
       <Border CornerRadius="10" Padding="12" Background="{StaticResource WindowBackgroundColor}">
          <StackPanel>
-            <TextBlock Margin="10,0,0,0"
-               Foreground="{StaticResource AppTextColor}"
-               VerticalAlignment="Center"
-               Text="Committing" />
-
             <TextBox x:Name="CommitText"
                Background="{StaticResource WindowCommitBackgroundColor}"
                Foreground="{StaticResource WindowCommitForegroundColor}"
