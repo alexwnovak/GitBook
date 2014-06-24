@@ -24,5 +24,15 @@ namespace GitBook.UnitTest
 
          Assert.AreEqual( 0, invertedLength );
       }
+
+      [TestMethod]
+      public void Convert_InputIsNegative_ReturnsZero()
+      {
+         var converter = new TextLengthInversionConverter();
+
+         int invertedLength = (int) converter.Convert( -1, null, null, null );
+
+         Assert.AreEqual( 0, invertedLength );
+      }
    }
 }

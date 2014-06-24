@@ -8,7 +8,14 @@ namespace GitBook
    {
       public object Convert( object value, Type targetType, object parameter, CultureInfo culture )
       {
-         return 72 - (int) value;
+         int textLength = (int) value;
+
+         if ( textLength < 0 )
+         {
+            return 0;
+         }
+
+         return 72 - textLength;
       }
 
       public object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture )
