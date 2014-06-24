@@ -34,5 +34,15 @@ namespace GitBook.UnitTest
 
          Assert.AreEqual( 0, invertedLength );
       }
+
+      [TestMethod]
+      public void Convert_InputIsGreaterThanMaxOf72_ReturnsZero()
+      {
+         var converter = new TextLengthInversionConverter();
+
+         int invertedLength = (int) converter.Convert( 73, null, null, null );
+
+         Assert.AreEqual( 0, invertedLength );
+      }
    }
 }

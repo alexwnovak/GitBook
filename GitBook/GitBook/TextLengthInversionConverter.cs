@@ -10,7 +10,7 @@ namespace GitBook
       {
          int textLength = (int) value;
 
-         if ( textLength < 0 )
+         if ( textLength < 0 || textLength > 72 )
          {
             return 0;
          }
