@@ -11,25 +11,25 @@
    ResizeMode="NoResize"
    WindowStyle="None"
    FocusManager.FocusedElement="{Binding ElementName=CommitText}">
-   <Border CornerRadius="14" Padding="10" Background="#8000">
-      <Border CornerRadius="10" Padding="12" Background="#A69864">
+   <Border CornerRadius="14" Padding="10" Background="{StaticResource WindowOuterBorderColor}">
+      <Border CornerRadius="10" Padding="12" Background="{StaticResource WindowBackgroundColor}">
          <StackPanel>
             <TextBlock Margin="10,0,0,0"
-               Foreground="#FFF"
+               Foreground="{StaticResource AppTextColor}"
                VerticalAlignment="Center"
                Text="Committing" />
 
             <TextBox x:Name="CommitText"
-               Background="#CBC5AF"
-               Foreground="#FFFEF9"
+               Background="{StaticResource WindowCommitBackgroundColor}"
+               Foreground="{StaticResource WindowCommitForegroundColor}"
                FontFamily="Consolas"
                FontSize="24"
                MaxLength="72">
             </TextBox>
 
             <TextBox x:Name="SecondaryCommitText"
-               Background="#CBC5AF"
-               Foreground="#FFFEF9"
+               Background="{StaticResource WindowCommitBackgroundColor}"
+               Foreground="{StaticResource WindowCommitForegroundColor}"
                FontFamily="Consolas"
                FontSize="24"
                MaxLength="72">
