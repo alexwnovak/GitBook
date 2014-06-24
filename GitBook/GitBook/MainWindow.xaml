@@ -29,7 +29,7 @@
                   Margin="0,0,10,0"
                   Foreground="{StaticResource WindowCommitForegroundColor}"
                   FontStyle="Italic"
-                  Text="72" />
+                  Text="{Binding Text.Length, ElementName=CommitText, Converter={StaticResource TextLengthInversionConverter}}" />
             </Grid>
          </StackPanel>
       </Border>
