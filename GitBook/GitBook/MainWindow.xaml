@@ -14,13 +14,23 @@
    <Border CornerRadius="14" Padding="10" Background="{StaticResource WindowOuterBorderColor}">
       <Border CornerRadius="10" Padding="12" Background="{StaticResource WindowBackgroundColor}">
          <StackPanel>
-            <TextBox x:Name="CommitText"
-               Background="{StaticResource WindowCommitBackgroundColor}"
-               Foreground="{StaticResource WindowCommitForegroundColor}"
-               FontFamily="Consolas"
-               FontSize="24"
-               MaxLength="72">
-            </TextBox>
+            <Grid>
+               <TextBox x:Name="CommitText"
+                  Background="{StaticResource WindowCommitBackgroundColor}"
+                  Foreground="{StaticResource WindowCommitForegroundColor}"
+                  FontFamily="Consolas"
+                  FontSize="24"
+                  MaxLength="72">
+               </TextBox>
+
+               <TextBlock x:Name="RemainingCharactersTextBlock"
+                  HorizontalAlignment="Right"
+                  VerticalAlignment="Center"
+                  Margin="0,0,10,0"
+                  Foreground="{StaticResource WindowCommitForegroundColor}"
+                  FontStyle="Italic"
+                  Text="72" />
+            </Grid>
 
             <TextBox x:Name="SecondaryCommitText"
                Background="{StaticResource WindowCommitBackgroundColor}"
