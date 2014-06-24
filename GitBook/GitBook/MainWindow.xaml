@@ -6,7 +6,7 @@
    Background="Transparent"
    Title="MainWindow"
    Width="960"
-   Height="200"
+   Height="75"
    WindowStartupLocation="CenterScreen"
    ResizeMode="NoResize"
    WindowStyle="None"
