@@ -5,7 +5,7 @@
    AllowsTransparency="True"
    Background="Transparent"
    Title="MainWindow"
-   Width="960"
+   Width="1030"
    Height="75"
    WindowStartupLocation="CenterScreen"
    ResizeMode="NoResize"
