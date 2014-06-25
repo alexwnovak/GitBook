@@ -76,6 +76,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Dependency.cs" />
+    <Compile Include="Resources\Strings.cs" />
     <Compile Include="Service\IAppService.cs" />
     <Compile Include="TextLengthInversionConverter.cs" />
     <Compile Include="Service\AppService.cs" />
