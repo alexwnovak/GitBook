@@ -11,6 +11,12 @@ namespace GitBook.UnitTest
    [TestClass]
    public class MainViewModelTest
    {
+      [TestCleanup]
+      public void Cleanup()
+      {
+         SimpleIoc.Default.Reset();
+      }
+
       [TestMethod]
       public void OnCommitNotesKeyDown_KeyIsEscape_CallsShutdown()
       {
