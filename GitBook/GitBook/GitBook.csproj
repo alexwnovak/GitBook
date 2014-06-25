@@ -78,6 +78,7 @@
     <Compile Include="Dependency.cs" />
     <Compile Include="Service\IAppService.cs" />
     <Compile Include="TextLengthInversionConverter.cs" />
+    <Compile Include="Service\AppService.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Page Include="MainWindow.xaml">
