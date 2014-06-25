@@ -10,7 +10,8 @@
    WindowStartupLocation="CenterScreen"
    ResizeMode="NoResize"
    WindowStyle="None"
-   FocusManager.FocusedElement="{Binding ElementName=CommitText}">
+   FocusManager.FocusedElement="{Binding ElementName=CommitText}"
+   DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=MainViewModel}">
    <Border CornerRadius="14" Padding="10" Background="{StaticResource WindowOuterBorderColor}">
       <Border CornerRadius="10" Padding="12" Background="{StaticResource WindowBackgroundColor}">
          <StackPanel>
