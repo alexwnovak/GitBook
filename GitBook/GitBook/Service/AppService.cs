@@ -4,9 +4,9 @@ namespace GitBook.Service
 {
    public class AppService : IAppService
    {
-      public MessageBoxResult DisplayMessageBox( string message )
+      public MessageBoxResult DisplayMessageBox( string message, MessageBoxButton buttons )
       {
-         return MessageBox.Show( message );
+         return MessageBox.Show( message, null, buttons );
       }
 
       public void Shutdown()

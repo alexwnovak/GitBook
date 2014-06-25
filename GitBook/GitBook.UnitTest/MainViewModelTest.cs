@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System.Windows;
+using System.Windows.Input;
 using GalaSoft.MvvmLight.Ioc;
 using GitBook.Resources;
 using GitBook.Service;
@@ -60,11 +61,11 @@ namespace GitBook.UnitTest
 
          // Assert
 
-         serviceMock.Verify( sm => sm.DisplayMessageBox( It.IsAny<string>() ), Times.Once() );
+         serviceMock.Verify( sm => sm.DisplayMessageBox( It.IsAny<string>(), It.IsAny<MessageBoxButton>() ), Times.Once() );
       }
 
       [TestMethod]
-      public void OnCommitNotesKeyDown_KeyIsEscapeAndNotesHaveBeenEntered_DisplaysConfirmDialogWithCorrectText()
+      public void OnCommitNotesKeyDown_KeyIsEscapeAndNotesHaveBeenEntered_DisplaysConfirmDialogWithCorrectTextAndButtons()
       {
          // Setup
 
@@ -84,7 +85,7 @@ namespace GitBook.UnitTest
 
          // Assert
 
-         serviceMock.Verify( sm => sm.DisplayMessageBox( Strings.ConfirmDiscardMessage ), Times.Once() );
+         serviceMock.Verify( sm => sm.DisplayMessageBox( Strings.ConfirmDiscardMessage, MessageBoxButton.YesNo ), Times.Once() );
       }
    }
 }
