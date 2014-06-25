@@ -75,6 +75,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Dependency.cs" />
     <Compile Include="Service\IAppService.cs" />
     <Compile Include="TextLengthInversionConverter.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
