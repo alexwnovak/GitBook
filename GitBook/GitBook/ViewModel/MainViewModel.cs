@@ -1,6 +1,8 @@
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Ioc;
+using GitBook.Service;
 
 namespace GitBook.ViewModel
 {
@@ -19,6 +21,12 @@ namespace GitBook.ViewModel
 
       public void OnCommitNotesKeyDown( KeyEventArgs e )
       {
+         if ( e.Key == Key.Escape )
+         {
+            var appService = SimpleIoc.Default.GetInstance<IAppService>();
+
+            appService.Shutdown();
+         }
       }
    }
 }
