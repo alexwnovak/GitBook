@@ -31,7 +31,14 @@ namespace GitBook.ViewModel
          {
             var appService = SimpleIoc.Default.GetInstance<IAppService>();
 
-            appService.Shutdown();
+            if ( string.IsNullOrEmpty( CommitText ) )
+            {
+               appService.Shutdown();
+            }
+            else
+            {
+               appService.DisplayMessageBox( "Really discard?" );
+            }
          }
       }
    }

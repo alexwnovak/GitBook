@@ -18,7 +18,7 @@ namespace GitBook.UnitTest
       }
 
       [TestMethod]
-      public void OnCommitNotesKeyDown_KeyIsEscape_CallsShutdown()
+      public void OnCommitNotesKeyDown_KeyIsEscapeAndHasNoCommitText_CallsShutdown()
       {
          // Setup
 
@@ -36,6 +36,30 @@ namespace GitBook.UnitTest
          // Assert
 
          serviceMock.Verify( sm => sm.Shutdown(), Times.Once() );
+      }
+
+      [TestMethod]
+      public void OnCommitNotesKeyDown_KeyIsEscapeAndNotesHaveBeenEntered_DisplaysConfirmDialog()
+      {
+         // Setup
+
+         var serviceMock = new Mock<IAppService>();
+         SimpleIoc.Default.Register( () => serviceMock.Object );
+
+         // Test
+
+         var viewModel = new MainViewModel
+         {
+            CommitText = "Some notes"
+         };
+
+         var args = TestHelper.GetKeyEventArgs( Key.Escape );
+
+         viewModel.OnCommitNotesKeyDown( args );
+
+         // Assert
+
+         serviceMock.Verify( sm => sm.DisplayMessageBox( It.IsAny<string>() ), Times.Once() );
       }
    }
 }
