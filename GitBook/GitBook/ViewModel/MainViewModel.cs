@@ -13,6 +13,12 @@ namespace GitBook.ViewModel
          get;
          private set;
       }
+
+      public string CommitText
+      {
+         get;
+         set;
+      }
        
       public MainViewModel()
       {

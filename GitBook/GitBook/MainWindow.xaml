@@ -23,7 +23,8 @@
                   Foreground="{StaticResource WindowCommitForegroundColor}"
                   FontFamily="Consolas"
                   FontSize="24"
-                  MaxLength="72">
+                  MaxLength="72"
+                  Text="{Binding CommitText, UpdateSourceTrigger=PropertyChanged}">
                   <i:Interaction.Triggers>
                      <i:EventTrigger EventName="KeyDown">
                         <cmd:EventToCommand Command="{Binding CommitNotesKeyDownCommand}" PassEventArgsToCommand="True" MustToggleIsEnabledValue="True" />
