@@ -1,5 +1,6 @@
 ﻿using System.Windows.Input;
 using GalaSoft.MvvmLight.Ioc;
+using GitBook.Resources;
 using GitBook.Service;
 using GitBook.UnitTest.Helpers;
 using GitBook.ViewModel;
@@ -60,6 +61,30 @@ namespace GitBook.UnitTest
          // Assert
 
          serviceMock.Verify( sm => sm.DisplayMessageBox( It.IsAny<string>() ), Times.Once() );
+      }
+
+      [TestMethod]
+      public void OnCommitNotesKeyDown_KeyIsEscapeAndNotesHaveBeenEntered_DisplaysConfirmDialogWithCorrectText()
+      {
+         // Setup
+
+         var serviceMock = new Mock<IAppService>();
+         SimpleIoc.Default.Register( () => serviceMock.Object );
+
+         // Test
+
+         var viewModel = new MainViewModel
+         {
+            CommitText = "Some notes"
+         };
+
+         var args = TestHelper.GetKeyEventArgs( Key.Escape );
+
+         viewModel.OnCommitNotesKeyDown( args );
+
+         // Assert
+
+         serviceMock.Verify( sm => sm.DisplayMessageBox( Strings.ConfirmDiscardMessage ), Times.Once() );
       }
    }
 }
