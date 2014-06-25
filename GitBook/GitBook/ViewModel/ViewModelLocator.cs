@@ -14,6 +14,7 @@
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
+using GitBook.Service;
 using Microsoft.Practices.ServiceLocation;
 
 namespace GitBook.ViewModel
@@ -32,6 +33,7 @@ namespace GitBook.ViewModel
          ServiceLocator.SetLocatorProvider( () => SimpleIoc.Default );
 
          SimpleIoc.Default.Register<MainViewModel>();
+         SimpleIoc.Default.Register<IAppService, AppService>();         
       }
 
       public MainViewModel MainViewModel
