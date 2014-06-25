@@ -87,5 +87,32 @@ namespace GitBook.UnitTest
 
          serviceMock.Verify( sm => sm.DisplayMessageBox( Strings.ConfirmDiscardMessage, MessageBoxButton.YesNo ), Times.Once() );
       }
+
+      [TestMethod]
+      public void OnCommitNotesKeyDown_UserDiscardsTheirCommit_ShutsDownAfterConfirmation()
+      {
+         // Setup
+
+         var serviceMock = new Mock<IAppService>();
+         serviceMock.Setup( sm => sm.DisplayMessageBox( Strings.ConfirmDiscardMessage, MessageBoxButton.YesNo ) ).Returns( MessageBoxResult.Yes );    
+         SimpleIoc.Default.Register( () => serviceMock.Object );
+
+         // Test
+
+         var viewModel = new MainViewModel
+         {
+            CommitText = "Some notes"
+         };
+
+         var args = TestHelper.GetKeyEventArgs( Key.Escape );
+
+         viewModel.OnCommitNotesKeyDown( args );
+
+         // Assert
+
+         serviceMock.Verify( sm => sm.DisplayMessageBox( Strings.ConfirmDiscardMessage, MessageBoxButton.YesNo ), Times.Once() );
+
+         serviceMock.Verify( sm => sm.Shutdown(), Times.Once() );
+      }
    }
 }

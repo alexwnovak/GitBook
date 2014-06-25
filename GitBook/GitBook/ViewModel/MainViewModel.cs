@@ -39,7 +39,12 @@ namespace GitBook.ViewModel
             }
             else
             {
-               appService.DisplayMessageBox( Strings.ConfirmDiscardMessage, MessageBoxButton.YesNo );
+               var result = appService.DisplayMessageBox( Strings.ConfirmDiscardMessage, MessageBoxButton.YesNo );
+
+               if ( result == MessageBoxResult.Yes )
+               {
+                  appService.Shutdown();
+               }
             }
          }
       }
