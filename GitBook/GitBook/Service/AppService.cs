@@ -6,7 +6,7 @@ namespace GitBook.Service
    {
       public MessageBoxResult DisplayMessageBox( string message )
       {
-         throw new System.NotImplementedException();
+         return MessageBox.Show( message );
       }
 
       public void Shutdown()
