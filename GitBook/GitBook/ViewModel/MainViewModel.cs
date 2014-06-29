@@ -21,6 +21,8 @@ namespace GitBook.ViewModel
          get;
          set;
       }
+
+      private bool _hasActivatedExpandedState;
        
       public MainViewModel()
       {
@@ -49,11 +51,15 @@ namespace GitBook.ViewModel
          }
          else if ( e.Key == Key.Tab )
          {
-            var appService = SimpleIoc.Default.GetInstance<IAppService>();
+            if ( !_hasActivatedExpandedState )
+            {
+               _hasActivatedExpandedState = true;
 
-            appService.BeginStoryboard( "ExpandedWindowStoryboard" );
+               var appService = SimpleIoc.Default.GetInstance<IAppService>();
 
-            appService.BeginStoryboard( "ExpandedGridStoryboard" ); 
+               appService.BeginStoryboard( "ExpandedWindowStoryboard" );
+               appService.BeginStoryboard( "ExpandedGridStoryboard" ); 
+            }
          }
       }
    }

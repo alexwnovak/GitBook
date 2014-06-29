@@ -164,5 +164,30 @@ namespace GitBook.UnitTest
 
          serviceMock.Verify( sm => sm.BeginStoryboard( "ExpandedGridStoryboard" ), Times.Once() );
       }
+
+      [TestMethod]
+      public void OnCommitNotesKeyDown_TabKeyPressedTwice_ActivatesExpandedStateOnlyOnce()
+      {
+         // Setup
+
+         var serviceMock = new Mock<IAppService>();
+         SimpleIoc.Default.Register( () => serviceMock.Object );
+
+         // Test
+
+         var viewModel = new MainViewModel();
+
+         var args = TestHelper.GetKeyEventArgs( Key.Tab );
+
+         viewModel.OnCommitNotesKeyDown( args );
+
+         viewModel.OnCommitNotesKeyDown( args ); 
+
+         // Assert
+
+         serviceMock.Verify( sm => sm.BeginStoryboard( "ExpandedWindowStoryboard" ), Times.Once() );
+
+         serviceMock.Verify( sm => sm.BeginStoryboard( "ExpandedGridStoryboard" ), Times.Once() );
+      }
    }
 }
