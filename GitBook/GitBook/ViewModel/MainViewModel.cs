@@ -47,6 +47,14 @@ namespace GitBook.ViewModel
                }
             }
          }
+         else if ( e.Key == Key.Tab )
+         {
+            var appService = SimpleIoc.Default.GetInstance<IAppService>();
+
+            appService.BeginStoryboard( "ExpandedWindowStoryboard" );
+
+            appService.BeginStoryboard( "ExpandedGridStoryboard" ); 
+         }
       }
    }
 }
