@@ -10,11 +10,12 @@
    Title="MainWindow"
    Width="1030"
    Height="200"
-   WindowStartupLocation="CenterScreen"
+   WindowStartupLocation="Manual"
    ResizeMode="NoResize"
    WindowStyle="None"
    FocusManager.FocusedElement="{Binding ElementName=CommitText}"
-   DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=MainViewModel}">
+   DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=MainViewModel}"
+   Loaded="MainWindow_OnLoaded">
    <Window.Resources>
       <Storyboard x:Key="ExpandedWindowStoryboard">
          <DoubleAnimation Storyboard.TargetName="PageRoot"
