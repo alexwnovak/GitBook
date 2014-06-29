@@ -7,6 +7,7 @@ namespace GitBook
       public MainWindow()
       {
          InitializeComponent();
+         Height = 75;
       }
    }
 }
