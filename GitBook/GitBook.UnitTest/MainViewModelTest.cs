@@ -243,5 +243,29 @@ namespace GitBook.UnitTest
 
          commitDocumentMock.Verify( cd => cd.Save(), Times.Once() );
       }
+
+      [TestMethod]
+      public void OnCommitNotesKeyDown_EnterKeyPressed_ExitsAppWithCodeZero()
+      {
+         // Setup
+
+         var commitDocumentMock = new Mock<ICommitDocument>();
+         App.CommitDocument = commitDocumentMock.Object;
+
+         var appServiceMock = new Mock<IAppService>();
+         SimpleIoc.Default.Register( () => appServiceMock.Object );
+
+         // Test
+
+         var viewModel = new MainViewModel();
+
+         var args = TestHelper.GetKeyEventArgs( Key.Enter );
+
+         viewModel.OnCommitNotesKeyDown( args );
+
+         // Assert
+
+         appServiceMock.Verify( @as => @as.Shutdown(), Times.Once() );
+      }
    }
 }

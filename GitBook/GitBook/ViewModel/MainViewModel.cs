@@ -50,6 +50,10 @@ namespace GitBook.ViewModel
          App.CommitDocument.ShortMessage = CommitText;
 
          App.CommitDocument.Save();
+
+         var environmentAdapter = SimpleIoc.Default.GetInstance<IAppService>();
+
+         environmentAdapter.Shutdown();
       }
 
       private void CancelCommit()
