@@ -48,6 +48,9 @@ namespace GitBook.ViewModel
             case Key.Tab:
                ExpandUI();
                break;
+            case Key.F1:
+               ShowHelp();
+               break;
          }
       }
 
@@ -92,6 +95,13 @@ namespace GitBook.ViewModel
 
             appService.BeginStoryboard( "ExpandedStateStoryboard" );
          }
+      }
+
+      private void ShowHelp()
+      {
+         var appService = SimpleIoc.Default.GetInstance<IAppService>();
+
+         appService.BeginStoryboard( "HelpStateStoryboard" );
       }
    }
 }
