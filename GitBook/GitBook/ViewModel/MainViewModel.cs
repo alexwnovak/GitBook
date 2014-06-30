@@ -33,6 +33,9 @@ namespace GitBook.ViewModel
       {
          switch ( e.Key )
          {
+            case Key.Enter:
+               SaveCommit();
+               break;
             case Key.Escape:
                CancelCommit();
                break;
@@ -40,6 +43,11 @@ namespace GitBook.ViewModel
                ExpandUI();
                break;
          }
+      }
+
+      private void SaveCommit()
+      {
+         App.CommitDocument.Save();
       }
 
       private void CancelCommit()

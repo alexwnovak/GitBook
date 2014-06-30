@@ -189,5 +189,29 @@ namespace GitBook.UnitTest
 
          serviceMock.Verify( sm => sm.BeginStoryboard( "ExpandedGridStoryboard" ), Times.Once() );
       }
+
+      [TestMethod]
+      public void OnCommitNotesKeyDown_EnterKeyPressed_SavesCommitNotes()
+      {
+         // Setup
+
+         var serviceMock = new Mock<IAppService>();
+         SimpleIoc.Default.Register( () => serviceMock.Object );
+
+         var commitDocumentMock = new Mock<ICommitDocument>();
+         App.CommitDocument = commitDocumentMock.Object;
+
+         // Test
+
+         var viewModel = new MainViewModel();
+
+         var args = TestHelper.GetKeyEventArgs( Key.Enter );
+
+         viewModel.OnCommitNotesKeyDown( args );
+
+         // Assert
+
+         commitDocumentMock.Verify( cd => cd.Save(), Times.Once() );
+      }
    }
 }
