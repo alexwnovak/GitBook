@@ -15,7 +15,10 @@ namespace GitBook
             throw new GitFileLoadException();
          }
 
-         return null;
+         return new CommitDocument
+         {
+            InitialLines = fileAdapter.ReadAllLines( path )
+         };
       }
    }
 }

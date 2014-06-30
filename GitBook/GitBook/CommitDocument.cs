@@ -2,5 +2,10 @@
 {
    public class CommitDocument
    {
+      public string[] InitialLines
+      {
+         get;
+         set;
+      }
    }
 }
