@@ -6,7 +6,7 @@ namespace GitBook
    {
       public void Start( string[] arguments )
       {
-         if ( arguments == null )
+         if ( arguments == null || arguments.Length == 0 )
          {
             var environmentAdapter = SimpleIoc.Default.GetInstance<IEnvironmentAdapter>();
 
