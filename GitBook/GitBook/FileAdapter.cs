@@ -16,7 +16,7 @@ namespace GitBook
 
       public void WriteAllLines( string path, string[] lines )
       {
-         throw new System.NotImplementedException();
+         File.WriteAllLines( path, lines );  
       }
    }
 }
