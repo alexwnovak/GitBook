@@ -17,7 +17,8 @@ namespace GitBook
 
          return new CommitDocument
          {
-            InitialLines = fileAdapter.ReadAllLines( path )
+            InitialLines = fileAdapter.ReadAllLines( path ),
+            Path = path
          };
       }
    }

@@ -81,5 +81,27 @@ namespace GitBook.UnitTest
          Assert.AreEqual( lines[0], commitDocument.InitialLines[0] );
          Assert.AreEqual( lines[1], commitDocument.InitialLines[1] );
       }
+
+      [TestMethod]
+      public void FromFile_FileExists_StoresThePathInTheDocument()
+      {
+         const string path = "SomeFile.txt";
+
+         // Setup
+
+         var fileAdapterMock = new Mock<IFileAdapter>();
+         fileAdapterMock.Setup( fa => fa.Exists( path ) ).Returns( true );
+         SimpleIoc.Default.Register( () => fileAdapterMock.Object );
+
+         // Test
+
+         var commitFileReader = new CommitFileReader();
+
+         var commitDocument = commitFileReader.FromFile( path );
+
+         // Assert
+
+         Assert.AreEqual( path, commitDocument.Path );
+      }
    }
 }
