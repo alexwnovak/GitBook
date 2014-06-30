@@ -12,6 +12,10 @@ namespace GitBook
 
             environmentAdapter.Exit( 1 );
          }
+
+         var commitFileReader = SimpleIoc.Default.GetInstance<ICommitFileReader>();
+
+         commitFileReader.FromFile( arguments[0] );
       }
    }
 }
