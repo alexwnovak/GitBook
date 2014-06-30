@@ -1,4 +1,7 @@
-﻿namespace GitBook
+﻿using System.Windows.Shapes;
+using GalaSoft.MvvmLight.Ioc;
+
+namespace GitBook
 {
    public class CommitDocument
    {
@@ -18,6 +21,18 @@
       {
          get;
          set;
+      }
+
+      public void Save()
+      {
+         var lines = new[]
+         {
+            ShortMessage
+         };
+
+         var fileAdapter = SimpleIoc.Default.GetInstance<IFileAdapter>();
+
+         fileAdapter.WriteAllLines( Path, lines );
       }
    }
 }
