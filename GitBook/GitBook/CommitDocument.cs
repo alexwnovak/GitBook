@@ -32,7 +32,9 @@ namespace GitBook
       {
          var lines = new[]
          {
-            ShortMessage
+            ShortMessage,
+            string.Empty,
+            LongMessage
          };
 
          var fileAdapter = SimpleIoc.Default.GetInstance<IFileAdapter>();
