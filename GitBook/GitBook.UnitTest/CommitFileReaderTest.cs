@@ -50,5 +50,36 @@ namespace GitBook.UnitTest
 
          fileAdapterMock.Verify( fa => fa.ReadAllLines( path ), Times.Once() );
       }
+
+      [TestMethod]
+      public void FromFile_FileExists_StoresTheFileLinesInTheDocument()
+      {
+         const string path = "SomeFile.txt";
+
+         var lines = new[]
+         {
+            "LineOne",
+            "LineTwo"
+         };
+
+         // Setup
+
+         var fileAdapterMock = new Mock<IFileAdapter>();
+         fileAdapterMock.Setup( fa => fa.Exists( path ) ).Returns( true );
+         fileAdapterMock.Setup( fa => fa.ReadAllLines( path ) ).Returns( lines );
+         SimpleIoc.Default.Register( () => fileAdapterMock.Object );
+
+         // Test
+
+         var commitFileReader = new CommitFileReader();
+
+         var commitDocument = commitFileReader.FromFile( path );
+
+         // Assert
+
+         Assert.AreEqual( lines.Length, commitDocument.InitialLines.Length );
+         Assert.AreEqual( lines[0], commitDocument.InitialLines[0] );
+         Assert.AreEqual( lines[1], commitDocument.InitialLines[1] );
+      }
    }
 }
