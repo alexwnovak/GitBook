@@ -13,5 +13,10 @@ namespace GitBook
       {
          return File.ReadAllLines( path );
       }
+
+      public void WriteAllLines( string path, string[] lines )
+      {
+         throw new System.NotImplementedException();
+      }
    }
 }
