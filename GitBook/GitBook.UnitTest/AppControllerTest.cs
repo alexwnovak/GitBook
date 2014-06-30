@@ -75,5 +75,34 @@ namespace GitBook.UnitTest
 
          commitFileReaderMock.Verify( cfr => cfr.FromFile( arguments[0] ), Times.Once() );
       }
+
+      [TestMethod]
+      public void Start_HasCommandLineArgument_CommitDocumentIsStoredOnApp()
+      {
+         var commitDocument = new CommitDocument();
+
+         // Setup
+
+         var commitFileReaderMock = new Mock<ICommitFileReader>();
+         commitFileReaderMock.Setup( cfr => cfr.FromFile( It.IsAny<string>() ) ).Returns( commitDocument );    
+         SimpleIoc.Default.Register( () => commitFileReaderMock.Object );
+
+         App.CommitDocument = null;
+
+         // Test
+
+         var arguments = new[]
+         {
+            "Some Argument"
+         };
+
+         var appController = new AppController();
+
+         appController.Start( arguments );
+
+         // Assert
+
+         Assert.AreEqual( commitDocument, App.CommitDocument );
+      }
    }
 }
