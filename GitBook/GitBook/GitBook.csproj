@@ -77,6 +77,8 @@
     </ApplicationDefinition>
     <Compile Include="AppController.cs" />
     <Compile Include="Dependency.cs" />
+    <Compile Include="EnvironmentAdapter.cs" />
+    <Compile Include="IEnvironmentAdapter.cs" />
     <Compile Include="Resources\Strings.cs" />
     <Compile Include="Service\IAppService.cs" />
     <Compile Include="TextLengthInversionConverter.cs" />
