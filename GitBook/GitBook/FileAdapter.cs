@@ -8,5 +8,10 @@ namespace GitBook
       {
          return File.Exists( path );
       }
+
+      public string[] ReadAllLines( string path )
+      {
+         return File.ReadAllLines( path );
+      }
    }
 }
