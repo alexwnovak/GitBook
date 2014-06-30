@@ -191,6 +191,36 @@ namespace GitBook.UnitTest
       }
 
       [TestMethod]
+      public void OnCommitNotesKeyDown_EnterKeyPressed_StoresCommitNotesIntoDocument()
+      {
+         const string commitText = "This commit text.";
+
+         // Setup
+
+         var serviceMock = new Mock<IAppService>();
+         SimpleIoc.Default.Register( () => serviceMock.Object );
+
+         var commitDocumentMock = new Mock<ICommitDocument>();
+         commitDocumentMock.SetupProperty( cd => cd.ShortMessage );
+         App.CommitDocument = commitDocumentMock.Object;
+
+         // Test
+
+         var viewModel = new MainViewModel
+         {
+            CommitText = commitText
+         };
+
+         var args = TestHelper.GetKeyEventArgs( Key.Enter );
+
+         viewModel.OnCommitNotesKeyDown( args );
+
+         // Assert
+
+         Assert.AreEqual( commitText, App.CommitDocument.ShortMessage );
+      }
+
+      [TestMethod]
       public void OnCommitNotesKeyDown_EnterKeyPressed_SavesCommitNotes()
       {
          // Setup

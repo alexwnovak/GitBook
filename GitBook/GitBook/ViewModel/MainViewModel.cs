@@ -47,6 +47,8 @@ namespace GitBook.ViewModel
 
       private void SaveCommit()
       {
+         App.CommitDocument.ShortMessage = CommitText;
+
          App.CommitDocument.Save();
       }
 
