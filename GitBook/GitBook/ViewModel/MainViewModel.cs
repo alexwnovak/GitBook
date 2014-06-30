@@ -22,6 +22,12 @@ namespace GitBook.ViewModel
          set;
       }
 
+      public string ExtraCommitText
+      {
+         get;
+         set;
+      }
+
       private bool _hasActivatedExpandedState;
        
       public MainViewModel()
@@ -48,6 +54,7 @@ namespace GitBook.ViewModel
       private void SaveCommit()
       {
          App.CommitDocument.ShortMessage = CommitText;
+         App.CommitDocument.LongMessage = ExtraCommitText;
 
          App.CommitDocument.Save();
 

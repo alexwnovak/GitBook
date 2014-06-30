@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Ioc;
 using GitBook.Resources;
@@ -218,6 +219,36 @@ namespace GitBook.UnitTest
          // Assert
 
          Assert.AreEqual( commitText, App.CommitDocument.ShortMessage );
+      }
+
+      [TestMethod]
+      public void OnCommitNotesKeyDown_EnterKeyPressed_StoresExtraCommitNotesIntoDocument()
+      {
+         string extraCommitText = "This is much longer" + Environment.NewLine + "text for the commit.";
+
+         // Setup
+
+         var serviceMock = new Mock<IAppService>();
+         SimpleIoc.Default.Register( () => serviceMock.Object );
+
+         var commitDocumentMock = new Mock<ICommitDocument>();
+         commitDocumentMock.SetupProperty( cd => cd.LongMessage );
+         App.CommitDocument = commitDocumentMock.Object;
+
+         // Test
+
+         var viewModel = new MainViewModel
+         {
+            ExtraCommitText = extraCommitText
+         };
+
+         var args = TestHelper.GetKeyEventArgs( Key.Enter );
+
+         viewModel.OnCommitNotesKeyDown( args );
+
+         // Assert
+
+         Assert.AreEqual( extraCommitText, App.CommitDocument.LongMessage );
       }
 
       [TestMethod]
