@@ -161,9 +161,7 @@ namespace GitBook.UnitTest
 
          // Assert
 
-         serviceMock.Verify( sm => sm.BeginStoryboard( "ExpandedWindowStoryboard" ), Times.Once() );
-
-         serviceMock.Verify( sm => sm.BeginStoryboard( "ExpandedGridStoryboard" ), Times.Once() );
+         serviceMock.Verify( sm => sm.BeginStoryboard( "ExpandedStateStoryboard" ), Times.Once() );
       }
 
       [TestMethod]
@@ -186,9 +184,7 @@ namespace GitBook.UnitTest
 
          // Assert
 
-         serviceMock.Verify( sm => sm.BeginStoryboard( "ExpandedWindowStoryboard" ), Times.Once() );
-
-         serviceMock.Verify( sm => sm.BeginStoryboard( "ExpandedGridStoryboard" ), Times.Once() );
+         serviceMock.Verify( sm => sm.BeginStoryboard( "ExpandedStateStoryboard" ), Times.Once() );
       }
 
       [TestMethod]

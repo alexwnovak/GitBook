@@ -17,7 +17,7 @@
    DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=MainViewModel}"
    Loaded="MainWindow_OnLoaded">
    <Window.Resources>
-      <Storyboard x:Key="ExpandedWindowStoryboard">
+      <Storyboard x:Key="ExpandedStateStoryboard">
          <DoubleAnimation Storyboard.TargetName="PageRoot"
             Storyboard.TargetProperty="Height"
             From="75"
@@ -27,8 +27,6 @@
                <CircleEase EasingMode="EaseOut" />
             </DoubleAnimation.EasingFunction>
          </DoubleAnimation>
-      </Storyboard>
-      <Storyboard x:Key="ExpandedGridStoryboard">
          <DoubleAnimation Storyboard.TargetName="SecondaryCommitGrid"
             Storyboard.TargetProperty="Opacity"
             From="0"

@@ -90,8 +90,7 @@ namespace GitBook.ViewModel
 
             var appService = SimpleIoc.Default.GetInstance<IAppService>();
 
-            appService.BeginStoryboard( "ExpandedWindowStoryboard" );
-            appService.BeginStoryboard( "ExpandedGridStoryboard" );
+            appService.BeginStoryboard( "ExpandedStateStoryboard" );
          }
       }
    }
