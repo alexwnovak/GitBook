@@ -22,6 +22,7 @@ namespace GitBook
          SimpleIoc.Default.Register<IAppService, AppService>();
          SimpleIoc.Default.Register<IEnvironmentAdapter, EnvironmentAdapter>();
          SimpleIoc.Default.Register<ICommitFileReader, CommitFileReader>();
+         SimpleIoc.Default.Register<IFileAdapter, FileAdapter>();
 
          // Load the commit file
 
