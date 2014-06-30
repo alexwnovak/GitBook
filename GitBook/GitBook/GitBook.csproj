@@ -82,6 +82,7 @@
     <Compile Include="EnvironmentAdapter.cs" />
     <Compile Include="FileAdapter.cs" />
     <Compile Include="GitFileLoadException.cs" />
+    <Compile Include="ICommitDocument.cs" />
     <Compile Include="ICommitFileReader.cs" />
     <Compile Include="IEnvironmentAdapter.cs" />
     <Compile Include="IFileAdapter.cs" />
