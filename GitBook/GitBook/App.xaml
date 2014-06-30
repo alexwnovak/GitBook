@@ -11,8 +11,8 @@
       <gitBook:TextLengthInversionConverter x:Key="TextLengthInversionConverter" />
       <SolidColorBrush x:Key="AppTextColor" Color="#FFFFFF" />
       <SolidColorBrush x:Key="WindowOuterBorderColor" Color="#8000" />
-      <SolidColorBrush x:Key="WindowBackgroundColor" Color="#A69864" />
-      <SolidColorBrush x:Key="WindowCommitBackgroundColor" Color="#CBC5AF" />
-      <SolidColorBrush x:Key="WindowCommitForegroundColor" Color="#FFFEF9" />
+      <SolidColorBrush x:Key="WindowBackgroundColor" Color="#A3A197" />
+      <SolidColorBrush x:Key="WindowCommitBackgroundColor" Color="#3C434F" />
+      <SolidColorBrush x:Key="WindowCommitForegroundColor" Color="#C3D7FF" />
    </Application.Resources>
 </Application>
