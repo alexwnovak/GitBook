@@ -25,17 +25,6 @@ namespace GitBook.ViewModel
    /// </summary>
    public class ViewModelLocator
    {
-      /// <summary>
-      /// Initializes a new instance of the ViewModelLocator class.
-      /// </summary>
-      public ViewModelLocator()
-      {
-         ServiceLocator.SetLocatorProvider( () => SimpleIoc.Default );
-
-         SimpleIoc.Default.Register<MainViewModel>();
-         SimpleIoc.Default.Register<IAppService, AppService>();         
-      }
-
       public MainViewModel MainViewModel
       {
          get

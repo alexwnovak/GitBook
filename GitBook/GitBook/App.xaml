@@ -5,7 +5,8 @@
    xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006"
    xmlns:gitBook="clr-namespace:GitBook"
    d1p1:Ignorable="d"
-   StartupUri="MainWindow.xaml">
+   StartupUri="MainWindow.xaml"
+   Startup="App_OnStartup">
    <Application.Resources>
       <vm:ViewModelLocator x:Key="ViewModelLocator" d:IsDataSource="True" xmlns:vm="clr-namespace:GitBook.ViewModel" />
       <gitBook:TextLengthInversionConverter x:Key="TextLengthInversionConverter" />
