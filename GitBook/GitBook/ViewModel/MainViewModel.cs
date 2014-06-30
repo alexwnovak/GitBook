@@ -31,35 +31,46 @@ namespace GitBook.ViewModel
 
       public void OnCommitNotesKeyDown( KeyEventArgs e )
       {
-         if ( e.Key == Key.Escape )
+         switch ( e.Key )
          {
-            var appService = SimpleIoc.Default.GetInstance<IAppService>();
+            case Key.Escape:
+               CancelCommit();
+               break;
+            case Key.Tab:
+               ExpandUI();
+               break;
+         }
+      }
 
-            if ( string.IsNullOrEmpty( CommitText ) )
+      private void CancelCommit()
+      {
+         var appService = SimpleIoc.Default.GetInstance<IAppService>();
+
+         if ( string.IsNullOrEmpty( CommitText ) )
+         {
+            appService.Shutdown();
+         }
+         else
+         {
+            var result = appService.DisplayMessageBox( Strings.ConfirmDiscardMessage, MessageBoxButton.YesNo );
+
+            if ( result == MessageBoxResult.Yes )
             {
                appService.Shutdown();
             }
-            else
-            {
-               var result = appService.DisplayMessageBox( Strings.ConfirmDiscardMessage, MessageBoxButton.YesNo );
-
-               if ( result == MessageBoxResult.Yes )
-               {
-                  appService.Shutdown();
-               }
-            }
          }
-         else if ( e.Key == Key.Tab )
+      }
+
+      private void ExpandUI()
+      {
+         if ( !_hasActivatedExpandedState )
          {
-            if ( !_hasActivatedExpandedState )
-            {
-               _hasActivatedExpandedState = true;
+            _hasActivatedExpandedState = true;
 
-               var appService = SimpleIoc.Default.GetInstance<IAppService>();
+            var appService = SimpleIoc.Default.GetInstance<IAppService>();
 
-               appService.BeginStoryboard( "ExpandedWindowStoryboard" );
-               appService.BeginStoryboard( "ExpandedGridStoryboard" ); 
-            }
+            appService.BeginStoryboard( "ExpandedWindowStoryboard" );
+            appService.BeginStoryboard( "ExpandedGridStoryboard" );
          }
       }
    }
