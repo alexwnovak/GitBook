@@ -8,7 +8,7 @@ namespace GitBook
 {
    public partial class App : Application
    {
-      public static CommitDocument CommitDocument
+      public static ICommitDocument CommitDocument
       {
          get;
          set;
