@@ -8,6 +8,12 @@
          set;
       }
 
+      string LongMessage
+      {
+         get;
+         set;
+      }
+
       void Save();
    }
 }

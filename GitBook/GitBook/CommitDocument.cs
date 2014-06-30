@@ -22,6 +22,12 @@ namespace GitBook
          set;
       }
 
+      public string LongMessage
+      {
+         get;
+         set;
+      }
+
       public void Save()
       {
          var lines = new[]
