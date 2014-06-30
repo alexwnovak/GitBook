@@ -6,7 +6,7 @@ namespace GitBook
    {
       public void Exit( int exitCode )
       {
-         throw new NotImplementedException();
+         Environment.Exit( exitCode );
       }
    }
 }
