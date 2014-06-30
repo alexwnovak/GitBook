@@ -82,6 +82,7 @@
     <Compile Include="EnvironmentAdapter.cs" />
     <Compile Include="ICommitFileReader.cs" />
     <Compile Include="IEnvironmentAdapter.cs" />
+    <Compile Include="IFileAdapter.cs" />
     <Compile Include="Resources\Strings.cs" />
     <Compile Include="Service\IAppService.cs" />
     <Compile Include="TextLengthInversionConverter.cs" />
