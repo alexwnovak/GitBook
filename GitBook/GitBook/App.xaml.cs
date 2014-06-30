@@ -15,6 +15,12 @@ namespace GitBook
          SimpleIoc.Default.Register<MainViewModel>();
          SimpleIoc.Default.Register<IAppService, AppService>();
          SimpleIoc.Default.Register<IEnvironmentAdapter, EnvironmentAdapter>();
+
+         // Load the commit file
+
+         var appController = new AppController();
+
+         appController.Start( e.Args );
       }
    }
 }
