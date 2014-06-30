@@ -76,6 +76,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AppController.cs" />
+    <Compile Include="CommitDocument.cs" />
     <Compile Include="CommitFileReader.cs" />
     <Compile Include="Dependency.cs" />
     <Compile Include="EnvironmentAdapter.cs" />
