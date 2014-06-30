@@ -13,5 +13,11 @@
          get;
          set;
       }
+
+      public string ShortMessage
+      {
+         get;
+         set;
+      }
    }
 }
