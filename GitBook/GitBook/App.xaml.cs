@@ -8,6 +8,12 @@ namespace GitBook
 {
    public partial class App : Application
    {
+      public static CommitDocument CommitDocument
+      {
+         get;
+         set;
+      }
+
       private void App_OnStartup( object sender, StartupEventArgs e )
       {
          ServiceLocator.SetLocatorProvider( () => SimpleIoc.Default );
