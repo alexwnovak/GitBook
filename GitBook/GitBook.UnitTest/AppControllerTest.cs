@@ -104,5 +104,35 @@ namespace GitBook.UnitTest
 
          Assert.AreEqual( commitDocument, App.CommitDocument );
       }
+
+      [TestMethod]
+      public void Start_PassesFileThatDoesNotExist_ExitsWithCodeOne()
+      {
+         // Setup
+
+         var environmentAdapterMock = new Mock<IEnvironmentAdapter>();
+         SimpleIoc.Default.Register( () => environmentAdapterMock.Object );
+
+         var commitFileReaderMock = new Mock<ICommitFileReader>();
+         commitFileReaderMock.Setup( cfr => cfr.FromFile( It.IsAny<string>() ) ).Throws<GitFileLoadException>();
+         SimpleIoc.Default.Register( () => commitFileReaderMock.Object );
+
+         App.CommitDocument = null;
+
+         // Test
+
+         var arguments = new[]
+         {
+            "Some Argument"
+         };
+
+         var appController = new AppController();
+
+         appController.Start( arguments );
+
+         // Assert
+
+         environmentAdapterMock.Verify( ea => ea.Exit( 1 ), Times.Once() );
+      }
    }
 }
