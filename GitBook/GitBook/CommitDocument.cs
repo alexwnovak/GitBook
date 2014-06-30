@@ -1,9 +1,8 @@
-﻿using System.Windows.Shapes;
-using GalaSoft.MvvmLight.Ioc;
+﻿using GalaSoft.MvvmLight.Ioc;
 
 namespace GitBook
 {
-   public class CommitDocument
+   public class CommitDocument : ICommitDocument
    {
       public string Path
       {
