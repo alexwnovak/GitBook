@@ -71,7 +71,15 @@
                   FontFamily="Consolas"
                   FontSize="24"
                   MaxLength="72"
-                  AcceptsReturn="True"/>
+                  AcceptsReturn="True">
+                  <i:Interaction.Triggers>
+                     <i:EventTrigger EventName="KeyDown">
+                        <cmd:EventToCommand Command="{Binding CommitNotesKeyDownCommand}"
+                           PassEventArgsToCommand="True"
+                           MustToggleIsEnabledValue="True" />
+                     </i:EventTrigger>
+                  </i:Interaction.Triggers>
+               </TextBox>
             </Grid>
          </StackPanel>
       </Border>
