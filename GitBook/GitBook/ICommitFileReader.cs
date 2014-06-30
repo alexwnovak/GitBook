@@ -2,6 +2,6 @@
 {
    public interface ICommitFileReader
    {
-      void FromFile( string path );
+      CommitDocument FromFile( string path );
    }
 }

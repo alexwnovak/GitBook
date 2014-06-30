@@ -2,8 +2,9 @@
 {
    public class CommitFileReader : ICommitFileReader
    {
-      public void FromFile( string path )
+      public CommitDocument FromFile( string path )
       {
+         return null;
       }
    }
 }
