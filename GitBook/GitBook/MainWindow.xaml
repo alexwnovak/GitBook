@@ -33,6 +33,25 @@
             To="1"
             Duration="0:0:0.4" />
       </Storyboard>
+      <Storyboard x:Key="HelpControlVisibleStoryboard">
+         <BooleanAnimationUsingKeyFrames Storyboard.TargetName="HelpControl" Storyboard.TargetProperty="IsHitTestVisible">
+            <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="True" />
+         </BooleanAnimationUsingKeyFrames>
+         <DoubleAnimation Storyboard.TargetName="HelpControl"
+            Storyboard.TargetProperty="Opacity"
+            From="0"
+            To="1"
+            Duration="0:0:0.3" />
+         <DoubleAnimation Storyboard.TargetName="PageRoot"
+            Storyboard.TargetProperty="Height"
+            From="75"
+            To="200"
+            Duration="0:0:0.3">
+            <DoubleAnimation.EasingFunction>
+               <CircleEase EasingMode="EaseOut" />
+            </DoubleAnimation.EasingFunction>
+         </DoubleAnimation>
+      </Storyboard>
    </Window.Resources>
 
    <Border CornerRadius="14" Padding="10" Background="{StaticResource WindowOuterBorderColor}">
