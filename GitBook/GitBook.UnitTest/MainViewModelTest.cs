@@ -313,7 +313,7 @@ namespace GitBook.UnitTest
 
          // Assert
 
-         appServiceMock.Verify( @as => @as.BeginStoryboard( "HelpStateStoryboard" ), Times.Once() );
+         appServiceMock.Verify( @as => @as.BeginStoryboard( "HelpControlVisibleStoryboard" ), Times.Once() );
       }
    }
 }
