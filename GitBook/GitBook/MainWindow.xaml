@@ -82,6 +82,10 @@
                   </TextBox>
                </Grid>
             </StackPanel>
+
+            <gitBook:HelpControl x:Name="HelpControl"
+               Opacity="0"
+               IsHitTestVisible="False" />
          </Grid>
       </Border>
    </Border>
