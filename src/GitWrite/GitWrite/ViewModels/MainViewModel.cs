@@ -13,7 +13,6 @@ namespace GitWrite.ViewModels
       public RelayCommand<KeyEventArgs> CommitNotesKeyDownCommand
       {
          get;
-         private set;
       }
 
       public string CommitText
