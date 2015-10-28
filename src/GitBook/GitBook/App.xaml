@@ -4,11 +4,12 @@
    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
    xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006"
    xmlns:gitBook="clr-namespace:GitBook"
+   xmlns:viewModels="clr-namespace:GitBook.ViewModels"
    d1p1:Ignorable="d"
    StartupUri="MainWindow.xaml"
    Startup="App_OnStartup">
    <Application.Resources>
-      <vm:ViewModelLocator x:Key="ViewModelLocator" d:IsDataSource="True" xmlns:vm="clr-namespace:GitBook.ViewModel" />
+      <viewModels:ViewModelLocator x:Key="ViewModelLocator" d:IsDataSource="True" />
       <gitBook:TextLengthInversionConverter x:Key="TextLengthInversionConverter" />
       <SolidColorBrush x:Key="AppTextColor" Color="#FFFFFF" />
       <SolidColorBrush x:Key="WindowOuterBorderColor" Color="#8000" />

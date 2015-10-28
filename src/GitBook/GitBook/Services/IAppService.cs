@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace GitBook.Service
+namespace GitBook.Services
 {
    public interface IAppService
    {

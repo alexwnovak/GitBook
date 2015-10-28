@@ -1,7 +1,7 @@
 using System.Windows;
 using System.Windows.Media.Animation;
 
-namespace GitBook.Service
+namespace GitBook.Services
 {
    public class AppService : IAppService
    {

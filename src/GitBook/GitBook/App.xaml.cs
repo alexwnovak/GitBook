@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using GalaSoft.MvvmLight.Ioc;
-using GitBook.Service;
-using GitBook.ViewModel;
+using GitBook.Services;
+using GitBook.ViewModels;
 using Microsoft.Practices.ServiceLocation;
 
 namespace GitBook

@@ -4,9 +4,9 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using GitBook.Resources;
-using GitBook.Service;
+using GitBook.Services;
 
-namespace GitBook.ViewModel
+namespace GitBook.ViewModels
 {
    public class MainViewModel : ViewModelBase
    {

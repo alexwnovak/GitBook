@@ -3,9 +3,9 @@ using System.Windows;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Ioc;
 using GitBook.Resources;
-using GitBook.Service;
+using GitBook.Services;
 using GitBook.UnitTest.Helpers;
-using GitBook.ViewModel;
+using GitBook.ViewModels;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 

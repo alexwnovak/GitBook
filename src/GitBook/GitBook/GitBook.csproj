@@ -90,11 +90,11 @@
     <Compile Include="IEnvironmentAdapter.cs" />
     <Compile Include="IFileAdapter.cs" />
     <Compile Include="Resources\Strings.cs" />
-    <Compile Include="Service\IAppService.cs" />
+    <Compile Include="Services\IAppService.cs" />
     <Compile Include="TextLengthInversionConverter.cs" />
-    <Compile Include="Service\AppService.cs" />
-    <Compile Include="ViewModel\MainViewModel.cs" />
-    <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="Services\AppService.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Page Include="HelpControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
