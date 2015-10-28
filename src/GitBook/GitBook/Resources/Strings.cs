@@ -1,4 +1,4 @@
-﻿namespace GitBook.Resources
+﻿namespace GitWrite.Resources
 {
    public static class Strings
    {

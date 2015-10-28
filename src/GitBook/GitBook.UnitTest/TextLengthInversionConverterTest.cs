@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace GitBook.UnitTest
+namespace GitWrite.UnitTests
 {
    [TestClass]
    public class TextLengthInversionConverterTest

@@ -2,14 +2,14 @@
 using System.Windows;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Ioc;
-using GitBook.Resources;
-using GitBook.Services;
-using GitBook.UnitTest.Helpers;
-using GitBook.ViewModels;
+using GitWrite.Resources;
+using GitWrite.Services;
+using GitWrite.UnitTests.Helpers;
+using GitWrite.ViewModels;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace GitBook.UnitTest
+namespace GitWrite.UnitTests
 {
    [TestClass]
    public class MainViewModelTest

@@ -1,6 +1,6 @@
 ﻿using GalaSoft.MvvmLight.Ioc;
 
-namespace GitBook
+namespace GitWrite
 {
    public class CommitDocument : ICommitDocument
    {

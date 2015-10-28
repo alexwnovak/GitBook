@@ -1,4 +1,4 @@
-﻿namespace GitBook
+﻿namespace GitWrite
 {
    public interface ICommitFileReader
    {

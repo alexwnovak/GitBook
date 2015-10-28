@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace GitBook
+namespace GitWrite
 {
    public partial class MainWindow : Window
    {

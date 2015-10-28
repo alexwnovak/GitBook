@@ -3,10 +3,10 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
-using GitBook.Resources;
-using GitBook.Services;
+using GitWrite.Resources;
+using GitWrite.Services;
 
-namespace GitBook.ViewModels
+namespace GitWrite.ViewModels
 {
    public class MainViewModel : ViewModelBase
    {

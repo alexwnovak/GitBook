@@ -1,10 +1,10 @@
 ﻿using System.Windows;
-using Microsoft.Practices.ServiceLocation;
 using GalaSoft.MvvmLight.Ioc;
-using GitBook.Services;
-using GitBook.ViewModels;
+using GitWrite.Services;
+using GitWrite.ViewModels;
+using Microsoft.Practices.ServiceLocation;
 
-namespace GitBook
+namespace GitWrite
 {
    public partial class App : Application
    {

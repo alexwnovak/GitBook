@@ -3,7 +3,7 @@ using GalaSoft.MvvmLight.Ioc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace GitBook.UnitTest
+namespace GitWrite.UnitTests
 {
    [TestClass]
    public class CommitDocumentTest

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace GitBook
+namespace GitWrite
 {
    [Serializable]
    public class GitFileLoadException : Exception

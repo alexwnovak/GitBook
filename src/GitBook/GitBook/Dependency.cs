@@ -1,6 +1,6 @@
 ﻿using Microsoft.Practices.Unity;
 
-namespace GitBook
+namespace GitWrite
 {
    public static class Dependency
    {

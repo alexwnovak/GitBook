@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GitBook
+namespace GitWrite
 {
    public class EnvironmentAdapter : IEnvironmentAdapter
    {

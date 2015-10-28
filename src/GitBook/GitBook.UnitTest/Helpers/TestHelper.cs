@@ -2,7 +2,7 @@
 using System.Windows.Input;
 using Moq;
 
-namespace GitBook.UnitTest.Helpers
+namespace GitWrite.UnitTests.Helpers
 {
    public static class TestHelper
    {

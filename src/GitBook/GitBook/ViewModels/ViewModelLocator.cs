@@ -1,6 +1,6 @@
 using Microsoft.Practices.ServiceLocation;
 
-namespace GitBook.ViewModels
+namespace GitWrite.ViewModels
 {
    public class ViewModelLocator
    {
