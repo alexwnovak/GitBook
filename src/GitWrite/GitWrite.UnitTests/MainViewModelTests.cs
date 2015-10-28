@@ -12,7 +12,7 @@ using Moq;
 namespace GitWrite.UnitTests
 {
    [TestClass]
-   public class MainViewModelTest
+   public class MainViewModelTests
    {
       [TestCleanup]
       public void Cleanup()

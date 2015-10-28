@@ -3,7 +3,7 @@
 namespace GitWrite.UnitTests
 {
    [TestClass]
-   public class TextLengthInversionConverterTest
+   public class TextLengthInversionConverterTests
    {
       [TestMethod]
       public void Convert_InputIsZero_ConvertsToMaxOf72()

@@ -5,7 +5,7 @@ using Moq;
 namespace GitWrite.UnitTests
 {
    [TestClass]
-   public class CommitFileReaderTest
+   public class CommitFileReaderTests
    {
       [TestCleanup]
       public void Cleanup()

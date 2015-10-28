@@ -6,7 +6,7 @@ using Moq;
 namespace GitWrite.UnitTests
 {
    [TestClass]
-   public class CommitDocumentTest
+   public class CommitDocumentTests
    {
       [TestCleanup]
       public void Cleanup()
