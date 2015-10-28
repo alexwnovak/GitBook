@@ -90,9 +90,9 @@
     <Compile Include="TextLengthInversionConverterTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GitBook\GitBook.csproj">
+    <ProjectReference Include="..\GitWrite\GitWrite.csproj">
       <Project>{3e7d14dc-2f37-4f2a-9459-de6111382966}</Project>
-      <Name>GitBook</Name>
+      <Name>GitWrite</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitBook", "GitBook\GitBook.csproj", "{3E7D14DC-2F37-4F2A-9459-DE6111382966}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitWrite", "GitWrite\GitWrite.csproj", "{3E7D14DC-2F37-4F2A-9459-DE6111382966}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitWrite.UniTests", "GitWrite.UnitTests\GitWrite.UniTests.csproj", "{6088CC2B-F7A8-42FD-B7C8-ACF13B193135}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitWrite.UnitTests", "GitWrite.UnitTests\GitWrite.UnitTests.csproj", "{6088CC2B-F7A8-42FD-B7C8-ACF13B193135}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
