@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using GalaSoft.MvvmLight.Ioc;
 using GitWrite.Services;
 using GitWrite.ViewModels;
@@ -23,6 +24,8 @@ namespace GitWrite
          SimpleIoc.Default.Register<IEnvironmentAdapter, EnvironmentAdapter>();
          SimpleIoc.Default.Register<ICommitFileReader, CommitFileReader>();
          SimpleIoc.Default.Register<IFileAdapter, FileAdapter>();
+
+         StartupUri = new Uri( "MainWindow.xaml", UriKind.Relative );
 
          // Load the commit file
 
