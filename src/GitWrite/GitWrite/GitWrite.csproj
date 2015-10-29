@@ -72,9 +72,6 @@
     <Compile Include="EnvironmentAdapter.cs" />
     <Compile Include="FileAdapter.cs" />
     <Compile Include="GitFileLoadException.cs" />
-    <Compile Include="HelpControl.xaml.cs">
-      <DependentUpon>HelpControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ICommitDocument.cs" />
     <Compile Include="ICommitFileReader.cs" />
     <Compile Include="IEnvironmentAdapter.cs" />
@@ -85,10 +82,6 @@
     <Compile Include="Services\AppService.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
-    <Page Include="HelpControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -52,9 +52,6 @@ namespace GitWrite.ViewModels
             case Key.Tab:
                ExpandUI();
                break;
-            case Key.F1:
-               ShowHelp();
-               break;
          }
       }
 
@@ -96,13 +93,6 @@ namespace GitWrite.ViewModels
             _hasActivatedExpandedState = true;
             OnExpansionRequested( this, EventArgs.Empty );
          }
-      }
-
-      private void ShowHelp()
-      {
-         var appService = SimpleIoc.Default.GetInstance<IAppService>();
-
-         appService.BeginStoryboard( "HelpControlVisibleStoryboard" );
       }
    }
 }
