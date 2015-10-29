@@ -7,7 +7,7 @@ namespace GitWrite
 {
    public partial class MainWindow : Window
    {
-      private MainViewModel _viewModel;
+      private readonly MainViewModel _viewModel;
 
       public MainWindow()
       {
