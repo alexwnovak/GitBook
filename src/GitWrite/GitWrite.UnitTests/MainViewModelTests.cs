@@ -144,50 +144,6 @@ namespace GitWrite.UnitTests
       }
 
       [TestMethod]
-      public void OnCommitNotesKeyDown_TabKeyPressed_ActivatesExpandedState()
-      {
-         // Setup
-
-         var serviceMock = new Mock<IAppService>();
-         SimpleIoc.Default.Register( () => serviceMock.Object );
-
-         // Test
-
-         var viewModel = new MainViewModel();
-
-         var args = TestHelper.GetKeyEventArgs( Key.Tab );
-
-         viewModel.OnCommitNotesKeyDown( args );
-
-         // Assert
-
-         serviceMock.Verify( sm => sm.BeginStoryboard( "ExpandedStateStoryboard" ), Times.Once() );
-      }
-
-      [TestMethod]
-      public void OnCommitNotesKeyDown_TabKeyPressedTwice_ActivatesExpandedStateOnlyOnce()
-      {
-         // Setup
-
-         var serviceMock = new Mock<IAppService>();
-         SimpleIoc.Default.Register( () => serviceMock.Object );
-
-         // Test
-
-         var viewModel = new MainViewModel();
-
-         var args = TestHelper.GetKeyEventArgs( Key.Tab );
-
-         viewModel.OnCommitNotesKeyDown( args );
-
-         viewModel.OnCommitNotesKeyDown( args ); 
-
-         // Assert
-
-         serviceMock.Verify( sm => sm.BeginStoryboard( "ExpandedStateStoryboard" ), Times.Once() );
-      }
-
-      [TestMethod]
       public void OnCommitNotesKeyDown_EnterKeyPressed_StoresCommitNotesIntoDocument()
       {
          const string commitText = "This commit text.";
@@ -293,27 +249,6 @@ namespace GitWrite.UnitTests
          // Assert
 
          appServiceMock.Verify( @as => @as.Shutdown(), Times.Once() );
-      }
-
-      [TestMethod]
-      public void OnCommitNotesKeyDown_F1Pressed_ActivatesHelpState()
-      {
-         // Setup
-
-         var appServiceMock = new Mock<IAppService>();
-         SimpleIoc.Default.Register( () => appServiceMock.Object );
-
-         // Test
-
-         var viewModel = new MainViewModel();
-
-         var args = TestHelper.GetKeyEventArgs( Key.F1 );
-
-         viewModel.OnCommitNotesKeyDown( args );
-
-         // Assert
-
-         appServiceMock.Verify( @as => @as.BeginStoryboard( "HelpControlVisibleStoryboard" ), Times.Once() );
       }
    }
 }
