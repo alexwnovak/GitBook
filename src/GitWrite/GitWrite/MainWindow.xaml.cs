@@ -26,8 +26,8 @@ namespace GitWrite
          double screenWidth = SystemParameters.FullPrimaryScreenWidth;
          double screenHeight = SystemParameters.FullPrimaryScreenHeight;
 
-         Left = ( screenWidth - Width ) / 2;
-         Top = 0.7 * ( screenHeight - Height ) / 2;
+         Left = (screenWidth - Width) / 2;
+         Top = 0.7 * (screenHeight - Height) / 2;
       }
    }
 }
