@@ -45,7 +45,6 @@
                   FontFamily="Consolas"
                   FontSize="24"
                   MaxLength="72"
-                  Padding="0,6,0,6"
                   VerticalContentAlignment="Center"
                   Text="{Binding CommitText, UpdateSourceTrigger=PropertyChanged}">
                   <i:Interaction.Triggers>
