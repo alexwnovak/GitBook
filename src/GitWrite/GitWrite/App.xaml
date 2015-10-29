@@ -6,7 +6,7 @@
    xmlns:viewModels="clr-namespace:GitWrite.ViewModels"
    xmlns:gitWrite="clr-namespace:GitWrite"
    d1p1:Ignorable="d"
-   Startup="App_OnStartup">
+   Startup="Application_OnStartup">
    <Application.Resources>
       <viewModels:ViewModelLocator x:Key="ViewModelLocator" d:IsDataSource="True" />
       <gitWrite:TextLengthInversionConverter x:Key="TextLengthInversionConverter" />

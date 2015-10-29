@@ -15,7 +15,7 @@ namespace GitWrite
          set;
       }
 
-      private void App_OnStartup( object sender, StartupEventArgs e )
+      private void Application_OnStartup( object sender, StartupEventArgs e )
       {
          ServiceLocator.SetLocatorProvider( () => SimpleIoc.Default );
 
