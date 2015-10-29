@@ -1,3 +1,4 @@
+using System;
 using System.Windows;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
@@ -28,11 +29,15 @@ namespace GitWrite.ViewModels
       }
 
       private bool _hasActivatedExpandedState;
+
+      public event EventHandler ExpansionRequested;
        
       public MainViewModel()
       {
          CommitNotesKeyDownCommand = new RelayCommand<KeyEventArgs>( OnCommitNotesKeyDown );
       }
+
+      protected virtual void OnExpansionRequested( object sender, EventArgs e ) => ExpansionRequested?.Invoke( sender, e );
 
       public void OnCommitNotesKeyDown( KeyEventArgs e )
       {
@@ -89,10 +94,7 @@ namespace GitWrite.ViewModels
          if ( !_hasActivatedExpandedState )
          {
             _hasActivatedExpandedState = true;
-
-            var appService = SimpleIoc.Default.GetInstance<IAppService>();
-
-            appService.BeginStoryboard( "ExpandedStateStoryboard" );
+            OnExpansionRequested( this, EventArgs.Empty );
          }
       }
 

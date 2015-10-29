@@ -1,14 +1,25 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
+using System.Windows.Media.Animation;
+using GitWrite.ViewModels;
 
 namespace GitWrite
 {
    public partial class MainWindow : Window
    {
+      private MainViewModel _viewModel;
+
       public MainWindow()
       {
          InitializeComponent();
          Height = 75;
+
+         _viewModel = (MainViewModel) DataContext;
+         _viewModel.ExpansionRequested += OnExpansionRequested;
       }
+
+      private void OnExpansionRequested( object sender, EventArgs eventArgs )
+         => (Resources["ExpandedStateStoryboard"] as Storyboard)?.Begin();
 
       private void MainWindow_OnLoaded( object sender, RoutedEventArgs e )
       {
