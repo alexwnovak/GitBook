@@ -12,7 +12,7 @@ namespace GitWrite
       public MainWindow()
       {
          InitializeComponent();
-         Height = 75;
+         Height = 86;
 
          _viewModel = (MainViewModel) DataContext;
          _viewModel.ExpansionRequested += OnExpansionRequested;

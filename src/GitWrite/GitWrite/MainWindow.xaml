@@ -35,53 +35,78 @@
       </Storyboard>
    </Window.Resources>
 
-   <Border CornerRadius="14" Padding="10" Background="{StaticResource WindowOuterBorderColor}">
-      <Border CornerRadius="10" Padding="12" Background="{StaticResource WindowBackgroundColor}">
-         <StackPanel>
-            <Grid>
-               <TextBox x:Name="CommitText"
-                  Background="{StaticResource WindowCommitBackgroundColor}"
-                  Foreground="{StaticResource WindowCommitForegroundColor}"
-                  FontFamily="Consolas"
-                  FontSize="24"
-                  MaxLength="72"
-                  VerticalContentAlignment="Center"
-                  Text="{Binding CommitText, UpdateSourceTrigger=PropertyChanged}">
-                  <i:Interaction.Triggers>
-                     <i:EventTrigger EventName="KeyDown">
-                        <cmd:EventToCommand Command="{Binding CommitNotesKeyDownCommand}" PassEventArgsToCommand="True" MustToggleIsEnabledValue="True" />
-                     </i:EventTrigger>
-                  </i:Interaction.Triggers>
-               </TextBox>
+   <Border CornerRadius="14"
+      Padding="10"
+      Background="{StaticResource WindowOuterBorderColor}">
+      <Grid VerticalAlignment="Stretch">
+         <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="12" />
+         </Grid.RowDefinitions>
 
-               <TextBlock x:Name="RemainingCharactersTextBlock"
-                  HorizontalAlignment="Right"
-                  VerticalAlignment="Center"
-                  Margin="0,0,10,0"
-                  Foreground="{StaticResource WindowCommitForegroundColor}"
-                  FontStyle="Italic"
-                  Text="{Binding Text.Length, ElementName=CommitText, Converter={StaticResource TextLengthInversionConverter}}" />
-            </Grid>
+         <Border Grid.Row="0"
+            CornerRadius="10,10,0,0"
+            Padding="12"
+            VerticalAlignment="Top"
+            Background="{StaticResource WindowBackgroundColor}">
+            <StackPanel>
+               <Grid>
+                  <TextBox x:Name="CommitText"
+                     Background="{StaticResource WindowCommitBackgroundColor}"
+                     Foreground="{StaticResource WindowCommitForegroundColor}"
+                     FontFamily="Consolas"
+                     FontSize="24"
+                     MaxLength="72"
+                     VerticalContentAlignment="Center"
+                     Text="{Binding CommitText, UpdateSourceTrigger=PropertyChanged}">
+                     <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="KeyDown">
+                           <cmd:EventToCommand Command="{Binding CommitNotesKeyDownCommand}" PassEventArgsToCommand="True" MustToggleIsEnabledValue="True" />
+                        </i:EventTrigger>
+                     </i:Interaction.Triggers>
+                  </TextBox>
 
-            <Grid x:Name="SecondaryCommitGrid" Margin="0,8,0,0" Height="120">
-               <TextBox x:Name="SecondaryCommitText"
-                  Background="{StaticResource WindowCommitBackgroundColor}"
-                  Foreground="{StaticResource WindowCommitForegroundColor}"
-                  FontFamily="Consolas"
-                  FontSize="24"
-                  MaxLength="72"
-                  AcceptsReturn="True"
-                  Text="{Binding ExtraCommitText, UpdateSourceTrigger=PropertyChanged}">
-                  <i:Interaction.Triggers>
-                     <i:EventTrigger EventName="KeyDown">
-                        <cmd:EventToCommand Command="{Binding CommitNotesKeyDownCommand}"
+                  <TextBlock x:Name="RemainingCharactersTextBlock"
+                     HorizontalAlignment="Right"
+                     VerticalAlignment="Center"
+                     Margin="0,0,10,0"
+                     Foreground="{StaticResource WindowCommitForegroundColor}"
+                     FontStyle="Italic"
+                     Text="{Binding Text.Length, ElementName=CommitText, Converter={StaticResource TextLengthInversionConverter}}" />
+               </Grid>
+
+               <Grid x:Name="SecondaryCommitGrid"
+                  Margin="0,10,0,0"
+                  Height="120">
+                  <TextBox x:Name="SecondaryCommitText"
+                     Background="{StaticResource WindowCommitBackgroundColor}"
+                     Foreground="{StaticResource WindowCommitForegroundColor}"
+                     FontFamily="Consolas"
+                     FontSize="24"
+                     MaxLength="72"
+                     AcceptsReturn="True"
+                     Text="{Binding ExtraCommitText, UpdateSourceTrigger=PropertyChanged}">
+                     <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="KeyDown">
+                           <cmd:EventToCommand Command="{Binding CommitNotesKeyDownCommand}"
                            PassEventArgsToCommand="True"
                            MustToggleIsEnabledValue="True" />
-                     </i:EventTrigger>
-                  </i:Interaction.Triggers>
-               </TextBox>
-            </Grid>
-         </StackPanel>
-      </Border>
+                        </i:EventTrigger>
+                     </i:Interaction.Triggers>
+                  </TextBox>
+               </Grid>
+            </StackPanel>
+         </Border>
+
+         <Border Grid.Row="1"
+            CornerRadius="0,0,10,10"
+            Background="{StaticResource WindowStatusBarBackgroundColor}">
+            <TextBlock x:Name="HelpTextBlock"
+               Margin="12,0,0,0"
+               FontSize="10"
+               FontStyle="Italic"
+               Foreground="{StaticResource WindowStatusBarForegroundColor}" />
+         </Border>
+      </Grid>
    </Border>
 </Window>
