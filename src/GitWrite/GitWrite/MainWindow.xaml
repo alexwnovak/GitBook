@@ -9,7 +9,7 @@
    Background="Transparent"
    Title="MainWindow"
    Width="1030"
-   Height="200"
+   Height="86"
    WindowStartupLocation="Manual"
    ResizeMode="NoResize"
    WindowStyle="None"
@@ -20,8 +20,8 @@
       <Storyboard x:Key="ExpandedStateStoryboard">
          <DoubleAnimation Storyboard.TargetName="PageRoot"
             Storyboard.TargetProperty="Height"
-            From="75"
-            To="200"
+            From="86"
+            To="400"
             Duration="0:0:0.3">
             <DoubleAnimation.EasingFunction>
                <CircleEase EasingMode="EaseOut" />
@@ -35,7 +35,8 @@
       </Storyboard>
    </Window.Resources>
 
-   <Border CornerRadius="14"
+   <Border x:Name="OuterBorder"
+      CornerRadius="14"
       Padding="10"
       Background="{StaticResource WindowOuterBorderColor}">
       <Grid VerticalAlignment="Stretch">
@@ -44,13 +45,20 @@
             <RowDefinition Height="12" />
          </Grid.RowDefinitions>
 
-         <Border Grid.Row="0"
-            CornerRadius="10,10,0,0"
+         <Border x:Name="InnerBorder"
+            Grid.Row="0"
+            CornerRadius="8,8,0,0"
             Padding="12"
-            VerticalAlignment="Top"
+            VerticalAlignment="Stretch"
             Background="{StaticResource WindowBackgroundColor}">
-            <StackPanel>
-               <Grid>
+            <Grid VerticalAlignment="Stretch">
+               <Grid.RowDefinitions>
+                  <RowDefinition Height="30" />
+                  <RowDefinition Height="8" />
+                  <RowDefinition Height="*" />
+               </Grid.RowDefinitions>
+
+               <Grid x:Name="PrimaryCommitNotesGrid" Grid.Row="0" Background="Blue">
                   <TextBox x:Name="CommitText"
                      Background="{StaticResource WindowCommitBackgroundColor}"
                      Foreground="{StaticResource WindowCommitForegroundColor}"
@@ -76,8 +84,8 @@
                </Grid>
 
                <Grid x:Name="SecondaryCommitGrid"
-                  Margin="0,10,0,0"
-                  Height="120">
+                  Grid.Row="2"
+                  VerticalAlignment="Stretch">
                   <TextBox x:Name="SecondaryCommitText"
                      Background="{StaticResource WindowCommitBackgroundColor}"
                      Foreground="{StaticResource WindowCommitForegroundColor}"
@@ -95,11 +103,12 @@
                      </i:Interaction.Triggers>
                   </TextBox>
                </Grid>
-            </StackPanel>
+            </Grid>
          </Border>
 
-         <Border Grid.Row="1"
-            CornerRadius="0,0,10,10"
+         <Border x:Name="HelpStrip"
+            Grid.Row="1"
+            CornerRadius="0,0,8,8"
             Background="{StaticResource WindowStatusBarBackgroundColor}">
             <TextBlock x:Name="HelpTextBlock"
                Margin="12,0,0,0"
