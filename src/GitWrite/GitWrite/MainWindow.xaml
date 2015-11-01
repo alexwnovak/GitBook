@@ -97,8 +97,8 @@
                      <i:Interaction.Triggers>
                         <i:EventTrigger EventName="KeyDown">
                            <cmd:EventToCommand Command="{Binding CommitNotesKeyDownCommand}"
-                           PassEventArgsToCommand="True"
-                           MustToggleIsEnabledValue="True" />
+                              PassEventArgsToCommand="True"
+                              MustToggleIsEnabledValue="True" />
                         </i:EventTrigger>
                      </i:Interaction.Triggers>
                   </TextBox>
