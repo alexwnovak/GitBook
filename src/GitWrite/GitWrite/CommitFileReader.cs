@@ -12,6 +12,11 @@ namespace GitWrite
 
          var commitDocument = CreateBasicDocument( path );
 
+         if ( commitDocument.InitialLines == null || commitDocument.InitialLines.Length == 0 )
+         {
+            throw new GitFileLoadException( "Incoming Git commit file is empty" );
+         }
+
          return commitDocument;
       }
 

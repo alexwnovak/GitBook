@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight.Ioc;
+﻿using System.Linq;
+using GalaSoft.MvvmLight.Ioc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
@@ -33,11 +34,16 @@ namespace GitWrite.UnitTests
       public void FromFile_FileExists_ReadsAllFileLines()
       {
          const string path = "SomeFile.txt";
+         var contents = new[]
+         {
+            "# File contents"
+         };
 
          // Setup
 
          var fileAdapterMock = new Mock<IFileAdapter>();
-         fileAdapterMock.Setup( fa => fa.Exists( path ) ).Returns( true );    
+         fileAdapterMock.Setup( fa => fa.Exists( path ) ).Returns( true );
+         fileAdapterMock.Setup( fa => fa.ReadAllLines( path ) ).Returns( contents );
          SimpleIoc.Default.Register( () => fileAdapterMock.Object );
 
          // Test
@@ -86,11 +92,16 @@ namespace GitWrite.UnitTests
       public void FromFile_FileExists_StoresThePathInTheDocument()
       {
          const string path = "SomeFile.txt";
+         var contents = new[]
+         {
+            "# Commit file"
+         };
 
          // Setup
 
          var fileAdapterMock = new Mock<IFileAdapter>();
          fileAdapterMock.Setup( fa => fa.Exists( path ) ).Returns( true );
+         fileAdapterMock.Setup( fa => fa.ReadAllLines( path ) ).Returns( contents );
          SimpleIoc.Default.Register( () => fileAdapterMock.Object );
 
          // Test
@@ -102,6 +113,48 @@ namespace GitWrite.UnitTests
          // Assert
 
          Assert.AreEqual( path, commitDocument.Name );
+      }
+
+      [TestMethod]
+      [ExpectedException( typeof( GitFileLoadException ) )]
+      public void FromFile_FileReturnsNullLines_ThrowsGitFileLoadException()
+      {
+         const string path = "COMMIT_EDITMSG";
+         string[] contents = null;
+
+         // Setup
+
+         var fileAdapterMock = new Mock<IFileAdapter>();
+         fileAdapterMock.Setup( fa => fa.Exists( path ) ).Returns( true );
+         fileAdapterMock.Setup( fa => fa.ReadAllLines( path ) ).Returns( contents );
+         SimpleIoc.Default.Register( () => fileAdapterMock.Object );
+
+         // Test
+
+         var commitFileReader = new CommitFileReader();
+
+         commitFileReader.FromFile( path );
+      }
+
+      [TestMethod]
+      [ExpectedException( typeof( GitFileLoadException ) )]
+      public void FromFile_FileReturnsZeroLines_ThrowsGitFileLoadException()
+      {
+         const string path = "COMMIT_EDITMSG";
+         var contents = new string[0];
+
+         // Setup
+
+         var fileAdapterMock = new Mock<IFileAdapter>();
+         fileAdapterMock.Setup( fa => fa.Exists( path ) ).Returns( true );
+         fileAdapterMock.Setup( fa => fa.ReadAllLines( path ) ).Returns( contents );
+         SimpleIoc.Default.Register( () => fileAdapterMock.Object );
+
+         // Test
+
+         var commitFileReader = new CommitFileReader();
+
+         commitFileReader.FromFile( path );
       }
    }
 }
