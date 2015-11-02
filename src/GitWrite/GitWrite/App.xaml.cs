@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Windows;
+using Microsoft.Practices.ServiceLocation;
 using GalaSoft.MvvmLight.Ioc;
 using GitWrite.Services;
 using GitWrite.ViewModels;
-using Microsoft.Practices.ServiceLocation;
 
 namespace GitWrite
 {
