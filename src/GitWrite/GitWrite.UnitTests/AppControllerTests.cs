@@ -133,5 +133,29 @@ namespace GitWrite.UnitTests
 
          environmentAdapterMock.Verify( ea => ea.Exit( 1 ), Times.Once() );
       }
+
+      [TestMethod]
+      public void Start_PassesInFileThatExistsButIsNotAGitFile_ExitsWithCodeOne()
+      {
+         // Setup
+
+         var environmentAdapterMock = new Mock<IEnvironmentAdapter>();
+         SimpleIoc.Default.Register( () => environmentAdapterMock.Object );
+
+         // Test
+
+         var arguments = new[]
+         {
+            "Not a Git file"
+         };
+
+         var appController = new AppController();
+
+         appController.Start( arguments );
+
+         // Assert
+
+         environmentAdapterMock.Verify( ea => ea.Exit( 1 ), Times.Once() );
+      }
    }
 }
