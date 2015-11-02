@@ -9,10 +9,10 @@ using GitWrite.ViewModels;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace GitWrite.UnitTests
+namespace GitWrite.UnitTests.ViewModels
 {
    [TestClass]
-   public class MainViewModelTests
+   public class CommitViewModelTests
    {
       [TestCleanup]
       public void Cleanup()
@@ -30,7 +30,7 @@ namespace GitWrite.UnitTests
 
          // Test
 
-         var viewModel = new MainViewModel();
+         var viewModel = new CommitViewModel();
 
          var args = TestHelper.GetKeyEventArgs( Key.Escape );
 
@@ -51,7 +51,7 @@ namespace GitWrite.UnitTests
 
          // Test
 
-         var viewModel = new MainViewModel
+         var viewModel = new CommitViewModel
          {
             CommitText = "Some notes"
          };
@@ -75,7 +75,7 @@ namespace GitWrite.UnitTests
 
          // Test
 
-         var viewModel = new MainViewModel
+         var viewModel = new CommitViewModel
          {
             CommitText = "Some notes"
          };
@@ -100,7 +100,7 @@ namespace GitWrite.UnitTests
 
          // Test
 
-         var viewModel = new MainViewModel
+         var viewModel = new CommitViewModel
          {
             CommitText = "Some notes"
          };
@@ -127,7 +127,7 @@ namespace GitWrite.UnitTests
 
          // Test
 
-         var viewModel = new MainViewModel
+         var viewModel = new CommitViewModel
          {
             CommitText = "Some notes"
          };
@@ -159,7 +159,7 @@ namespace GitWrite.UnitTests
 
          // Test
 
-         var viewModel = new MainViewModel
+         var viewModel = new CommitViewModel
          {
             CommitText = commitText
          };
@@ -189,7 +189,7 @@ namespace GitWrite.UnitTests
 
          // Test
 
-         var viewModel = new MainViewModel
+         var viewModel = new CommitViewModel
          {
             ExtraCommitText = extraCommitText
          };
@@ -216,7 +216,7 @@ namespace GitWrite.UnitTests
 
          // Test
 
-         var viewModel = new MainViewModel();
+         var viewModel = new CommitViewModel();
 
          var args = TestHelper.GetKeyEventArgs( Key.Enter );
 
@@ -240,7 +240,7 @@ namespace GitWrite.UnitTests
 
          // Test
 
-         var viewModel = new MainViewModel();
+         var viewModel = new CommitViewModel();
 
          var args = TestHelper.GetKeyEventArgs( Key.Enter );
 

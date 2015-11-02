@@ -67,12 +67,15 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AppController.cs" />
+    <Compile Include="ApplicationMode.cs" />
+    <Compile Include="ApplicationModeInterpreter.cs" />
     <Compile Include="CommitDocument.cs" />
     <Compile Include="CommitFileReader.cs" />
     <Compile Include="CommitControlState.cs" />
     <Compile Include="EnvironmentAdapter.cs" />
     <Compile Include="FileAdapter.cs" />
     <Compile Include="GitFileLoadException.cs" />
+    <Compile Include="GitFileNames.cs" />
     <Compile Include="HelpTextProvider.cs" />
     <Compile Include="ICommitDocument.cs" />
     <Compile Include="ICommitFileReader.cs" />
@@ -82,9 +85,9 @@
     <Compile Include="Services\IAppService.cs" />
     <Compile Include="TextLengthInversionConverter.cs" />
     <Compile Include="Services\AppService.cs" />
-    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\CommitViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
-    <Page Include="MainWindow.xaml">
+    <Page Include="Views\CommitWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -92,8 +95,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="Views\CommitWindow.xaml.cs">
+      <DependentUpon>CommitWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
