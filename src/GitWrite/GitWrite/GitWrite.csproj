@@ -68,6 +68,7 @@
     </ApplicationDefinition>
     <Compile Include="AppController.cs" />
     <Compile Include="ApplicationMode.cs" />
+    <Compile Include="ApplicationModeInterpreter.cs" />
     <Compile Include="CommitDocument.cs" />
     <Compile Include="CommitFileReader.cs" />
     <Compile Include="CommitControlState.cs" />

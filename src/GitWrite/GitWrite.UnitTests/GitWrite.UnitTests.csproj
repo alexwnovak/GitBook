@@ -84,6 +84,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="AppControllerTests.cs" />
+    <Compile Include="ApplicationModeInterpreterTests.cs" />
     <Compile Include="CommitDocumentTests.cs" />
     <Compile Include="CommitFileReaderTests.cs" />
     <Compile Include="Helpers\TestHelper.cs" />
