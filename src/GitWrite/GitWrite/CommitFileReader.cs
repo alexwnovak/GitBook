@@ -59,6 +59,10 @@ namespace GitWrite
                   hasFoundShortMessage = true;
                   commitDocument.ShortMessage = line;
                }
+               else
+               {
+                  commitDocument.LongMessage = line;
+               }
             }
          }
       }
