@@ -38,13 +38,7 @@ namespace GitWrite.ViewModels
          set;
       }
 
-      public string HelpText
-      {
-         get
-         {
-            return HelpTextProvider.GetTextForCommitState( ControlState );
-         }
-      }
+      public string HelpText => HelpTextProvider.GetTextForCommitState( ControlState );
 
       private CommitControlState _commitControlState;
       public CommitControlState ControlState
