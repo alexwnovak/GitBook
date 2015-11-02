@@ -20,5 +20,21 @@ namespace GitWrite.UnitTests
 
          Assert.AreEqual( ApplicationMode.Unknown, applicationMode );
       }
+
+      [TestMethod]
+      public void GetFromFileName_PassingCommitFileName_ReturnsCommitMode()
+      {
+         var applicationMode = ApplicationModeInterpreter.GetFromFileName( GitFileNames.CommitFileName );
+
+         Assert.AreEqual( ApplicationMode.Commit, applicationMode );
+      }
+
+      [TestMethod]
+      public void GetFromFileName_PassingRebaseFileName_ReturnsRebaseMode()
+      {
+         var applicationMode = ApplicationModeInterpreter.GetFromFileName( GitFileNames.InteractiveRebaseFileName );
+
+         Assert.AreEqual( ApplicationMode.InteractiveRebase, applicationMode );
+      }
    }
 }

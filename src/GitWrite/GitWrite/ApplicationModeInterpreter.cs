@@ -4,7 +4,15 @@
    {
       public static ApplicationMode GetFromFileName( string fileName )
       {
-         return ApplicationMode.Unknown;
+         switch ( fileName )
+         {
+            case GitFileNames.CommitFileName:
+               return ApplicationMode.Commit;
+            case GitFileNames.InteractiveRebaseFileName:
+               return ApplicationMode.InteractiveRebase;
+            default:
+               return ApplicationMode.Unknown;
+         }
       }
    }
 }
