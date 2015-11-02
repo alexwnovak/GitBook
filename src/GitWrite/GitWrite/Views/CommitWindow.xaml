@@ -98,6 +98,7 @@
                      FontFamily="Consolas"
                      FontSize="24"
                      AcceptsReturn="True"
+                     TextWrapping="Wrap"
                      Text="{Binding ExtraCommitText, UpdateSourceTrigger=PropertyChanged}">
                      <i:Interaction.Triggers>
                         <i:EventTrigger EventName="KeyDown">
