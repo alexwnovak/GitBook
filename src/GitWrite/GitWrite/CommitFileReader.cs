@@ -48,22 +48,19 @@ namespace GitWrite
 
          foreach ( string line in commitDocument.InitialLines )
          {
-            if ( line.StartsWith( "#" ) )
+            if ( line.StartsWith( "#" ) || string.IsNullOrEmpty( line ) )
             {
                continue;
             }
 
-            if ( !string.IsNullOrEmpty( line ) )
+            if ( !hasFoundShortMessage )
             {
-               if ( !hasFoundShortMessage )
-               {
-                  hasFoundShortMessage = true;
-                  commitDocument.ShortMessage = line;
-               }
-               else
-               {
-                  commitDocument.LongMessage.Add( line );
-               }
+               hasFoundShortMessage = true;
+               commitDocument.ShortMessage = line;
+            }
+            else
+            {
+               commitDocument.LongMessage.Add( line );
             }
          }
       }
