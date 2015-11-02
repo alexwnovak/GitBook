@@ -15,5 +15,7 @@
       <SolidColorBrush x:Key="WindowBackgroundColor" Color="#A3A197" />
       <SolidColorBrush x:Key="WindowCommitBackgroundColor" Color="#3C434F" />
       <SolidColorBrush x:Key="WindowCommitForegroundColor" Color="#C3D7FF" />
+      <SolidColorBrush x:Key="WindowStatusBarBackgroundColor" Color="#444" />
+      <SolidColorBrush x:Key="WindowStatusBarForegroundColor" Color="#0E0" />
    </Application.Resources>
 </Application>
