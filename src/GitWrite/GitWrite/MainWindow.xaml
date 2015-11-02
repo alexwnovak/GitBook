@@ -97,7 +97,6 @@
                      Foreground="{StaticResource WindowCommitForegroundColor}"
                      FontFamily="Consolas"
                      FontSize="24"
-                     MaxLength="72"
                      AcceptsReturn="True"
                      Text="{Binding ExtraCommitText, UpdateSourceTrigger=PropertyChanged}">
                      <i:Interaction.Triggers>
