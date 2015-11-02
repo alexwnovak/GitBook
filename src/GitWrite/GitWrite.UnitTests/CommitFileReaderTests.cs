@@ -188,7 +188,7 @@ namespace GitWrite.UnitTests
          // Assert
 
          Assert.IsNull( commitDocument.ShortMessage );
-         Assert.IsNull( commitDocument.LongMessage );
+         Assert.AreEqual( 0, commitDocument.LongMessage.Count );
       }
 
       [TestMethod]
@@ -336,7 +336,7 @@ namespace GitWrite.UnitTests
          // Assert
 
          Assert.AreEqual( shortMessage, commitDocument.ShortMessage );
-         Assert.AreEqual( longMessage, commitDocument.LongMessage );
+         Assert.AreEqual( longMessage, commitDocument.LongMessage[0] );
       }
 
       [TestMethod]
@@ -376,7 +376,7 @@ namespace GitWrite.UnitTests
          // Assert
 
          Assert.AreEqual( shortMessage, commitDocument.ShortMessage );
-         Assert.AreEqual( longMessage, commitDocument.LongMessage );
+         Assert.AreEqual( longMessage, commitDocument.LongMessage[0] );
       }
 
       [TestMethod]
@@ -418,8 +418,52 @@ namespace GitWrite.UnitTests
          // Assert
 
          Assert.AreEqual( shortMessage, commitDocument.ShortMessage );
-         Assert.AreEqual( longMessage, commitDocument.LongMessage );
+         Assert.AreEqual( longMessage, commitDocument.LongMessage[0] );
       }
 
+      [TestMethod]
+      public void FromFile_FileHasLongMessageWithTwoLines_SetsShortAndLongMessage()
+      {
+         const string path = "COMMIT_EDITMSG";
+         const string shortMessage = "+Whatever static class";
+         const string longMessage = "This will provide the whatever and this and that";
+         const string longMessage2 = "and it continues onto the second line";
+
+         var contents = new[]
+         {
+            shortMessage,
+            "",
+            "# A comment between the messages, like from a conflict resolution",
+            "",
+            longMessage,
+            longMessage2,
+            "",
+            "# Please enter the commit message for your changes. Lines starting",
+            "# with '#' will be ignored, and an empty message aborts the commit.",
+            "# On branch feature/supportAmend",
+            "# Changes to be committed:",
+            "#	modified:   src/GitWrite/GitWrite.UnitTests/AppControllerTests.cs",
+            "#"
+         };
+
+         // Setup
+
+         var fileAdapterMock = new Mock<IFileAdapter>();
+         fileAdapterMock.Setup( fa => fa.Exists( path ) ).Returns( true );
+         fileAdapterMock.Setup( fa => fa.ReadAllLines( path ) ).Returns( contents );
+         SimpleIoc.Default.Register( () => fileAdapterMock.Object );
+
+         // Test
+
+         var commitFileReader = new CommitFileReader();
+
+         var commitDocument = commitFileReader.FromFile( path );
+
+         // Assert
+
+         Assert.AreEqual( shortMessage, commitDocument.ShortMessage );
+         Assert.AreEqual( longMessage, commitDocument.LongMessage[0] );
+         Assert.AreEqual( longMessage2, commitDocument.LongMessage[1] );
+      }
    }
 }

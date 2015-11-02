@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Ioc;
@@ -155,6 +157,7 @@ namespace GitWrite.UnitTests.ViewModels
 
          var commitDocumentMock = new Mock<ICommitDocument>();
          commitDocumentMock.SetupProperty( cd => cd.ShortMessage );
+         commitDocumentMock.SetupGet( cd => cd.LongMessage ).Returns( new List<string>() );
          App.CommitDocument = commitDocumentMock.Object;
 
          // Test
@@ -184,7 +187,7 @@ namespace GitWrite.UnitTests.ViewModels
          SimpleIoc.Default.Register( () => serviceMock.Object );
 
          var commitDocumentMock = new Mock<ICommitDocument>();
-         commitDocumentMock.SetupProperty( cd => cd.LongMessage );
+         commitDocumentMock.SetupGet( cd => cd.LongMessage ).Returns( new List<string>() );
          App.CommitDocument = commitDocumentMock.Object;
 
          // Test
@@ -200,7 +203,7 @@ namespace GitWrite.UnitTests.ViewModels
 
          // Assert
 
-         Assert.AreEqual( extraCommitText, App.CommitDocument.LongMessage );
+         Assert.AreEqual( extraCommitText, App.CommitDocument.LongMessage.First() );
       }
 
       [TestMethod]
@@ -212,6 +215,7 @@ namespace GitWrite.UnitTests.ViewModels
          SimpleIoc.Default.Register( () => serviceMock.Object );
 
          var commitDocumentMock = new Mock<ICommitDocument>();
+         commitDocumentMock.SetupGet( cd => cd.LongMessage ).Returns( new List<string>() );
          App.CommitDocument = commitDocumentMock.Object;
 
          // Test
@@ -233,6 +237,7 @@ namespace GitWrite.UnitTests.ViewModels
          // Setup
 
          var commitDocumentMock = new Mock<ICommitDocument>();
+         commitDocumentMock.SetupGet( cd => cd.LongMessage ).Returns( new List<string>() );
          App.CommitDocument = commitDocumentMock.Object;
 
          var appServiceMock = new Mock<IAppService>();

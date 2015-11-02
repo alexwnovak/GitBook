@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight.Ioc;
+﻿using System.Linq;
+using GalaSoft.MvvmLight.Ioc;
 
 namespace GitWrite
 {
@@ -61,7 +62,7 @@ namespace GitWrite
                }
                else
                {
-                  commitDocument.LongMessage = line;
+                  commitDocument.LongMessage.Add( line );
                }
             }
          }

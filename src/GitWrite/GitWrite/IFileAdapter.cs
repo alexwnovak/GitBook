@@ -1,4 +1,6 @@
-﻿namespace GitWrite
+﻿using System.Collections.Generic;
+
+namespace GitWrite
 {
    public interface IFileAdapter
    {
@@ -6,6 +8,6 @@
 
       string[] ReadAllLines( string path );
 
-      void WriteAllLines( string path, string[] lines );
+      void WriteAllLines( string path, IEnumerable<string> lines );
    }
 }

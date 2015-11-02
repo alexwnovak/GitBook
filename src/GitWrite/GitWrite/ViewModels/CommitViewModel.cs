@@ -92,7 +92,7 @@ namespace GitWrite.ViewModels
       private void SaveCommit()
       {
          App.CommitDocument.ShortMessage = CommitText;
-         App.CommitDocument.LongMessage = ExtraCommitText;
+         App.CommitDocument.LongMessage.Add( ExtraCommitText );
 
          App.CommitDocument.Save();
 
