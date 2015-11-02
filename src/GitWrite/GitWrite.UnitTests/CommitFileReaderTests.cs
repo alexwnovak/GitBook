@@ -156,5 +156,39 @@ namespace GitWrite.UnitTests
 
          commitFileReader.FromFile( path );
       }
+
+      [TestMethod]
+      public void FromFile_FileContainsOnlyComments_DoesNotSetExistingNotes()
+      {
+         const string path = "COMMIT_EDITMSG";
+         var contents = new[]
+         {
+            "",
+            "# Please enter the commit message for your changes. Lines starting",
+            "# with '#' will be ignored, and an empty message aborts the commit.",
+            "# On branch feature/supportAmend",
+            "# Changes to be committed:",
+            "#	modified:   src/GitWrite/GitWrite.UnitTests/AppControllerTests.cs",
+            "#"
+         };
+
+         // Setup
+
+         var fileAdapterMock = new Mock<IFileAdapter>();
+         fileAdapterMock.Setup( fa => fa.Exists( path ) ).Returns( true );
+         fileAdapterMock.Setup( fa => fa.ReadAllLines( path ) ).Returns( contents );
+         SimpleIoc.Default.Register( () => fileAdapterMock.Object );
+
+         // Test
+
+         var commitFileReader = new CommitFileReader();
+
+         var commitDocument = commitFileReader.FromFile( path );
+
+         // Assert
+
+         Assert.IsNull( commitDocument.ShortMessage );
+         Assert.IsNull( commitDocument.LongMessage );
+      }
    }
 }

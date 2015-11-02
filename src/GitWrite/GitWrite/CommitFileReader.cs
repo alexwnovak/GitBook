@@ -17,6 +17,8 @@ namespace GitWrite
             throw new GitFileLoadException( "Incoming Git commit file is empty" );
          }
 
+         ResolveExistingCommitMessages( commitDocument );
+
          return commitDocument;
       }
 
@@ -37,6 +39,10 @@ namespace GitWrite
             InitialLines = _fileAdapter.ReadAllLines( path ),
             Name = path
          };
+      }
+
+      private static void ResolveExistingCommitMessages( CommitDocument commitDocument )
+      {
       }
    }
 }
