@@ -7,14 +7,14 @@ namespace GitWrite.Views
 {
    public partial class CommitWindow : Window
    {
-      private readonly MainViewModel _viewModel;
+      private readonly CommitViewModel _viewModel;
 
       public CommitWindow()
       {
          InitializeComponent();
          Height = 86;
 
-         _viewModel = (MainViewModel) DataContext;
+         _viewModel = (CommitViewModel) DataContext;
          _viewModel.ExpansionRequested += OnExpansionRequested;
       }
 

@@ -9,7 +9,7 @@ using GitWrite.Services;
 
 namespace GitWrite.ViewModels
 {
-   public class MainViewModel : ViewModelBase
+   public class CommitViewModel : ViewModelBase
    {
       public RelayCommand<KeyEventArgs> CommitNotesKeyDownCommand
       {
@@ -64,7 +64,7 @@ namespace GitWrite.ViewModels
 
       public event EventHandler ExpansionRequested;
        
-      public MainViewModel()
+      public CommitViewModel()
       {
          CommitNotesKeyDownCommand = new RelayCommand<KeyEventArgs>( OnCommitNotesKeyDown );
          OnPrimaryMessageGotFocusCommand = new RelayCommand( () => ControlState = CommitControlState.EditingPrimaryMessage );

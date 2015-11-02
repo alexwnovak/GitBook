@@ -85,7 +85,7 @@
     <Compile Include="Services\IAppService.cs" />
     <Compile Include="TextLengthInversionConverter.cs" />
     <Compile Include="Services\AppService.cs" />
-    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\CommitViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Page Include="Views\CommitWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

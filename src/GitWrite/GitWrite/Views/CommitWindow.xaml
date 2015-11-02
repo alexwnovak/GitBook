@@ -14,7 +14,7 @@
    ResizeMode="NoResize"
    WindowStyle="None"
    FocusManager.FocusedElement="{Binding ElementName=CommitText}"
-   DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=MainViewModel}"
+   DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=CommitViewModel}"
    Loaded="CommitWindow_OnLoaded">
    <Window.Resources>
       <Storyboard x:Key="ExpandedStateStoryboard">
