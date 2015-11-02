@@ -5,11 +5,11 @@ using GitWrite.ViewModels;
 
 namespace GitWrite
 {
-   public partial class MainWindow : Window
+   public partial class CommitWindow : Window
    {
       private readonly MainViewModel _viewModel;
 
-      public MainWindow()
+      public CommitWindow()
       {
          InitializeComponent();
          Height = 86;
@@ -21,7 +21,7 @@ namespace GitWrite
       private void OnExpansionRequested( object sender, EventArgs eventArgs )
          => (Resources["ExpandedStateStoryboard"] as Storyboard)?.Begin();
 
-      private void MainWindow_OnLoaded( object sender, RoutedEventArgs e )
+      private void CommitWindow_OnLoaded( object sender, RoutedEventArgs e )
       {
          double screenWidth = SystemParameters.FullPrimaryScreenWidth;
          double screenHeight = SystemParameters.FullPrimaryScreenHeight;
