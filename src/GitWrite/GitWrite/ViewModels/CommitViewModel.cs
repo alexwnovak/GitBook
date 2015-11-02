@@ -26,7 +26,7 @@ namespace GitWrite.ViewModels
          get;
       }
 
-      public string CommitText
+      public string ShortMessage
       {
          get;
          set;
@@ -85,7 +85,7 @@ namespace GitWrite.ViewModels
 
       private void SaveCommit()
       {
-         App.CommitDocument.ShortMessage = CommitText;
+         App.CommitDocument.ShortMessage = ShortMessage;
          App.CommitDocument.LongMessage.Add( ExtraCommitText );
 
          App.CommitDocument.Save();
@@ -99,7 +99,7 @@ namespace GitWrite.ViewModels
       {
          var appService = SimpleIoc.Default.GetInstance<IAppService>();
 
-         if ( string.IsNullOrEmpty( CommitText ) )
+         if ( string.IsNullOrEmpty( ShortMessage ) )
          {
             appService.Shutdown();
          }

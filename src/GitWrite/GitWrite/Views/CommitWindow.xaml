@@ -66,7 +66,7 @@
                      FontSize="24"
                      MaxLength="72"
                      VerticalContentAlignment="Center"
-                     Text="{Binding CommitText, UpdateSourceTrigger=PropertyChanged}">
+                     Text="{Binding ShortMessage, UpdateSourceTrigger=PropertyChanged}">
                      <i:Interaction.Triggers>
                         <i:EventTrigger EventName="KeyDown">
                            <cmd:EventToCommand Command="{Binding CommitNotesKeyDownCommand}"

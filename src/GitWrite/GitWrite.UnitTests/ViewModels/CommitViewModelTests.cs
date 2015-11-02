@@ -55,7 +55,7 @@ namespace GitWrite.UnitTests.ViewModels
 
          var viewModel = new CommitViewModel
          {
-            CommitText = "Some notes"
+            ShortMessage = "Some notes"
          };
 
          var args = TestHelper.GetKeyEventArgs( Key.Escape );
@@ -79,7 +79,7 @@ namespace GitWrite.UnitTests.ViewModels
 
          var viewModel = new CommitViewModel
          {
-            CommitText = "Some notes"
+            ShortMessage = "Some notes"
          };
 
          var args = TestHelper.GetKeyEventArgs( Key.Escape );
@@ -104,7 +104,7 @@ namespace GitWrite.UnitTests.ViewModels
 
          var viewModel = new CommitViewModel
          {
-            CommitText = "Some notes"
+            ShortMessage = "Some notes"
          };
 
          var args = TestHelper.GetKeyEventArgs( Key.Escape );
@@ -131,7 +131,7 @@ namespace GitWrite.UnitTests.ViewModels
 
          var viewModel = new CommitViewModel
          {
-            CommitText = "Some notes"
+            ShortMessage = "Some notes"
          };
 
          var args = TestHelper.GetKeyEventArgs( Key.Escape );
@@ -164,7 +164,7 @@ namespace GitWrite.UnitTests.ViewModels
 
          var viewModel = new CommitViewModel
          {
-            CommitText = commitText
+            ShortMessage = commitText
          };
 
          var args = TestHelper.GetKeyEventArgs( Key.Enter );
