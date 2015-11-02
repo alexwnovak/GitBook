@@ -69,9 +69,11 @@
     <Compile Include="AppController.cs" />
     <Compile Include="CommitDocument.cs" />
     <Compile Include="CommitFileReader.cs" />
+    <Compile Include="CommitControlState.cs" />
     <Compile Include="EnvironmentAdapter.cs" />
     <Compile Include="FileAdapter.cs" />
     <Compile Include="GitFileLoadException.cs" />
+    <Compile Include="HelpTextProvider.cs" />
     <Compile Include="ICommitDocument.cs" />
     <Compile Include="ICommitFileReader.cs" />
     <Compile Include="IEnvironmentAdapter.cs" />
