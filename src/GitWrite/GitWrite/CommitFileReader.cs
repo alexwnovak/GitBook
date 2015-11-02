@@ -18,7 +18,7 @@ namespace GitWrite
          return new CommitDocument
          {
             InitialLines = fileAdapter.ReadAllLines( path ),
-            Path = path
+            Name = path
          };
       }
    }

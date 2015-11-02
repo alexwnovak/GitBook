@@ -2,6 +2,11 @@
 {
    public interface ICommitDocument
    {
+      string Name
+      {
+         get;
+      }
+
       string ShortMessage
       {
          get;

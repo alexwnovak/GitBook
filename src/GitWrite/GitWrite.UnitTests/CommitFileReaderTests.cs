@@ -101,7 +101,7 @@ namespace GitWrite.UnitTests
 
          // Assert
 
-         Assert.AreEqual( path, commitDocument.Path );
+         Assert.AreEqual( path, commitDocument.Name );
       }
    }
 }

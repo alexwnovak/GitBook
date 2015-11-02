@@ -34,7 +34,7 @@ namespace GitWrite.UnitTests
 
          var commitDocument = new CommitDocument
          {
-            Path = path,
+            Name = path,
             ShortMessage = shortMessage
          };
 
@@ -66,7 +66,7 @@ namespace GitWrite.UnitTests
 
          var commitDocument = new CommitDocument
          {
-            Path = path,
+            Name = path,
             ShortMessage = shortMessage,
             LongMessage = longMessage
          };

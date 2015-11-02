@@ -4,7 +4,7 @@ namespace GitWrite
 {
    public class CommitDocument : ICommitDocument
    {
-      public string Path
+      public string Name
       {
          get;
          set;
@@ -39,7 +39,7 @@ namespace GitWrite
 
          var fileAdapter = SimpleIoc.Default.GetInstance<IFileAdapter>();
 
-         fileAdapter.WriteAllLines( Path, lines );
+         fileAdapter.WriteAllLines( Name, lines );
       }
    }
 }
