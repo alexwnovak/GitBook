@@ -87,7 +87,7 @@
     <Compile Include="Services\AppService.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
-    <Page Include="CommitWindow.xaml">
+    <Page Include="Views\CommitWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -95,7 +95,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="CommitWindow.xaml.cs">
+    <Compile Include="Views\CommitWindow.xaml.cs">
       <DependentUpon>CommitWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>

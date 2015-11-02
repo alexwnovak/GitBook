@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Media.Animation;
 using GitWrite.ViewModels;
 
-namespace GitWrite
+namespace GitWrite.Views
 {
    public partial class CommitWindow : Window
    {
