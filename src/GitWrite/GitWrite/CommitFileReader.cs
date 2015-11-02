@@ -43,6 +43,24 @@ namespace GitWrite
 
       private static void ResolveExistingCommitMessages( CommitDocument commitDocument )
       {
+         bool hasFoundShortMessage = false;
+
+         foreach ( string line in commitDocument.InitialLines )
+         {
+            if ( line.StartsWith( "#" ) )
+            {
+               continue;
+            }
+
+            if ( !string.IsNullOrEmpty( line ) )
+            {
+               if ( !hasFoundShortMessage )
+               {
+                  hasFoundShortMessage = true;
+                  commitDocument.ShortMessage = line;
+               }
+            }
+         }
       }
    }
 }

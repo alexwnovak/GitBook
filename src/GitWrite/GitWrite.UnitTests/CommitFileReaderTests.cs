@@ -190,5 +190,41 @@ namespace GitWrite.UnitTests
          Assert.IsNull( commitDocument.ShortMessage );
          Assert.IsNull( commitDocument.LongMessage );
       }
+
+      [TestMethod]
+      public void FromFile_FileHasShortMessage_DoesNotSetExistingNotes()
+      {
+         const string path = "COMMIT_EDITMSG";
+         const string shortMessage = "+Whatever static class";
+         var contents = new[]
+         {
+            shortMessage,
+            "",
+            "# Please enter the commit message for your changes. Lines starting",
+            "# with '#' will be ignored, and an empty message aborts the commit.",
+            "# On branch feature/supportAmend",
+            "# Changes to be committed:",
+            "#	modified:   src/GitWrite/GitWrite.UnitTests/AppControllerTests.cs",
+            "#"
+         };
+
+         // Setup
+
+         var fileAdapterMock = new Mock<IFileAdapter>();
+         fileAdapterMock.Setup( fa => fa.Exists( path ) ).Returns( true );
+         fileAdapterMock.Setup( fa => fa.ReadAllLines( path ) ).Returns( contents );
+         SimpleIoc.Default.Register( () => fileAdapterMock.Object );
+
+         // Test
+
+         var commitFileReader = new CommitFileReader();
+
+         var commitDocument = commitFileReader.FromFile( path );
+
+         // Assert
+
+         Assert.AreEqual( shortMessage, commitDocument.ShortMessage );
+      }
+
    }
 }
