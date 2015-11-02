@@ -69,7 +69,9 @@
                      Text="{Binding CommitText, UpdateSourceTrigger=PropertyChanged}">
                      <i:Interaction.Triggers>
                         <i:EventTrigger EventName="KeyDown">
-                           <cmd:EventToCommand Command="{Binding CommitNotesKeyDownCommand}" PassEventArgsToCommand="True" MustToggleIsEnabledValue="True" />
+                           <cmd:EventToCommand Command="{Binding CommitNotesKeyDownCommand}"
+                              PassEventArgsToCommand="True"
+                              MustToggleIsEnabledValue="True" />
                         </i:EventTrigger>
                      </i:Interaction.Triggers>
                   </TextBox>
