@@ -16,6 +16,16 @@ namespace GitWrite.ViewModels
          get;
       }
 
+      public RelayCommand OnPrimaryMessageGotFocusCommand
+      {
+         get;
+      }
+
+      public RelayCommand OnSecondaryNotesGotFocusCommand
+      {
+         get;
+      }
+
       public string CommitText
       {
          get;
@@ -28,6 +38,28 @@ namespace GitWrite.ViewModels
          set;
       }
 
+      public string HelpText
+      {
+         get
+         {
+            return HelpTextProvider.GetTextForCommitState( ControlState );
+         }
+      }
+
+      private CommitControlState _commitControlState;
+      public CommitControlState ControlState
+      {
+         get
+         {
+            return _commitControlState;
+         }
+         set
+         {
+            Set( () => ControlState, ref _commitControlState, value );
+            RaisePropertyChanged( () => HelpText );
+         }
+      }
+
       private bool _hasActivatedExpandedState;
 
       public event EventHandler ExpansionRequested;
@@ -35,6 +67,8 @@ namespace GitWrite.ViewModels
       public MainViewModel()
       {
          CommitNotesKeyDownCommand = new RelayCommand<KeyEventArgs>( OnCommitNotesKeyDown );
+         OnPrimaryMessageGotFocusCommand = new RelayCommand( () => ControlState = CommitControlState.EditingPrimaryMessage );
+         OnSecondaryNotesGotFocusCommand = new RelayCommand( () => ControlState = CommitControlState.EditingSecondaryNotes );
       }
 
       protected virtual void OnExpansionRequested( object sender, EventArgs e ) => ExpansionRequested?.Invoke( sender, e );

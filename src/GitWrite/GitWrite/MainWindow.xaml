@@ -73,6 +73,10 @@
                               PassEventArgsToCommand="True"
                               MustToggleIsEnabledValue="True" />
                         </i:EventTrigger>
+                        <i:EventTrigger EventName="GotFocus">
+                           <cmd:EventToCommand Command="{Binding OnPrimaryMessageGotFocusCommand}"
+                              MustToggleIsEnabledValue="True" />
+                        </i:EventTrigger>
                      </i:Interaction.Triggers>
                   </TextBox>
 
@@ -102,6 +106,10 @@
                               PassEventArgsToCommand="True"
                               MustToggleIsEnabledValue="True" />
                         </i:EventTrigger>
+                        <i:EventTrigger EventName="GotFocus">
+                           <cmd:EventToCommand Command="{Binding OnSecondaryNotesGotFocusCommand}"
+                              MustToggleIsEnabledValue="True" />
+                        </i:EventTrigger>
                      </i:Interaction.Triggers>
                   </TextBox>
                </Grid>
@@ -116,7 +124,8 @@
                Margin="12,0,0,0"
                FontSize="10"
                FontStyle="Italic"
-               Foreground="{StaticResource WindowStatusBarForegroundColor}" />
+               Foreground="{StaticResource WindowStatusBarForegroundColor}"
+               Text="{Binding HelpText}" />
          </Border>
       </Grid>
    </Border>
