@@ -4,7 +4,7 @@ namespace GitWrite.ViewModels
 {
    public class ViewModelLocator
    {
-      public MainViewModel MainViewModel => ServiceLocator.Current.GetInstance<MainViewModel>();
+      public CommitViewModel CommitViewModel => ServiceLocator.Current.GetInstance<CommitViewModel>();
 
       public static void Cleanup()
       {

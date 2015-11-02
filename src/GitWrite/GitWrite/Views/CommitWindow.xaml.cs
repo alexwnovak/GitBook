@@ -3,25 +3,25 @@ using System.Windows;
 using System.Windows.Media.Animation;
 using GitWrite.ViewModels;
 
-namespace GitWrite
+namespace GitWrite.Views
 {
-   public partial class MainWindow : Window
+   public partial class CommitWindow : Window
    {
-      private readonly MainViewModel _viewModel;
+      private readonly CommitViewModel _viewModel;
 
-      public MainWindow()
+      public CommitWindow()
       {
          InitializeComponent();
          Height = 86;
 
-         _viewModel = (MainViewModel) DataContext;
+         _viewModel = (CommitViewModel) DataContext;
          _viewModel.ExpansionRequested += OnExpansionRequested;
       }
 
       private void OnExpansionRequested( object sender, EventArgs eventArgs )
          => (Resources["ExpandedStateStoryboard"] as Storyboard)?.Begin();
 
-      private void MainWindow_OnLoaded( object sender, RoutedEventArgs e )
+      private void CommitWindow_OnLoaded( object sender, RoutedEventArgs e )
       {
          double screenWidth = SystemParameters.FullPrimaryScreenWidth;
          double screenHeight = SystemParameters.FullPrimaryScreenHeight;

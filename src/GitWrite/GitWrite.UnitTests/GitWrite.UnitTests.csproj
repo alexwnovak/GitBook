@@ -84,11 +84,12 @@
   </Choose>
   <ItemGroup>
     <Compile Include="AppControllerTests.cs" />
+    <Compile Include="ApplicationModeInterpreterTests.cs" />
     <Compile Include="CommitDocumentTests.cs" />
     <Compile Include="CommitFileReaderTests.cs" />
     <Compile Include="Helpers\TestHelper.cs" />
     <Compile Include="HelpTextProviderTests.cs" />
-    <Compile Include="MainViewModelTests.cs" />
+    <Compile Include="ViewModels\CommitViewModelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TextLengthInversionConverterTests.cs" />
   </ItemGroup>
