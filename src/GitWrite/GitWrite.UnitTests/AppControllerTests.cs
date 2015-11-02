@@ -63,7 +63,7 @@ namespace GitWrite.UnitTests
 
          var arguments = new[]
          {
-            "Some Argument"
+            GitFileNames.CommitFileName
          };
 
          var appController = new AppController();
@@ -92,7 +92,7 @@ namespace GitWrite.UnitTests
 
          var arguments = new[]
          {
-            "Some Argument"
+            GitFileNames.CommitFileName
          };
 
          var appController = new AppController();
