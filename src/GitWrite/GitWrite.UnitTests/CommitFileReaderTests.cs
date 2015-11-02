@@ -192,7 +192,7 @@ namespace GitWrite.UnitTests
       }
 
       [TestMethod]
-      public void FromFile_FileHasShortMessage_DoesNotSetExistingNotes()
+      public void FromFile_FileHasShortMessage_SetsShortMessage()
       {
          const string path = "COMMIT_EDITMSG";
          const string shortMessage = "+Whatever static class";
@@ -227,7 +227,7 @@ namespace GitWrite.UnitTests
       }
 
       [TestMethod]
-      public void FromFile_FileHasShortMessageWithLeadingLineBreak_DoesNotSetExistingNotes()
+      public void FromFile_FileHasShortMessageWithLeadingLineBreak_SetsShortMessage()
       {
          const string path = "COMMIT_EDITMSG";
          const string shortMessage = "+Whatever static class";
@@ -263,7 +263,7 @@ namespace GitWrite.UnitTests
       }
 
       [TestMethod]
-      public void FromFile_FileHasShortMessageWithLeadingComments_DoesNotSetExistingNotes()
+      public void FromFile_FileHasShortMessageWithLeadingComments_SetsShortMessage()
       {
          const string path = "COMMIT_EDITMSG";
          const string shortMessage = "+Whatever static class";
@@ -301,7 +301,7 @@ namespace GitWrite.UnitTests
       }
 
       [TestMethod]
-      public void FromFile_FileHasLongMessageWithOneLine_DoesNotSetExistingNotes()
+      public void FromFile_FileHasLongMessageWithOneLine_SetsShortAndLongMessage()
       {
          const string path = "COMMIT_EDITMSG";
          const string shortMessage = "+Whatever static class";
