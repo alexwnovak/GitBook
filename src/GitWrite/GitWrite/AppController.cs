@@ -11,21 +11,21 @@ namespace GitWrite
             var environmentAdapter = SimpleIoc.Default.GetInstance<IEnvironmentAdapter>();
 
             environmentAdapter.Exit( 1 );
+
+            return;
          }
-         else
+
+         var commitFileReader = SimpleIoc.Default.GetInstance<ICommitFileReader>();
+
+         try
          {
-            var commitFileReader = SimpleIoc.Default.GetInstance<ICommitFileReader>();
+            App.CommitDocument = commitFileReader.FromFile( arguments[0] );
+         }
+         catch ( GitFileLoadException )
+         {
+            var environmentAdapter = SimpleIoc.Default.GetInstance<IEnvironmentAdapter>();
 
-            try
-            {
-               App.CommitDocument = commitFileReader.FromFile( arguments[0] );
-            }
-            catch ( GitFileLoadException )
-            {
-               var environmentAdapter = SimpleIoc.Default.GetInstance<IEnvironmentAdapter>();
-
-               environmentAdapter.Exit( 1 ); 
-            }
+            environmentAdapter.Exit( 1 );
          }
       }
    }
