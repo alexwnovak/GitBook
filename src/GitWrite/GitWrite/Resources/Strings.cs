@@ -2,12 +2,6 @@
 {
    public static class Strings
    {
-      public static string ConfirmDiscardMessage
-      {
-         get
-         {
-            return "Abort this commit?";
-         }
-      }
+      public static string ConfirmDiscardMessage => "Abort this commit?";
    }
 }
