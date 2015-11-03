@@ -5,11 +5,12 @@
    xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006"
    xmlns:viewModels="clr-namespace:GitWrite.ViewModels"
    xmlns:gitWrite="clr-namespace:GitWrite"
+   xmlns:converters="clr-namespace:GitWrite.Views.Converters"
    d1p1:Ignorable="d"
    Startup="Application_OnStartup">
    <Application.Resources>
       <viewModels:ViewModelLocator x:Key="ViewModelLocator" d:IsDataSource="True" />
-      <gitWrite:TextLengthInversionConverter x:Key="TextLengthInversionConverter" />
+      <converters:TextLengthInversionConverter x:Key="TextLengthInversionConverter" />
       <SolidColorBrush x:Key="AppTextColor" Color="#FFFFFF" />
       <SolidColorBrush x:Key="WindowOuterBorderColor" Color="#8000" />
       <SolidColorBrush x:Key="WindowBackgroundColor" Color="#A3A197" />

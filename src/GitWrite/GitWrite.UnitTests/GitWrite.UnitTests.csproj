@@ -91,7 +91,7 @@
     <Compile Include="HelpTextProviderTests.cs" />
     <Compile Include="ViewModels\CommitViewModelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TextLengthInversionConverterTests.cs" />
+    <Compile Include="Views\Converters\TextLengthInversionConverterTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GitWrite\GitWrite.csproj">
