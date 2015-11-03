@@ -58,7 +58,7 @@
                   <RowDefinition Height="*" />
                </Grid.RowDefinitions>
 
-               <Grid x:Name="PrimaryCommitNotesGrid" Grid.Row="0" Background="Blue">
+               <Grid x:Name="PrimaryCommitNotesGrid" Grid.Row="0">
                   <TextBox x:Name="CommitText"
                      Background="{StaticResource WindowCommitBackgroundColor}"
                      Foreground="{StaticResource WindowCommitForegroundColor}"
