@@ -1,4 +1,6 @@
-﻿namespace GitWrite
+﻿using System.Collections.Generic;
+
+namespace GitWrite
 {
    public interface ICommitDocument
    {
@@ -13,7 +15,7 @@
          set;
       }
 
-      string LongMessage
+      List<string> LongMessage
       {
          get;
          set;

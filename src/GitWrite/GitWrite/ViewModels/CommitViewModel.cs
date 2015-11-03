@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
@@ -26,7 +27,7 @@ namespace GitWrite.ViewModels
          get;
       }
 
-      public string CommitText
+      public string ShortMessage
       {
          get;
          set;
@@ -38,13 +39,7 @@ namespace GitWrite.ViewModels
          set;
       }
 
-      public string HelpText
-      {
-         get
-         {
-            return HelpTextProvider.GetTextForCommitState( ControlState );
-         }
-      }
+      public string HelpText => HelpTextProvider.GetTextForCommitState( ControlState );
 
       private CommitControlState _commitControlState;
       public CommitControlState ControlState
@@ -69,6 +64,9 @@ namespace GitWrite.ViewModels
          CommitNotesKeyDownCommand = new RelayCommand<KeyEventArgs>( OnCommitNotesKeyDown );
          OnPrimaryMessageGotFocusCommand = new RelayCommand( () => ControlState = CommitControlState.EditingPrimaryMessage );
          OnSecondaryNotesGotFocusCommand = new RelayCommand( () => ControlState = CommitControlState.EditingSecondaryNotes );
+
+         ShortMessage = App.CommitDocument?.ShortMessage;
+         ExtraCommitText = App.CommitDocument?.LongMessage.Aggregate( ( i, j ) => $"{i} {j}" );
       }
 
       protected virtual void OnExpansionRequested( object sender, EventArgs e ) => ExpansionRequested?.Invoke( sender, e );
@@ -91,8 +89,8 @@ namespace GitWrite.ViewModels
 
       private void SaveCommit()
       {
-         App.CommitDocument.ShortMessage = CommitText;
-         App.CommitDocument.LongMessage = ExtraCommitText;
+         App.CommitDocument.ShortMessage = ShortMessage;
+         App.CommitDocument.LongMessage.Add( ExtraCommitText );
 
          App.CommitDocument.Save();
 
@@ -105,7 +103,7 @@ namespace GitWrite.ViewModels
       {
          var appService = SimpleIoc.Default.GetInstance<IAppService>();
 
-         if ( string.IsNullOrEmpty( CommitText ) )
+         if ( string.IsNullOrEmpty( ShortMessage ) )
          {
             appService.Shutdown();
          }

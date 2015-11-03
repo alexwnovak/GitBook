@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -24,9 +26,10 @@ namespace GitWrite.UnitTests
          // Setup
 
          var fileAdapterMock = new Mock<IFileAdapter>();
-         fileAdapterMock.Setup( fa => fa.WriteAllLines( It.IsAny<string>(), It.IsAny<string[]>() ) ).Callback<string, string[]>( ( p, l ) =>
+         fileAdapterMock.Setup( fa => fa.WriteAllLines( It.IsAny<string>(), It.IsAny<IEnumerable<string>>() ) ).Callback<string, IEnumerable<string>>( ( p, l ) =>
          {
-            parametersMatch = ( p == path && l[0] == shortMessage );
+            var lines = l.ToList();
+            parametersMatch = ( p == path && lines[0] == shortMessage );
          } );    
          SimpleIoc.Default.Register( () => fileAdapterMock.Object );
 
@@ -56,9 +59,10 @@ namespace GitWrite.UnitTests
          // Setup
 
          var fileAdapterMock = new Mock<IFileAdapter>();
-         fileAdapterMock.Setup( fa => fa.WriteAllLines( It.IsAny<string>(), It.IsAny<string[]>() ) ).Callback<string, string[]>( ( p, l ) =>
+         fileAdapterMock.Setup( fa => fa.WriteAllLines( It.IsAny<string>(), It.IsAny<IEnumerable<string>>() ) ).Callback<string, IEnumerable<string>>( ( p, l ) =>
          {
-            parametersMatch = (p == path && l[0] == shortMessage && l[1] == string.Empty && l[2] == longMessage);
+            var lines = l.ToList();
+            parametersMatch = (p == path && lines[0] == shortMessage && lines[1] == string.Empty && lines[2] == longMessage);
          } );
          SimpleIoc.Default.Register( () => fileAdapterMock.Object );
 
@@ -68,7 +72,7 @@ namespace GitWrite.UnitTests
          {
             Name = path,
             ShortMessage = shortMessage,
-            LongMessage = longMessage
+            LongMessage = new List<string>( new[] { longMessage } ),
          };
 
          commitDocument.Save();
