@@ -71,7 +71,7 @@
     <Compile Include="ApplicationModeInterpreter.cs" />
     <Compile Include="CommitDocument.cs" />
     <Compile Include="CommitFileReader.cs" />
-    <Compile Include="CommitControlState.cs" />
+    <Compile Include="Views\CommitControlState.cs" />
     <Compile Include="EnvironmentAdapter.cs" />
     <Compile Include="FileAdapter.cs" />
     <Compile Include="GitFileLoadException.cs" />

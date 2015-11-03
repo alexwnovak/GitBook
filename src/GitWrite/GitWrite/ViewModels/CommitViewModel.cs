@@ -7,6 +7,7 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using GitWrite.Resources;
 using GitWrite.Services;
+using GitWrite.Views;
 
 namespace GitWrite.ViewModels
 {

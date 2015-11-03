@@ -1,4 +1,5 @@
 ﻿using GitWrite.Resources;
+using GitWrite.Views;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace GitWrite.UnitTests

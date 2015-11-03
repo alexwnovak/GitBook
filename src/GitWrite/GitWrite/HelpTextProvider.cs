@@ -1,5 +1,6 @@
 ﻿using System;
 using GitWrite.Resources;
+using GitWrite.Views;
 
 namespace GitWrite
 {
