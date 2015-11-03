@@ -66,7 +66,11 @@ namespace GitWrite.ViewModels
          OnSecondaryNotesGotFocusCommand = new RelayCommand( () => ControlState = CommitControlState.EditingSecondaryNotes );
 
          ShortMessage = App.CommitDocument?.ShortMessage;
-         ExtraCommitText = App.CommitDocument?.LongMessage.Aggregate( ( i, j ) => $"{i} {j}" );
+
+         if ( App.CommitDocument != null && App.CommitDocument.LongMessage.Any() )
+         {
+            ExtraCommitText = App.CommitDocument?.LongMessage.Aggregate( ( i, j ) => $"{i} {j}" );      
+         }
       }
 
       protected virtual void OnExpansionRequested( object sender, EventArgs e ) => ExpansionRequested?.Invoke( sender, e );
