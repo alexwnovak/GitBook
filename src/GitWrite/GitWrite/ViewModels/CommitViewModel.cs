@@ -7,6 +7,7 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using GitWrite.Resources;
 using GitWrite.Services;
+using GitWrite.Views;
 
 namespace GitWrite.ViewModels
 {
@@ -27,16 +28,32 @@ namespace GitWrite.ViewModels
          get;
       }
 
+      private string _shortMessage;
       public string ShortMessage
       {
-         get;
-         set;
+         get
+         {
+            return _shortMessage;
+         }
+         set
+         {
+            _shortMessage = value;
+            _hasEditedCommitMessage = true;
+         }
       }
 
+      private string _extraCommitText;
       public string ExtraCommitText
       {
-         get;
-         set;
+         get
+         {
+            return _extraCommitText;
+         }
+         set
+         {
+            _extraCommitText = value;
+            _hasEditedCommitMessage = true;
+         }
       }
 
       public string HelpText => HelpTextProvider.GetTextForCommitState( ControlState );
@@ -56,6 +73,7 @@ namespace GitWrite.ViewModels
       }
 
       private bool _hasActivatedExpandedState;
+      private bool _hasEditedCommitMessage;
 
       public event EventHandler ExpansionRequested;
        
@@ -66,7 +84,13 @@ namespace GitWrite.ViewModels
          OnSecondaryNotesGotFocusCommand = new RelayCommand( () => ControlState = CommitControlState.EditingSecondaryNotes );
 
          ShortMessage = App.CommitDocument?.ShortMessage;
-         ExtraCommitText = App.CommitDocument?.LongMessage.Aggregate( ( i, j ) => $"{i} {j}" );
+
+         if ( App.CommitDocument != null && App.CommitDocument.LongMessage.Any() )
+         {
+            ExtraCommitText = App.CommitDocument?.LongMessage.Aggregate( ( i, j ) => $"{i} {j}" );      
+         }
+
+         _hasEditedCommitMessage = false;
       }
 
       protected virtual void OnExpansionRequested( object sender, EventArgs e ) => ExpansionRequested?.Invoke( sender, e );
@@ -103,11 +127,7 @@ namespace GitWrite.ViewModels
       {
          var appService = SimpleIoc.Default.GetInstance<IAppService>();
 
-         if ( string.IsNullOrEmpty( ShortMessage ) )
-         {
-            appService.Shutdown();
-         }
-         else
+         if ( _hasEditedCommitMessage )
          {
             var result = appService.DisplayMessageBox( Strings.ConfirmDiscardMessage, MessageBoxButton.YesNo );
 
@@ -115,6 +135,10 @@ namespace GitWrite.ViewModels
             {
                appService.Shutdown();
             }
+         }
+         else
+         {
+            appService.Shutdown();
          }
       }
 

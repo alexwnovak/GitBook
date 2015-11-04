@@ -1,4 +1,4 @@
-﻿namespace GitWrite
+﻿namespace GitWrite.Views
 {
    public enum CommitControlState
    {

@@ -44,6 +44,27 @@ namespace GitWrite.UnitTests.ViewModels
       }
 
       [TestMethod]
+      public void OnCommitNotesKeyDown_KeyIsEscapeAndNotesHaveNotBeenEntered_DoesNotDisplayConfirmDialog()
+      {
+         // Setup
+
+         var serviceMock = new Mock<IAppService>();
+         SimpleIoc.Default.Register( () => serviceMock.Object );
+
+         // Test
+
+         var viewModel = new CommitViewModel();
+
+         var args = TestHelper.GetKeyEventArgs( Key.Escape );
+
+         viewModel.OnCommitNotesKeyDown( args );
+
+         // Assert
+
+         serviceMock.Verify( sm => sm.DisplayMessageBox( It.IsAny<string>(), It.IsAny<MessageBoxButton>() ), Times.Never() );
+      }
+
+      [TestMethod]
       public void OnCommitNotesKeyDown_KeyIsEscapeAndNotesHaveBeenEntered_DisplaysConfirmDialog()
       {
          // Setup

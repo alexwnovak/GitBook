@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace GitWrite
+namespace GitWrite.Views.Converters
 {
    public class TextLengthInversionConverter : IValueConverter
    {
