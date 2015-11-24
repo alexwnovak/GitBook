@@ -3,7 +3,7 @@
 namespace GitWrite.UnitTests
 {
    [TestClass]
-   public class CircularListTests
+   public partial class CircularListTests
    {
    }
 }
