@@ -85,6 +85,13 @@
   <ItemGroup>
     <Compile Include="AppControllerTests.cs" />
     <Compile Include="ApplicationModeInterpreterTests.cs" />
+    <Compile Include="CircularListTests.Add.cs">
+      <DependentUpon>CircularListTests.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CircularListTests.cs" />
+    <Compile Include="CircularListTests.Indexer.cs">
+      <DependentUpon>CircularListTests.cs</DependentUpon>
+    </Compile>
     <Compile Include="CommitDocumentTests.cs" />
     <Compile Include="CommitFileReaderTests.cs" />
     <Compile Include="Helpers\TestHelper.cs" />
