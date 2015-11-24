@@ -1,12 +1,16 @@
-﻿using System;
-
-namespace GitWrite
+﻿namespace GitWrite
 {
    public class CircularList<T>
    {
+      public int Count
+      {
+         get;
+         private set;
+      }
+
       public void Add( T item )
       {
-         throw new NotImplementedException();
+         Count++;
       }
 
       #region ListNode implementation
