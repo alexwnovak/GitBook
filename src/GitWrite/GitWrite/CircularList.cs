@@ -8,9 +8,16 @@
          private set;
       }
 
+      public T this[int index] => GetElement( index );
+
       public void Add( T item )
       {
          Count++;
+      }
+
+      private T GetElement( int index )
+      {
+         throw new System.NotImplementedException();
       }
 
       #region ListNode implementation
