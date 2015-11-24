@@ -1,4 +1,6 @@
-﻿namespace GitWrite
+﻿using System;
+
+namespace GitWrite
 {
    public class CircularList<T>
    {
@@ -17,6 +19,11 @@
 
       private T GetElement( int index )
       {
+         if ( Count == 0 )
+         {
+            throw new InvalidOperationException( "CircularList contains no elements" );
+         }
+
          throw new System.NotImplementedException();
       }
 
