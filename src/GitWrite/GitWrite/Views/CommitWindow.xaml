@@ -109,6 +109,25 @@
                </Grid>
             </Grid>
          </Border>
+
+         <Border x:Name="CommitStateBorder"
+            Background="#8281"
+            CornerRadius="8"
+            Visibility="Collapsed">
+            <Grid>
+               <Ellipse Fill="#84F2"
+                  Width="50"
+                  Height="50">
+               </Ellipse>
+
+               <TextBlock Foreground="#80F0"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center"
+                  FontFamily="Segoe MDL2 Assets"
+                  FontSize="24"
+                  Text="&#xE10B;"/>
+            </Grid>
+         </Border>
       </Grid>
    </Border>
 </Window>
