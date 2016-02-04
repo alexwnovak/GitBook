@@ -33,6 +33,31 @@
             To="1"
             Duration="0:0:0.4" />
       </Storyboard>
+      <Storyboard x:Key="SaveCommitStoryboard"
+         Duration="0:0:0.6">
+         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="CommitStateBorder"
+            Storyboard.TargetProperty="Visibility">
+            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}" />
+         </ObjectAnimationUsingKeyFrames>
+         <DoubleAnimation Storyboard.TargetName="IconCircle"
+            Storyboard.TargetProperty="Width"
+            From="0"
+            To="50"
+            Duration="0:0:0.4">
+            <DoubleAnimation.EasingFunction>
+               <BackEase EasingMode="EaseOut" />
+            </DoubleAnimation.EasingFunction>
+         </DoubleAnimation>
+         <DoubleAnimation Storyboard.TargetName="IconCircle"
+            Storyboard.TargetProperty="Height"
+            From="0"
+            To="50"
+            Duration="0:0:0.4">
+            <DoubleAnimation.EasingFunction>
+               <BackEase EasingMode="EaseOut" />
+            </DoubleAnimation.EasingFunction>
+         </DoubleAnimation>
+      </Storyboard>
    </Window.Resources>
 
    <Border x:Name="OuterBorder"
@@ -111,20 +136,24 @@
          </Border>
 
          <Border x:Name="CommitStateBorder"
-            Background="#8281"
+            Background="#C281"
             CornerRadius="8"
             Visibility="Collapsed">
             <Grid>
-               <Ellipse Fill="#84F2"
+               <Ellipse x:Name="IconCircle"
+                  Fill="#84F2"
                   Width="50"
-                  Height="50">
+                  Height="50"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center">
                </Ellipse>
 
-               <TextBlock Foreground="#80F0"
+               <TextBlock Foreground="#000"
                   HorizontalAlignment="Center"
                   VerticalAlignment="Center"
                   FontFamily="Segoe MDL2 Assets"
                   FontSize="24"
+                  FontWeight="ExtraBold"
                   Text="&#xE10B;"/>
             </Grid>
          </Border>
