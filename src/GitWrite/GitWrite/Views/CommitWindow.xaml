@@ -202,6 +202,24 @@
                               <CubicEase EasingMode="EaseOut" />
                            </DoubleAnimation.EasingFunction>
                         </DoubleAnimation>
+                        <DoubleAnimation Storyboard.TargetName="AbortIconCircle"
+                           Storyboard.TargetProperty="Width"
+                           From="0"
+                           To="50"
+                           Duration="0:0:0.4">
+                           <DoubleAnimation.EasingFunction>
+                              <BackEase EasingMode="EaseOut" />
+                           </DoubleAnimation.EasingFunction>
+                        </DoubleAnimation>
+                        <DoubleAnimation Storyboard.TargetName="AbortIconCircle"
+                           Storyboard.TargetProperty="Height"
+                           From="0"
+                           To="50"
+                           Duration="0:0:0.4">
+                           <DoubleAnimation.EasingFunction>
+                              <BackEase EasingMode="EaseOut" />
+                           </DoubleAnimation.EasingFunction>
+                        </DoubleAnimation>
                      </Storyboard>
                   </BeginStoryboard>
                </EventTrigger>
