@@ -9,7 +9,7 @@
    Background="Transparent"
    Title="CommitWindow"
    Width="1030"
-   Height="86"
+   Height="75"
    WindowStartupLocation="Manual"
    ResizeMode="NoResize"
    WindowStyle="None"
@@ -33,6 +33,56 @@
             To="1"
             Duration="0:0:0.4" />
       </Storyboard>
+      <Storyboard x:Key="SaveCommitStoryboard"
+         Duration="0:0:0.6">
+         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="CommitStateBorder"
+            Storyboard.TargetProperty="Visibility">
+            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}" />
+         </ObjectAnimationUsingKeyFrames>
+         <DoubleAnimation Storyboard.TargetName="IconCircle"
+            Storyboard.TargetProperty="Width"
+            From="0"
+            To="50"
+            Duration="0:0:0.4">
+            <DoubleAnimation.EasingFunction>
+               <BackEase EasingMode="EaseOut" />
+            </DoubleAnimation.EasingFunction>
+         </DoubleAnimation>
+         <DoubleAnimation Storyboard.TargetName="IconCircle"
+            Storyboard.TargetProperty="Height"
+            From="0"
+            To="50"
+            Duration="0:0:0.4">
+            <DoubleAnimation.EasingFunction>
+               <BackEase EasingMode="EaseOut" />
+            </DoubleAnimation.EasingFunction>
+         </DoubleAnimation>
+      </Storyboard>
+      <Storyboard x:Key="AbortCommitStoryboard"
+         Duration="0:0:0.6">
+         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="AbortStateBorder"
+            Storyboard.TargetProperty="Visibility">
+            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}" />
+         </ObjectAnimationUsingKeyFrames>
+         <DoubleAnimation Storyboard.TargetName="AbortIconCircle"
+            Storyboard.TargetProperty="Width"
+            From="0"
+            To="50"
+            Duration="0:0:0.4">
+            <DoubleAnimation.EasingFunction>
+               <BackEase EasingMode="EaseOut" />
+            </DoubleAnimation.EasingFunction>
+         </DoubleAnimation>
+         <DoubleAnimation Storyboard.TargetName="AbortIconCircle"
+            Storyboard.TargetProperty="Height"
+            From="0"
+            To="50"
+            Duration="0:0:0.4">
+            <DoubleAnimation.EasingFunction>
+               <BackEase EasingMode="EaseOut" />
+            </DoubleAnimation.EasingFunction>
+         </DoubleAnimation>
+      </Storyboard>
    </Window.Resources>
 
    <Border x:Name="OuterBorder"
@@ -40,14 +90,8 @@
       Padding="10"
       Background="{StaticResource WindowOuterBorderColor}">
       <Grid VerticalAlignment="Stretch">
-         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="12" />
-         </Grid.RowDefinitions>
-
          <Border x:Name="InnerBorder"
-            Grid.Row="0"
-            CornerRadius="8,8,0,0"
+            CornerRadius="8"
             Padding="12"
             VerticalAlignment="Stretch"
             Background="{StaticResource WindowBackgroundColor}">
@@ -116,16 +160,50 @@
             </Grid>
          </Border>
 
-         <Border x:Name="HelpStrip"
-            Grid.Row="1"
-            CornerRadius="0,0,8,8"
-            Background="{StaticResource WindowStatusBarBackgroundColor}">
-            <TextBlock x:Name="HelpTextBlock"
-               Margin="12,0,0,0"
-               FontSize="10"
-               FontStyle="Italic"
-               Foreground="{StaticResource WindowStatusBarForegroundColor}"
-               Text="{Binding HelpText}" />
+         <Border x:Name="CommitStateBorder"
+            Background="#C281"
+            CornerRadius="8"
+            Visibility="Collapsed">
+            <Grid>
+               <Ellipse x:Name="IconCircle"
+                  Fill="#84F2"
+                  Width="50"
+                  Height="50"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center">
+               </Ellipse>
+
+               <TextBlock Foreground="#000"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center"
+                  FontFamily="Segoe MDL2 Assets"
+                  FontSize="24"
+                  FontWeight="ExtraBold"
+                  Text="&#xE10B;"/>
+            </Grid>
+         </Border>
+
+         <Border x:Name="AbortStateBorder"
+            Background="#C812"
+            CornerRadius="8"
+            Visibility="Collapsed">
+            <Grid>
+               <Ellipse x:Name="AbortIconCircle"
+                  Fill="#8F24"
+                  Width="50"
+                  Height="50"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center">
+               </Ellipse>
+
+               <TextBlock Foreground="#000"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center"
+                  FontFamily="Segoe MDL2 Assets"
+                  FontSize="24"
+                  FontWeight="ExtraBold"
+                  Text="&#xE10A;" />
+            </Grid>
          </Border>
       </Grid>
    </Border>

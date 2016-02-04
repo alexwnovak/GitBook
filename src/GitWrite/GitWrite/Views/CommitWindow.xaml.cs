@@ -12,7 +12,6 @@ namespace GitWrite.Views
       public CommitWindow()
       {
          InitializeComponent();
-         Height = 86;
 
          _viewModel = (CommitViewModel) DataContext;
          _viewModel.ExpansionRequested += OnExpansionRequested;
@@ -28,6 +27,11 @@ namespace GitWrite.Views
 
          Left = (screenWidth - Width) / 2;
          Top = 0.7 * (screenHeight - Height) / 2;
+
+         if ( !string.IsNullOrEmpty( _viewModel.ShortMessage ) )
+         {
+            CommitText.SelectionStart = CommitText.Text.Length;
+         }
       }
    }
 }

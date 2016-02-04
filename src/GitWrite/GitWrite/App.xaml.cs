@@ -4,6 +4,7 @@ using Microsoft.Practices.ServiceLocation;
 using GalaSoft.MvvmLight.Ioc;
 using GitWrite.Services;
 using GitWrite.ViewModels;
+using GitWrite.Views;
 
 namespace GitWrite
 {
@@ -24,6 +25,7 @@ namespace GitWrite
          SimpleIoc.Default.Register<IEnvironmentAdapter, EnvironmentAdapter>();
          SimpleIoc.Default.Register<ICommitFileReader, CommitFileReader>();
          SimpleIoc.Default.Register<IFileAdapter, FileAdapter>();
+         SimpleIoc.Default.Register<IStoryboardHelper, StoryboardHelper>();
 
          // Load the commit file
 
