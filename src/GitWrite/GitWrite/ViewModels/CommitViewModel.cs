@@ -122,13 +122,13 @@ namespace GitWrite.ViewModels
          App.CommitDocument.Save();
 
          var environmentAdapter = SimpleIoc.Default.GetInstance<IAppService>();
-
          environmentAdapter.Shutdown();
       }
 
-      private void CancelCommit()
+      private async void CancelCommit()
       {
          var appService = SimpleIoc.Default.GetInstance<IAppService>();
+         var storyboardHelper = SimpleIoc.Default.GetInstance<IStoryboardHelper>();
 
          if ( _hasEditedCommitMessage )
          {
@@ -136,11 +136,13 @@ namespace GitWrite.ViewModels
 
             if ( result == MessageBoxResult.Yes )
             {
+               await storyboardHelper.PlayAsync( "AbortCommitStoryboard" );
                appService.Shutdown();
             }
          }
          else
          {
+            await storyboardHelper.PlayAsync( "AbortCommitStoryboard" );
             appService.Shutdown();
          }
       }
