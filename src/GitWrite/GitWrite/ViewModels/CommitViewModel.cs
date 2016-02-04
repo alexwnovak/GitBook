@@ -111,8 +111,11 @@ namespace GitWrite.ViewModels
          }
       }
 
-      private void SaveCommit()
+      private async void SaveCommit()
       {
+         var storyboard = SimpleIoc.Default.GetInstance<IStoryboardHelper>();
+         await storyboard.PlayAsync( "SaveCommitStoryboard" );
+         
          App.CommitDocument.ShortMessage = ShortMessage;
          App.CommitDocument.LongMessage.Add( ExtraCommitText );
 
