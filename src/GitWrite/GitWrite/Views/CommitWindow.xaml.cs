@@ -27,6 +27,11 @@ namespace GitWrite.Views
 
          Left = (screenWidth - Width) / 2;
          Top = 0.7 * (screenHeight - Height) / 2;
+
+         if ( !string.IsNullOrEmpty( _viewModel.ShortMessage ) )
+         {
+            CommitText.SelectionStart = CommitText.Text.Length;
+         }
       }
    }
 }
