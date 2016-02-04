@@ -72,6 +72,19 @@ namespace GitWrite.ViewModels
          }
       }
 
+      private bool _isAborting;
+      public bool IsAborting
+      {
+         get
+         {
+            return _isAborting;
+         }
+         set
+         {
+            Set( () => IsAborting, ref _isAborting, value );
+         }
+      }
+
       private bool _hasActivatedExpandedState;
       private bool _hasEditedCommitMessage;
 
