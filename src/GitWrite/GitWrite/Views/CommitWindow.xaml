@@ -157,6 +157,29 @@
                   Text="&#xE10B;"/>
             </Grid>
          </Border>
+
+         <Border x:Name="AbortStateBorder"
+            Background="#C812"
+            CornerRadius="8"
+            Visibility="Collapsed">
+            <Grid>
+               <Ellipse x:Name="AbortIconCircle"
+                  Fill="#8F24"
+                  Width="50"
+                  Height="50"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center">
+               </Ellipse>
+
+               <TextBlock Foreground="#000"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center"
+                  FontFamily="Segoe MDL2 Assets"
+                  FontSize="24"
+                  FontWeight="ExtraBold"
+                  Text="&#xE10A;" />
+            </Grid>
+         </Border>
       </Grid>
    </Border>
 </Window>
