@@ -58,6 +58,31 @@
             </DoubleAnimation.EasingFunction>
          </DoubleAnimation>
       </Storyboard>
+      <Storyboard x:Key="AbortCommitStoryboard"
+         Duration="0:0:0.6">
+         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="AbortStateBorder"
+            Storyboard.TargetProperty="Visibility">
+            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}" />
+         </ObjectAnimationUsingKeyFrames>
+         <DoubleAnimation Storyboard.TargetName="AbortIconCircle"
+            Storyboard.TargetProperty="Width"
+            From="0"
+            To="50"
+            Duration="0:0:0.4">
+            <DoubleAnimation.EasingFunction>
+               <BackEase EasingMode="EaseOut" />
+            </DoubleAnimation.EasingFunction>
+         </DoubleAnimation>
+         <DoubleAnimation Storyboard.TargetName="AbortIconCircle"
+            Storyboard.TargetProperty="Height"
+            From="0"
+            To="50"
+            Duration="0:0:0.4">
+            <DoubleAnimation.EasingFunction>
+               <BackEase EasingMode="EaseOut" />
+            </DoubleAnimation.EasingFunction>
+         </DoubleAnimation>
+      </Storyboard>
    </Window.Resources>
 
    <Border x:Name="OuterBorder"
