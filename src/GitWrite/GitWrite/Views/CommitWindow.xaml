@@ -9,7 +9,7 @@
    Background="Transparent"
    Title="CommitWindow"
    Width="1030"
-   Height="86"
+   Height="75"
    WindowStartupLocation="Manual"
    ResizeMode="NoResize"
    WindowStyle="None"
@@ -40,14 +40,8 @@
       Padding="10"
       Background="{StaticResource WindowOuterBorderColor}">
       <Grid VerticalAlignment="Stretch">
-         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="12" />
-         </Grid.RowDefinitions>
-
          <Border x:Name="InnerBorder"
-            Grid.Row="0"
-            CornerRadius="8,8,0,0"
+            CornerRadius="8"
             Padding="12"
             VerticalAlignment="Stretch"
             Background="{StaticResource WindowBackgroundColor}">
@@ -114,18 +108,6 @@
                   </TextBox>
                </Grid>
             </Grid>
-         </Border>
-
-         <Border x:Name="HelpStrip"
-            Grid.Row="1"
-            CornerRadius="0,0,8,8"
-            Background="{StaticResource WindowStatusBarBackgroundColor}">
-            <TextBlock x:Name="HelpTextBlock"
-               Margin="12,0,0,0"
-               FontSize="10"
-               FontStyle="Italic"
-               Foreground="{StaticResource WindowStatusBarForegroundColor}"
-               Text="{Binding HelpText}" />
          </Border>
       </Grid>
    </Border>

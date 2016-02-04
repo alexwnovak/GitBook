@@ -12,7 +12,6 @@ namespace GitWrite.Views
       public CommitWindow()
       {
          InitializeComponent();
-         Height = 86;
 
          _viewModel = (CommitViewModel) DataContext;
          _viewModel.ExpansionRequested += OnExpansionRequested;
