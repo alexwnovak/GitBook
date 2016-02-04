@@ -6,17 +6,18 @@
    xmlns:viewModels="clr-namespace:GitWrite.ViewModels"
    xmlns:gitWrite="clr-namespace:GitWrite"
    xmlns:converters="clr-namespace:GitWrite.Views.Converters"
+   xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
    d1p1:Ignorable="d"
    Startup="Application_OnStartup">
    <Application.Resources>
       <viewModels:ViewModelLocator x:Key="ViewModelLocator" d:IsDataSource="True" />
       <converters:TextLengthInversionConverter x:Key="TextLengthInversionConverter" />
-      <SolidColorBrush x:Key="AppTextColor" Color="#FFFFFF" />
-      <SolidColorBrush x:Key="WindowOuterBorderColor" Color="#8000" />
-      <SolidColorBrush x:Key="WindowBackgroundColor" Color="#A3A197" />
-      <SolidColorBrush x:Key="WindowCommitBackgroundColor" Color="#3C434F" />
-      <SolidColorBrush x:Key="WindowCommitForegroundColor" Color="#C3D7FF" />
-      <SolidColorBrush x:Key="WindowStatusBarBackgroundColor" Color="#444" />
-      <SolidColorBrush x:Key="WindowStatusBarForegroundColor" Color="#0E0" />
+      <SolidColorBrush x:Key="AppTextColor" Color="#FFFFFF" PresentationOptions:Freeze="True" />
+      <SolidColorBrush x:Key="WindowOuterBorderColor" Color="#8000" PresentationOptions:Freeze="True" />
+      <SolidColorBrush x:Key="WindowBackgroundColor" Color="#A3A197" PresentationOptions:Freeze="True"/>
+      <SolidColorBrush x:Key="WindowCommitBackgroundColor" Color="#3C434F" PresentationOptions:Freeze="True"/>
+      <SolidColorBrush x:Key="WindowCommitForegroundColor" Color="#C3D7FF" PresentationOptions:Freeze="True"/>
+      <SolidColorBrush x:Key="WindowStatusBarBackgroundColor" Color="#444" PresentationOptions:Freeze="True"/>
+      <SolidColorBrush x:Key="WindowStatusBarForegroundColor" Color="#0E0" PresentationOptions:Freeze="True"/>
    </Application.Resources>
 </Application>
