@@ -5,6 +5,7 @@
    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
    xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WPF45"
    xmlns:gitWrite="clr-namespace:GitWrite"
+   xmlns:controls="clr-namespace:GitWrite.Views.Controls"
    AllowsTransparency="True"
    Background="Transparent"
    Title="CommitWindow"
@@ -160,88 +161,7 @@
             </Grid>
          </Border>
 
-         <Border x:Name="CommitStateBorder"
-            Background="#C281"
-            CornerRadius="8"
-            Visibility="Collapsed">
-            <Grid>
-               <Ellipse x:Name="IconCircle"
-                  Fill="#84F2"
-                  Width="50"
-                  Height="50"
-                  HorizontalAlignment="Center"
-                  VerticalAlignment="Center">
-               </Ellipse>
-
-               <TextBlock Foreground="#000"
-                  HorizontalAlignment="Center"
-                  VerticalAlignment="Center"
-                  FontFamily="Segoe MDL2 Assets"
-                  FontSize="24"
-                  FontWeight="ExtraBold"
-                  Text="&#xE10B;"/>
-            </Grid>
-         </Border>
-
-         <Border x:Name="AbortStateBorder"
-            Background="#C812"
-            CornerRadius="8"
-            Visibility="{Binding IsClosing,
-               Mode=OneWay,
-               NotifyOnTargetUpdated=True,
-               Converter={StaticResource BooleanToVisibilityConverter}}">
-            <Border.Triggers>
-               <EventTrigger RoutedEvent="Binding.TargetUpdated">
-                  <BeginStoryboard>
-                     <Storyboard>
-                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                           Duration="0:0:0.3"
-                           From="0.0"
-                           To="1.0">
-                           <DoubleAnimation.EasingFunction>
-                              <CubicEase EasingMode="EaseOut" />
-                           </DoubleAnimation.EasingFunction>
-                        </DoubleAnimation>
-                        <DoubleAnimation Storyboard.TargetName="AbortIconCircle"
-                           Storyboard.TargetProperty="Width"
-                           From="0"
-                           To="50"
-                           Duration="0:0:0.4">
-                           <DoubleAnimation.EasingFunction>
-                              <BackEase EasingMode="EaseOut" />
-                           </DoubleAnimation.EasingFunction>
-                        </DoubleAnimation>
-                        <DoubleAnimation Storyboard.TargetName="AbortIconCircle"
-                           Storyboard.TargetProperty="Height"
-                           From="0"
-                           To="50"
-                           Duration="0:0:0.4">
-                           <DoubleAnimation.EasingFunction>
-                              <BackEase EasingMode="EaseOut" />
-                           </DoubleAnimation.EasingFunction>
-                        </DoubleAnimation>
-                     </Storyboard>
-                  </BeginStoryboard>
-               </EventTrigger>
-            </Border.Triggers>
-            <Grid>
-               <Ellipse x:Name="AbortIconCircle"
-                  Fill="#8F24"
-                  Width="50"
-                  Height="50"
-                  HorizontalAlignment="Center"
-                  VerticalAlignment="Center">
-               </Ellipse>
-
-               <TextBlock Foreground="#000"
-                  HorizontalAlignment="Center"
-                  VerticalAlignment="Center"
-                  FontFamily="Segoe MDL2 Assets"
-                  FontSize="24"
-                  FontWeight="ExtraBold"
-                  Text="&#xE10A;" />
-            </Grid>
-         </Border>
+         <controls:ExitPanel />
       </Grid>
    </Border>
 </Window>
