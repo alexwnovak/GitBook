@@ -145,7 +145,7 @@ namespace GitWrite.ViewModels
 
          App.CommitDocument.Save();
 
-         await ShutDown( ExitReason.AcceptCommit );
+         await ShutDownAsync( ExitReason.AcceptCommit );
       }
 
       private async void CancelCommit()
@@ -158,16 +158,16 @@ namespace GitWrite.ViewModels
 
             if ( result == MessageBoxResult.Yes )
             {
-               await ShutDown( ExitReason.AbortCommit );
+               await ShutDownAsync( ExitReason.AbortCommit );
             }
          }
          else
          {
-            await ShutDown( ExitReason.AbortCommit );
+            await ShutDownAsync( ExitReason.AbortCommit );
          }
       }
 
-      private async Task ShutDown( ExitReason exitReason )
+      private async Task ShutDownAsync( ExitReason exitReason )
       {
          ExitReason = exitReason;
          IsExiting = true;
