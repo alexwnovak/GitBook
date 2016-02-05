@@ -21,7 +21,6 @@
       <Storyboard x:Key="ExpandedStateStoryboard">
          <DoubleAnimation Storyboard.TargetName="PageRoot"
             Storyboard.TargetProperty="Height"
-            From="86"
             To="400"
             Duration="0:0:0.3">
             <DoubleAnimation.EasingFunction>
@@ -69,7 +68,7 @@
                               MustToggleIsEnabledValue="True" />
                         </i:EventTrigger>
                         <i:EventTrigger EventName="GotFocus">
-                           <cmd:EventToCommand Command="{Binding OnPrimaryMessageGotFocusCommand}"
+                           <cmd:EventToCommand Command="{Binding PrimaryMessageGotFocusCommand}"
                               MustToggleIsEnabledValue="True" />
                         </i:EventTrigger>
                      </i:Interaction.Triggers>
@@ -102,7 +101,7 @@
                               MustToggleIsEnabledValue="True" />
                         </i:EventTrigger>
                         <i:EventTrigger EventName="GotFocus">
-                           <cmd:EventToCommand Command="{Binding OnSecondaryNotesGotFocusCommand}"
+                           <cmd:EventToCommand Command="{Binding SecondaryNotesGotFocusCommand}"
                               MustToggleIsEnabledValue="True" />
                         </i:EventTrigger>
                      </i:Interaction.Triggers>

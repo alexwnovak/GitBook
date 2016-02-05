@@ -19,12 +19,12 @@ namespace GitWrite.ViewModels
          get;
       }
 
-      public RelayCommand OnPrimaryMessageGotFocusCommand
+      public RelayCommand PrimaryMessageGotFocusCommand
       {
          get;
       }
 
-      public RelayCommand OnSecondaryNotesGotFocusCommand
+      public RelayCommand SecondaryNotesGotFocusCommand
       {
          get;
       }
@@ -107,8 +107,8 @@ namespace GitWrite.ViewModels
       public CommitViewModel()
       {
          CommitNotesKeyDownCommand = new RelayCommand<KeyEventArgs>( OnCommitNotesKeyDown );
-         OnPrimaryMessageGotFocusCommand = new RelayCommand( () => ControlState = CommitControlState.EditingPrimaryMessage );
-         OnSecondaryNotesGotFocusCommand = new RelayCommand( () => ControlState = CommitControlState.EditingSecondaryNotes );
+         PrimaryMessageGotFocusCommand = new RelayCommand( () => ControlState = CommitControlState.EditingPrimaryMessage );
+         SecondaryNotesGotFocusCommand = new RelayCommand( () => ControlState = CommitControlState.EditingSecondaryNotes );
 
          ShortMessage = App.CommitDocument?.ShortMessage;
 
