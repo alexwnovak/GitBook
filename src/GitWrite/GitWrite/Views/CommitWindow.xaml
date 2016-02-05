@@ -21,7 +21,6 @@
       <Storyboard x:Key="ExpandedStateStoryboard">
          <DoubleAnimation Storyboard.TargetName="PageRoot"
             Storyboard.TargetProperty="Height"
-            From="86"
             To="400"
             Duration="0:0:0.3">
             <DoubleAnimation.EasingFunction>
