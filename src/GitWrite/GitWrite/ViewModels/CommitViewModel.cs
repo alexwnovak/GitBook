@@ -72,16 +72,16 @@ namespace GitWrite.ViewModels
          }
       }
 
-      private bool _isAborting;
-      public bool IsAborting
+      private bool _isExiting;
+      public bool IsExiting
       {
          get
          {
-            return _isAborting;
+            return _isExiting;
          }
          set
          {
-            Set( () => IsAborting, ref _isAborting, value );
+            Set( () => IsExiting, ref _isExiting, value );
          }
       }
 
