@@ -1,0 +1,74 @@
+﻿<UserControl x:Class="GitWrite.Views.Controls.ExitPanel"
+   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+   xmlns:converters="clr-namespace:GitWrite.Views.Converters"
+   mc:Ignorable="d" 
+   d:DesignHeight="300" d:DesignWidth="300">
+
+   <UserControl.Resources>
+      <converters:ExitReasonToBackgroundConverter x:Key="ExitReasonToBackground" />
+      <converters:ExitReasonToGlyphBackgroundConverter x:Key="ExitReasonToGlyphBackground" />
+      <converters:ExitReasonToGlyphConverter x:Key="ExitReasonToGlyph" />
+   </UserControl.Resources>
+
+   <Border x:Name="AbortStateBorder"
+      Background="{Binding ExitReason, Mode=OneWay, Converter={StaticResource ExitReasonToBackground}}"
+      CornerRadius="8"
+      Visibility="{Binding IsAborting,
+         Mode=OneWay,
+         NotifyOnTargetUpdated=True,
+         Converter={StaticResource BooleanToVisibilityConverter}}">
+      <Border.Triggers>
+         <EventTrigger RoutedEvent="Binding.TargetUpdated">
+            <BeginStoryboard>
+               <Storyboard>
+                  <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                     Duration="0:0:0.3"
+                     From="0.0"
+                     To="1.0">
+                     <DoubleAnimation.EasingFunction>
+                        <CubicEase EasingMode="EaseOut" />
+                     </DoubleAnimation.EasingFunction>
+                  </DoubleAnimation>
+                  <DoubleAnimation Storyboard.TargetName="AbortIconCircle"
+                     Storyboard.TargetProperty="Width"
+                     From="0"
+                     To="50"
+                     Duration="0:0:0.4">
+                     <DoubleAnimation.EasingFunction>
+                        <BackEase EasingMode="EaseOut" />
+                     </DoubleAnimation.EasingFunction>
+                  </DoubleAnimation>
+                  <DoubleAnimation Storyboard.TargetName="AbortIconCircle"
+                     Storyboard.TargetProperty="Height"
+                     From="0"
+                     To="50"
+                     Duration="0:0:0.4">
+                     <DoubleAnimation.EasingFunction>
+                        <BackEase EasingMode="EaseOut" />
+                     </DoubleAnimation.EasingFunction>
+                  </DoubleAnimation>
+               </Storyboard>
+            </BeginStoryboard>
+         </EventTrigger>
+      </Border.Triggers>
+      <Grid>
+         <Ellipse x:Name="AbortIconCircle"
+            Fill="{Binding ExitReason, Mode=OneWay, Converter={StaticResource ExitReasonToGlyphBackground}}"
+            Width="50"
+            Height="50"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center">
+         </Ellipse>
+         <TextBlock Foreground="#000"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            FontFamily="Segoe MDL2 Assets"
+            FontSize="24"
+            FontWeight="ExtraBold"
+            Text="{Binding ExitReason, Mode=OneWay, Converter={StaticResource ExitReasonToGlyph}}" />
+      </Grid>
+   </Border>
+</UserControl>

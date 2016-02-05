@@ -72,6 +72,32 @@ namespace GitWrite.ViewModels
          }
       }
 
+      private bool _isAborting;
+      public bool IsAborting
+      {
+         get
+         {
+            return _isAborting;
+         }
+         set
+         {
+            Set( () => IsAborting, ref _isAborting, value );
+         }
+      }
+
+      private ExitReason _exitReason;
+      public ExitReason ExitReason
+      {
+         get
+         {
+            return _exitReason;
+         }
+         set
+         {
+            Set( () => ExitReason, ref _exitReason, value );
+         }
+      }
+
       private bool _hasActivatedExpandedState;
       private bool _hasEditedCommitMessage;
 

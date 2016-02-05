@@ -71,6 +71,13 @@
     <Compile Include="ApplicationModeInterpreter.cs" />
     <Compile Include="CommitDocument.cs" />
     <Compile Include="CommitFileReader.cs" />
+    <Compile Include="Views\Controls\ExitPanel.xaml.cs">
+      <DependentUpon>ExitPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Converters\ExitReasonToBackgroundConverter.cs" />
+    <Compile Include="Views\Converters\ExitReasonToGlyphConverter.cs" />
+    <Compile Include="Views\Converters\ExitReasonToGlyphBackgroundConverter.cs" />
+    <Compile Include="Views\ExitReason.cs" />
     <Compile Include="Views\CommitControlState.cs" />
     <Compile Include="EnvironmentAdapter.cs" />
     <Compile Include="FileAdapter.cs" />
@@ -101,6 +108,10 @@
       <DependentUpon>CommitWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\Controls\ExitPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
