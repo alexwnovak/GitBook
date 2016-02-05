@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Globalization;
 using System.Windows;
-using System.Windows.Data;
 
 namespace GitWrite.Views.Converters
 {
-   public class ExitReasonToGlyphConverter : IValueConverter
+   public class ExitReasonToGlyphConverter : ExitReasonBaseConverter
    {
-      public object Convert( object value, Type targetType, object parameter, CultureInfo culture )
+      protected override object OnConvert( ExitReason exitReason )
       {
-         var exitReason = (ExitReason) value;
-
          switch ( exitReason )
          {
             case ExitReason.AcceptCommit:
@@ -20,11 +16,6 @@ namespace GitWrite.Views.Converters
          }
 
          throw new ArgumentException( $"Unknown exit reason: {exitReason}" );
-      }
-
-      public object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture )
-      {
-         throw new NotImplementedException();
       }
    }
 }
