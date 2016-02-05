@@ -140,16 +140,12 @@ namespace GitWrite.ViewModels
 
       private async void SaveCommit()
       {
-         var storyboard = SimpleIoc.Default.GetInstance<IStoryboardHelper>();
-         await storyboard.PlayAsync( "SaveCommitStoryboard" );
-         
          App.CommitDocument.ShortMessage = ShortMessage;
          App.CommitDocument.LongMessage.Add( ExtraCommitText );
 
          App.CommitDocument.Save();
 
-         var environmentAdapter = SimpleIoc.Default.GetInstance<IAppService>();
-         environmentAdapter.Shutdown();
+         await ShutDown( ExitReason.AcceptCommit );
       }
 
       private async void CancelCommit()
