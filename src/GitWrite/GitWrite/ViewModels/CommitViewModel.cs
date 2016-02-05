@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
@@ -154,7 +155,6 @@ namespace GitWrite.ViewModels
       private async void CancelCommit()
       {
          var appService = SimpleIoc.Default.GetInstance<IAppService>();
-         var storyboardHelper = SimpleIoc.Default.GetInstance<IStoryboardHelper>();
 
          if ( _hasEditedCommitMessage )
          {
@@ -162,15 +162,24 @@ namespace GitWrite.ViewModels
 
             if ( result == MessageBoxResult.Yes )
             {
-               await storyboardHelper.PlayAsync( "AbortCommitStoryboard" );
-               appService.Shutdown();
+               await ShutDown( ExitReason.AbortCommit );
             }
          }
          else
          {
-            await storyboardHelper.PlayAsync( "AbortCommitStoryboard" );
-            appService.Shutdown();
+            await ShutDown( ExitReason.AbortCommit );
          }
+      }
+
+      private async Task ShutDown( ExitReason exitReason )
+      {
+         ExitReason = exitReason;
+         IsExiting = true;
+
+         await Task.Delay( 2000 );
+
+         var appService = SimpleIoc.Default.GetInstance<IAppService>();
+         appService.Shutdown();
       }
 
       private void ExpandUI()
