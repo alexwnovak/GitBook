@@ -103,6 +103,7 @@ namespace GitWrite.ViewModels
       private bool _hasEditedCommitMessage;
 
       public event EventHandler ExpansionRequested;
+      public event AsyncEventHandler AsyncExitRequested;
        
       public CommitViewModel()
       {
@@ -121,6 +122,8 @@ namespace GitWrite.ViewModels
       }
 
       protected virtual void OnExpansionRequested( object sender, EventArgs e ) => ExpansionRequested?.Invoke( sender, e );
+
+      protected virtual Task OnExitRequestedAsync( object sender, EventArgs e ) => AsyncExitRequested?.Invoke( sender, e );
 
       public void OnCommitNotesKeyDown( KeyEventArgs e )
       {
