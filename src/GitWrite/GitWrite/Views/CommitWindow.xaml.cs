@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Animation;
 using GitWrite.ViewModels;
@@ -15,7 +16,11 @@ namespace GitWrite.Views
 
          _viewModel = (CommitViewModel) DataContext;
          _viewModel.ExpansionRequested += OnExpansionRequested;
+         _viewModel.AsyncExitRequested += OnAsyncExitRequested;
       }
+
+      private Task OnAsyncExitRequested( object sender, EventArgs e )
+         => ExitPanel.ShowAsync();
 
       private void OnExpansionRequested( object sender, EventArgs eventArgs )
          => (Resources["ExpandedStateStoryboard"] as Storyboard)?.Begin();

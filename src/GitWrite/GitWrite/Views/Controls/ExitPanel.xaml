@@ -12,46 +12,40 @@
       <converters:ExitReasonToBackgroundConverter x:Key="ExitReasonToBackground" />
       <converters:ExitReasonToGlyphBackgroundConverter x:Key="ExitReasonToGlyphBackground" />
       <converters:ExitReasonToGlyphConverter x:Key="ExitReasonToGlyph" />
+      <Storyboard x:Key="DisplayPanel" Duration="0:0:1.2">
+         <DoubleAnimation Storyboard.TargetName="AbortIconCircle"
+            Storyboard.TargetProperty="Opacity"
+            Duration="0:0:0.3"
+            From="0.0"
+            To="1.0">
+            <DoubleAnimation.EasingFunction>
+               <CubicEase EasingMode="EaseOut" />
+            </DoubleAnimation.EasingFunction>
+         </DoubleAnimation>
+         <DoubleAnimation Storyboard.TargetName="AbortIconCircle"
+            Storyboard.TargetProperty="Width"
+            From="0"
+            To="50"
+            Duration="0:0:0.4">
+            <DoubleAnimation.EasingFunction>
+               <BackEase EasingMode="EaseOut" />
+            </DoubleAnimation.EasingFunction>
+         </DoubleAnimation>
+         <DoubleAnimation Storyboard.TargetName="AbortIconCircle"
+            Storyboard.TargetProperty="Height"
+            From="0"
+            To="50"
+            Duration="0:0:0.4">
+            <DoubleAnimation.EasingFunction>
+               <BackEase EasingMode="EaseOut" />
+            </DoubleAnimation.EasingFunction>
+         </DoubleAnimation>
+      </Storyboard>
    </UserControl.Resources>
 
    <Border x:Name="AbortStateBorder"
       Background="{Binding ExitReason, Mode=OneWay, Converter={StaticResource ExitReasonToBackground}}"
-      CornerRadius="8"
-      Visibility="{Binding Visibility, ElementName=LayoutRoot, NotifyOnTargetUpdated=True}">
-      <Border.Triggers>
-         <EventTrigger RoutedEvent="Binding.TargetUpdated">
-            <BeginStoryboard>
-               <Storyboard>
-                  <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                     Duration="0:0:0.3"
-                     From="0.0"
-                     To="1.0">
-                     <DoubleAnimation.EasingFunction>
-                        <CubicEase EasingMode="EaseOut" />
-                     </DoubleAnimation.EasingFunction>
-                  </DoubleAnimation>
-                  <DoubleAnimation Storyboard.TargetName="AbortIconCircle"
-                     Storyboard.TargetProperty="Width"
-                     From="0"
-                     To="50"
-                     Duration="0:0:0.4">
-                     <DoubleAnimation.EasingFunction>
-                        <BackEase EasingMode="EaseOut" />
-                     </DoubleAnimation.EasingFunction>
-                  </DoubleAnimation>
-                  <DoubleAnimation Storyboard.TargetName="AbortIconCircle"
-                     Storyboard.TargetProperty="Height"
-                     From="0"
-                     To="50"
-                     Duration="0:0:0.4">
-                     <DoubleAnimation.EasingFunction>
-                        <BackEase EasingMode="EaseOut" />
-                     </DoubleAnimation.EasingFunction>
-                  </DoubleAnimation>
-               </Storyboard>
-            </BeginStoryboard>
-         </EventTrigger>
-      </Border.Triggers>
+      CornerRadius="8">
       <Grid>
          <Ellipse x:Name="AbortIconCircle"
             Fill="{Binding ExitReason, Mode=OneWay, Converter={StaticResource ExitReasonToGlyphBackground}}"
@@ -59,6 +53,11 @@
             Height="50"
             HorizontalAlignment="Center"
             VerticalAlignment="Center">
+            <Ellipse.Effect>
+               <DropShadowEffect BlurRadius="8"
+                  Direction="270"
+                  ShadowDepth="2" />
+            </Ellipse.Effect>
          </Ellipse>
          <TextBlock Foreground="#000"
             HorizontalAlignment="Center"

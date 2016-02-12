@@ -103,6 +103,7 @@ namespace GitWrite.ViewModels
       private bool _hasEditedCommitMessage;
 
       public event EventHandler ExpansionRequested;
+      public event AsyncEventHandler AsyncExitRequested;
        
       public CommitViewModel()
       {
@@ -122,6 +123,10 @@ namespace GitWrite.ViewModels
 
       protected virtual void OnExpansionRequested( object sender, EventArgs e ) => ExpansionRequested?.Invoke( sender, e );
 
+      protected virtual Task OnExitRequestedAsync( object sender, EventArgs e ) => AsyncExitRequested?.Invoke( sender, e );
+
+      private void ShutDown() => SimpleIoc.Default.GetInstance<IAppService>().Shutdown();
+
       public void OnCommitNotesKeyDown( KeyEventArgs e )
       {
          switch ( e.Key )
@@ -140,12 +145,18 @@ namespace GitWrite.ViewModels
 
       private async void SaveCommit()
       {
+         ExitReason = ExitReason.AcceptCommit;
+         IsExiting = true;
+
+         var exitTask = OnExitRequestedAsync( this, EventArgs.Empty );
+
          App.CommitDocument.ShortMessage = ShortMessage;
          App.CommitDocument.LongMessage.Add( ExtraCommitText );
 
          App.CommitDocument.Save();
 
-         await ShutDownAsync( ExitReason.AcceptCommit );
+         await exitTask;
+         ShutDown();
       }
 
       private async void CancelCommit()
@@ -156,26 +167,17 @@ namespace GitWrite.ViewModels
          {
             var result = appService.DisplayMessageBox( Strings.ConfirmDiscardMessage, MessageBoxButton.YesNo );
 
-            if ( result == MessageBoxResult.Yes )
+            if ( result == MessageBoxResult.No )
             {
-               await ShutDownAsync( ExitReason.AbortCommit );
+               return;
             }
          }
-         else
-         {
-            await ShutDownAsync( ExitReason.AbortCommit );
-         }
-      }
 
-      private async Task ShutDownAsync( ExitReason exitReason )
-      {
-         ExitReason = exitReason;
+         ExitReason = ExitReason.AbortCommit;
          IsExiting = true;
 
-         await Task.Delay( 2000 );
-
-         var appService = SimpleIoc.Default.GetInstance<IAppService>();
-         appService.Shutdown();
+         await OnExitRequestedAsync( this, EventArgs.Empty );
+         ShutDown();
       }
 
       private void ExpandUI()

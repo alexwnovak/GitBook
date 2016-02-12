@@ -110,7 +110,8 @@
             </Grid>
          </Border>
 
-         <controls:ExitPanel Visibility="{Binding IsExiting,
+         <controls:ExitPanel x:Name="ExitPanel"
+            Visibility="{Binding IsExiting,
             Mode=OneWay,
             Converter={StaticResource BooleanToVisibilityConverter}}" />
       </Grid>
