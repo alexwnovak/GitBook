@@ -33,6 +33,8 @@ namespace GitWrite.Views
          {
             CommitText.SelectionStart = CommitText.Text.Length;
          }
+
+         ( Resources["WindowEntranceStoryboard"] as Storyboard )?.Begin();
       }
    }
 }
