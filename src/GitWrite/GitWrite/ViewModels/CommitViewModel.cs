@@ -186,7 +186,7 @@ namespace GitWrite.ViewModels
 
       private void ExpandUI()
       {
-         if ( !_hasActivatedExpandedState )
+         if ( !_hasActivatedExpandedState && !IsExiting )
          {
             _hasActivatedExpandedState = true;
             OnExpansionRequested( this, EventArgs.Empty );
