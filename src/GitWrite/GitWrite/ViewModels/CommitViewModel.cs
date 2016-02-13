@@ -159,6 +159,7 @@ namespace GitWrite.ViewModels
          var exitTask = OnExitRequestedAsync( this, EventArgs.Empty );
 
          App.CommitDocument.ShortMessage = ShortMessage;
+         App.CommitDocument.LongMessage.Clear();
          App.CommitDocument.LongMessage.Add( ExtraCommitText );
 
          App.CommitDocument.Save();
