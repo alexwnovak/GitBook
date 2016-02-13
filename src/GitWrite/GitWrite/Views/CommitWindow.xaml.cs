@@ -35,6 +35,8 @@ namespace GitWrite.Views
          }
 
          ( Resources["WindowEntranceStoryboard"] as Storyboard )?.Begin();
+
+         _viewModel.ViewLoaded();
       }
    }
 }

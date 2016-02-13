@@ -121,6 +121,14 @@ namespace GitWrite.ViewModels
          _hasEditedCommitMessage = false;
       }
 
+      public void ViewLoaded()
+      {
+         if ( !string.IsNullOrEmpty( ExtraCommitText ) )
+         {
+            ExpandUI();
+         }
+      }
+
       protected virtual void OnExpansionRequested( object sender, EventArgs e ) => ExpansionRequested?.Invoke( sender, e );
 
       protected virtual Task OnExitRequestedAsync( object sender, EventArgs e ) => AsyncExitRequested?.Invoke( sender, e );
