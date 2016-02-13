@@ -98,6 +98,7 @@
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="Views\IStoryboardHelper.cs" />
     <Compile Include="Views\StoryboardHelper.cs" />
+    <Compile Include="Views\WindowLocation.cs" />
     <Page Include="Views\CommitWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
