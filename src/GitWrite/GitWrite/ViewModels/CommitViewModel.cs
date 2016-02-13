@@ -156,6 +156,8 @@ namespace GitWrite.ViewModels
          App.CommitDocument.Save();
 
          await exitTask;
+         await SimpleIoc.Default.GetInstance<IStoryboardHelper>().PlayAsync( "WindowExitStoryboard" );
+
          ShutDown();
       }
 
@@ -177,6 +179,8 @@ namespace GitWrite.ViewModels
          IsExiting = true;
 
          await OnExitRequestedAsync( this, EventArgs.Empty );
+         await SimpleIoc.Default.GetInstance<IStoryboardHelper>().PlayAsync( "WindowExitStoryboard" );
+
          ShutDown();
       }
 
