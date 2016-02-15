@@ -29,57 +29,64 @@
    </Window.InputBindings>
 
    <Window.Resources>
-      <Storyboard x:Key="WindowEntranceStoryboard">
-         <DoubleAnimation Storyboard.TargetName="PageRoot"
-            Storyboard.TargetProperty="Top"
-            From="{x:Static views:WindowLocation.StartingPointY}"
-            To="{x:Static views:WindowLocation.RestingPointY}"
-            Duration="0:0:0.3">
-            <DoubleAnimation.EasingFunction>
-               <CircleEase EasingMode="EaseOut" />
-            </DoubleAnimation.EasingFunction>
-         </DoubleAnimation>
-         <DoubleAnimation Storyboard.TargetName="PageRoot"
-            Storyboard.TargetProperty="Opacity"
-            From="0"
-            To="1"
-            Duration="0:0:0.3" />
-      </Storyboard>
-      <Storyboard x:Key="WindowExitStoryboard">
-         <DoubleAnimation Storyboard.TargetName="PageRoot"
-            Storyboard.TargetProperty="Top"
-            From="{x:Static views:WindowLocation.RestingPointY}"
-            To="{x:Static views:WindowLocation.StartingPointY}"
-            Duration="0:0:0.3">
-            <DoubleAnimation.EasingFunction>
-               <CircleEase EasingMode="EaseOut" />
-            </DoubleAnimation.EasingFunction>
-         </DoubleAnimation>
-         <DoubleAnimation Storyboard.TargetName="PageRoot"
-            Storyboard.TargetProperty="Opacity"
-            From="1"
-            To="0"
-            Duration="0:0:0.3">
-            <DoubleAnimation.EasingFunction>
-               <CircleEase EasingMode="EaseOut" />
-            </DoubleAnimation.EasingFunction>
-         </DoubleAnimation>
-      </Storyboard>
-      <Storyboard x:Key="ExpandedStateStoryboard">
-         <DoubleAnimation Storyboard.TargetName="PageRoot"
-            Storyboard.TargetProperty="Height"
-            To="400"
-            Duration="0:0:0.3">
-            <DoubleAnimation.EasingFunction>
-               <CircleEase EasingMode="EaseOut" />
-            </DoubleAnimation.EasingFunction>
-         </DoubleAnimation>
-         <DoubleAnimation Storyboard.TargetName="SecondaryCommitGrid"
-            Storyboard.TargetProperty="Opacity"
-            From="0"
-            To="1"
-            Duration="0:0:0.3" />
-      </Storyboard>
+      <ResourceDictionary>
+         <ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary>
+               <Storyboard x:Key="WindowEntranceStoryboard">
+                  <DoubleAnimation Storyboard.TargetName="PageRoot"
+                     Storyboard.TargetProperty="Top"
+                     From="{x:Static views:WindowLocation.StartingPointY}"
+                     To="{x:Static views:WindowLocation.RestingPointY}"
+                     Duration="0:0:0.3">
+                     <DoubleAnimation.EasingFunction>
+                        <CircleEase EasingMode="EaseOut" />
+                     </DoubleAnimation.EasingFunction>
+                  </DoubleAnimation>
+                  <DoubleAnimation Storyboard.TargetName="PageRoot"
+                     Storyboard.TargetProperty="Opacity"
+                     From="0"
+                     To="1"
+                     Duration="0:0:0.3" />
+               </Storyboard>
+               <Storyboard x:Key="WindowExitStoryboard">
+                  <DoubleAnimation Storyboard.TargetName="PageRoot"
+                     Storyboard.TargetProperty="Top"
+                     From="{x:Static views:WindowLocation.RestingPointY}"
+                     To="{x:Static views:WindowLocation.StartingPointY}"
+                     Duration="0:0:0.3">
+                     <DoubleAnimation.EasingFunction>
+                        <CircleEase EasingMode="EaseOut" />
+                     </DoubleAnimation.EasingFunction>
+                  </DoubleAnimation>
+                  <DoubleAnimation Storyboard.TargetName="PageRoot"
+                     Storyboard.TargetProperty="Opacity"
+                     From="1"
+                     To="0"
+                     Duration="0:0:0.3">
+                     <DoubleAnimation.EasingFunction>
+                        <CircleEase EasingMode="EaseOut" />
+                     </DoubleAnimation.EasingFunction>
+                  </DoubleAnimation>
+               </Storyboard>
+               <Storyboard x:Key="ExpandedStateStoryboard">
+                  <DoubleAnimation Storyboard.TargetName="PageRoot"
+                     Storyboard.TargetProperty="Height"
+                     To="400"
+                     Duration="0:0:0.3">
+                     <DoubleAnimation.EasingFunction>
+                        <CircleEase EasingMode="EaseOut" />
+                     </DoubleAnimation.EasingFunction>
+                  </DoubleAnimation>
+                  <DoubleAnimation Storyboard.TargetName="SecondaryCommitGrid"
+                     Storyboard.TargetProperty="Opacity"
+                     From="0"
+                     To="1"
+                     Duration="0:0:0.3" />
+               </Storyboard>
+
+            </ResourceDictionary>
+         </ResourceDictionary.MergedDictionaries>
+      </ResourceDictionary>
    </Window.Resources>
 
    <Border x:Name="OuterBorder"
