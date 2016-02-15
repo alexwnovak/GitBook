@@ -10,14 +10,24 @@
    AllowsTransparency="True"
    Background="Transparent"
    Title="CommitWindow"
-   Width="1030"
-   Height="75"
+   Width="1036"
+   Height="82"
    WindowStartupLocation="Manual"
    ResizeMode="NoResize"
    WindowStyle="None"
    FocusManager.FocusedElement="{Binding ElementName=CommitText}"
    DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=CommitViewModel}"
    Loaded="CommitWindow_OnLoaded">
+
+   <i:Interaction.Behaviors>
+      <views:WindowDragBehavior />
+   </i:Interaction.Behaviors>
+
+   <Window.InputBindings>
+      <KeyBinding Gesture="Enter" Command="{Binding SaveCommand, Mode=OneTime}" />
+      <KeyBinding Gesture="Escape" Command="{Binding AbortCommand, Mode=OneTime}" />
+   </Window.InputBindings>
+
    <Window.Resources>
       <Storyboard x:Key="WindowEntranceStoryboard">
          <DoubleAnimation Storyboard.TargetName="PageRoot"
@@ -79,7 +89,7 @@
       <Grid VerticalAlignment="Stretch">
          <Border x:Name="InnerBorder"
             CornerRadius="8"
-            Padding="12"
+            Padding="16"
             VerticalAlignment="Stretch"
             Background="{StaticResource WindowBackgroundColor}">
             <Grid VerticalAlignment="Stretch">
@@ -146,6 +156,13 @@
                </Grid>
             </Grid>
          </Border>
+
+         <Button Width="50"
+            Height="20"
+            VerticalAlignment="Bottom"
+            Margin="0,0,0,-10"
+            Content="v"
+            Command="{Binding ExpandCommand, Mode=OneTime}"/>
 
          <controls:ExitPanel x:Name="ExitPanel"
             Visibility="{Binding IsExiting,
