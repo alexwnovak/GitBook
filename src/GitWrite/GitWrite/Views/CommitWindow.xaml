@@ -10,8 +10,8 @@
    AllowsTransparency="True"
    Background="Transparent"
    Title="CommitWindow"
-   Width="1030"
-   Height="75"
+   Width="1036"
+   Height="82"
    WindowStartupLocation="Manual"
    ResizeMode="NoResize"
    WindowStyle="None"
@@ -79,7 +79,7 @@
       <Grid VerticalAlignment="Stretch">
          <Border x:Name="InnerBorder"
             CornerRadius="8"
-            Padding="12"
+            Padding="16"
             VerticalAlignment="Stretch"
             Background="{StaticResource WindowBackgroundColor}">
             <Grid VerticalAlignment="Stretch">
