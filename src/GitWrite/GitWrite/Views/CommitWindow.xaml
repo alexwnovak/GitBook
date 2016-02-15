@@ -18,6 +18,11 @@
    FocusManager.FocusedElement="{Binding ElementName=CommitText}"
    DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=CommitViewModel}"
    Loaded="CommitWindow_OnLoaded">
+
+   <i:Interaction.Behaviors>
+      <views:WindowDragBehavior />
+   </i:Interaction.Behaviors>
+
    <Window.Resources>
       <Storyboard x:Key="WindowEntranceStoryboard">
          <DoubleAnimation Storyboard.TargetName="PageRoot"
