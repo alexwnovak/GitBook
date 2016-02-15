@@ -157,12 +157,6 @@ namespace GitWrite.ViewModels
       {
          switch ( e.Key )
          {
-            case Key.Enter:
-               SaveCommit();
-               break;
-            case Key.Escape:
-               CancelCommit();
-               break;
             case Key.Tab:
                ExpandUI();
                break;
