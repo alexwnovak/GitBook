@@ -15,16 +15,10 @@
       <converters:TextLengthInversionConverter x:Key="TextLengthInversionConverter" />
       <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
       <SolidColorBrush x:Key="AppTextColor" Color="#FFF" PresentationOptions:Freeze="True" />
-      <SolidColorBrush x:Key="WindowOuterBorderColor" Color="#8000" PresentationOptions:Freeze="True" />
-      <LinearGradientBrush x:Key="WindowBackgroundColor"
-         StartPoint="0,0"
-         EndPoint="0,1"
-         PresentationOptions:Freeze="True">
-         <GradientStop Offset="0" Color="#EEE" />
-         <GradientStop Offset="1" Color="#999" />
-      </LinearGradientBrush>
-      <SolidColorBrush x:Key="WindowCommitBackgroundColor" Color="#3C434F" PresentationOptions:Freeze="True"/>
-      <SolidColorBrush x:Key="WindowCommitForegroundColor" Color="#FFF" PresentationOptions:Freeze="True"/>
+      <SolidColorBrush x:Key="WindowOuterBorderColor" Color="#80103E50" PresentationOptions:Freeze="True" />
+      <SolidColorBrush x:Key="WindowBackgroundColor" Color="#27586B" PresentationOptions:Freeze="True" />
+      <SolidColorBrush x:Key="WindowCommitBackgroundColor" Color="#333" PresentationOptions:Freeze="True"/>
+      <SolidColorBrush x:Key="WindowCommitForegroundColor" Color="#FFE7AA" PresentationOptions:Freeze="True"/>
       <SolidColorBrush x:Key="WindowStatusBarBackgroundColor" Color="#444" PresentationOptions:Freeze="True"/>
       <SolidColorBrush x:Key="WindowStatusBarForegroundColor" Color="#0E0" PresentationOptions:Freeze="True"/>
       <SolidColorBrush x:Key="AcceptCommitBackgroundColor" Color="#C281" PresentationOptions:Freeze="True"/>
