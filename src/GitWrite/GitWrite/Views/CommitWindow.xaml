@@ -31,6 +31,7 @@
    <Window.Resources>
       <ResourceDictionary>
          <ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary Source="..\Styles\TextBoxStyle.xaml" />
             <ResourceDictionary>
                <Storyboard x:Key="WindowEntranceStoryboard">
                   <DoubleAnimation Storyboard.TargetName="PageRoot"
