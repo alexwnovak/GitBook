@@ -29,6 +29,11 @@ namespace GitWrite.ViewModels
          get;
       }
 
+      public RelayCommand ExpandCommand
+      {
+         get;
+      }
+
       private string _shortMessage;
       public string ShortMessage
       {
@@ -110,6 +115,7 @@ namespace GitWrite.ViewModels
          CommitNotesKeyDownCommand = new RelayCommand<KeyEventArgs>( OnCommitNotesKeyDown );
          PrimaryMessageGotFocusCommand = new RelayCommand( () => ControlState = CommitControlState.EditingPrimaryMessage );
          SecondaryNotesGotFocusCommand = new RelayCommand( () => ControlState = CommitControlState.EditingSecondaryNotes );
+         ExpandCommand = new RelayCommand( ExpandUI );
 
          ShortMessage = App.CommitDocument?.ShortMessage;
 
