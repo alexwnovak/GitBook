@@ -100,6 +100,10 @@
     <Compile Include="Views\StoryboardHelper.cs" />
     <Compile Include="Views\WindowDragBehavior.cs" />
     <Compile Include="Views\WindowLocation.cs" />
+    <Page Include="Styles\TextBoxStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\CommitWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
