@@ -25,6 +25,7 @@
 
    <Window.InputBindings>
       <KeyBinding Gesture="Enter" Command="{Binding SaveCommand, Mode=OneTime}" />
+      <KeyBinding Gesture="Ctrl+Enter" Command="{Binding SaveCommand, Mode=OneTime}" />
       <KeyBinding Gesture="Escape" Command="{Binding AbortCommand, Mode=OneTime}" />
    </Window.InputBindings>
 
