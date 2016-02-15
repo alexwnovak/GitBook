@@ -34,6 +34,16 @@ namespace GitWrite.ViewModels
          get;
       }
 
+      public RelayCommand SaveCommand
+      {
+         get;
+      }
+
+      public RelayCommand AbortCommand
+      {
+         get;
+      }
+
       private string _shortMessage;
       public string ShortMessage
       {
@@ -116,6 +126,8 @@ namespace GitWrite.ViewModels
          PrimaryMessageGotFocusCommand = new RelayCommand( () => ControlState = CommitControlState.EditingPrimaryMessage );
          SecondaryNotesGotFocusCommand = new RelayCommand( () => ControlState = CommitControlState.EditingSecondaryNotes );
          ExpandCommand = new RelayCommand( ExpandUI );
+         SaveCommand = new RelayCommand( SaveCommit );
+         AbortCommand = new RelayCommand( CancelCommit );
 
          ShortMessage = App.CommitDocument?.ShortMessage;
 
