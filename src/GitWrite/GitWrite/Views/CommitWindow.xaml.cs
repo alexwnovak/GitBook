@@ -18,6 +18,11 @@ namespace GitWrite.Views
          _viewModel = (CommitViewModel) DataContext;
          _viewModel.ExpansionRequested += OnExpansionRequested;
          _viewModel.AsyncExitRequested += OnAsyncExitRequested;
+         _viewModel.HelpRequested += OnHelpRequested;
+      }
+
+      private void OnHelpRequested( object sender, EventArgs e )
+      {
       }
 
       private Task OnAsyncExitRequested( object sender, EventArgs e )

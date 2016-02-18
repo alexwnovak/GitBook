@@ -44,6 +44,11 @@ namespace GitWrite.ViewModels
          get;
       }
 
+      public RelayCommand HelpCommand
+      {
+         get;
+      }
+
       private string _shortMessage;
       public string ShortMessage
       {
@@ -119,6 +124,7 @@ namespace GitWrite.ViewModels
 
       public event EventHandler ExpansionRequested;
       public event AsyncEventHandler AsyncExitRequested;
+      public event EventHandler HelpRequested;
        
       public CommitViewModel()
       {
@@ -128,6 +134,7 @@ namespace GitWrite.ViewModels
          ExpandCommand = new RelayCommand( ExpandUI );
          SaveCommand = new RelayCommand( SaveCommit );
          AbortCommand = new RelayCommand( CancelCommit );
+         HelpCommand = new RelayCommand( ActivateHelp );
 
          ShortMessage = App.CommitDocument?.ShortMessage;
 
@@ -148,6 +155,8 @@ namespace GitWrite.ViewModels
       }
 
       protected virtual void OnExpansionRequested( object sender, EventArgs e ) => ExpansionRequested?.Invoke( sender, e );
+
+      protected virtual void OnHelpRequested( object sender, EventArgs e ) => HelpRequested?.Invoke( sender, e );
 
       protected virtual Task OnExitRequestedAsync( object sender, EventArgs e ) => AsyncExitRequested?.Invoke( sender, e );
 
@@ -217,6 +226,11 @@ namespace GitWrite.ViewModels
             _hasActivatedExpandedState = true;
             OnExpansionRequested( this, EventArgs.Empty );
          }
+      }
+
+      private void ActivateHelp()
+      {
+         OnHelpRequested( this, EventArgs.Empty );
       }
    }
 }
