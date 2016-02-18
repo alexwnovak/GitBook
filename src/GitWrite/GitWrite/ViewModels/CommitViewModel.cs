@@ -131,6 +131,7 @@ namespace GitWrite.ViewModels
       public event EventHandler ExpansionRequested;
       public event AsyncEventHandler AsyncExitRequested;
       public event EventHandler HelpRequested;
+      public event EventHandler CollapseHelpRequested;
        
       public CommitViewModel()
       {
@@ -164,12 +165,21 @@ namespace GitWrite.ViewModels
 
       protected virtual void OnHelpRequested( object sender, EventArgs e ) => HelpRequested?.Invoke( sender, e );
 
+      protected virtual void OnCollapseHelpRequested( object sender, EventArgs e ) => CollapseHelpRequested?.Invoke( sender, e );
+
       protected virtual Task OnExitRequestedAsync( object sender, EventArgs e ) => AsyncExitRequested?.Invoke( sender, e );
 
       private void ShutDown() => SimpleIoc.Default.GetInstance<IAppService>().Shutdown();
 
       public void OnCommitNotesKeyDown( KeyEventArgs e )
       {
+         if ( IsHelpStateActive )
+         {
+            OnCollapseHelpRequested( this, EventArgs.Empty );
+            IsHelpStateActive = false;
+            return;
+         }
+
          switch ( e.Key )
          {
             case Key.Tab:

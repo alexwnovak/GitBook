@@ -94,6 +94,13 @@
                      To="-76"
                      Duration="0:0:0.4" />
                </Storyboard>
+               <Storyboard x:Key="CollapseHelpStoryboardSmallState">
+                  <DoubleAnimation Storyboard.TargetName="OuterBorderTranslateTransform"
+                     Storyboard.TargetProperty="Y"
+                     From="-76"
+                     To="0"
+                     Duration="0:0:0.4" />
+               </Storyboard>
             </ResourceDictionary>
          </ResourceDictionary.MergedDictionaries>
       </ResourceDictionary>

@@ -19,11 +19,17 @@ namespace GitWrite.Views
          _viewModel.ExpansionRequested += OnExpansionRequested;
          _viewModel.AsyncExitRequested += OnAsyncExitRequested;
          _viewModel.HelpRequested += OnHelpRequested;
+         _viewModel.CollapseHelpRequested += OnCollapseHelpRequested;
       }
 
       private void OnHelpRequested( object sender, EventArgs e )
       {
          (Resources["ActivateHelpStoryboardSmallState"] as Storyboard)?.Begin();
+      }
+
+      private void OnCollapseHelpRequested( object sender, EventArgs e )
+      {
+         (Resources["CollapseHelpStoryboardSmallState"] as Storyboard)?.Begin();
       }
 
       private Task OnAsyncExitRequested( object sender, EventArgs e )
