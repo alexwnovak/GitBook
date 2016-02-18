@@ -6,13 +6,15 @@
    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
    xmlns:converters="clr-namespace:GitWrite.Views.Converters"
    mc:Ignorable="d" 
-   d:DesignHeight="300" d:DesignWidth="300">
+   d:DesignHeight="300"
+   d:DesignWidth="300">
 
    <UserControl.Resources>
       <converters:ExitReasonToBackgroundConverter x:Key="ExitReasonToBackground" />
       <converters:ExitReasonToGlyphBackgroundConverter x:Key="ExitReasonToGlyphBackground" />
       <converters:ExitReasonToGlyphConverter x:Key="ExitReasonToGlyph" />
-      <Storyboard x:Key="DisplayPanel" Duration="0:0:1.2">
+      <Storyboard x:Key="DisplayPanel"
+         Duration="0:0:1.2">
          <DoubleAnimation Storyboard.TargetName="LayoutRoot"
             Storyboard.TargetProperty="Opacity"
             Duration="0:0:0.2"
