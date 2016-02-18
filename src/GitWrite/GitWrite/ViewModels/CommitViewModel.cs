@@ -106,6 +106,12 @@ namespace GitWrite.ViewModels
          }
       }
 
+      public bool IsHelpStateActive
+      {
+         get;
+         set;
+      }
+
       private ExitReason _exitReason;
       public ExitReason ExitReason
       {
@@ -230,7 +236,11 @@ namespace GitWrite.ViewModels
 
       private void ActivateHelp()
       {
-         OnHelpRequested( this, EventArgs.Empty );
+         if ( !IsHelpStateActive )
+         {
+            IsHelpStateActive = true;
+            OnHelpRequested( this, EventArgs.Empty );
+         }
       }
    }
 }
