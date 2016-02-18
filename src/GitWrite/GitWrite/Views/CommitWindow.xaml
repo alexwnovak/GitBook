@@ -122,7 +122,6 @@
                      FontFamily="Consolas"
                      FontSize="24"
                      MaxLength="72"
-                     VerticalContentAlignment="Center"
                      Text="{Binding ShortMessage, UpdateSourceTrigger=PropertyChanged}">
                      <i:Interaction.Triggers>
                         <i:EventTrigger EventName="KeyDown">
