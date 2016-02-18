@@ -87,7 +87,13 @@
                      To="1"
                      Duration="0:0:0.3" />
                </Storyboard>
-
+               <Storyboard x:Key="ActivateHelpStoryboardSmallState">
+                  <DoubleAnimation Storyboard.TargetName="OuterBorderTranslateTransform"
+                     Storyboard.TargetProperty="Y"
+                     From="0"
+                     To="-76"
+                     Duration="0:0:0.4" />
+               </Storyboard>
             </ResourceDictionary>
          </ResourceDictionary.MergedDictionaries>
       </ResourceDictionary>
@@ -108,6 +114,10 @@
          BorderThickness="2"
          BorderBrush="{StaticResource WindowCommitBackgroundColor}">
          <Grid>
+            <Grid.RenderTransform>
+               <TranslateTransform x:Name="OuterBorderTranslateTransform" />
+            </Grid.RenderTransform>
+
             <Grid.ColumnDefinitions>
                <ColumnDefinition />
                <ColumnDefinition Width="40" />

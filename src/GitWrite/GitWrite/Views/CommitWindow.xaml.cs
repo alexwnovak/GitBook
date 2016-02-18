@@ -23,6 +23,7 @@ namespace GitWrite.Views
 
       private void OnHelpRequested( object sender, EventArgs e )
       {
+         (Resources["ActivateHelpStoryboardSmallState"] as Storyboard)?.Begin();
       }
 
       private Task OnAsyncExitRequested( object sender, EventArgs e )
