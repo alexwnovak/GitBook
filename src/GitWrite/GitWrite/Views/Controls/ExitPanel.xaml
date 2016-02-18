@@ -28,7 +28,7 @@
             Storyboard.TargetProperty="Width"
             Duration="0:0:1"
             From="0"
-            To="1080">
+            To="1120">
             <DoubleAnimation.EasingFunction>
                <ExponentialEase Exponent="4" EasingMode="EaseIn" />
             </DoubleAnimation.EasingFunction>
@@ -37,7 +37,7 @@
             Storyboard.TargetProperty="Height"
             Duration="0:0:1"
             From="0"
-            To="1080">
+            To="1120">
             <DoubleAnimation.EasingFunction>
                <ExponentialEase Exponent="4" EasingMode="EaseIn" />
             </DoubleAnimation.EasingFunction>
