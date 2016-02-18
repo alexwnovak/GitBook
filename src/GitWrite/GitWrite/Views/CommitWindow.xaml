@@ -98,83 +98,82 @@
          Opacity="0.6" />
    </Window.Effect>
 
-   <Border x:Name="OuterBorder"
-      Margin="0,0,0,10"
-      CornerRadius="14"
-      Background="{StaticResource WindowOuterBorderColor}"
-      BorderThickness="2"
-      BorderBrush="{StaticResource WindowCommitBackgroundColor}">
-      <Grid>
-         <Border x:Name="InnerBorder"
-            CornerRadius="8"
-            Padding="16"
-            VerticalAlignment="Stretch">
-            <Grid VerticalAlignment="Stretch">
-               <Grid.RowDefinitions>
-                  <RowDefinition Height="30" />
-                  <RowDefinition Height="8" />
-                  <RowDefinition Height="*" />
-               </Grid.RowDefinitions>
+   <Grid x:Name="MainGrid">
+      <Border x:Name="OuterBorder"
+         Margin="0,0,0,10"
+         CornerRadius="14"
+         Background="{StaticResource WindowOuterBorderColor}"
+         BorderThickness="2"
+         BorderBrush="{StaticResource WindowCommitBackgroundColor}">
+         <Grid>
+            <Border x:Name="InnerBorder"
+               CornerRadius="8"
+               Padding="16"
+               VerticalAlignment="Stretch">
+               <Grid VerticalAlignment="Stretch">
+                  <Grid.RowDefinitions>
+                     <RowDefinition Height="30" />
+                     <RowDefinition Height="8" />
+                     <RowDefinition Height="*" />
+                  </Grid.RowDefinitions>
 
-               <Grid x:Name="PrimaryCommitNotesGrid" Grid.Row="0">
-                  <TextBox x:Name="CommitText"
-                     Foreground="{StaticResource WindowCommitForegroundColor}"
-                     FontFamily="Consolas"
-                     FontSize="24"
-                     MaxLength="72"
-                     Text="{Binding ShortMessage, UpdateSourceTrigger=PropertyChanged}">
-                     <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="KeyDown">
-                           <cmd:EventToCommand Command="{Binding CommitNotesKeyDownCommand, Mode=OneTime}"
-                              PassEventArgsToCommand="True"
-                              MustToggleIsEnabledValue="True" />
-                        </i:EventTrigger>
-                        <i:EventTrigger EventName="GotFocus">
-                           <cmd:EventToCommand Command="{Binding PrimaryMessageGotFocusCommand, Mode=OneTime}"
-                              MustToggleIsEnabledValue="True" />
-                        </i:EventTrigger>
-                     </i:Interaction.Triggers>
-                  </TextBox>
+                  <Grid x:Name="PrimaryCommitNotesGrid" Grid.Row="0">
+                     <TextBox x:Name="CommitText"  
+                        Background="Transparent"
+                        Foreground="{StaticResource WindowCommitForegroundColor}"
+                        FontFamily="Consolas"
+                        FontSize="24"
+                        MaxLength="72"
+                        Text="{Binding ShortMessage, UpdateSourceTrigger=PropertyChanged}">
+                        <i:Interaction.Triggers>
+                           <i:EventTrigger EventName="KeyDown">
+                              <cmd:EventToCommand Command="{Binding CommitNotesKeyDownCommand, Mode=OneTime}"
+                                 PassEventArgsToCommand="True"
+                                 MustToggleIsEnabledValue="True" />
+                           </i:EventTrigger>
+                           <i:EventTrigger EventName="GotFocus">
+                              <cmd:EventToCommand Command="{Binding PrimaryMessageGotFocusCommand, Mode=OneTime}"
+                                 MustToggleIsEnabledValue="True" />
+                           </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                     </TextBox>
 
-                  <TextBlock x:Name="RemainingCharactersTextBlock"
-                     HorizontalAlignment="Right"
-                     VerticalAlignment="Center"
-                     Margin="0,0,10,0"
-                     Foreground="{StaticResource WindowCommitForegroundColor}"
-                     FontStyle="Italic"
-                     Text="{Binding Text.Length, ElementName=CommitText, Converter={StaticResource TextLengthInversionConverter}}" />
+                     <TextBlock x:Name="RemainingCharactersTextBlock"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Margin="0,0,10,0"
+                        Foreground="{StaticResource WindowCommitForegroundColor}"
+                        FontStyle="Italic"
+                        Text="{Binding Text.Length, ElementName=CommitText, Converter={StaticResource TextLengthInversionConverter}}" />
+                  </Grid>
+
+                  <Grid x:Name="SecondaryCommitGrid"
+                     Grid.Row="2"
+                     VerticalAlignment="Stretch">
+                     <TextBox x:Name="SecondaryCommitText"
+                        Foreground="{StaticResource WindowCommitForegroundColor}"
+                        Background="Transparent"
+                        FontFamily="Consolas"
+                        FontSize="24"
+                        AcceptsReturn="True"
+                        TextWrapping="Wrap"
+                        Text="{Binding ExtraCommitText, UpdateSourceTrigger=PropertyChanged}">
+                        <i:Interaction.Triggers>
+                           <i:EventTrigger EventName="KeyDown">
+                              <cmd:EventToCommand Command="{Binding CommitNotesKeyDownCommand, Mode=OneTime}"
+                                 PassEventArgsToCommand="True"
+                                 MustToggleIsEnabledValue="True" />
+                           </i:EventTrigger>
+                           <i:EventTrigger EventName="GotFocus">
+                              <cmd:EventToCommand Command="{Binding SecondaryNotesGotFocusCommand, Mode=OneTime}"
+                                 MustToggleIsEnabledValue="True" />
+                           </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                     </TextBox>
+                  </Grid>
                </Grid>
-
-               <Grid x:Name="SecondaryCommitGrid"
-                  Grid.Row="2"
-                  VerticalAlignment="Stretch">
-                  <TextBox x:Name="SecondaryCommitText"
-                     Foreground="{StaticResource WindowCommitForegroundColor}"
-                     FontFamily="Consolas"
-                     FontSize="24"
-                     AcceptsReturn="True"
-                     TextWrapping="Wrap"
-                     Text="{Binding ExtraCommitText, UpdateSourceTrigger=PropertyChanged}">
-                     <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="KeyDown">
-                           <cmd:EventToCommand Command="{Binding CommitNotesKeyDownCommand, Mode=OneTime}"
-                              PassEventArgsToCommand="True"
-                              MustToggleIsEnabledValue="True" />
-                        </i:EventTrigger>
-                        <i:EventTrigger EventName="GotFocus">
-                           <cmd:EventToCommand Command="{Binding SecondaryNotesGotFocusCommand, Mode=OneTime}"
-                              MustToggleIsEnabledValue="True" />
-                        </i:EventTrigger>
-                     </i:Interaction.Triggers>
-                  </TextBox>
-               </Grid>
-            </Grid>
-         </Border>
-
-         <controls:ExitPanel x:Name="ExitPanel"
-            Visibility="{Binding IsExiting,
-            Mode=OneWay,
-            Converter={StaticResource BooleanToVisibilityConverter}}" />
-      </Grid>
-   </Border>
+            </Border>
+         </Grid>
+      </Border>
+   </Grid>
 </Window>

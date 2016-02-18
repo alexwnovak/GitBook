@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Animation;
 using GitWrite.ViewModels;
+using GitWrite.Views.Controls;
 
 namespace GitWrite.Views
 {
@@ -20,7 +21,13 @@ namespace GitWrite.Views
       }
 
       private Task OnAsyncExitRequested( object sender, EventArgs e )
-         => ExitPanel.ShowAsync();
+      {
+         var exitPanel = new ExitPanel();
+
+         MainGrid.Children.Add( exitPanel );
+
+         return exitPanel.ShowAsync();
+      }
 
       private void OnExpansionRequested( object sender, EventArgs eventArgs )
          => (Resources["ExpandedStateStoryboard"] as Storyboard)?.Begin();
