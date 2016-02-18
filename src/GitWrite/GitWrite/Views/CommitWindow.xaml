@@ -172,19 +172,31 @@
             </Border>
 
             <Grid Grid.Column="1">
-               <TextBlock x:Name="RemainingCharactersTextBlock"
-                  HorizontalAlignment="Center"
-                  VerticalAlignment="Top"
-                  Margin="0,10,0,0"
-                  Foreground="{StaticResource WindowCommitForegroundColor}"
-                  FontStyle="Italic"
-                  Text="{Binding Text.Length, ElementName=CommitText, Converter={StaticResource TextLengthInversionConverter}}" />
+               <Grid.RowDefinitions>
+                  <RowDefinition Height="30" />
+                  <RowDefinition />
+                  <RowDefinition Height="30" />
+               </Grid.RowDefinitions>
 
-               <TextBlock HorizontalAlignment="Center"
-                  VerticalAlignment="Bottom"
-                  Margin="0,0,0,10"
-                  Foreground="{StaticResource WindowCommitForegroundColor}"
-                  Text="?" />
+               <Border Grid.Row="0"
+                  CornerRadius="0,12,0,0">
+                  <TextBlock x:Name="RemainingCharactersTextBlock"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     Margin="0,10,0,0"
+                     Foreground="{StaticResource WindowCommitForegroundColor}"
+                     FontStyle="Italic"
+                     Text="{Binding Text.Length, ElementName=CommitText, Converter={StaticResource TextLengthInversionConverter}}" />
+               </Border>
+
+               <Border Grid.Row="2"
+                  CornerRadius="0,0,12,0">
+                  <TextBlock HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     Margin="0,0,0,10"
+                     Foreground="{StaticResource WindowCommitForegroundColor}"
+                     Text="?" />
+               </Border>
             </Grid>
          </Grid>
       </Border>
