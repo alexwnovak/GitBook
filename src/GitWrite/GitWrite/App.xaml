@@ -18,7 +18,7 @@
       <SolidColorBrush x:Key="WindowOuterBorderColor" Color="#DD022835" PresentationOptions:Freeze="True" />
       <SolidColorBrush x:Key="WindowBackgroundColor" Color="#104050" PresentationOptions:Freeze="True" />
       <SolidColorBrush x:Key="WindowCommitBackgroundColor" Color="#6C929F" PresentationOptions:Freeze="True"/>
-      <SolidColorBrush x:Key="WindowCommitForegroundColor" Color="#FFE7AA" PresentationOptions:Freeze="True"/>
+      <SolidColorBrush x:Key="WindowCommitForegroundColor" Color="#DEF" PresentationOptions:Freeze="True"/>
       <SolidColorBrush x:Key="WindowStatusBarBackgroundColor" Color="#444" PresentationOptions:Freeze="True"/>
       <SolidColorBrush x:Key="WindowStatusBarForegroundColor" Color="#0E0" PresentationOptions:Freeze="True"/>
       <SolidColorBrush x:Key="AcceptCommitBackgroundColor" Color="#C281" PresentationOptions:Freeze="True"/>
