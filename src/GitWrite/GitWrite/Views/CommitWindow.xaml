@@ -208,7 +208,6 @@
                </Border>
 
                <Button Grid.Row="2"
-                  Margin="0,0,0,0"
                   Foreground="{StaticResource WindowCommitForegroundColor}"
                   Content="?"
                   Command="{Binding HelpCommand, Mode=OneTime}"/>
