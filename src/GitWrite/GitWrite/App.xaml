@@ -13,6 +13,7 @@
    <Application.Resources>
       <viewModels:ViewModelLocator x:Key="ViewModelLocator" d:IsDataSource="True" />
       <converters:TextLengthInversionConverter x:Key="TextLengthInversionConverter" />
+      <converters:BoolToCaretBrushConverter x:Key="BoolToCaretBrushConverter" />
       <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
       <SolidColorBrush x:Key="AppTextColor" Color="#FFF" PresentationOptions:Freeze="True" />
       <SolidColorBrush x:Key="WindowOuterBorderColor" Color="#DD022835" PresentationOptions:Freeze="True" />

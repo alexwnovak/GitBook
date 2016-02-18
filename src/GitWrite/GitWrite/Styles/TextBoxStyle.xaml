@@ -1,7 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
    <Style TargetType="TextBox">
-      <Setter Property="CaretBrush" Value="White" />
+      <Setter Property="CaretBrush" Value="{Binding IsExiting,
+         Converter={StaticResource BoolToCaretBrushConverter},
+         Mode=OneWay}" />
       <Setter Property="Template">
          <Setter.Value>
             <ControlTemplate TargetType="TextBox">
