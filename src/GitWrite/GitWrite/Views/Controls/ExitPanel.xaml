@@ -62,7 +62,7 @@
    </UserControl.Resources>
 
    <Border Background="{Binding ExitReason, Mode=OneWay, Converter={StaticResource ExitReasonToBackground}}"
-      CornerRadius="8">
+      CornerRadius="14">
       <Grid>
          <Ellipse x:Name="IconCircle"
             Fill="{Binding ExitReason, Mode=OneWay, Converter={StaticResource ExitReasonToGlyphBackground}}"
