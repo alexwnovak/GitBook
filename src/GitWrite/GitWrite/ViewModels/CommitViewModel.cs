@@ -171,20 +171,41 @@ namespace GitWrite.ViewModels
 
       private void ShutDown() => SimpleIoc.Default.GetInstance<IAppService>().Shutdown();
 
-      public void OnCommitNotesKeyDown( KeyEventArgs e )
+      private bool DismissHelpIfActive()
       {
          if ( IsHelpStateActive )
          {
             OnCollapseHelpRequested( this, EventArgs.Empty );
             IsHelpStateActive = false;
+
+            return true;
+         }
+
+         return false;
+      }
+
+      public void OnCommitNotesKeyDown( KeyEventArgs e )
+      {
+         if ( DismissHelpIfActive() )
+         {
             return;
          }
 
-         switch ( e.Key )
+         if ( e.Key == Key.Tab )
          {
-            case Key.Tab:
-               ExpandUI();
-               break;
+            ExpandUI();
+         }
+         else if ( e.Key == Key.F1 )
+         {
+            HelpCommand.Execute( null );
+         }
+         else if ( e.Key == Key.Enter )
+         {
+            SaveCommand.Execute( null );
+         }
+         else if ( e.Key == Key.Escape )
+         {
+            AbortCommand.Execute( null );
          }
       }
 

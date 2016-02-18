@@ -23,13 +23,6 @@
       <views:WindowDragBehavior />
    </i:Interaction.Behaviors>
 
-   <Window.InputBindings>
-      <KeyBinding Gesture="Enter" Command="{Binding SaveCommand, Mode=OneTime}" />
-      <KeyBinding Gesture="Ctrl+Enter" Command="{Binding SaveCommand, Mode=OneTime}" />
-      <KeyBinding Gesture="Escape" Command="{Binding AbortCommand, Mode=OneTime}" />
-      <KeyBinding Key="F1" Command="{Binding HelpCommand, Mode=OneTime}" />
-   </Window.InputBindings>
-
    <Window.Resources>
       <ResourceDictionary>
          <ResourceDictionary.MergedDictionaries>
