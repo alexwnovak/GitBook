@@ -24,6 +24,24 @@
                <CubicEase EasingMode="EaseOut" />
             </DoubleAnimation.EasingFunction>
          </DoubleAnimation>
+         <DoubleAnimation Storyboard.TargetName="BackgroundCircle"
+            Storyboard.TargetProperty="Width"
+            Duration="0:0:1"
+            From="0"
+            To="1080">
+            <DoubleAnimation.EasingFunction>
+               <ExponentialEase Exponent="4" EasingMode="EaseIn" />
+            </DoubleAnimation.EasingFunction>
+         </DoubleAnimation>
+         <DoubleAnimation Storyboard.TargetName="BackgroundCircle"
+            Storyboard.TargetProperty="Height"
+            Duration="0:0:1"
+            From="0"
+            To="1080">
+            <DoubleAnimation.EasingFunction>
+               <ExponentialEase Exponent="4" EasingMode="EaseIn" />
+            </DoubleAnimation.EasingFunction>
+         </DoubleAnimation>
          <DoubleAnimation Storyboard.TargetName="IconCircle"
             Storyboard.TargetProperty="Opacity"
             Duration="0:0:0.3"
@@ -72,9 +90,13 @@
       </Storyboard>
    </UserControl.Resources>
 
-   <Border Background="{Binding ExitReason, Mode=OneWay, Converter={StaticResource ExitReasonToBackground}}"
-      CornerRadius="14">
+   <Border CornerRadius="14">
       <Grid>
+         <Ellipse x:Name="BackgroundCircle"
+            Fill="{Binding ExitReason, Mode=OneWay, Converter={StaticResource ExitReasonToBackground}}"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center" />
+
          <Ellipse x:Name="IconCircle"
             Fill="{Binding ExitReason, Mode=OneWay, Converter={StaticResource ExitReasonToGlyphBackground}}"
             Width="50"
