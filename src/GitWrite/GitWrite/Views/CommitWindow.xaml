@@ -99,8 +99,8 @@
    </Window.Effect>
 
    <Border x:Name="OuterBorder"
+      Margin="0,0,0,10"
       CornerRadius="14"
-      Padding="10"
       Background="{StaticResource WindowOuterBorderColor}"
       BorderThickness="2"
       BorderBrush="{StaticResource WindowCommitBackgroundColor}">
