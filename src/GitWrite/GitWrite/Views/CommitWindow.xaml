@@ -119,12 +119,12 @@
                      Text="{Binding ShortMessage, UpdateSourceTrigger=PropertyChanged}">
                      <i:Interaction.Triggers>
                         <i:EventTrigger EventName="KeyDown">
-                           <cmd:EventToCommand Command="{Binding CommitNotesKeyDownCommand}"
+                           <cmd:EventToCommand Command="{Binding CommitNotesKeyDownCommand, Mode=OneTime}"
                               PassEventArgsToCommand="True"
                               MustToggleIsEnabledValue="True" />
                         </i:EventTrigger>
                         <i:EventTrigger EventName="GotFocus">
-                           <cmd:EventToCommand Command="{Binding PrimaryMessageGotFocusCommand}"
+                           <cmd:EventToCommand Command="{Binding PrimaryMessageGotFocusCommand, Mode=OneTime}"
                               MustToggleIsEnabledValue="True" />
                         </i:EventTrigger>
                      </i:Interaction.Triggers>
@@ -152,12 +152,12 @@
                      Text="{Binding ExtraCommitText, UpdateSourceTrigger=PropertyChanged}">
                      <i:Interaction.Triggers>
                         <i:EventTrigger EventName="KeyDown">
-                           <cmd:EventToCommand Command="{Binding CommitNotesKeyDownCommand}"
+                           <cmd:EventToCommand Command="{Binding CommitNotesKeyDownCommand, Mode=OneTime}"
                               PassEventArgsToCommand="True"
                               MustToggleIsEnabledValue="True" />
                         </i:EventTrigger>
                         <i:EventTrigger EventName="GotFocus">
-                           <cmd:EventToCommand Command="{Binding SecondaryNotesGotFocusCommand}"
+                           <cmd:EventToCommand Command="{Binding SecondaryNotesGotFocusCommand, Mode=OneTime}"
                               MustToggleIsEnabledValue="True" />
                         </i:EventTrigger>
                      </i:Interaction.Triggers>
