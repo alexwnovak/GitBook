@@ -94,10 +94,9 @@
                      To="-400"
                      Duration="0:0:0.4" />
                </Storyboard>
-               <Storyboard x:Key="CollapseHelpStoryboardSmallState">
+               <Storyboard x:Key="CollapseHelpStoryboard">
                   <DoubleAnimation Storyboard.TargetName="OuterBorderTranslateTransform"
                      Storyboard.TargetProperty="Y"
-                     From="-76"
                      To="0"
                      Duration="0:0:0.4" />
                </Storyboard>

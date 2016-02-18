@@ -29,7 +29,7 @@ namespace GitWrite.Views
 
       private void OnCollapseHelpRequested( object sender, EventArgs e )
       {
-         (Resources["CollapseHelpStoryboardSmallState"] as Storyboard)?.Begin();
+         (Resources["CollapseHelpStoryboard"] as Storyboard)?.Begin();
       }
 
       private Task OnAsyncExitRequested( object sender, EventArgs e )
