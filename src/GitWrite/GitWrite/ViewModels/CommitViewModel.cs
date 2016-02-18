@@ -125,7 +125,12 @@ namespace GitWrite.ViewModels
          }
       }
 
-      private bool _hasActivatedExpandedState;
+      public bool IsExpanded
+      {
+         get;
+         private set;
+      }
+
       private bool _hasEditedCommitMessage;
 
       public event EventHandler ExpansionRequested;
@@ -258,9 +263,9 @@ namespace GitWrite.ViewModels
 
       private void ExpandUI()
       {
-         if ( !_hasActivatedExpandedState && !IsExiting )
+         if ( !IsExpanded && !IsExiting )
          {
-            _hasActivatedExpandedState = true;
+            IsExpanded = true;
             OnExpansionRequested( this, EventArgs.Empty );
          }
       }
