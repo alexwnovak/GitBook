@@ -165,6 +165,11 @@ namespace GitWrite.ViewModels
 
       private async void SaveCommit()
       {
+         if ( string.IsNullOrWhiteSpace( ShortMessage ) )
+         {
+            return;
+         }
+
          ExitReason = ExitReason.AcceptCommit;
          IsExiting = true;
 
