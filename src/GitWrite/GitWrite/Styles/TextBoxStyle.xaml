@@ -4,6 +4,8 @@
       <Setter Property="CaretBrush" Value="{Binding IsExiting,
          Converter={StaticResource BoolToCaretBrushConverter},
          Mode=OneWay}" />
+      <Setter Property="SelectionBrush" Value="{StaticResource WindowBackgroundColor}" />
+      <Setter Property="SelectionOpacity" Value="0.4" />
       <Setter Property="Template">
          <Setter.Value>
             <ControlTemplate TargetType="TextBox">
