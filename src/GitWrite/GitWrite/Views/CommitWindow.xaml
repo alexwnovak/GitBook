@@ -33,6 +33,7 @@
       <ResourceDictionary>
          <ResourceDictionary.MergedDictionaries>
             <ResourceDictionary Source="..\Styles\TextBoxStyle.xaml" />
+            <ResourceDictionary Source="..\Styles\ButtonStyle.xaml" />
             <ResourceDictionary>
                <Storyboard x:Key="WindowEntranceStoryboard">
                   <DoubleAnimation Storyboard.TargetName="PageRoot"
@@ -189,14 +190,10 @@
                      Text="{Binding Text.Length, ElementName=CommitText, Converter={StaticResource TextLengthInversionConverter}}" />
                </Border>
 
-               <Border Grid.Row="2"
-                  CornerRadius="0,0,12,0">
-                  <TextBlock HorizontalAlignment="Center"
-                     VerticalAlignment="Center"
-                     Margin="0,0,0,10"
-                     Foreground="{StaticResource WindowCommitForegroundColor}"
-                     Text="?" />
-               </Border>
+               <Button Grid.Row="2"
+                  Margin="0,0,0,0"
+                  Foreground="{StaticResource WindowCommitForegroundColor}"
+                  Content="?" />
             </Grid>
          </Grid>
       </Border>
