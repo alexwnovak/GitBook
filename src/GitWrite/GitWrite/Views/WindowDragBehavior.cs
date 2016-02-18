@@ -8,12 +8,12 @@ namespace GitWrite.Views
    {
       protected override void OnAttached()
       {
-         AssociatedObject.MouseDown += OnMouseDown;
+         AssociatedObject.PreviewMouseDown += OnMouseDown;
       }
 
       protected override void OnDetaching()
       {
-         AssociatedObject.MouseDown -= OnMouseDown;
+         AssociatedObject.PreviewMouseDown -= OnMouseDown;
       }
 
       private void OnMouseDown( object sender, MouseButtonEventArgs e )
