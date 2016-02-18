@@ -15,7 +15,7 @@
       <converters:TextLengthInversionConverter x:Key="TextLengthInversionConverter" />
       <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
       <SolidColorBrush x:Key="AppTextColor" Color="#FFF" PresentationOptions:Freeze="True" />
-      <SolidColorBrush x:Key="WindowOuterBorderColor" Color="#80022835" PresentationOptions:Freeze="True" />
+      <SolidColorBrush x:Key="WindowOuterBorderColor" Color="#DD022835" PresentationOptions:Freeze="True" />
       <SolidColorBrush x:Key="WindowBackgroundColor" Color="#104050" PresentationOptions:Freeze="True" />
       <SolidColorBrush x:Key="WindowCommitBackgroundColor" Color="#6C929F" PresentationOptions:Freeze="True"/>
       <SolidColorBrush x:Key="WindowCommitForegroundColor" Color="#FFE7AA" PresentationOptions:Freeze="True"/>
