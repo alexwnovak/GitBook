@@ -75,6 +75,7 @@
     <Compile Include="Views\Controls\ExitPanel.xaml.cs">
       <DependentUpon>ExitPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Converters\BoolToCaretBrushConverter.cs" />
     <Compile Include="Views\Converters\ExitReasonBaseConverter.cs" />
     <Compile Include="Views\Converters\ExitReasonToBackgroundConverter.cs" />
     <Compile Include="Views\Converters\ExitReasonToGlyphConverter.cs" />
