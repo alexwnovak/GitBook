@@ -28,6 +28,9 @@ namespace GitWrite.Views
             VerticalAlignment = VerticalAlignment.Top
          };
 
+         CommitText.SelectionLength = 0;
+         SecondaryCommitText.SelectionLength = 0;
+
          MainGrid.Children.Add( exitPanel );
 
          return exitPanel.ShowAsync();
