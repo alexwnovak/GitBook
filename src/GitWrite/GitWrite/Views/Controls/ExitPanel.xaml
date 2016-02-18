@@ -13,6 +13,15 @@
       <converters:ExitReasonToGlyphBackgroundConverter x:Key="ExitReasonToGlyphBackground" />
       <converters:ExitReasonToGlyphConverter x:Key="ExitReasonToGlyph" />
       <Storyboard x:Key="DisplayPanel" Duration="0:0:1.2">
+         <DoubleAnimation Storyboard.TargetName="LayoutRoot"
+            Storyboard.TargetProperty="Opacity"
+            Duration="0:0:0.2"
+            From="0.0"
+            To="1.0">
+            <DoubleAnimation.EasingFunction>
+               <CubicEase EasingMode="EaseOut" />
+            </DoubleAnimation.EasingFunction>
+         </DoubleAnimation>
          <DoubleAnimation Storyboard.TargetName="IconCircle"
             Storyboard.TargetProperty="Opacity"
             Duration="0:0:0.3"
