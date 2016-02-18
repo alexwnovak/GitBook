@@ -18,6 +18,25 @@ namespace GitWrite.Views
          _viewModel = (CommitViewModel) DataContext;
          _viewModel.ExpansionRequested += OnExpansionRequested;
          _viewModel.AsyncExitRequested += OnAsyncExitRequested;
+         _viewModel.HelpRequested += OnHelpRequested;
+         _viewModel.CollapseHelpRequested += OnCollapseHelpRequested;
+      }
+
+      private void OnHelpRequested( object sender, EventArgs e )
+      {
+         if ( _viewModel.IsExpanded )
+         {
+            (Resources["ActivateHelpStoryboardExpandedState"] as Storyboard)?.Begin();
+         }
+         else
+         {
+            (Resources["ActivateHelpStoryboardSmallState"] as Storyboard)?.Begin();
+         }
+      }
+
+      private void OnCollapseHelpRequested( object sender, EventArgs e )
+      {
+         (Resources["CollapseHelpStoryboard"] as Storyboard)?.Begin();
       }
 
       private Task OnAsyncExitRequested( object sender, EventArgs e )

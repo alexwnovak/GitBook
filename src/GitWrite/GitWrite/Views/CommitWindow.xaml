@@ -23,16 +23,11 @@
       <views:WindowDragBehavior />
    </i:Interaction.Behaviors>
 
-   <Window.InputBindings>
-      <KeyBinding Gesture="Enter" Command="{Binding SaveCommand, Mode=OneTime}" />
-      <KeyBinding Gesture="Ctrl+Enter" Command="{Binding SaveCommand, Mode=OneTime}" />
-      <KeyBinding Gesture="Escape" Command="{Binding AbortCommand, Mode=OneTime}" />
-   </Window.InputBindings>
-
    <Window.Resources>
       <ResourceDictionary>
          <ResourceDictionary.MergedDictionaries>
             <ResourceDictionary Source="..\Styles\TextBoxStyle.xaml" />
+            <ResourceDictionary Source="..\Styles\ButtonStyle.xaml" />
             <ResourceDictionary>
                <Storyboard x:Key="WindowEntranceStoryboard">
                   <DoubleAnimation Storyboard.TargetName="PageRoot"
@@ -85,7 +80,26 @@
                      To="1"
                      Duration="0:0:0.3" />
                </Storyboard>
-
+               <Storyboard x:Key="ActivateHelpStoryboardSmallState">
+                  <DoubleAnimation Storyboard.TargetName="OuterBorderTranslateTransform"
+                     Storyboard.TargetProperty="Y"
+                     From="0"
+                     To="-76"
+                     Duration="0:0:0.4" />
+               </Storyboard>
+               <Storyboard x:Key="ActivateHelpStoryboardExpandedState">
+                  <DoubleAnimation Storyboard.TargetName="OuterBorderTranslateTransform"
+                     Storyboard.TargetProperty="Y"
+                     From="0"
+                     To="-400"
+                     Duration="0:0:0.4" />
+               </Storyboard>
+               <Storyboard x:Key="CollapseHelpStoryboard">
+                  <DoubleAnimation Storyboard.TargetName="OuterBorderTranslateTransform"
+                     Storyboard.TargetProperty="Y"
+                     To="0"
+                     Duration="0:0:0.4" />
+               </Storyboard>
             </ResourceDictionary>
          </ResourceDictionary.MergedDictionaries>
       </ResourceDictionary>
@@ -106,6 +120,15 @@
          BorderThickness="2"
          BorderBrush="{StaticResource WindowCommitBackgroundColor}">
          <Grid>
+            <Grid.RenderTransform>
+               <TranslateTransform x:Name="OuterBorderTranslateTransform" />
+            </Grid.RenderTransform>
+
+            <Grid.ColumnDefinitions>
+               <ColumnDefinition />
+               <ColumnDefinition Width="40" />
+            </Grid.ColumnDefinitions>
+
             <Border x:Name="InnerBorder"
                CornerRadius="8"
                Padding="16"
@@ -137,14 +160,6 @@
                            </i:EventTrigger>
                         </i:Interaction.Triggers>
                      </TextBox>
-
-                     <TextBlock x:Name="RemainingCharactersTextBlock"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Center"
-                        Margin="0,0,10,0"
-                        Foreground="{StaticResource WindowCommitForegroundColor}"
-                        FontStyle="Italic"
-                        Text="{Binding Text.Length, ElementName=CommitText, Converter={StaticResource TextLengthInversionConverter}}" />
                   </Grid>
 
                   <Grid x:Name="SecondaryCommitGrid"
@@ -173,6 +188,30 @@
                   </Grid>
                </Grid>
             </Border>
+
+            <Grid Grid.Column="1">
+               <Grid.RowDefinitions>
+                  <RowDefinition Height="30" />
+                  <RowDefinition />
+                  <RowDefinition Height="30" />
+               </Grid.RowDefinitions>
+
+               <Border Grid.Row="0"
+                  CornerRadius="0,12,0,0">
+                  <TextBlock x:Name="RemainingCharactersTextBlock"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     Margin="0,10,0,0"
+                     Foreground="{StaticResource WindowCommitForegroundColor}"
+                     FontStyle="Italic"
+                     Text="{Binding Text.Length, ElementName=CommitText, Converter={StaticResource TextLengthInversionConverter}}" />
+               </Border>
+
+               <Button Grid.Row="2"
+                  Foreground="{StaticResource WindowCommitForegroundColor}"
+                  Content="?"
+                  Command="{Binding HelpCommand, Mode=OneTime}"/>
+            </Grid>
          </Grid>
       </Border>
    </Grid>

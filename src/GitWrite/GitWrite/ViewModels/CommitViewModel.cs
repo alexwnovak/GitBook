@@ -44,6 +44,11 @@ namespace GitWrite.ViewModels
          get;
       }
 
+      public RelayCommand HelpCommand
+      {
+         get;
+      }
+
       private string _shortMessage;
       public string ShortMessage
       {
@@ -101,6 +106,12 @@ namespace GitWrite.ViewModels
          }
       }
 
+      public bool IsHelpStateActive
+      {
+         get;
+         set;
+      }
+
       private ExitReason _exitReason;
       public ExitReason ExitReason
       {
@@ -114,11 +125,18 @@ namespace GitWrite.ViewModels
          }
       }
 
-      private bool _hasActivatedExpandedState;
+      public bool IsExpanded
+      {
+         get;
+         private set;
+      }
+
       private bool _hasEditedCommitMessage;
 
       public event EventHandler ExpansionRequested;
       public event AsyncEventHandler AsyncExitRequested;
+      public event EventHandler HelpRequested;
+      public event EventHandler CollapseHelpRequested;
        
       public CommitViewModel()
       {
@@ -128,6 +146,7 @@ namespace GitWrite.ViewModels
          ExpandCommand = new RelayCommand( ExpandUI );
          SaveCommand = new RelayCommand( SaveCommit );
          AbortCommand = new RelayCommand( CancelCommit );
+         HelpCommand = new RelayCommand( ActivateHelp );
 
          ShortMessage = App.CommitDocument?.ShortMessage;
 
@@ -149,17 +168,49 @@ namespace GitWrite.ViewModels
 
       protected virtual void OnExpansionRequested( object sender, EventArgs e ) => ExpansionRequested?.Invoke( sender, e );
 
+      protected virtual void OnHelpRequested( object sender, EventArgs e ) => HelpRequested?.Invoke( sender, e );
+
+      protected virtual void OnCollapseHelpRequested( object sender, EventArgs e ) => CollapseHelpRequested?.Invoke( sender, e );
+
       protected virtual Task OnExitRequestedAsync( object sender, EventArgs e ) => AsyncExitRequested?.Invoke( sender, e );
 
       private void ShutDown() => SimpleIoc.Default.GetInstance<IAppService>().Shutdown();
 
+      private bool DismissHelpIfActive()
+      {
+         if ( IsHelpStateActive )
+         {
+            OnCollapseHelpRequested( this, EventArgs.Empty );
+            IsHelpStateActive = false;
+
+            return true;
+         }
+
+         return false;
+      }
+
       public void OnCommitNotesKeyDown( KeyEventArgs e )
       {
-         switch ( e.Key )
+         if ( DismissHelpIfActive() )
          {
-            case Key.Tab:
-               ExpandUI();
-               break;
+            return;
+         }
+
+         if ( e.Key == Key.Tab )
+         {
+            ExpandUI();
+         }
+         else if ( e.Key == Key.F1 )
+         {
+            HelpCommand.Execute( null );
+         }
+         else if ( e.Key == Key.Enter )
+         {
+            SaveCommand.Execute( null );
+         }
+         else if ( e.Key == Key.Escape )
+         {
+            AbortCommand.Execute( null );
          }
       }
 
@@ -212,10 +263,19 @@ namespace GitWrite.ViewModels
 
       private void ExpandUI()
       {
-         if ( !_hasActivatedExpandedState && !IsExiting )
+         if ( !IsExpanded && !IsExiting )
          {
-            _hasActivatedExpandedState = true;
+            IsExpanded = true;
             OnExpansionRequested( this, EventArgs.Empty );
+         }
+      }
+
+      private void ActivateHelp()
+      {
+         if ( !IsHelpStateActive )
+         {
+            IsHelpStateActive = true;
+            OnHelpRequested( this, EventArgs.Empty );
          }
       }
    }
