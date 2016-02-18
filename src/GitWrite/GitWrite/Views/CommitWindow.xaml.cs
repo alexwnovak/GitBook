@@ -22,7 +22,11 @@ namespace GitWrite.Views
 
       private Task OnAsyncExitRequested( object sender, EventArgs e )
       {
-         var exitPanel = new ExitPanel();
+         var exitPanel = new ExitPanel
+         {
+            Height = OuterBorder.ActualHeight,
+            VerticalAlignment = VerticalAlignment.Top
+         };
 
          MainGrid.Children.Add( exitPanel );
 
