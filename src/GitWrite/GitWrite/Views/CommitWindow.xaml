@@ -94,8 +94,10 @@
    <Border x:Name="OuterBorder"
       CornerRadius="14"
       Padding="10"
-      Background="{StaticResource WindowOuterBorderColor}">
-      <Grid VerticalAlignment="Stretch">
+      Background="{StaticResource WindowOuterBorderColor}"
+      BorderThickness="2"
+      BorderBrush="{StaticResource WindowCommitBackgroundColor}">
+      <Grid>
          <Border x:Name="InnerBorder"
             CornerRadius="8"
             Padding="16"
