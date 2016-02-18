@@ -51,6 +51,12 @@
                            </Storyboard>
                         </VisualState>
                         <VisualState x:Name="Pressed">
+                           <Storyboard>
+                              <ColorAnimation Storyboard.TargetName="Background"
+                                 Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                 To="#DFFF"
+                                 Duration="0:0:0" />
+                           </Storyboard>
                         </VisualState>
                      </VisualStateGroup>
                   </VisualStateManager.VisualStateGroups>
