@@ -99,8 +99,7 @@
          <Border x:Name="InnerBorder"
             CornerRadius="8"
             Padding="16"
-            VerticalAlignment="Stretch"
-            Background="{StaticResource WindowBackgroundColor}">
+            VerticalAlignment="Stretch">
             <Grid VerticalAlignment="Stretch">
                <Grid.RowDefinitions>
                   <RowDefinition Height="30" />
@@ -110,7 +109,6 @@
 
                <Grid x:Name="PrimaryCommitNotesGrid" Grid.Row="0">
                   <TextBox x:Name="CommitText"
-                     Background="{StaticResource WindowCommitBackgroundColor}"
                      Foreground="{StaticResource WindowCommitForegroundColor}"
                      FontFamily="Consolas"
                      FontSize="24"
@@ -143,7 +141,6 @@
                   Grid.Row="2"
                   VerticalAlignment="Stretch">
                   <TextBox x:Name="SecondaryCommitText"
-                     Background="{StaticResource WindowCommitBackgroundColor}"
                      Foreground="{StaticResource WindowCommitForegroundColor}"
                      FontFamily="Consolas"
                      FontSize="24"

@@ -4,7 +4,7 @@
       <Setter Property="Template">
          <Setter.Value>
             <ControlTemplate TargetType="TextBox">
-               <Grid x:Name="RootElement" Background="{StaticResource WindowCommitBackgroundColor}">
+               <Grid x:Name="RootElement">
                   <ScrollViewer x:Name="PART_ContentHost" />
                </Grid>
             </ControlTemplate>
