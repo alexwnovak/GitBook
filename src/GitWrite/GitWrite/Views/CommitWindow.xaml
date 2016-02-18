@@ -11,7 +11,7 @@
    Background="Transparent"
    Title="CommitWindow"
    Width="1036"
-   Height="82"
+   Height="76"
    WindowStartupLocation="Manual"
    ResizeMode="NoResize"
    WindowStyle="None"
