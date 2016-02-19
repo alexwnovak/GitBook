@@ -11,7 +11,7 @@
    Background="Transparent"
    Title="CommitWindow"
    Width="1036"
-   Height="76"
+   Height="{x:Static views:WindowLocation.NonExpandedHeight}"
    WindowStartupLocation="Manual"
    ResizeMode="NoResize"
    WindowStyle="None"
@@ -68,7 +68,7 @@
                <Storyboard x:Key="ExpandedStateStoryboard">
                   <DoubleAnimation Storyboard.TargetName="PageRoot"
                      Storyboard.TargetProperty="Height"
-                     To="400"
+                     To="{x:Static views:WindowLocation.ExpandedHeight}"
                      Duration="0:0:0.3">
                      <DoubleAnimation.EasingFunction>
                         <CircleEase EasingMode="EaseOut" />
