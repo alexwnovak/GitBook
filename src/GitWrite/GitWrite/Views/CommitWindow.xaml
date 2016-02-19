@@ -11,7 +11,7 @@
    Background="Transparent"
    Title="CommitWindow"
    Width="1036"
-   Height="{x:Static views:WindowLocation.NonExpandedHeight}"
+   Height="{x:Static views:WindowValues.NonExpandedHeight}"
    WindowStartupLocation="Manual"
    ResizeMode="NoResize"
    WindowStyle="None"
@@ -32,8 +32,8 @@
                <Storyboard x:Key="WindowEntranceStoryboard">
                   <DoubleAnimation Storyboard.TargetName="PageRoot"
                      Storyboard.TargetProperty="Top"
-                     From="{x:Static views:WindowLocation.StartingPointY}"
-                     To="{x:Static views:WindowLocation.RestingPointY}"
+                     From="{x:Static views:WindowValues.StartingPointY}"
+                     To="{x:Static views:WindowValues.RestingPointY}"
                      Duration="0:0:0.3">
                      <DoubleAnimation.EasingFunction>
                         <CircleEase EasingMode="EaseOut" />
@@ -48,8 +48,8 @@
                <Storyboard x:Key="WindowExitStoryboard">
                   <DoubleAnimation Storyboard.TargetName="PageRoot"
                      Storyboard.TargetProperty="Top"
-                     From="{x:Static views:WindowLocation.RestingPointY}"
-                     To="{x:Static views:WindowLocation.StartingPointY}"
+                     From="{x:Static views:WindowValues.RestingPointY}"
+                     To="{x:Static views:WindowValues.StartingPointY}"
                      Duration="0:0:0.3">
                      <DoubleAnimation.EasingFunction>
                         <CircleEase EasingMode="EaseOut" />
@@ -68,7 +68,7 @@
                <Storyboard x:Key="ExpandedStateStoryboard">
                   <DoubleAnimation Storyboard.TargetName="PageRoot"
                      Storyboard.TargetProperty="Height"
-                     To="{x:Static views:WindowLocation.ExpandedHeight}"
+                     To="{x:Static views:WindowValues.ExpandedHeight}"
                      Duration="0:0:0.3">
                      <DoubleAnimation.EasingFunction>
                         <CircleEase EasingMode="EaseOut" />

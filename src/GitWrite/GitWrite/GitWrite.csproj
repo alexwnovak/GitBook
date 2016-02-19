@@ -100,7 +100,7 @@
     <Compile Include="Views\IStoryboardHelper.cs" />
     <Compile Include="Views\StoryboardHelper.cs" />
     <Compile Include="Views\WindowDragBehavior.cs" />
-    <Compile Include="Views\WindowLocation.cs" />
+    <Compile Include="Views\WindowValues.cs" />
     <Page Include="Styles\ButtonStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
