@@ -181,6 +181,15 @@ namespace GitWrite.ViewModels
 
       protected virtual Task OnExitRequestedAsync( object sender, EventArgs e ) => AsyncExitRequested?.Invoke( sender, e );
 
+      private async Task BeginShutDownAsync( ExitReason exitReason )
+      {
+         ExitReason = exitReason;
+         IsExiting = true;
+
+         await OnExitRequestedAsync( this, EventArgs.Empty );
+         await SimpleIoc.Default.GetInstance<IStoryboardHelper>().PlayAsync( "WindowExitStoryboard" );
+      }
+
       private void ShutDown() => SimpleIoc.Default.GetInstance<IAppService>().Shutdown();
 
       private bool DismissHelpIfActive()
@@ -231,10 +240,7 @@ namespace GitWrite.ViewModels
             return;
          }
 
-         ExitReason = ExitReason.AcceptCommit;
-         IsExiting = true;
-
-         var exitTask = OnExitRequestedAsync( this, EventArgs.Empty );
+         var exitTask = BeginShutDownAsync( ExitReason.AcceptCommit );
 
          App.CommitDocument.ShortMessage = ShortMessage;
          App.CommitDocument.LongMessage.Clear();
@@ -243,8 +249,6 @@ namespace GitWrite.ViewModels
          App.CommitDocument.Save();
 
          await exitTask;
-         await SimpleIoc.Default.GetInstance<IStoryboardHelper>().PlayAsync( "WindowExitStoryboard" );
-
          ShutDown();
       }
 
@@ -290,12 +294,7 @@ namespace GitWrite.ViewModels
             return;
          }
 
-         ExitReason = ExitReason.AbortCommit;
-         IsExiting = true;
-
-         await OnExitRequestedAsync( this, EventArgs.Empty );
-         await SimpleIoc.Default.GetInstance<IStoryboardHelper>().PlayAsync( "WindowExitStoryboard" );
-
+         await BeginShutDownAsync( ExitReason.AbortCommit );
          ShutDown();
       }
 
@@ -314,12 +313,7 @@ namespace GitWrite.ViewModels
 
          e.Cancel = true;
 
-         ExitReason = ExitReason.AbortCommit;
-         IsExiting = true;
-
-         await OnExitRequestedAsync( this, EventArgs.Empty );
-         await SimpleIoc.Default.GetInstance<IStoryboardHelper>().PlayAsync( "WindowExitStoryboard" );
-
+         await BeginShutDownAsync( ExitReason.AbortCommit );
          ShutDown();
       }
    }
