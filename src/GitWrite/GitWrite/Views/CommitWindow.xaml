@@ -4,8 +4,6 @@
    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
    xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WPF45"
-   xmlns:gitWrite="clr-namespace:GitWrite"
-   xmlns:controls="clr-namespace:GitWrite.Views.Controls"
    xmlns:views="clr-namespace:GitWrite.Views"
    AllowsTransparency="True"
    Background="Transparent"
