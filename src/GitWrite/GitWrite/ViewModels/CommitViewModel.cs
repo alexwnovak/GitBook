@@ -219,6 +219,7 @@ namespace GitWrite.ViewModels
             || ( e.Key == Key.W && ( Keyboard.Modifiers & ModifierKeys.Control ) == ModifierKeys.Control )
             || ( e.Key == Key.F4 && ( Keyboard.Modifiers & ModifierKeys.Control ) == ModifierKeys.Control ) )
          {
+            e.Handled = true;
             AbortCommand.Execute( null );
          }
       }
