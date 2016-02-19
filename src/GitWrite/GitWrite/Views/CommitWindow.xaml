@@ -19,10 +19,6 @@
    DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=CommitViewModel}"
    Loaded="CommitWindow_OnLoaded">
 
-   <i:Interaction.Behaviors>
-      <views:WindowDragBehavior />
-   </i:Interaction.Behaviors>
-
    <Window.Resources>
       <ResourceDictionary>
          <ResourceDictionary.MergedDictionaries>
@@ -105,6 +101,10 @@
          </ResourceDictionary.MergedDictionaries>
       </ResourceDictionary>
    </Window.Resources>
+
+   <i:Interaction.Behaviors>
+      <views:WindowDragBehavior />
+   </i:Interaction.Behaviors>
 
    <Window.Effect>
       <DropShadowEffect BlurRadius="4"
