@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -45,6 +46,11 @@ namespace GitWrite.ViewModels
       }
 
       public RelayCommand HelpCommand
+      {
+         get;
+      }
+
+      public RelayCommand<CancelEventArgs> CloseCommand
       {
          get;
       }
@@ -147,6 +153,7 @@ namespace GitWrite.ViewModels
          SaveCommand = new RelayCommand( SaveCommit );
          AbortCommand = new RelayCommand( CancelCommit );
          HelpCommand = new RelayCommand( ActivateHelp );
+         CloseCommand = new RelayCommand<CancelEventArgs>( CloseWindow );
 
          ShortMessage = App.CommitDocument?.ShortMessage;
 
@@ -282,6 +289,37 @@ namespace GitWrite.ViewModels
             IsHelpStateActive = true;
             OnHelpRequested( this, EventArgs.Empty );
          }
+      }
+
+      private async void CloseWindow( CancelEventArgs e )
+      {
+         if ( IsExiting )
+         {
+            return;
+         }
+
+         var appService = SimpleIoc.Default.GetInstance<IAppService>();
+
+         if ( _hasEditedCommitMessage )
+         {
+            var result = appService.DisplayMessageBox( Strings.ConfirmDiscardMessage, MessageBoxButton.YesNo );
+
+            if ( result == MessageBoxResult.No )
+            {
+               e.Cancel = true;
+               return;
+            }
+         }
+
+         e.Cancel = true;
+
+         ExitReason = ExitReason.AbortCommit;
+         IsExiting = true;
+
+         await OnExitRequestedAsync( this, EventArgs.Empty );
+         await SimpleIoc.Default.GetInstance<IStoryboardHelper>().PlayAsync( "WindowExitStoryboard" );
+
+         ShutDown();
       }
    }
 }
