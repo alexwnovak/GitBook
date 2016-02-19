@@ -68,7 +68,7 @@ namespace GitWrite.Views
       }
 
       private void OnExpansionRequested( object sender, EventArgs eventArgs )
-         => (Resources["ExpandedStateStoryboard"] as Storyboard)?.Begin();
+         => VisualStateManager.GoToElementState( MainGrid, "Expanded", true );
 
       private void CommitWindow_OnLoaded( object sender, RoutedEventArgs e )
       {

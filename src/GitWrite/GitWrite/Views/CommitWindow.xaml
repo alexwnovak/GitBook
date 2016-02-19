@@ -47,6 +47,28 @@
    </Window.Effect>
 
    <Grid x:Name="MainGrid">
+      <VisualStateManager.VisualStateGroups>
+         <VisualStateGroup x:Name="ExpansionStates">
+            <VisualStateGroup.Transitions>
+               <VisualTransition GeneratedDuration="0:0:0.3" To="Expanded">
+                  <VisualTransition.GeneratedEasingFunction>
+                     <CircleEase EasingMode="EaseOut" />
+                  </VisualTransition.GeneratedEasingFunction>
+               </VisualTransition>
+            </VisualStateGroup.Transitions>
+
+            <VisualState x:Name="Collapsed" />
+            <VisualState x:Name="Expanded">
+               <Storyboard>
+                  <DoubleAnimation Storyboard.TargetName="PageRoot"
+                     Storyboard.TargetProperty="Height"
+                     Duration="0"
+                     To="{x:Static views:WindowValues.ExpandedHeight}" />
+               </Storyboard>
+            </VisualState>
+         </VisualStateGroup>
+      </VisualStateManager.VisualStateGroups>
+
       <Border x:Name="OuterBorder"
          Margin="0,0,0,10"
          CornerRadius="14"
