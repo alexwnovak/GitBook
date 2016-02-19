@@ -31,6 +31,14 @@
       <views:WindowDragBehavior />
    </i:Interaction.Behaviors>
 
+   <i:Interaction.Triggers>
+      <i:EventTrigger EventName="Closing">
+         <cmd:EventToCommand Command="{Binding CloseCommand, Mode=OneTime}"
+            PassEventArgsToCommand="True"
+            MustToggleIsEnabledValue="True" />
+      </i:EventTrigger>
+   </i:Interaction.Triggers>
+
    <Window.Effect>
       <DropShadowEffect BlurRadius="4"
          ShadowDepth="5"
