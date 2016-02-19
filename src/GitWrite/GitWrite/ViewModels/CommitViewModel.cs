@@ -216,7 +216,7 @@ namespace GitWrite.ViewModels
 
       private async void SaveCommit()
       {
-         if ( string.IsNullOrWhiteSpace( ShortMessage ) )
+         if ( string.IsNullOrWhiteSpace( ShortMessage ) || IsExiting )
          {
             return;
          }
@@ -240,6 +240,11 @@ namespace GitWrite.ViewModels
 
       private async void CancelCommit()
       {
+         if ( IsExiting )
+         {
+            return;
+         }
+
          var appService = SimpleIoc.Default.GetInstance<IAppService>();
 
          if ( _hasEditedCommitMessage )

@@ -11,6 +11,23 @@ namespace GitWrite.Views
    {
       private readonly CommitViewModel _viewModel;
 
+      public double HelpScrollDistance
+      {
+         get
+         {
+            return (double) GetValue( HelpScrollDistanceProperty );
+         }
+         set
+         {
+            SetValue( HelpScrollDistanceProperty, value );
+         }
+      }
+
+      public static readonly DependencyProperty HelpScrollDistanceProperty = DependencyProperty.Register( nameof( HelpScrollDistance ),
+         typeof( double ),
+         typeof( CommitWindow ),
+         new PropertyMetadata( 0.0 ) );
+
       public CommitWindow()
       {
          InitializeComponent();
@@ -24,14 +41,9 @@ namespace GitWrite.Views
 
       private void OnHelpRequested( object sender, EventArgs e )
       {
-         if ( _viewModel.IsExpanded )
-         {
-            (Resources["ActivateHelpStoryboardExpandedState"] as Storyboard)?.Begin();
-         }
-         else
-         {
-            (Resources["ActivateHelpStoryboardSmallState"] as Storyboard)?.Begin();
-         }
+         HelpScrollDistance = -ActualHeight;
+
+         (Resources["ActivateHelpStoryboard"] as Storyboard)?.Begin();
       }
 
       private void OnCollapseHelpRequested( object sender, EventArgs e )

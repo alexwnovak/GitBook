@@ -4,14 +4,12 @@
    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
    xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WPF45"
-   xmlns:gitWrite="clr-namespace:GitWrite"
-   xmlns:controls="clr-namespace:GitWrite.Views.Controls"
    xmlns:views="clr-namespace:GitWrite.Views"
    AllowsTransparency="True"
    Background="Transparent"
    Title="CommitWindow"
    Width="1036"
-   Height="76"
+   Height="{x:Static views:WindowValues.NonExpandedHeight}"
    WindowStartupLocation="Manual"
    ResizeMode="NoResize"
    WindowStyle="None"
@@ -19,91 +17,19 @@
    DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=CommitViewModel}"
    Loaded="CommitWindow_OnLoaded">
 
-   <i:Interaction.Behaviors>
-      <views:WindowDragBehavior />
-   </i:Interaction.Behaviors>
-
    <Window.Resources>
       <ResourceDictionary>
          <ResourceDictionary.MergedDictionaries>
             <ResourceDictionary Source="..\Styles\TextBoxStyle.xaml" />
             <ResourceDictionary Source="..\Styles\ButtonStyle.xaml" />
-            <ResourceDictionary>
-               <Storyboard x:Key="WindowEntranceStoryboard">
-                  <DoubleAnimation Storyboard.TargetName="PageRoot"
-                     Storyboard.TargetProperty="Top"
-                     From="{x:Static views:WindowLocation.StartingPointY}"
-                     To="{x:Static views:WindowLocation.RestingPointY}"
-                     Duration="0:0:0.3">
-                     <DoubleAnimation.EasingFunction>
-                        <CircleEase EasingMode="EaseOut" />
-                     </DoubleAnimation.EasingFunction>
-                  </DoubleAnimation>
-                  <DoubleAnimation Storyboard.TargetName="PageRoot"
-                     Storyboard.TargetProperty="Opacity"
-                     From="0"
-                     To="1"
-                     Duration="0:0:0.3" />
-               </Storyboard>
-               <Storyboard x:Key="WindowExitStoryboard">
-                  <DoubleAnimation Storyboard.TargetName="PageRoot"
-                     Storyboard.TargetProperty="Top"
-                     From="{x:Static views:WindowLocation.RestingPointY}"
-                     To="{x:Static views:WindowLocation.StartingPointY}"
-                     Duration="0:0:0.3">
-                     <DoubleAnimation.EasingFunction>
-                        <CircleEase EasingMode="EaseOut" />
-                     </DoubleAnimation.EasingFunction>
-                  </DoubleAnimation>
-                  <DoubleAnimation Storyboard.TargetName="PageRoot"
-                     Storyboard.TargetProperty="Opacity"
-                     From="1"
-                     To="0"
-                     Duration="0:0:0.3">
-                     <DoubleAnimation.EasingFunction>
-                        <CircleEase EasingMode="EaseOut" />
-                     </DoubleAnimation.EasingFunction>
-                  </DoubleAnimation>
-               </Storyboard>
-               <Storyboard x:Key="ExpandedStateStoryboard">
-                  <DoubleAnimation Storyboard.TargetName="PageRoot"
-                     Storyboard.TargetProperty="Height"
-                     To="400"
-                     Duration="0:0:0.3">
-                     <DoubleAnimation.EasingFunction>
-                        <CircleEase EasingMode="EaseOut" />
-                     </DoubleAnimation.EasingFunction>
-                  </DoubleAnimation>
-                  <DoubleAnimation Storyboard.TargetName="SecondaryCommitGrid"
-                     Storyboard.TargetProperty="Opacity"
-                     From="0"
-                     To="1"
-                     Duration="0:0:0.3" />
-               </Storyboard>
-               <Storyboard x:Key="ActivateHelpStoryboardSmallState">
-                  <DoubleAnimation Storyboard.TargetName="OuterBorderTranslateTransform"
-                     Storyboard.TargetProperty="Y"
-                     From="0"
-                     To="-76"
-                     Duration="0:0:0.4" />
-               </Storyboard>
-               <Storyboard x:Key="ActivateHelpStoryboardExpandedState">
-                  <DoubleAnimation Storyboard.TargetName="OuterBorderTranslateTransform"
-                     Storyboard.TargetProperty="Y"
-                     From="0"
-                     To="-400"
-                     Duration="0:0:0.4" />
-               </Storyboard>
-               <Storyboard x:Key="CollapseHelpStoryboard">
-                  <DoubleAnimation Storyboard.TargetName="OuterBorderTranslateTransform"
-                     Storyboard.TargetProperty="Y"
-                     To="0"
-                     Duration="0:0:0.4" />
-               </Storyboard>
-            </ResourceDictionary>
+            <ResourceDictionary Source="CommitWindowResources.xaml" />
          </ResourceDictionary.MergedDictionaries>
       </ResourceDictionary>
    </Window.Resources>
+
+   <i:Interaction.Behaviors>
+      <views:WindowDragBehavior />
+   </i:Interaction.Behaviors>
 
    <Window.Effect>
       <DropShadowEffect BlurRadius="4"
@@ -196,8 +122,7 @@
                   <RowDefinition Height="30" />
                </Grid.RowDefinitions>
 
-               <Border Grid.Row="0"
-                  CornerRadius="0,12,0,0">
+               <Border CornerRadius="0,12,0,0">
                   <TextBlock x:Name="RemainingCharactersTextBlock"
                      HorizontalAlignment="Center"
                      VerticalAlignment="Center"
