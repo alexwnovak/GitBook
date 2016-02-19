@@ -215,7 +215,9 @@ namespace GitWrite.ViewModels
          {
             SaveCommand.Execute( null );
          }
-         else if ( e.Key == Key.Escape )
+         else if ( e.Key == Key.Escape
+            || ( e.Key == Key.W && ( Keyboard.Modifiers & ModifierKeys.Control ) == ModifierKeys.Control )
+            || ( e.Key == Key.F4 && ( Keyboard.Modifiers & ModifierKeys.Control ) == ModifierKeys.Control ) )
          {
             AbortCommand.Execute( null );
          }
