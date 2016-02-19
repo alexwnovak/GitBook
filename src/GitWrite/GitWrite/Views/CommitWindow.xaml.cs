@@ -41,14 +41,9 @@ namespace GitWrite.Views
 
       private void OnHelpRequested( object sender, EventArgs e )
       {
-         if ( _viewModel.IsExpanded )
-         {
-            (Resources["ActivateHelpStoryboardExpandedState"] as Storyboard)?.Begin();
-         }
-         else
-         {
-            (Resources["ActivateHelpStoryboardSmallState"] as Storyboard)?.Begin();
-         }
+         HelpScrollDistance = -ActualHeight;
+
+         (Resources["ActivateHelpStoryboard"] as Storyboard)?.Begin();
       }
 
       private void OnCollapseHelpRequested( object sender, EventArgs e )

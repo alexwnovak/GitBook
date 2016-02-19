@@ -80,18 +80,11 @@
                      To="1"
                      Duration="0:0:0.3" />
                </Storyboard>
-               <Storyboard x:Key="ActivateHelpStoryboardSmallState">
+               <Storyboard x:Key="ActivateHelpStoryboard">
                   <DoubleAnimation Storyboard.TargetName="OuterBorderTranslateTransform"
                      Storyboard.TargetProperty="Y"
                      From="0"
-                     To="-76"
-                     Duration="0:0:0.4" />
-               </Storyboard>
-               <Storyboard x:Key="ActivateHelpStoryboardExpandedState">
-                  <DoubleAnimation Storyboard.TargetName="OuterBorderTranslateTransform"
-                     Storyboard.TargetProperty="Y"
-                     From="0"
-                     To="-400"
+                     To="{Binding HelpScrollDistance, ElementName=PageRoot, Mode=OneWay}"
                      Duration="0:0:0.4" />
                </Storyboard>
                <Storyboard x:Key="CollapseHelpStoryboard">
