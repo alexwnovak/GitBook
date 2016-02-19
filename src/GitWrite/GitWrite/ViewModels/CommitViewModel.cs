@@ -248,34 +248,6 @@ namespace GitWrite.ViewModels
          ShutDown();
       }
 
-      private async void CancelCommit()
-      {
-         if ( IsExiting )
-         {
-            return;
-         }
-
-         var appService = SimpleIoc.Default.GetInstance<IAppService>();
-
-         if ( _hasEditedCommitMessage )
-         {
-            var result = appService.DisplayMessageBox( Strings.ConfirmDiscardMessage, MessageBoxButton.YesNo );
-
-            if ( result == MessageBoxResult.No )
-            {
-               return;
-            }
-         }
-
-         ExitReason = ExitReason.AbortCommit;
-         IsExiting = true;
-
-         await OnExitRequestedAsync( this, EventArgs.Empty );
-         await SimpleIoc.Default.GetInstance<IStoryboardHelper>().PlayAsync( "WindowExitStoryboard" );
-
-         ShutDown();
-      }
-
       private void ExpandUI()
       {
          if ( !IsExpanded && !IsExiting )
@@ -294,13 +266,8 @@ namespace GitWrite.ViewModels
          }
       }
 
-      private async void CloseWindow( CancelEventArgs e )
+      private bool ConfirmExitForChanges()
       {
-         if ( IsExiting )
-         {
-            return;
-         }
-
          var appService = SimpleIoc.Default.GetInstance<IAppService>();
 
          if ( _hasEditedCommitMessage )
@@ -309,9 +276,40 @@ namespace GitWrite.ViewModels
 
             if ( result == MessageBoxResult.No )
             {
-               e.Cancel = true;
-               return;
+               return false;
             }
+         }
+
+         return true;
+      }
+
+      private async void CancelCommit()
+      {
+         if ( IsExiting || !ConfirmExitForChanges() )
+         {
+            return;
+         }
+
+         ExitReason = ExitReason.AbortCommit;
+         IsExiting = true;
+
+         await OnExitRequestedAsync( this, EventArgs.Empty );
+         await SimpleIoc.Default.GetInstance<IStoryboardHelper>().PlayAsync( "WindowExitStoryboard" );
+
+         ShutDown();
+      }
+
+      private async void CloseWindow( CancelEventArgs e )
+      {
+         if ( IsExiting )
+         {
+            return;
+         }
+         
+         if ( !ConfirmExitForChanges() )
+         {
+            e.Cancel = true;
+            return;
          }
 
          e.Cancel = true;
