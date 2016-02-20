@@ -23,6 +23,35 @@ namespace GitWrite.UnitTests.ViewModels
          SimpleIoc.Default.Reset();
       }
 
+      [TestMethod]
+      public void ViewLoaded_DoesNotHaveExtraNotes_DoesNotRaiseExpansionEvent()
+      {
+         bool expanded = false;
+
+         var commitViewModel = new CommitViewModel();
+         commitViewModel.ExpansionRequested += ( sender, e ) => expanded = true;
+
+         commitViewModel.ViewLoaded();
+
+         Assert.IsFalse( expanded );
+      }
+
+      [TestMethod]
+      public void ViewLoaded_HasExtraNotes_RaisesExpansionEvent()
+      {
+         bool expanded = false;
+
+         var commitViewModel = new CommitViewModel
+         {
+            ExtraCommitText = "Extra notes"
+         };
+
+         commitViewModel.ExpansionRequested += ( sender, e ) => expanded = true;
+         commitViewModel.ViewLoaded();
+
+         Assert.IsTrue( expanded );
+      }
+
       //[TestMethod]
       //public void OnCommitNotesKeyDown_KeyIsEscapeAndHasNoCommitText_CallsShutdown()
       //{
