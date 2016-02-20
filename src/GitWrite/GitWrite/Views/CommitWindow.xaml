@@ -165,6 +165,7 @@
                <Button Grid.Row="2"
                   Foreground="{StaticResource WindowCommitForegroundColor}"
                   Content="?"
+                  IsTabStop="False"
                   Command="{Binding HelpCommand, Mode=OneTime}"/>
             </Grid>
          </Grid>
