@@ -27,10 +27,6 @@
       </ResourceDictionary>
    </Window.Resources>
 
-   <i:Interaction.Behaviors>
-      <views:WindowDragBehavior />
-   </i:Interaction.Behaviors>
-
    <i:Interaction.Triggers>
       <i:EventTrigger EventName="Closing">
          <cmd:EventToCommand Command="{Binding CloseCommand, Mode=OneTime}"
@@ -47,6 +43,28 @@
    </Window.Effect>
 
    <Grid x:Name="MainGrid">
+      <VisualStateManager.VisualStateGroups>
+         <VisualStateGroup x:Name="ExpansionStates">
+            <VisualStateGroup.Transitions>
+               <VisualTransition GeneratedDuration="0:0:0.3" To="Expanded">
+                  <VisualTransition.GeneratedEasingFunction>
+                     <CircleEase EasingMode="EaseOut" />
+                  </VisualTransition.GeneratedEasingFunction>
+               </VisualTransition>
+            </VisualStateGroup.Transitions>
+
+            <VisualState x:Name="Collapsed" />
+            <VisualState x:Name="Expanded">
+               <Storyboard>
+                  <DoubleAnimation Storyboard.TargetName="PageRoot"
+                     Storyboard.TargetProperty="Height"
+                     Duration="0"
+                     To="{x:Static views:WindowValues.ExpandedHeight}" />
+               </Storyboard>
+            </VisualState>
+         </VisualStateGroup>
+      </VisualStateManager.VisualStateGroups>
+
       <Border x:Name="OuterBorder"
          Margin="0,0,0,10"
          CornerRadius="14"
@@ -70,7 +88,7 @@
                <Grid VerticalAlignment="Stretch">
                   <Grid.RowDefinitions>
                      <RowDefinition Height="30" />
-                     <RowDefinition Height="8" />
+                     <RowDefinition Height="30" />
                      <RowDefinition Height="*" />
                   </Grid.RowDefinitions>
 
@@ -95,6 +113,10 @@
                         </i:Interaction.Triggers>
                      </TextBox>
                   </Grid>
+
+                  <Rectangle Grid.Row="1"
+                     Height="1"
+                     Fill="{StaticResource WindowCommitBackgroundColor}" />
 
                   <Grid x:Name="SecondaryCommitGrid"
                      Grid.Row="2"

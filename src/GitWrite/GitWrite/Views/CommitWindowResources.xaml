@@ -37,21 +37,6 @@
          </DoubleAnimation.EasingFunction>
       </DoubleAnimation>
    </Storyboard>
-   <Storyboard x:Key="ExpandedStateStoryboard">
-      <DoubleAnimation Storyboard.TargetName="PageRoot"
-         Storyboard.TargetProperty="Height"
-         To="{x:Static views:WindowValues.ExpandedHeight}"
-         Duration="0:0:0.3">
-         <DoubleAnimation.EasingFunction>
-            <CircleEase EasingMode="EaseOut" />
-         </DoubleAnimation.EasingFunction>
-      </DoubleAnimation>
-      <DoubleAnimation Storyboard.TargetName="SecondaryCommitGrid"
-         Storyboard.TargetProperty="Opacity"
-         From="0"
-         To="1"
-         Duration="0:0:0.3" />
-   </Storyboard>
    <Storyboard x:Key="ActivateHelpStoryboard">
       <DoubleAnimation Storyboard.TargetName="OuterBorderTranslateTransform"
          Storyboard.TargetProperty="Y"

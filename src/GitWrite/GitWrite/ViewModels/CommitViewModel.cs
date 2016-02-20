@@ -148,7 +148,7 @@ namespace GitWrite.ViewModels
       {
          CommitNotesKeyDownCommand = new RelayCommand<KeyEventArgs>( OnCommitNotesKeyDown );
          PrimaryMessageGotFocusCommand = new RelayCommand( () => ControlState = CommitControlState.EditingPrimaryMessage );
-         SecondaryNotesGotFocusCommand = new RelayCommand( () => ControlState = CommitControlState.EditingSecondaryNotes );
+         SecondaryNotesGotFocusCommand = new RelayCommand( ExpandUI );
          ExpandCommand = new RelayCommand( ExpandUI );
          SaveCommand = new RelayCommand( SaveCommit );
          AbortCommand = new RelayCommand( CancelCommit );
@@ -181,6 +181,15 @@ namespace GitWrite.ViewModels
 
       protected virtual Task OnExitRequestedAsync( object sender, EventArgs e ) => AsyncExitRequested?.Invoke( sender, e );
 
+      private async Task BeginShutDownAsync( ExitReason exitReason )
+      {
+         ExitReason = exitReason;
+         IsExiting = true;
+
+         await OnExitRequestedAsync( this, EventArgs.Empty );
+         await SimpleIoc.Default.GetInstance<IStoryboardHelper>().PlayAsync( "WindowExitStoryboard" );
+      }
+
       private void ShutDown() => SimpleIoc.Default.GetInstance<IAppService>().Shutdown();
 
       private bool DismissHelpIfActive()
@@ -203,11 +212,7 @@ namespace GitWrite.ViewModels
             return;
          }
 
-         if ( e.Key == Key.Tab )
-         {
-            ExpandUI();
-         }
-         else if ( e.Key == Key.F1 )
+         if ( e.Key == Key.F1 )
          {
             HelpCommand.Execute( null );
          }
@@ -231,10 +236,7 @@ namespace GitWrite.ViewModels
             return;
          }
 
-         ExitReason = ExitReason.AcceptCommit;
-         IsExiting = true;
-
-         var exitTask = OnExitRequestedAsync( this, EventArgs.Empty );
+         var exitTask = BeginShutDownAsync( ExitReason.AcceptCommit );
 
          App.CommitDocument.ShortMessage = ShortMessage;
          App.CommitDocument.LongMessage.Clear();
@@ -243,36 +245,6 @@ namespace GitWrite.ViewModels
          App.CommitDocument.Save();
 
          await exitTask;
-         await SimpleIoc.Default.GetInstance<IStoryboardHelper>().PlayAsync( "WindowExitStoryboard" );
-
-         ShutDown();
-      }
-
-      private async void CancelCommit()
-      {
-         if ( IsExiting )
-         {
-            return;
-         }
-
-         var appService = SimpleIoc.Default.GetInstance<IAppService>();
-
-         if ( _hasEditedCommitMessage )
-         {
-            var result = appService.DisplayMessageBox( Strings.ConfirmDiscardMessage, MessageBoxButton.YesNo );
-
-            if ( result == MessageBoxResult.No )
-            {
-               return;
-            }
-         }
-
-         ExitReason = ExitReason.AbortCommit;
-         IsExiting = true;
-
-         await OnExitRequestedAsync( this, EventArgs.Empty );
-         await SimpleIoc.Default.GetInstance<IStoryboardHelper>().PlayAsync( "WindowExitStoryboard" );
-
          ShutDown();
       }
 
@@ -294,13 +266,8 @@ namespace GitWrite.ViewModels
          }
       }
 
-      private async void CloseWindow( CancelEventArgs e )
+      private bool ConfirmExitForChanges()
       {
-         if ( IsExiting )
-         {
-            return;
-         }
-
          var appService = SimpleIoc.Default.GetInstance<IAppService>();
 
          if ( _hasEditedCommitMessage )
@@ -309,19 +276,40 @@ namespace GitWrite.ViewModels
 
             if ( result == MessageBoxResult.No )
             {
-               e.Cancel = true;
-               return;
+               return false;
             }
+         }
+
+         return true;
+      }
+
+      private async void CancelCommit()
+      {
+         if ( IsExiting || !ConfirmExitForChanges() )
+         {
+            return;
+         }
+
+         await BeginShutDownAsync( ExitReason.AbortCommit );
+         ShutDown();
+      }
+
+      private async void CloseWindow( CancelEventArgs e )
+      {
+         if ( IsExiting )
+         {
+            return;
+         }
+         
+         if ( !ConfirmExitForChanges() )
+         {
+            e.Cancel = true;
+            return;
          }
 
          e.Cancel = true;
 
-         ExitReason = ExitReason.AbortCommit;
-         IsExiting = true;
-
-         await OnExitRequestedAsync( this, EventArgs.Empty );
-         await SimpleIoc.Default.GetInstance<IStoryboardHelper>().PlayAsync( "WindowExitStoryboard" );
-
+         await BeginShutDownAsync( ExitReason.AbortCommit );
          ShutDown();
       }
    }
