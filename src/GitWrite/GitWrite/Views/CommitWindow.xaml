@@ -27,10 +27,6 @@
       </ResourceDictionary>
    </Window.Resources>
 
-   <i:Interaction.Behaviors>
-      <views:WindowDragBehavior />
-   </i:Interaction.Behaviors>
-
    <i:Interaction.Triggers>
       <i:EventTrigger EventName="Closing">
          <cmd:EventToCommand Command="{Binding CloseCommand, Mode=OneTime}"
