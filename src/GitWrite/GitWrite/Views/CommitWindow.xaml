@@ -88,7 +88,7 @@
                <Grid VerticalAlignment="Stretch">
                   <Grid.RowDefinitions>
                      <RowDefinition Height="30" />
-                     <RowDefinition Height="8" />
+                     <RowDefinition Height="30" />
                      <RowDefinition Height="*" />
                   </Grid.RowDefinitions>
 
@@ -113,6 +113,10 @@
                         </i:Interaction.Triggers>
                      </TextBox>
                   </Grid>
+
+                  <Rectangle Grid.Row="1"
+                     Height="1"
+                     Fill="{StaticResource WindowCommitBackgroundColor}" />
 
                   <Grid x:Name="SecondaryCommitGrid"
                      Grid.Row="2"
