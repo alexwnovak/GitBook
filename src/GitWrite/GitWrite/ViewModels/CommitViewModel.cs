@@ -148,7 +148,7 @@ namespace GitWrite.ViewModels
       {
          CommitNotesKeyDownCommand = new RelayCommand<KeyEventArgs>( OnCommitNotesKeyDown );
          PrimaryMessageGotFocusCommand = new RelayCommand( () => ControlState = CommitControlState.EditingPrimaryMessage );
-         SecondaryNotesGotFocusCommand = new RelayCommand( () => ControlState = CommitControlState.EditingSecondaryNotes );
+         SecondaryNotesGotFocusCommand = new RelayCommand( ExpandUI );
          ExpandCommand = new RelayCommand( ExpandUI );
          SaveCommand = new RelayCommand( SaveCommit );
          AbortCommand = new RelayCommand( CancelCommit );
@@ -212,11 +212,7 @@ namespace GitWrite.ViewModels
             return;
          }
 
-         if ( e.Key == Key.Tab )
-         {
-            ExpandUI();
-         }
-         else if ( e.Key == Key.F1 )
+         if ( e.Key == Key.F1 )
          {
             HelpCommand.Execute( null );
          }
