@@ -148,6 +148,23 @@ namespace GitWrite.UnitTests.ViewModels
          Assert.IsTrue( collapseHelpRequested );
       }
 
+      [TestMethod]
+      public void KeyDown_PressesEnter_RunsSaveCommand()
+      {
+         bool saveCommandExecuted = false;
+
+         var commitViewModel = new CommitViewModel
+         {
+            SaveCommand = new RelayCommand( () => saveCommandExecuted = true )
+         };
+
+         var args = TestHelper.GetKeyEventArgs( Key.Enter );
+
+         commitViewModel.OnCommitNotesKeyDown( args );
+
+         Assert.IsTrue( saveCommandExecuted );
+      }
+
       //[TestMethod]
       //public void OnCommitNotesKeyDown_KeyIsEscapeAndHasNoCommitText_CallsShutdown()
       //{
