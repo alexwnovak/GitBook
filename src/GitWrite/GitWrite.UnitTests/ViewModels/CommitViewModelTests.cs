@@ -52,6 +52,25 @@ namespace GitWrite.UnitTests.ViewModels
          Assert.IsTrue( expanded );
       }
 
+      [TestMethod]
+      public void Constructor_CommitDocumentHasShortMessage_ViewModelReadsShortMessage()
+      {
+         const string shortMessage = "Short commit message";
+
+         // Setup
+
+         var commitDocumentMock = new Mock<ICommitDocument>();
+         commitDocumentMock.SetupGet( cd => cd.ShortMessage ).Returns( shortMessage );
+
+         App.CommitDocument = commitDocumentMock.Object;
+
+         // Test
+
+         var commitViewModel = new CommitViewModel();
+
+         Assert.AreEqual( shortMessage, commitViewModel.ShortMessage );
+      }
+
       //[TestMethod]
       //public void OnCommitNotesKeyDown_KeyIsEscapeAndHasNoCommitText_CallsShutdown()
       //{
