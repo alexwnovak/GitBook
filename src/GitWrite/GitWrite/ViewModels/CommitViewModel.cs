@@ -44,6 +44,7 @@ namespace GitWrite.ViewModels
       public RelayCommand AbortCommand
       {
          get;
+         protected internal set;
       }
 
       public RelayCommand HelpCommand

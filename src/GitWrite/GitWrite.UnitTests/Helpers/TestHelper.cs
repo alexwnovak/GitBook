@@ -8,7 +8,10 @@ namespace GitWrite.UnitTests.Helpers
    {
       public static KeyEventArgs GetKeyEventArgs( Key key )
       {
-         return new KeyEventArgs( null, Mock.Of<PresentationSource>(), 0, key );
+         return new KeyEventArgs( null, Mock.Of<PresentationSource>(), 0, key )
+         {
+            RoutedEvent = UIElement.MouseUpEvent
+         };
       }
    }
 }

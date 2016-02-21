@@ -184,6 +184,40 @@ namespace GitWrite.UnitTests.ViewModels
          Assert.IsTrue( saveCommandExecuted );
       }
 
+      [TestMethod]
+      public void KeyDown_PressesEscape_RunsAbortCommand()
+      {
+         bool abortCommandRun = false;
+
+         var commitViewModel = new CommitViewModel
+         {
+            AbortCommand = new RelayCommand( () => abortCommandRun = true )
+         };
+
+         var args = TestHelper.GetKeyEventArgs( Key.Escape );
+
+         commitViewModel.OnCommitNotesKeyDown( args );
+
+         Assert.IsTrue( abortCommandRun );
+      }
+
+      [TestMethod]
+      public void KeyDown_PressesEscape_MarksEventAsHandled()
+      {
+         var commitViewModel = new CommitViewModel
+         {
+            AbortCommand = new RelayCommand( () =>
+            {
+            } )
+         };
+
+         var args = TestHelper.GetKeyEventArgs( Key.Escape );
+
+         commitViewModel.OnCommitNotesKeyDown( args );
+
+         Assert.IsTrue( args.Handled );
+      }
+
       //[TestMethod]
       //public void OnCommitNotesKeyDown_KeyIsEscapeAndHasNoCommitText_CallsShutdown()
       //{
