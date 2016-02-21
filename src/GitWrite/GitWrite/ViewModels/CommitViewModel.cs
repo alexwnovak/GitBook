@@ -157,7 +157,7 @@ namespace GitWrite.ViewModels
 
          ShortMessage = App.CommitDocument?.ShortMessage;
 
-         if ( App.CommitDocument != null && App.CommitDocument.LongMessage.Any() )
+         if ( App.CommitDocument != null && App.CommitDocument.LongMessage != null && App.CommitDocument.LongMessage.Any() )
          {
             ExtraCommitText = App.CommitDocument?.LongMessage.Aggregate( ( i, j ) => $"{i} {j}" );      
          }
