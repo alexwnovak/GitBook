@@ -149,6 +149,25 @@ namespace GitWrite.UnitTests.ViewModels
       }
 
       [TestMethod]
+      public void KeyDown_PressesBKeyWhileHelpStateIsActive_DismissesHelpState()
+      {
+         bool collapseHelpRequested = false;
+
+         var commitViewModel = new CommitViewModel
+         {
+            IsHelpStateActive = true
+         };
+
+         commitViewModel.CollapseHelpRequested += ( sender, e ) => collapseHelpRequested = true;
+
+         var args = TestHelper.GetKeyEventArgs( Key.B );
+
+         commitViewModel.OnCommitNotesKeyDown( args );
+
+         Assert.IsTrue( collapseHelpRequested );
+      }
+
+      [TestMethod]
       public void KeyDown_PressesEnter_RunsSaveCommand()
       {
          bool saveCommandExecuted = false;
