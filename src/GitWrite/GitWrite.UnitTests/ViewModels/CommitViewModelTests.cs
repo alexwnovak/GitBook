@@ -149,6 +149,66 @@ namespace GitWrite.UnitTests.ViewModels
       }
 
       [TestMethod]
+      public void HelpCommand_HelpStateNotActive_SetsHelpStateFlag()
+      {
+         var commitViewModel = new CommitViewModel
+         {
+            IsHelpStateActive = false
+         };
+
+         commitViewModel.HelpCommand.Execute( null );
+
+         Assert.IsTrue( commitViewModel.IsHelpStateActive );
+      }
+
+      [TestMethod]
+      public void HelpCommand_HelpStateNotActive_RaisesHelpRequestedEvent()
+      {
+         bool raisedEvent = false;
+
+         var commitViewModel = new CommitViewModel
+         {
+            IsHelpStateActive = false
+         };
+
+         commitViewModel.HelpRequested += ( sender, args ) => raisedEvent = true;
+
+         commitViewModel.HelpCommand.Execute( null );
+
+         Assert.IsTrue( raisedEvent );
+      }
+
+      [TestMethod]
+      public void HelpCommand_HelpStateIsActive_DoesNotChangeHelpFlag()
+      {
+         var commitViewModel = new CommitViewModel
+         {
+            IsHelpStateActive = true
+         };
+
+         commitViewModel.HelpCommand.Execute( null );
+
+         Assert.IsTrue( commitViewModel.IsHelpStateActive );
+      }
+
+      [TestMethod]
+      public void HelpCommand_HelpStateIsActive_DoesNotRaiseHelpRequestedEvent()
+      {
+         bool raisedEvent = false;
+
+         var commitViewModel = new CommitViewModel
+         {
+            IsHelpStateActive = true
+         };
+
+         commitViewModel.HelpRequested += ( sender, args ) => raisedEvent = true;
+
+         commitViewModel.HelpCommand.Execute( null );
+
+         Assert.IsFalse( raisedEvent );
+      }
+
+      [TestMethod]
       public void KeyDown_PressesBKeyWhileHelpStateIsActive_DismissesHelpState()
       {
          bool collapseHelpRequested = false;
