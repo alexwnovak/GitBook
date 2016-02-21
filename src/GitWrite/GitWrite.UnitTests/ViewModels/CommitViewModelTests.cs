@@ -1,280 +1,476 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Windows;
-//using System.Windows.Input;
-//using GalaSoft.MvvmLight.Ioc;
-//using GitWrite.Resources;
-//using GitWrite.Services;
-//using GitWrite.UnitTests.Helpers;
-//using GitWrite.ViewModels;
-//using Microsoft.VisualStudio.TestTools.UnitTesting;
-//using Moq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography;
+using System.Windows;
+using System.Windows.Input;
+using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Ioc;
+using GitWrite.Resources;
+using GitWrite.Services;
+using GitWrite.UnitTests.Helpers;
+using GitWrite.ViewModels;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
-//namespace GitWrite.UnitTests.ViewModels
-//{
-//   [TestClass]
-//   public class CommitViewModelTests
-//   {
-//      [TestCleanup]
-//      public void Cleanup()
-//      {
-//         SimpleIoc.Default.Reset();
-//      }
+namespace GitWrite.UnitTests.ViewModels
+{
+   [TestClass]
+   public class CommitViewModelTests
+   {
+      [TestCleanup]
+      public void Cleanup()
+      {
+         SimpleIoc.Default.Reset();
+      }
+
+      [TestMethod]
+      public void ViewLoaded_DoesNotHaveExtraNotes_DoesNotRaiseExpansionEvent()
+      {
+         bool expanded = false;
 
-//      [TestMethod]
-//      public void OnCommitNotesKeyDown_KeyIsEscapeAndHasNoCommitText_CallsShutdown()
-//      {
-//         // Setup
+         var commitViewModel = new CommitViewModel();
+         commitViewModel.ExpansionRequested += ( sender, e ) => expanded = true;
 
-//         var serviceMock = new Mock<IAppService>();
-//         SimpleIoc.Default.Register( () => serviceMock.Object );
+         commitViewModel.ViewLoaded();
 
-//         // Test
+         Assert.IsFalse( expanded );
+      }
 
-//         var viewModel = new CommitViewModel();
+      [TestMethod]
+      public void ViewLoaded_HasExtraNotes_RaisesExpansionEvent()
+      {
+         bool expanded = false;
 
-//         var args = TestHelper.GetKeyEventArgs( Key.Escape );
+         var commitViewModel = new CommitViewModel
+         {
+            ExtraCommitText = "Extra notes"
+         };
 
-//         viewModel.OnCommitNotesKeyDown( args );
+         commitViewModel.ExpansionRequested += ( sender, e ) => expanded = true;
+         commitViewModel.ViewLoaded();
 
-//         // Assert
+         Assert.IsTrue( expanded );
+      }
 
-//         serviceMock.Verify( sm => sm.Shutdown(), Times.Once() );
-//      }
+      [TestMethod]
+      public void Constructor_CommitDocumentHasShortMessage_ViewModelReadsShortMessage()
+      {
+         const string shortMessage = "Short commit message";
 
-//      [TestMethod]
-//      public void OnCommitNotesKeyDown_KeyIsEscapeAndNotesHaveNotBeenEntered_DoesNotDisplayConfirmDialog()
-//      {
-//         // Setup
+         // Setup
 
-//         var serviceMock = new Mock<IAppService>();
-//         SimpleIoc.Default.Register( () => serviceMock.Object );
+         var commitDocumentMock = new Mock<ICommitDocument>();
+         commitDocumentMock.SetupGet( cd => cd.ShortMessage ).Returns( shortMessage );
 
-//         // Test
+         App.CommitDocument = commitDocumentMock.Object;
 
-//         var viewModel = new CommitViewModel();
+         // Test
 
-//         var args = TestHelper.GetKeyEventArgs( Key.Escape );
+         var commitViewModel = new CommitViewModel();
 
-//         viewModel.OnCommitNotesKeyDown( args );
+         Assert.AreEqual( shortMessage, commitViewModel.ShortMessage );
+      }
 
-//         // Assert
+      [TestMethod]
+      public void Constructor_HasSingleLineLongMessage_ViewModelReadsTheLongMessage()
+      {
+         var longMessage = new List<string>
+         {
+            "Long message here"
+         };
 
-//         serviceMock.Verify( sm => sm.DisplayMessageBox( It.IsAny<string>(), It.IsAny<MessageBoxButton>() ), Times.Never() );
-//      }
+         // Setup
 
-//      [TestMethod]
-//      public void OnCommitNotesKeyDown_KeyIsEscapeAndNotesHaveBeenEntered_DisplaysConfirmDialog()
-//      {
-//         // Setup
+         var commitDocumentMock = new Mock<ICommitDocument>();
+         commitDocumentMock.SetupGet( cd => cd.LongMessage ).Returns( longMessage );
 
-//         var serviceMock = new Mock<IAppService>();
-//         SimpleIoc.Default.Register( () => serviceMock.Object );
+         App.CommitDocument = commitDocumentMock.Object;
 
-//         // Test
+         // Test
 
-//         var viewModel = new CommitViewModel
-//         {
-//            ShortMessage = "Some notes"
-//         };
+         var commitViewModel = new CommitViewModel();
 
-//         var args = TestHelper.GetKeyEventArgs( Key.Escape );
+         Assert.AreEqual( longMessage[0], commitViewModel.ExtraCommitText );
+      }
 
-//         viewModel.OnCommitNotesKeyDown( args );
+      [TestMethod]
+      public void KeyDown_PressesF1_RunsHelpCommand()
+      {
+         bool helpCommandExecuted = false;
 
-//         // Assert
+         var commitViewModel = new CommitViewModel
+         {
+            HelpCommand = new RelayCommand( () => helpCommandExecuted = true )
+         };
 
-//         serviceMock.Verify( sm => sm.DisplayMessageBox( It.IsAny<string>(), It.IsAny<MessageBoxButton>() ), Times.Once() );
-//      }
+         var args = TestHelper.GetKeyEventArgs( Key.F1 );
 
-//      [TestMethod]
-//      public void OnCommitNotesKeyDown_KeyIsEscapeAndNotesHaveBeenEntered_DisplaysConfirmDialogWithCorrectTextAndButtons()
-//      {
-//         // Setup
+         commitViewModel.OnCommitNotesKeyDown( args );
 
-//         var serviceMock = new Mock<IAppService>();
-//         SimpleIoc.Default.Register( () => serviceMock.Object );
+         Assert.IsTrue( helpCommandExecuted );
+      }
 
-//         // Test
+      [TestMethod]
+      public void KeyDown_PressesF1WhileHelpStateIsActive_DoesNotRunHelpCommand()
+      {
+         bool helpCommandExecuted = false;
 
-//         var viewModel = new CommitViewModel
-//         {
-//            ShortMessage = "Some notes"
-//         };
+         var commitViewModel = new CommitViewModel
+         {
+            HelpCommand = new RelayCommand( () => helpCommandExecuted = true ),
+            IsHelpStateActive = true
+         };
 
-//         var args = TestHelper.GetKeyEventArgs( Key.Escape );
+         var args = TestHelper.GetKeyEventArgs( Key.F1 );
 
-//         viewModel.OnCommitNotesKeyDown( args );
+         commitViewModel.OnCommitNotesKeyDown( args );
 
-//         // Assert
+         Assert.IsFalse( helpCommandExecuted );
+      }
 
-//         serviceMock.Verify( sm => sm.DisplayMessageBox( Strings.ConfirmDiscardMessage, MessageBoxButton.YesNo ), Times.Once() );
-//      }
+      [TestMethod]
+      public void KeyDown_PressesF1WhileHelpStateIsActive_DismissesHelpState()
+      {
+         bool collapseHelpRequested = false;
 
-//      [TestMethod]
-//      public void OnCommitNotesKeyDown_UserDiscardsTheirCommit_ShutsDownAfterConfirmation()
-//      {
-//         // Setup
+         var commitViewModel = new CommitViewModel
+         {
+            IsHelpStateActive = true
+         };
 
-//         var serviceMock = new Mock<IAppService>();
-//         serviceMock.Setup( sm => sm.DisplayMessageBox( Strings.ConfirmDiscardMessage, MessageBoxButton.YesNo ) ).Returns( MessageBoxResult.Yes );    
-//         SimpleIoc.Default.Register( () => serviceMock.Object );
+         commitViewModel.CollapseHelpRequested += ( sender, e ) => collapseHelpRequested = true;
 
-//         // Test
+         var args = TestHelper.GetKeyEventArgs( Key.F1 );
 
-//         var viewModel = new CommitViewModel
-//         {
-//            ShortMessage = "Some notes"
-//         };
+         commitViewModel.OnCommitNotesKeyDown( args );
 
-//         var args = TestHelper.GetKeyEventArgs( Key.Escape );
+         Assert.IsTrue( collapseHelpRequested );
+      }
 
-//         viewModel.OnCommitNotesKeyDown( args );
+      [TestMethod]
+      public void KeyDown_PressesBKeyWhileHelpStateIsActive_DismissesHelpState()
+      {
+         bool collapseHelpRequested = false;
 
-//         // Assert
+         var commitViewModel = new CommitViewModel
+         {
+            IsHelpStateActive = true
+         };
 
-//         serviceMock.Verify( sm => sm.DisplayMessageBox( Strings.ConfirmDiscardMessage, MessageBoxButton.YesNo ), Times.Once() );
+         commitViewModel.CollapseHelpRequested += ( sender, e ) => collapseHelpRequested = true;
 
-//         serviceMock.Verify( sm => sm.Shutdown(), Times.Once() );
-//      }
+         var args = TestHelper.GetKeyEventArgs( Key.B );
 
-//      [TestMethod]
-//      public void OnCommitNotesKeyDown_UserDoesNotDiscardTheirCommit_DoesNotShutDownAfterConfirmation()
-//      {
-//         // Setup
+         commitViewModel.OnCommitNotesKeyDown( args );
 
-//         var serviceMock = new Mock<IAppService>();
-//         serviceMock.Setup( sm => sm.DisplayMessageBox( Strings.ConfirmDiscardMessage, MessageBoxButton.YesNo ) ).Returns( MessageBoxResult.No );
-//         SimpleIoc.Default.Register( () => serviceMock.Object );
+         Assert.IsTrue( collapseHelpRequested );
+      }
 
-//         // Test
+      [TestMethod]
+      public void KeyDown_PressesEnter_RunsSaveCommand()
+      {
+         bool saveCommandExecuted = false;
 
-//         var viewModel = new CommitViewModel
-//         {
-//            ShortMessage = "Some notes"
-//         };
+         var commitViewModel = new CommitViewModel
+         {
+            SaveCommand = new RelayCommand( () => saveCommandExecuted = true )
+         };
 
-//         var args = TestHelper.GetKeyEventArgs( Key.Escape );
+         var args = TestHelper.GetKeyEventArgs( Key.Enter );
 
-//         viewModel.OnCommitNotesKeyDown( args );
+         commitViewModel.OnCommitNotesKeyDown( args );
 
-//         // Assert
+         Assert.IsTrue( saveCommandExecuted );
+      }
 
-//         serviceMock.Verify( sm => sm.DisplayMessageBox( Strings.ConfirmDiscardMessage, MessageBoxButton.YesNo ), Times.Once() );
+      [TestMethod]
+      public void KeyDown_PressesEscape_RunsAbortCommand()
+      {
+         bool abortCommandRun = false;
 
-//         serviceMock.Verify( sm => sm.Shutdown(), Times.Never() );
-//      }
+         var commitViewModel = new CommitViewModel
+         {
+            AbortCommand = new RelayCommand( () => abortCommandRun = true )
+         };
 
-//      [TestMethod]
-//      public void OnCommitNotesKeyDown_EnterKeyPressed_StoresCommitNotesIntoDocument()
-//      {
-//         const string commitText = "This commit text.";
+         var args = TestHelper.GetKeyEventArgs( Key.Escape );
 
-//         // Setup
+         commitViewModel.OnCommitNotesKeyDown( args );
 
-//         var serviceMock = new Mock<IAppService>();
-//         SimpleIoc.Default.Register( () => serviceMock.Object );
+         Assert.IsTrue( abortCommandRun );
+      }
 
-//         var commitDocumentMock = new Mock<ICommitDocument>();
-//         commitDocumentMock.SetupProperty( cd => cd.ShortMessage );
-//         commitDocumentMock.SetupGet( cd => cd.LongMessage ).Returns( new List<string>() );
-//         App.CommitDocument = commitDocumentMock.Object;
+      [TestMethod]
+      public void KeyDown_PressesEscape_MarksEventAsHandled()
+      {
+         var commitViewModel = new CommitViewModel
+         {
+            AbortCommand = new RelayCommand( () =>
+            {
+            } )
+         };
 
-//         // Test
+         var args = TestHelper.GetKeyEventArgs( Key.Escape );
 
-//         var viewModel = new CommitViewModel
-//         {
-//            ShortMessage = commitText
-//         };
+         commitViewModel.OnCommitNotesKeyDown( args );
 
-//         var args = TestHelper.GetKeyEventArgs( Key.Enter );
+         Assert.IsTrue( args.Handled );
+      }
 
-//         viewModel.OnCommitNotesKeyDown( args );
+      //[TestMethod]
+      //public void OnCommitNotesKeyDown_KeyIsEscapeAndHasNoCommitText_CallsShutdown()
+      //{
+      //   // Setup
 
-//         // Assert
+      //   var serviceMock = new Mock<IAppService>();
+      //   SimpleIoc.Default.Register( () => serviceMock.Object );
 
-//         Assert.AreEqual( commitText, App.CommitDocument.ShortMessage );
-//      }
+      //   // Test
 
-//      [TestMethod]
-//      public void OnCommitNotesKeyDown_EnterKeyPressed_StoresExtraCommitNotesIntoDocument()
-//      {
-//         string extraCommitText = "This is much longer" + Environment.NewLine + "text for the commit.";
+      //   var viewModel = new CommitViewModel();
 
-//         // Setup
+      //   var args = TestHelper.GetKeyEventArgs( Key.Escape );
 
-//         var serviceMock = new Mock<IAppService>();
-//         SimpleIoc.Default.Register( () => serviceMock.Object );
+      //   viewModel.OnCommitNotesKeyDown( args );
 
-//         var commitDocumentMock = new Mock<ICommitDocument>();
-//         commitDocumentMock.SetupGet( cd => cd.LongMessage ).Returns( new List<string>() );
-//         App.CommitDocument = commitDocumentMock.Object;
+      //   // Assert
 
-//         // Test
+      //   serviceMock.Verify( sm => sm.Shutdown(), Times.Once() );
+      //}
 
-//         var viewModel = new CommitViewModel
-//         {
-//            ExtraCommitText = extraCommitText
-//         };
+      //[TestMethod]
+      //public void OnCommitNotesKeyDown_KeyIsEscapeAndNotesHaveNotBeenEntered_DoesNotDisplayConfirmDialog()
+      //{
+      //   // Setup
 
-//         var args = TestHelper.GetKeyEventArgs( Key.Enter );
+      //   var serviceMock = new Mock<IAppService>();
+      //   SimpleIoc.Default.Register( () => serviceMock.Object );
 
-//         viewModel.OnCommitNotesKeyDown( args );
+      //   // Test
 
-//         // Assert
+      //   var viewModel = new CommitViewModel();
 
-//         Assert.AreEqual( extraCommitText, App.CommitDocument.LongMessage.First() );
-//      }
+      //   var args = TestHelper.GetKeyEventArgs( Key.Escape );
 
-//      [TestMethod]
-//      public void OnCommitNotesKeyDown_EnterKeyPressed_SavesCommitNotes()
-//      {
-//         // Setup
+      //   viewModel.OnCommitNotesKeyDown( args );
 
-//         var serviceMock = new Mock<IAppService>();
-//         SimpleIoc.Default.Register( () => serviceMock.Object );
+      //   // Assert
 
-//         var commitDocumentMock = new Mock<ICommitDocument>();
-//         commitDocumentMock.SetupGet( cd => cd.LongMessage ).Returns( new List<string>() );
-//         App.CommitDocument = commitDocumentMock.Object;
+      //   serviceMock.Verify( sm => sm.DisplayMessageBox( It.IsAny<string>(), It.IsAny<MessageBoxButton>() ), Times.Never() );
+      //}
 
-//         // Test
+      //[TestMethod]
+      //public void OnCommitNotesKeyDown_KeyIsEscapeAndNotesHaveBeenEntered_DisplaysConfirmDialog()
+      //{
+      //   // Setup
 
-//         var viewModel = new CommitViewModel();
+      //   var serviceMock = new Mock<IAppService>();
+      //   SimpleIoc.Default.Register( () => serviceMock.Object );
 
-//         var args = TestHelper.GetKeyEventArgs( Key.Enter );
+      //   // Test
 
-//         viewModel.OnCommitNotesKeyDown( args );
+      //   var viewModel = new CommitViewModel
+      //   {
+      //      ShortMessage = "Some notes"
+      //   };
 
-//         // Assert
+      //   var args = TestHelper.GetKeyEventArgs( Key.Escape );
 
-//         commitDocumentMock.Verify( cd => cd.Save(), Times.Once() );
-//      }
+      //   viewModel.OnCommitNotesKeyDown( args );
 
-//      [TestMethod]
-//      public void OnCommitNotesKeyDown_EnterKeyPressed_ExitsAppWithCodeZero()
-//      {
-//         // Setup
+      //   // Assert
 
-//         var commitDocumentMock = new Mock<ICommitDocument>();
-//         commitDocumentMock.SetupGet( cd => cd.LongMessage ).Returns( new List<string>() );
-//         App.CommitDocument = commitDocumentMock.Object;
+      //   serviceMock.Verify( sm => sm.DisplayMessageBox( It.IsAny<string>(), It.IsAny<MessageBoxButton>() ), Times.Once() );
+      //}
 
-//         var appServiceMock = new Mock<IAppService>();
-//         SimpleIoc.Default.Register( () => appServiceMock.Object );
+      //[TestMethod]
+      //public void OnCommitNotesKeyDown_KeyIsEscapeAndNotesHaveBeenEntered_DisplaysConfirmDialogWithCorrectTextAndButtons()
+      //{
+      //   // Setup
 
-//         // Test
+      //   var serviceMock = new Mock<IAppService>();
+      //   SimpleIoc.Default.Register( () => serviceMock.Object );
 
-//         var viewModel = new CommitViewModel();
+      //   // Test
 
-//         var args = TestHelper.GetKeyEventArgs( Key.Enter );
+      //   var viewModel = new CommitViewModel
+      //   {
+      //      ShortMessage = "Some notes"
+      //   };
 
-//         viewModel.OnCommitNotesKeyDown( args );
+      //   var args = TestHelper.GetKeyEventArgs( Key.Escape );
 
-//         // Assert
+      //   viewModel.OnCommitNotesKeyDown( args );
 
-//         appServiceMock.Verify( @as => @as.Shutdown(), Times.Once() );
-//      }
-//   }
-//}
+      //   // Assert
+
+      //   serviceMock.Verify( sm => sm.DisplayMessageBox( Strings.ConfirmDiscardMessage, MessageBoxButton.YesNo ), Times.Once() );
+      //}
+
+      //[TestMethod]
+      //public void OnCommitNotesKeyDown_UserDiscardsTheirCommit_ShutsDownAfterConfirmation()
+      //{
+      //   // Setup
+
+      //   var serviceMock = new Mock<IAppService>();
+      //   serviceMock.Setup( sm => sm.DisplayMessageBox( Strings.ConfirmDiscardMessage, MessageBoxButton.YesNo ) ).Returns( MessageBoxResult.Yes );
+      //   SimpleIoc.Default.Register( () => serviceMock.Object );
+
+      //   // Test
+
+      //   var viewModel = new CommitViewModel
+      //   {
+      //      ShortMessage = "Some notes"
+      //   };
+
+      //   var args = TestHelper.GetKeyEventArgs( Key.Escape );
+
+      //   viewModel.OnCommitNotesKeyDown( args );
+
+      //   // Assert
+
+      //   serviceMock.Verify( sm => sm.DisplayMessageBox( Strings.ConfirmDiscardMessage, MessageBoxButton.YesNo ), Times.Once() );
+
+      //   serviceMock.Verify( sm => sm.Shutdown(), Times.Once() );
+      //}
+
+      //[TestMethod]
+      //public void OnCommitNotesKeyDown_UserDoesNotDiscardTheirCommit_DoesNotShutDownAfterConfirmation()
+      //{
+      //   // Setup
+
+      //   var serviceMock = new Mock<IAppService>();
+      //   serviceMock.Setup( sm => sm.DisplayMessageBox( Strings.ConfirmDiscardMessage, MessageBoxButton.YesNo ) ).Returns( MessageBoxResult.No );
+      //   SimpleIoc.Default.Register( () => serviceMock.Object );
+
+      //   // Test
+
+      //   var viewModel = new CommitViewModel
+      //   {
+      //      ShortMessage = "Some notes"
+      //   };
+
+      //   var args = TestHelper.GetKeyEventArgs( Key.Escape );
+
+      //   viewModel.OnCommitNotesKeyDown( args );
+
+      //   // Assert
+
+      //   serviceMock.Verify( sm => sm.DisplayMessageBox( Strings.ConfirmDiscardMessage, MessageBoxButton.YesNo ), Times.Once() );
+
+      //   serviceMock.Verify( sm => sm.Shutdown(), Times.Never() );
+      //}
+
+      //[TestMethod]
+      //public void OnCommitNotesKeyDown_EnterKeyPressed_StoresCommitNotesIntoDocument()
+      //{
+      //   const string commitText = "This commit text.";
+
+      //   // Setup
+
+      //   var serviceMock = new Mock<IAppService>();
+      //   SimpleIoc.Default.Register( () => serviceMock.Object );
+
+      //   var commitDocumentMock = new Mock<ICommitDocument>();
+      //   commitDocumentMock.SetupProperty( cd => cd.ShortMessage );
+      //   commitDocumentMock.SetupGet( cd => cd.LongMessage ).Returns( new List<string>() );
+      //   App.CommitDocument = commitDocumentMock.Object;
+
+      //   // Test
+
+      //   var viewModel = new CommitViewModel
+      //   {
+      //      ShortMessage = commitText
+      //   };
+
+      //   var args = TestHelper.GetKeyEventArgs( Key.Enter );
+
+      //   viewModel.OnCommitNotesKeyDown( args );
+
+      //   // Assert
+
+      //   Assert.AreEqual( commitText, App.CommitDocument.ShortMessage );
+      //}
+
+      //[TestMethod]
+      //public void OnCommitNotesKeyDown_EnterKeyPressed_StoresExtraCommitNotesIntoDocument()
+      //{
+      //   string extraCommitText = "This is much longer" + Environment.NewLine + "text for the commit.";
+
+      //   // Setup
+
+      //   var serviceMock = new Mock<IAppService>();
+      //   SimpleIoc.Default.Register( () => serviceMock.Object );
+
+      //   var commitDocumentMock = new Mock<ICommitDocument>();
+      //   commitDocumentMock.SetupGet( cd => cd.LongMessage ).Returns( new List<string>() );
+      //   App.CommitDocument = commitDocumentMock.Object;
+
+      //   // Test
+
+      //   var viewModel = new CommitViewModel
+      //   {
+      //      ExtraCommitText = extraCommitText
+      //   };
+
+      //   var args = TestHelper.GetKeyEventArgs( Key.Enter );
+
+      //   viewModel.OnCommitNotesKeyDown( args );
+
+      //   // Assert
+
+      //   Assert.AreEqual( extraCommitText, App.CommitDocument.LongMessage.First() );
+      //}
+
+      //[TestMethod]
+      //public void OnCommitNotesKeyDown_EnterKeyPressed_SavesCommitNotes()
+      //{
+      //   // Setup
+
+      //   var serviceMock = new Mock<IAppService>();
+      //   SimpleIoc.Default.Register( () => serviceMock.Object );
+
+      //   var commitDocumentMock = new Mock<ICommitDocument>();
+      //   commitDocumentMock.SetupGet( cd => cd.LongMessage ).Returns( new List<string>() );
+      //   App.CommitDocument = commitDocumentMock.Object;
+
+      //   // Test
+
+      //   var viewModel = new CommitViewModel();
+
+      //   var args = TestHelper.GetKeyEventArgs( Key.Enter );
+
+      //   viewModel.OnCommitNotesKeyDown( args );
+
+      //   // Assert
+
+      //   commitDocumentMock.Verify( cd => cd.Save(), Times.Once() );
+      //}
+
+      //[TestMethod]
+      //public void OnCommitNotesKeyDown_EnterKeyPressed_ExitsAppWithCodeZero()
+      //{
+      //   // Setup
+
+      //   var commitDocumentMock = new Mock<ICommitDocument>();
+      //   commitDocumentMock.SetupGet( cd => cd.LongMessage ).Returns( new List<string>() );
+      //   App.CommitDocument = commitDocumentMock.Object;
+
+      //   var appServiceMock = new Mock<IAppService>();
+      //   SimpleIoc.Default.Register( () => appServiceMock.Object );
+
+      //   // Test
+
+      //   var viewModel = new CommitViewModel();
+
+      //   var args = TestHelper.GetKeyEventArgs( Key.Enter );
+
+      //   viewModel.OnCommitNotesKeyDown( args );
+
+      //   // Assert
+
+      //   appServiceMock.Verify( @as => @as.Shutdown(), Times.Once() );
+      //}
+   }
+}
