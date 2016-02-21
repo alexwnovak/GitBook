@@ -48,6 +48,7 @@ namespace GitWrite.ViewModels
       public RelayCommand HelpCommand
       {
          get;
+         protected internal set;
       }
 
       public RelayCommand<CancelEventArgs> CloseCommand

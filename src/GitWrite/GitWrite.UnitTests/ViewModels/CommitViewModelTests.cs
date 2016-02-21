@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Windows;
 using System.Windows.Input;
+using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using GitWrite.Resources;
 using GitWrite.Services;
@@ -69,6 +70,82 @@ namespace GitWrite.UnitTests.ViewModels
          var commitViewModel = new CommitViewModel();
 
          Assert.AreEqual( shortMessage, commitViewModel.ShortMessage );
+      }
+
+      [TestMethod]
+      public void Constructor_HasSingleLineLongMessage_ViewModelReadsTheLongMessage()
+      {
+         var longMessage = new List<string>
+         {
+            "Long message here"
+         };
+
+         // Setup
+
+         var commitDocumentMock = new Mock<ICommitDocument>();
+         commitDocumentMock.SetupGet( cd => cd.LongMessage ).Returns( longMessage );
+
+         App.CommitDocument = commitDocumentMock.Object;
+
+         // Test
+
+         var commitViewModel = new CommitViewModel();
+
+         Assert.AreEqual( longMessage[0], commitViewModel.ExtraCommitText );
+      }
+
+      [TestMethod]
+      public void KeyDown_PressesF1_RunsHelpCommand()
+      {
+         bool helpCommandExecuted = false;
+
+         var commitViewModel = new CommitViewModel
+         {
+            HelpCommand = new RelayCommand( () => helpCommandExecuted = true )
+         };
+
+         var args = TestHelper.GetKeyEventArgs( Key.F1 );
+
+         commitViewModel.OnCommitNotesKeyDown( args );
+
+         Assert.IsTrue( helpCommandExecuted );
+      }
+
+      [TestMethod]
+      public void KeyDown_PressesF1WhileHelpStateIsActive_DoesNotRunHelpCommand()
+      {
+         bool helpCommandExecuted = false;
+
+         var commitViewModel = new CommitViewModel
+         {
+            HelpCommand = new RelayCommand( () => helpCommandExecuted = true ),
+            IsHelpStateActive = true
+         };
+
+         var args = TestHelper.GetKeyEventArgs( Key.F1 );
+
+         commitViewModel.OnCommitNotesKeyDown( args );
+
+         Assert.IsFalse( helpCommandExecuted );
+      }
+
+      [TestMethod]
+      public void KeyDown_PressesF1WhileHelpStateIsActive_DismissesHelpState()
+      {
+         bool collapseHelpRequested = false;
+
+         var commitViewModel = new CommitViewModel
+         {
+            IsHelpStateActive = true
+         };
+
+         commitViewModel.CollapseHelpRequested += ( sender, e ) => collapseHelpRequested = true;
+
+         var args = TestHelper.GetKeyEventArgs( Key.F1 );
+
+         commitViewModel.OnCommitNotesKeyDown( args );
+
+         Assert.IsTrue( collapseHelpRequested );
       }
 
       //[TestMethod]
