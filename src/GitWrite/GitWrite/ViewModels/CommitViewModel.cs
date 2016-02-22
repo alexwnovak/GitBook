@@ -137,7 +137,7 @@ namespace GitWrite.ViewModels
       public bool IsExpanded
       {
          get;
-         private set;
+         set;
       }
 
       private bool _hasEditedCommitMessage;

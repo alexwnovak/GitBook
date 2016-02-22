@@ -149,6 +149,66 @@ namespace GitWrite.UnitTests.ViewModels
       }
 
       [TestMethod]
+      public void HelpCommand_HelpStateNotActive_SetsHelpStateFlag()
+      {
+         var commitViewModel = new CommitViewModel
+         {
+            IsHelpStateActive = false
+         };
+
+         commitViewModel.HelpCommand.Execute( null );
+
+         Assert.IsTrue( commitViewModel.IsHelpStateActive );
+      }
+
+      [TestMethod]
+      public void HelpCommand_HelpStateNotActive_RaisesHelpRequestedEvent()
+      {
+         bool raisedEvent = false;
+
+         var commitViewModel = new CommitViewModel
+         {
+            IsHelpStateActive = false
+         };
+
+         commitViewModel.HelpRequested += ( sender, args ) => raisedEvent = true;
+
+         commitViewModel.HelpCommand.Execute( null );
+
+         Assert.IsTrue( raisedEvent );
+      }
+
+      [TestMethod]
+      public void HelpCommand_HelpStateIsActive_DoesNotChangeHelpFlag()
+      {
+         var commitViewModel = new CommitViewModel
+         {
+            IsHelpStateActive = true
+         };
+
+         commitViewModel.HelpCommand.Execute( null );
+
+         Assert.IsTrue( commitViewModel.IsHelpStateActive );
+      }
+
+      [TestMethod]
+      public void HelpCommand_HelpStateIsActive_DoesNotRaiseHelpRequestedEvent()
+      {
+         bool raisedEvent = false;
+
+         var commitViewModel = new CommitViewModel
+         {
+            IsHelpStateActive = true
+         };
+
+         commitViewModel.HelpRequested += ( sender, args ) => raisedEvent = true;
+
+         commitViewModel.HelpCommand.Execute( null );
+
+         Assert.IsFalse( raisedEvent );
+      }
+
+      [TestMethod]
       public void KeyDown_PressesBKeyWhileHelpStateIsActive_DismissesHelpState()
       {
          bool collapseHelpRequested = false;
@@ -216,6 +276,98 @@ namespace GitWrite.UnitTests.ViewModels
          commitViewModel.OnCommitNotesKeyDown( args );
 
          Assert.IsTrue( args.Handled );
+      }
+
+      [TestMethod]
+      public void ExpandCommand_IsNotExpanded_SetsExpandedFlag()
+      {
+         var commitViewModel = new CommitViewModel
+         {
+            IsExpanded = false
+         };
+
+         commitViewModel.ExpandCommand.Execute( null );
+
+         Assert.IsTrue( commitViewModel.IsExpanded );
+      }
+
+      [TestMethod]
+      public void ExpandCommand_IsNotExpanded_RaisesExpansionRequestedEvent()
+      {
+         bool expansionEventRaised = false;
+
+         var commitViewModel = new CommitViewModel
+         {
+            IsExpanded = false
+         };
+
+         commitViewModel.ExpansionRequested += ( sender, e ) => expansionEventRaised = true;
+
+         commitViewModel.ExpandCommand.Execute( null );
+
+         Assert.IsTrue( expansionEventRaised );
+      }
+
+      [TestMethod]
+      public void ExpandCommand_IsAlreadyExpanded_DoesNotChangeExpandedFlag()
+      {
+         var commitViewModel = new CommitViewModel
+         {
+            IsExpanded = true
+         };
+
+         commitViewModel.ExpandCommand.Execute( null );
+
+         Assert.IsTrue( commitViewModel.IsExpanded );
+      }
+
+      [TestMethod]
+      public void ExpandCommand_IsAlreadyExpanded_DoesNotRaiseExpansionRequestedEvent()
+      {
+         bool expansionEventRaised = false;
+
+         var commitViewModel = new CommitViewModel
+         {
+            IsExpanded = true
+         };
+
+         commitViewModel.ExpansionRequested += ( sender, e ) => expansionEventRaised = true;
+
+         commitViewModel.ExpandCommand.Execute( null );
+
+         Assert.IsFalse( expansionEventRaised );
+      }
+
+      [TestMethod]
+      public void ExpandCommand_IsExitingFlagSetButIsNotExpanded_DoesNotChangeExpandedFlag()
+      {
+         var commitViewModel = new CommitViewModel
+         {
+            IsExiting = true,
+            IsExpanded = false
+         };
+
+         commitViewModel.ExpandCommand.Execute( null );
+
+         Assert.IsFalse( commitViewModel.IsExpanded );
+      }
+
+      [TestMethod]
+      public void ExpandCommand_IsExitingFlagSetAndIsExpanded_DoesNotRaiseExpansionRequestedEvent()
+      {
+         bool expansionEventRaised = false;
+
+         var commitViewModel = new CommitViewModel
+         {
+            IsExiting = true,
+            IsExpanded = true
+         };
+
+         commitViewModel.ExpansionRequested += ( sender, e ) => expansionEventRaised = true;
+
+         commitViewModel.ExpandCommand.Execute( null );
+
+         Assert.IsFalse( expansionEventRaised );
       }
 
       //[TestMethod]
