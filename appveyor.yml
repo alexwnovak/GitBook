@@ -1,2 +1,4 @@
+configuration: Release
+
 before_build:
   - nuget restore src\GitWrite\GitWrite.sln
