@@ -44,5 +44,14 @@ namespace GitWrite
 
          fileAdapter.WriteAllLines( Name, lines );
       }
+
+      public void Clear()
+      {
+         var fileAdapter = SimpleIoc.Default.GetInstance<IFileAdapter>();
+
+         fileAdapter.Delete( Name );
+
+         fileAdapter.Create( Name );
+      }
    }
 }
