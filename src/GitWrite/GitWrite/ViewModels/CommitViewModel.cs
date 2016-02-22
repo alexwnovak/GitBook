@@ -293,7 +293,12 @@ namespace GitWrite.ViewModels
             return;
          }
 
-         await BeginShutDownAsync( ExitReason.AbortCommit );
+         var shutDownTask = BeginShutDownAsync( ExitReason.AbortCommit );
+
+         App.CommitDocument?.Clear();
+
+         await shutDownTask;
+
          ShutDown();
       }
 

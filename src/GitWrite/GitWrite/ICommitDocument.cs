@@ -22,5 +22,7 @@ namespace GitWrite
       }
 
       void Save();
+
+      void Clear();
    }
 }
