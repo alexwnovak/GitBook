@@ -10,5 +10,9 @@ namespace GitWrite
       public string[] ReadAllLines( string path ) => File.ReadAllLines( path );
 
       public void WriteAllLines( string path, IEnumerable<string> lines ) => File.WriteAllLines( path, lines );
+
+      public void Delete( string path ) => File.Delete( path );
+
+      public void Create( string path ) => File.Create( path );
    }
 }

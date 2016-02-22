@@ -9,5 +9,9 @@ namespace GitWrite
       string[] ReadAllLines( string path );
 
       void WriteAllLines( string path, IEnumerable<string> lines );
+
+      void Delete( string path );
+
+      void Create( string path );
    }
 }
