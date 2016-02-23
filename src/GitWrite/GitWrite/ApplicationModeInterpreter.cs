@@ -1,20 +1,32 @@
-﻿namespace GitWrite
+﻿using System;
+
+namespace GitWrite
 {
    public static class ApplicationModeInterpreter
    {
       public static ApplicationMode GetFromFileName( string fileName )
       {
-         switch ( fileName )
+         var enumType = typeof( ApplicationMode );
+         var enumValues = Enum.GetValues( typeof ( ApplicationMode ) );
+
+         foreach ( var enumValue in enumValues )
          {
-            case GitFileNames.CommitFileName:
-               return ApplicationMode.Commit;
-            case GitFileNames.InteractiveRebaseFileName:
-               return ApplicationMode.InteractiveRebase;
-            case GitFileNames.EditPatchFileName:
-               return ApplicationMode.EditPatch;
-            default:
-               return ApplicationMode.Unknown;
+            var memberType = enumType.GetMember( enumValue.ToString() );
+            var gitFileAttributes = memberType[0].GetCustomAttributes( typeof( GitFileAttribute ), false );
+
+            if ( gitFileAttributes.Length == 1 )
+            {
+               var attribute = (GitFileAttribute) gitFileAttributes[0];
+
+               if ( attribute.FileName == fileName )
+               {
+                  return (ApplicationMode) enumValue;
+               }
+            }
+
          }
+      
+         return ApplicationMode.Unknown;
       }
    }
 }
