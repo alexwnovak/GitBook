@@ -10,6 +10,7 @@
    d:DesignWidth="300">
 
    <UserControl.Resources>
+      <converters:BorderToGeometryConverter x:Key="BorderToGeometry" />
       <converters:ExitReasonToBackgroundConverter x:Key="ExitReasonToBackground" />
       <converters:ExitReasonToGlyphBackgroundConverter x:Key="ExitReasonToGlyphBackground" />
       <converters:ExitReasonToGlyphConverter x:Key="ExitReasonToGlyph" />
@@ -90,7 +91,14 @@
       </Storyboard>
    </UserControl.Resources>
 
-   <Border CornerRadius="14">
+   <Border>
+      <Border.Clip>
+         <MultiBinding Converter="{StaticResource BorderToGeometry}">
+            <Binding Path="ActualWidth" RelativeSource="{RelativeSource Self}" />
+            <Binding Path="ActualHeight" RelativeSource="{RelativeSource Self}" />
+         </MultiBinding>
+      </Border.Clip>
+
       <Grid>
          <Ellipse x:Name="BackgroundCircle"
             Fill="{Binding ExitReason, Mode=OneWay, Converter={StaticResource ExitReasonToBackground}}"
