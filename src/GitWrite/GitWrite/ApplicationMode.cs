@@ -4,6 +4,7 @@
    {
       Unknown,
       Commit,
-      InteractiveRebase
+      InteractiveRebase,
+      EditPatch
    }
 }
