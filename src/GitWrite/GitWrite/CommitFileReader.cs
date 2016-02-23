@@ -56,7 +56,7 @@ namespace GitWrite
             if ( !hasFoundShortMessage )
             {
                hasFoundShortMessage = true;
-               commitDocument.ShortMessage = line;
+               commitDocument.ShortMessage = line.TrimEnd();
             }
             else
             {
