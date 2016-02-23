@@ -22,6 +22,14 @@ namespace GitWrite.UnitTests
       }
 
       [TestMethod]
+      public void GetFromFileName_FileNameIsGibberish_ReturnsUnknown()
+      {
+         var applicationMode = ApplicationModeInterpreter.GetFromFileName( "AnUnknownFile.txt" );
+
+         Assert.AreEqual( ApplicationMode.Unknown, applicationMode );
+      }
+
+      [TestMethod]
       public void GetFromFileName_PassingCommitFileName_ReturnsCommitMode()
       {
          var applicationMode = ApplicationModeInterpreter.GetFromFileName( GitFileNames.CommitFileName );
@@ -35,6 +43,14 @@ namespace GitWrite.UnitTests
          var applicationMode = ApplicationModeInterpreter.GetFromFileName( GitFileNames.InteractiveRebaseFileName );
 
          Assert.AreEqual( ApplicationMode.InteractiveRebase, applicationMode );
+      }
+
+      [TestMethod]
+      public void GetFromFileName_PassingPatchFileName_ReturnsPatchMode()
+      {
+         var applicationMode = ApplicationModeInterpreter.GetFromFileName( GitFileNames.EditPatchFileName );
+
+         Assert.AreEqual( ApplicationMode.EditPatch, applicationMode );
       }
    }
 }
