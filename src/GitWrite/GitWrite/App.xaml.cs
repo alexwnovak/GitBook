@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Linq;
 using System.Windows;
 using Microsoft.Practices.ServiceLocation;
 using GalaSoft.MvvmLight.Ioc;
@@ -35,7 +37,27 @@ namespace GitWrite
 
          // Set the startup UI and we're off
 
+         switch ( appController.ApplicationMode )
+         {
+            case ApplicationMode.InteractiveRebase:
+            case ApplicationMode.EditPatch:
+            case ApplicationMode.Unknown:
+               PassThrough( e.Args );
+               Shutdown();
+               return;
+         }
+
          StartupUri = GetStartupWindow( appController.ApplicationMode );
+      }
+
+      private void PassThrough( string[] arguments )
+      {
+         const string notepadPlusPlusPath = @"C:\Program Files (x86)\Notepad++\notepad++.exe";
+         string argumentLine = "-multiInst -notabbar -nosession -noPlugin " + arguments.Aggregate( ( i, j ) => $"{i} {j}" );
+
+         var startInfo = new ProcessStartInfo( notepadPlusPlusPath, argumentLine );
+
+         Process.Start( startInfo )?.WaitForExit();
       }
 
       private static Uri GetStartupWindow( ApplicationMode applicationMode )
