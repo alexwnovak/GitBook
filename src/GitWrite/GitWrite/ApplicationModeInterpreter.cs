@@ -10,6 +10,8 @@
                return ApplicationMode.Commit;
             case GitFileNames.InteractiveRebaseFileName:
                return ApplicationMode.InteractiveRebase;
+            case GitFileNames.EditPatchFileName:
+               return ApplicationMode.EditPatch;
             default:
                return ApplicationMode.Unknown;
          }

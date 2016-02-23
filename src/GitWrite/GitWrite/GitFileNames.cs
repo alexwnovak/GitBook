@@ -4,5 +4,6 @@
    {
       public const string CommitFileName = "COMMIT_EDITMSG";
       public const string InteractiveRebaseFileName = "git-rebase-todo";
+      public const string EditPatchFileName = "addp-hunk-edit.diff";
    }
 }
