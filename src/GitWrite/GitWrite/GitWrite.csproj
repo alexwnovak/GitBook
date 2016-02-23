@@ -72,6 +72,7 @@
     <Compile Include="AsyncEventHandler.cs" />
     <Compile Include="CommitDocument.cs" />
     <Compile Include="CommitFileReader.cs" />
+    <Compile Include="Views\Converters\BorderToGeometryConverter.cs" />
     <Compile Include="Views\Controls\ExitPanel.xaml.cs">
       <DependentUpon>ExitPanel.xaml</DependentUpon>
     </Compile>
