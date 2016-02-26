@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -336,7 +337,7 @@ namespace GitWrite.UnitTests
          // Assert
 
          Assert.AreEqual( shortMessage, commitDocument.ShortMessage );
-         Assert.AreEqual( longMessage, commitDocument.LongMessage[0] );
+         Assert.AreEqual( longMessage, commitDocument.LongMessage );
       }
 
       [TestMethod]
@@ -376,7 +377,7 @@ namespace GitWrite.UnitTests
          // Assert
 
          Assert.AreEqual( shortMessage, commitDocument.ShortMessage );
-         Assert.AreEqual( longMessage, commitDocument.LongMessage[0] );
+         Assert.AreEqual( longMessage, commitDocument.LongMessage );
       }
 
       [TestMethod]
@@ -418,7 +419,7 @@ namespace GitWrite.UnitTests
          // Assert
 
          Assert.AreEqual( shortMessage, commitDocument.ShortMessage );
-         Assert.AreEqual( longMessage, commitDocument.LongMessage[0] );
+         Assert.AreEqual( longMessage, commitDocument.LongMessage );
       }
 
       [TestMethod]
@@ -428,6 +429,7 @@ namespace GitWrite.UnitTests
          const string shortMessage = "+Whatever static class";
          const string longMessage = "This will provide the whatever and this and that";
          const string longMessage2 = "and it continues onto the second line";
+         string expectedLongMessage = $"{longMessage}{Environment.NewLine}{longMessage2}";
 
          var contents = new[]
          {
@@ -462,8 +464,7 @@ namespace GitWrite.UnitTests
          // Assert
 
          Assert.AreEqual( shortMessage, commitDocument.ShortMessage );
-         Assert.AreEqual( longMessage, commitDocument.LongMessage[0] );
-         Assert.AreEqual( longMessage2, commitDocument.LongMessage[1] );
+         Assert.AreEqual( expectedLongMessage, commitDocument.LongMessage );
       }
 
       [TestMethod]
@@ -474,6 +475,7 @@ namespace GitWrite.UnitTests
          const string longMessage = "This will provide the whatever and this and that";
          const string longMessage2 = "and it continues onto the second line";
          const string longMessage3 = "and it continues onto the THIRD line";
+         string expectedLongMessage = $"{longMessage}{Environment.NewLine}{longMessage2}{Environment.NewLine}{longMessage3}";
 
          var contents = new[]
          {
@@ -506,9 +508,7 @@ namespace GitWrite.UnitTests
          // Assert
 
          Assert.AreEqual( shortMessage, commitDocument.ShortMessage );
-         Assert.AreEqual( longMessage, commitDocument.LongMessage[0] );
-         Assert.AreEqual( longMessage2, commitDocument.LongMessage[1] );
-         Assert.AreEqual( longMessage3, commitDocument.LongMessage[2] );
+         Assert.AreEqual( expectedLongMessage, commitDocument.LongMessage );
       }
 
       [TestMethod]
@@ -520,6 +520,7 @@ namespace GitWrite.UnitTests
          const string longMessage2 = "and it continues onto the second line";
          const string longMessage3 = "and it continues onto the THIRD line";
          const string longMessage4 = "and onto the FOURTH line";
+         string expectedLongMessage = $"{longMessage}{Environment.NewLine}{longMessage2}{Environment.NewLine}{longMessage3}{Environment.NewLine}{longMessage4}";
 
          var contents = new[]
          {
@@ -546,10 +547,7 @@ namespace GitWrite.UnitTests
          // Assert
 
          Assert.AreEqual( shortMessage, commitDocument.ShortMessage );
-         Assert.AreEqual( longMessage, commitDocument.LongMessage[0] );
-         Assert.AreEqual( longMessage2, commitDocument.LongMessage[1] );
-         Assert.AreEqual( longMessage3, commitDocument.LongMessage[2] );
-         Assert.AreEqual( longMessage4, commitDocument.LongMessage[3] );
+         Assert.AreEqual( expectedLongMessage, commitDocument.LongMessage );
       }
    }
 }

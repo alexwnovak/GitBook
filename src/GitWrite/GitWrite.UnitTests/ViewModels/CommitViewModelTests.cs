@@ -88,7 +88,7 @@ namespace GitWrite.UnitTests.ViewModels
 
          var commitViewModel = new CommitViewModel();
 
-         Assert.AreEqual( longMessage[0], commitViewModel.ExtraCommitText );
+         Assert.AreEqual( longMessage, commitViewModel.ExtraCommitText );
       }
 
       [TestMethod]

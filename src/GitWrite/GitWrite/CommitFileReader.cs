@@ -1,4 +1,4 @@
-﻿using System.Linq;
+﻿using System;
 using GalaSoft.MvvmLight.Ioc;
 
 namespace GitWrite
@@ -45,6 +45,7 @@ namespace GitWrite
       private static void ResolveExistingCommitMessages( CommitDocument commitDocument )
       {
          bool hasFoundShortMessage = false;
+         bool firstLineOfLongMessage = true;
 
          foreach ( string line in commitDocument.InitialLines )
          {
@@ -60,7 +61,13 @@ namespace GitWrite
             }
             else
             {
-               commitDocument.LongMessage = "Hard-coded in CommitFileReader during refactor";
+               if ( !firstLineOfLongMessage )
+               {
+                  commitDocument.LongMessage += Environment.NewLine;
+               }
+
+               firstLineOfLongMessage = false;
+               commitDocument.LongMessage += line;
             }
          }
       }
