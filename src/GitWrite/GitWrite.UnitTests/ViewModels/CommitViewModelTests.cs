@@ -75,10 +75,7 @@ namespace GitWrite.UnitTests.ViewModels
       [TestMethod]
       public void Constructor_HasSingleLineLongMessage_ViewModelReadsTheLongMessage()
       {
-         var longMessage = new List<string>
-         {
-            "Long message here"
-         };
+         const string longMessage = "Long message here";
 
          // Setup
 

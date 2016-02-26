@@ -188,7 +188,7 @@ namespace GitWrite.UnitTests
          // Assert
 
          Assert.IsNull( commitDocument.ShortMessage );
-         Assert.AreEqual( 0, commitDocument.LongMessage.Count );
+         Assert.IsNull( commitDocument.LongMessage );
       }
 
       [TestMethod]

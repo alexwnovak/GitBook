@@ -60,7 +60,7 @@ namespace GitWrite
             }
             else
             {
-               commitDocument.LongMessage.Add( line );
+               commitDocument.LongMessage = "Hard-coded in CommitFileReader during refactor";
             }
          }
       }

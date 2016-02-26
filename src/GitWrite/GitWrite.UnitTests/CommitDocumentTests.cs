@@ -72,7 +72,7 @@ namespace GitWrite.UnitTests
          {
             Name = path,
             ShortMessage = shortMessage,
-            LongMessage = new List<string>( new[] { longMessage } ),
+            LongMessage = longMessage,
          };
 
          commitDocument.Save();
