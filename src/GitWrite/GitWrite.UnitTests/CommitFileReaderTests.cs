@@ -84,9 +84,9 @@ namespace GitWrite.UnitTests
 
          // Assert
 
-         Assert.AreEqual( lines.Length, commitDocument.InitialLines.Length );
-         Assert.AreEqual( lines[0], commitDocument.InitialLines[0] );
-         Assert.AreEqual( lines[1], commitDocument.InitialLines[1] );
+         Assert.AreEqual( lines.Length, commitDocument.RawLines.Length );
+         Assert.AreEqual( lines[0], commitDocument.RawLines[0] );
+         Assert.AreEqual( lines[1], commitDocument.RawLines[1] );
       }
 
       [TestMethod]

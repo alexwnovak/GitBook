@@ -10,7 +10,7 @@ namespace GitWrite
          set;
       }
 
-      public string[] InitialLines
+      public string[] RawLines
       {
          get;
          set;

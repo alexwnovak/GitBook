@@ -13,7 +13,7 @@ namespace GitWrite
 
          var commitDocument = CreateBasicDocument( path );
 
-         if ( commitDocument.InitialLines == null || commitDocument.InitialLines.Length == 0 )
+         if ( commitDocument.RawLines == null || commitDocument.RawLines.Length == 0 )
          {
             throw new GitFileLoadException( "Incoming Git commit file is empty" );
          }
@@ -37,7 +37,7 @@ namespace GitWrite
       {
          return new CommitDocument
          {
-            InitialLines = _fileAdapter.ReadAllLines( path ),
+            RawLines = _fileAdapter.ReadAllLines( path ),
             Name = path
          };
       }
@@ -47,7 +47,7 @@ namespace GitWrite
          bool hasFoundShortMessage = false;
          bool firstLineOfLongMessage = true;
 
-         foreach ( string line in commitDocument.InitialLines )
+         foreach ( string line in commitDocument.RawLines )
          {
             if ( line.StartsWith( "#" ) || string.IsNullOrEmpty( line ) )
             {
