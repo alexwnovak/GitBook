@@ -58,6 +58,12 @@ namespace GitWrite.ViewModels
          get;
       }
 
+      public CommitInputState InputState
+      {
+         get;
+         set;
+      }
+
       private string _shortMessage;
       public string ShortMessage
       {
