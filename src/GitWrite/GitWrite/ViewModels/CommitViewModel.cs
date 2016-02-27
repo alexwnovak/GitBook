@@ -159,11 +159,7 @@ namespace GitWrite.ViewModels
          CloseCommand = new RelayCommand<CancelEventArgs>( CloseWindow );
 
          ShortMessage = App.CommitDocument?.ShortMessage;
-
-         if ( App.CommitDocument != null && App.CommitDocument.LongMessage != null && App.CommitDocument.LongMessage.Any() )
-         {
-            ExtraCommitText = App.CommitDocument?.LongMessage.Aggregate( ( i, j ) => $"{i} {j}" );      
-         }
+         ExtraCommitText = App.CommitDocument?.LongMessage;
 
          _hasEditedCommitMessage = false;
       }
@@ -242,8 +238,7 @@ namespace GitWrite.ViewModels
          var exitTask = BeginShutDownAsync( ExitReason.AcceptCommit );
 
          App.CommitDocument.ShortMessage = ShortMessage;
-         App.CommitDocument.LongMessage.Clear();
-         App.CommitDocument.LongMessage.Add( ExtraCommitText );
+         App.CommitDocument.LongMessage = ExtraCommitText;
 
          App.CommitDocument.Save();
 

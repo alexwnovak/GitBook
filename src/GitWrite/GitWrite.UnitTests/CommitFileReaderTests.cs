@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -83,9 +84,9 @@ namespace GitWrite.UnitTests
 
          // Assert
 
-         Assert.AreEqual( lines.Length, commitDocument.InitialLines.Length );
-         Assert.AreEqual( lines[0], commitDocument.InitialLines[0] );
-         Assert.AreEqual( lines[1], commitDocument.InitialLines[1] );
+         Assert.AreEqual( lines.Length, commitDocument.RawLines.Length );
+         Assert.AreEqual( lines[0], commitDocument.RawLines[0] );
+         Assert.AreEqual( lines[1], commitDocument.RawLines[1] );
       }
 
       [TestMethod]
@@ -188,7 +189,7 @@ namespace GitWrite.UnitTests
          // Assert
 
          Assert.IsNull( commitDocument.ShortMessage );
-         Assert.AreEqual( 0, commitDocument.LongMessage.Count );
+         Assert.IsNull( commitDocument.LongMessage );
       }
 
       [TestMethod]
@@ -336,7 +337,7 @@ namespace GitWrite.UnitTests
          // Assert
 
          Assert.AreEqual( shortMessage, commitDocument.ShortMessage );
-         Assert.AreEqual( longMessage, commitDocument.LongMessage[0] );
+         Assert.AreEqual( longMessage, commitDocument.LongMessage );
       }
 
       [TestMethod]
@@ -376,7 +377,7 @@ namespace GitWrite.UnitTests
          // Assert
 
          Assert.AreEqual( shortMessage, commitDocument.ShortMessage );
-         Assert.AreEqual( longMessage, commitDocument.LongMessage[0] );
+         Assert.AreEqual( longMessage, commitDocument.LongMessage );
       }
 
       [TestMethod]
@@ -418,7 +419,7 @@ namespace GitWrite.UnitTests
          // Assert
 
          Assert.AreEqual( shortMessage, commitDocument.ShortMessage );
-         Assert.AreEqual( longMessage, commitDocument.LongMessage[0] );
+         Assert.AreEqual( longMessage, commitDocument.LongMessage );
       }
 
       [TestMethod]
@@ -428,6 +429,7 @@ namespace GitWrite.UnitTests
          const string shortMessage = "+Whatever static class";
          const string longMessage = "This will provide the whatever and this and that";
          const string longMessage2 = "and it continues onto the second line";
+         string expectedLongMessage = $"{longMessage}{Environment.NewLine}{longMessage2}";
 
          var contents = new[]
          {
@@ -462,8 +464,7 @@ namespace GitWrite.UnitTests
          // Assert
 
          Assert.AreEqual( shortMessage, commitDocument.ShortMessage );
-         Assert.AreEqual( longMessage, commitDocument.LongMessage[0] );
-         Assert.AreEqual( longMessage2, commitDocument.LongMessage[1] );
+         Assert.AreEqual( expectedLongMessage, commitDocument.LongMessage );
       }
 
       [TestMethod]
@@ -474,6 +475,7 @@ namespace GitWrite.UnitTests
          const string longMessage = "This will provide the whatever and this and that";
          const string longMessage2 = "and it continues onto the second line";
          const string longMessage3 = "and it continues onto the THIRD line";
+         string expectedLongMessage = $"{longMessage}{Environment.NewLine}{longMessage2}{Environment.NewLine}{longMessage3}";
 
          var contents = new[]
          {
@@ -506,9 +508,7 @@ namespace GitWrite.UnitTests
          // Assert
 
          Assert.AreEqual( shortMessage, commitDocument.ShortMessage );
-         Assert.AreEqual( longMessage, commitDocument.LongMessage[0] );
-         Assert.AreEqual( longMessage2, commitDocument.LongMessage[1] );
-         Assert.AreEqual( longMessage3, commitDocument.LongMessage[2] );
+         Assert.AreEqual( expectedLongMessage, commitDocument.LongMessage );
       }
 
       [TestMethod]
@@ -520,6 +520,7 @@ namespace GitWrite.UnitTests
          const string longMessage2 = "and it continues onto the second line";
          const string longMessage3 = "and it continues onto the THIRD line";
          const string longMessage4 = "and onto the FOURTH line";
+         string expectedLongMessage = $"{longMessage}{Environment.NewLine}{longMessage2}{Environment.NewLine}{longMessage3}{Environment.NewLine}{longMessage4}";
 
          var contents = new[]
          {
@@ -546,10 +547,112 @@ namespace GitWrite.UnitTests
          // Assert
 
          Assert.AreEqual( shortMessage, commitDocument.ShortMessage );
-         Assert.AreEqual( longMessage, commitDocument.LongMessage[0] );
-         Assert.AreEqual( longMessage2, commitDocument.LongMessage[1] );
-         Assert.AreEqual( longMessage3, commitDocument.LongMessage[2] );
-         Assert.AreEqual( longMessage4, commitDocument.LongMessage[3] );
+         Assert.AreEqual( expectedLongMessage, commitDocument.LongMessage );
+      }
+
+      [TestMethod]
+      public void FromFile_FileHasLongLongMessage_SetsShortAndLongMessage()
+      {
+         const string path = "COMMIT_EDITMSG";
+         const string shortMessage = "+Whatever static class";
+         const string longMessage = "This is an extra long commit line. It intentionally goes over 72 characters to show that it won't be split or put on additional lines.";
+
+         var contents = new[]
+         {
+            shortMessage,
+            longMessage,
+         };
+
+         // Setup
+
+         var fileAdapterMock = new Mock<IFileAdapter>();
+         fileAdapterMock.Setup( fa => fa.Exists( path ) ).Returns( true );
+         fileAdapterMock.Setup( fa => fa.ReadAllLines( path ) ).Returns( contents );
+         SimpleIoc.Default.Register( () => fileAdapterMock.Object );
+
+         // Test
+
+         var commitFileReader = new CommitFileReader();
+
+         var commitDocument = commitFileReader.FromFile( path );
+
+         // Assert
+
+         Assert.AreEqual( shortMessage, commitDocument.ShortMessage );
+         Assert.AreEqual( longMessage, commitDocument.LongMessage );
+      }
+
+      [TestMethod]
+      public void FromFile_FileHasTwoLongMessagesSeparatedByBlankLine_SetsShortAndLongMessage()
+      {
+         const string path = "COMMIT_EDITMSG";
+         const string shortMessage = "+Whatever static class";
+         const string longMessage = "This is an extra long commit line. It intentionally goes over 72 characters to show that it won't be split or put on additional lines.";
+         const string longMessage2 = "This is another extra-long line. We'll combine it with the first one to show that they'll be put together, separated by a new line automatically.";
+         string expectedLongMessage = $"{longMessage}{Environment.NewLine}{Environment.NewLine}{longMessage2}";
+
+         var contents = new[]
+         {
+            shortMessage,
+            longMessage,
+            string.Empty,
+            longMessage2
+         };
+
+         // Setup
+
+         var fileAdapterMock = new Mock<IFileAdapter>();
+         fileAdapterMock.Setup( fa => fa.Exists( path ) ).Returns( true );
+         fileAdapterMock.Setup( fa => fa.ReadAllLines( path ) ).Returns( contents );
+         SimpleIoc.Default.Register( () => fileAdapterMock.Object );
+
+         // Test
+
+         var commitFileReader = new CommitFileReader();
+
+         var commitDocument = commitFileReader.FromFile( path );
+
+         // Assert
+
+         Assert.AreEqual( shortMessage, commitDocument.ShortMessage );
+         Assert.AreEqual( expectedLongMessage, commitDocument.LongMessage );
+      }
+
+      [TestMethod]
+      public void FromFile_FileHasTwoLongMessagesSeparatedByTwoBlankLines_SetsShortAndLongMessage()
+      {
+         const string path = "COMMIT_EDITMSG";
+         const string shortMessage = "+Whatever static class";
+         const string longMessage = "This is an extra long commit line. It intentionally goes over 72 characters to show that it won't be split or put on additional lines.";
+         const string longMessage2 = "This is another extra-long line. We'll combine it with the first one to show that they'll be put together, separated by a new line automatically.";
+         string expectedLongMessage = $"{longMessage}{Environment.NewLine}{Environment.NewLine}{Environment.NewLine}{longMessage2}";
+
+         var contents = new[]
+         {
+            shortMessage,
+            longMessage,
+            string.Empty,
+            string.Empty,
+            longMessage2
+         };
+
+         // Setup
+
+         var fileAdapterMock = new Mock<IFileAdapter>();
+         fileAdapterMock.Setup( fa => fa.Exists( path ) ).Returns( true );
+         fileAdapterMock.Setup( fa => fa.ReadAllLines( path ) ).Returns( contents );
+         SimpleIoc.Default.Register( () => fileAdapterMock.Object );
+
+         // Test
+
+         var commitFileReader = new CommitFileReader();
+
+         var commitDocument = commitFileReader.FromFile( path );
+
+         // Assert
+
+         Assert.AreEqual( shortMessage, commitDocument.ShortMessage );
+         Assert.AreEqual( expectedLongMessage, commitDocument.LongMessage );
       }
    }
 }

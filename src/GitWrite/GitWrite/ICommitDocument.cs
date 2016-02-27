@@ -15,7 +15,7 @@ namespace GitWrite
          set;
       }
 
-      List<string> LongMessage
+      string LongMessage
       {
          get;
          set;

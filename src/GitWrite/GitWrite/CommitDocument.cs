@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using GalaSoft.MvvmLight.Ioc;
+﻿using GalaSoft.MvvmLight.Ioc;
 
 namespace GitWrite
 {
@@ -12,7 +10,7 @@ namespace GitWrite
          set;
       }
 
-      public string[] InitialLines
+      public string[] RawLines
       {
          get;
          set;
@@ -24,21 +22,19 @@ namespace GitWrite
          set;
       }
 
-      public List<string> LongMessage
+      public string LongMessage
       {
          get;
          set;
-      } = new List<string>();
+      }
 
       public void Save()
       {
-         var shortMessage = new[]
+         var lines = new[]
          {
             ShortMessage,
-            string.Empty,
+            LongMessage
          };
-
-         var lines = shortMessage.Concat( LongMessage );
 
          var fileAdapter = SimpleIoc.Default.GetInstance<IFileAdapter>();
 

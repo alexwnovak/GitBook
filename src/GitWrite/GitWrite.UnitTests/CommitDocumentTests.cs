@@ -62,7 +62,7 @@ namespace GitWrite.UnitTests
          fileAdapterMock.Setup( fa => fa.WriteAllLines( It.IsAny<string>(), It.IsAny<IEnumerable<string>>() ) ).Callback<string, IEnumerable<string>>( ( p, l ) =>
          {
             var lines = l.ToList();
-            parametersMatch = (p == path && lines[0] == shortMessage && lines[1] == string.Empty && lines[2] == longMessage);
+            parametersMatch = (p == path && lines[0] == shortMessage && lines[1] == longMessage);
          } );
          SimpleIoc.Default.Register( () => fileAdapterMock.Object );
 
@@ -72,7 +72,41 @@ namespace GitWrite.UnitTests
          {
             Name = path,
             ShortMessage = shortMessage,
-            LongMessage = new List<string>( new[] { longMessage } ),
+            LongMessage = longMessage,
+         };
+
+         commitDocument.Save();
+
+         // Assert
+
+         Assert.IsTrue( parametersMatch );
+      }
+
+      [TestMethod]
+      public void Save_HasLongMessageInTwoParagraphs_WritesLongMessage()
+      {
+         bool parametersMatch = false;
+         const string path = "SomeFile.txt";
+         const string shortMessage = "This is the short message";
+         string longMessage = $"First line {Environment.NewLine}{Environment.NewLine} Second line after one blank line";
+
+         // Setup
+
+         var fileAdapterMock = new Mock<IFileAdapter>();
+         fileAdapterMock.Setup( fa => fa.WriteAllLines( It.IsAny<string>(), It.IsAny<IEnumerable<string>>() ) ).Callback<string, IEnumerable<string>>( ( p, l ) =>
+         {
+            var lines = l.ToList();
+            parametersMatch = ( p == path && lines[0] == shortMessage && lines[1] == longMessage );
+         } );
+         SimpleIoc.Default.Register( () => fileAdapterMock.Object );
+
+         // Test
+
+         var commitDocument = new CommitDocument
+         {
+            Name = path,
+            ShortMessage = shortMessage,
+            LongMessage = longMessage,
          };
 
          commitDocument.Save();

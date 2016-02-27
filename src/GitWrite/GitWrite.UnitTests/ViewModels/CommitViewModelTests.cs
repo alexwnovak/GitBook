@@ -75,10 +75,7 @@ namespace GitWrite.UnitTests.ViewModels
       [TestMethod]
       public void Constructor_HasSingleLineLongMessage_ViewModelReadsTheLongMessage()
       {
-         var longMessage = new List<string>
-         {
-            "Long message here"
-         };
+         const string longMessage = "Long message here";
 
          // Setup
 
@@ -91,7 +88,7 @@ namespace GitWrite.UnitTests.ViewModels
 
          var commitViewModel = new CommitViewModel();
 
-         Assert.AreEqual( longMessage[0], commitViewModel.ExtraCommitText );
+         Assert.AreEqual( longMessage, commitViewModel.ExtraCommitText );
       }
 
       [TestMethod]
