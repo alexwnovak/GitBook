@@ -549,5 +549,37 @@ namespace GitWrite.UnitTests
          Assert.AreEqual( shortMessage, commitDocument.ShortMessage );
          Assert.AreEqual( expectedLongMessage, commitDocument.LongMessage );
       }
+
+      [TestMethod]
+      public void FromFile_FileHasLongLongMessage_SetsShortAndLongMessage()
+      {
+         const string path = "COMMIT_EDITMSG";
+         const string shortMessage = "+Whatever static class";
+         const string longMessage = "This is an extra long commit line. It intentionally goes over 72 characters to show that it won't be split or put on additional lines.";
+
+         var contents = new[]
+         {
+            shortMessage,
+            longMessage,
+         };
+
+         // Setup
+
+         var fileAdapterMock = new Mock<IFileAdapter>();
+         fileAdapterMock.Setup( fa => fa.Exists( path ) ).Returns( true );
+         fileAdapterMock.Setup( fa => fa.ReadAllLines( path ) ).Returns( contents );
+         SimpleIoc.Default.Register( () => fileAdapterMock.Object );
+
+         // Test
+
+         var commitFileReader = new CommitFileReader();
+
+         var commitDocument = commitFileReader.FromFile( path );
+
+         // Assert
+
+         Assert.AreEqual( shortMessage, commitDocument.ShortMessage );
+         Assert.AreEqual( longMessage, commitDocument.LongMessage );
+      }
    }
 }
