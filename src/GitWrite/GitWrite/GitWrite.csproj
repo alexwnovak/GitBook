@@ -70,6 +70,7 @@
     <Compile Include="ApplicationMode.cs" />
     <Compile Include="ApplicationModeInterpreter.cs" />
     <Compile Include="AsyncEventHandler.cs" />
+    <Compile Include="Behaviors\CommitKeyPressBehavior.cs" />
     <Compile Include="CommitDocument.cs" />
     <Compile Include="CommitFileReader.cs" />
     <Compile Include="GitFileAttribute.cs" />
