@@ -74,6 +74,7 @@
     <Compile Include="CommitDocument.cs" />
     <Compile Include="CommitFileReader.cs" />
     <Compile Include="GitFileAttribute.cs" />
+    <Compile Include="Views\CommitInputState.cs" />
     <Compile Include="Views\Controls\ConfirmPanel.xaml.cs">
       <DependentUpon>ConfirmPanel.xaml</DependentUpon>
     </Compile>
