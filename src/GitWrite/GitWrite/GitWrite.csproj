@@ -73,6 +73,9 @@
     <Compile Include="CommitDocument.cs" />
     <Compile Include="CommitFileReader.cs" />
     <Compile Include="GitFileAttribute.cs" />
+    <Compile Include="Views\Controls\ConfirmPanel.xaml.cs">
+      <DependentUpon>ConfirmPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Converters\BorderToGeometryConverter.cs" />
     <Compile Include="Views\Controls\ExitPanel.xaml.cs">
       <DependentUpon>ExitPanel.xaml</DependentUpon>
@@ -124,6 +127,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\CommitWindowResources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\ConfirmPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
