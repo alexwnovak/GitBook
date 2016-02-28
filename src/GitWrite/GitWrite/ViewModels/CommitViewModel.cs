@@ -15,11 +15,6 @@ namespace GitWrite.ViewModels
 {
    public class CommitViewModel : ViewModelBase
    {
-      public RelayCommand<KeyEventArgs> CommitNotesKeyDownCommand
-      {
-         get;
-      }
-
       public RelayCommand PrimaryMessageGotFocusCommand
       {
          get;
@@ -155,7 +150,6 @@ namespace GitWrite.ViewModels
        
       public CommitViewModel()
       {
-         CommitNotesKeyDownCommand = new RelayCommand<KeyEventArgs>( OnCommitNotesKeyDown );
          PrimaryMessageGotFocusCommand = new RelayCommand( () => ControlState = CommitControlState.EditingPrimaryMessage );
          SecondaryNotesGotFocusCommand = new RelayCommand( ExpandUI );
          ExpandCommand = new RelayCommand( ExpandUI );
@@ -208,30 +202,6 @@ namespace GitWrite.ViewModels
          }
 
          return false;
-      }
-
-      public void OnCommitNotesKeyDown( KeyEventArgs e )
-      {
-         if ( DismissHelpIfActive() )
-         {
-            return;
-         }
-
-         if ( e.Key == Key.F1 )
-         {
-            HelpCommand.Execute( null );
-         }
-         else if ( e.Key == Key.Enter )
-         {
-            SaveCommand.Execute( null );
-         }
-         else if ( e.Key == Key.Escape
-            || ( e.Key == Key.W && ( Keyboard.Modifiers & ModifierKeys.Control ) == ModifierKeys.Control )
-            || ( e.Key == Key.F4 && ( Keyboard.Modifiers & ModifierKeys.Control ) == ModifierKeys.Control ) )
-         {
-            e.Handled = true;
-            AbortCommand.Execute( null );
-         }
       }
 
       private async void SaveCommit()
