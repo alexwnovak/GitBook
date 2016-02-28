@@ -145,6 +145,7 @@ namespace GitWrite.ViewModels
 
       public event EventHandler ExpansionRequested;
       public event AsyncEventHandler AsyncExitRequested;
+      public event EventHandler ConfirmExitRequested;
       public event EventHandler HelpRequested;
       public event EventHandler CollapseHelpRequested;
        
@@ -179,6 +180,8 @@ namespace GitWrite.ViewModels
       protected virtual void OnCollapseHelpRequested( object sender, EventArgs e ) => CollapseHelpRequested?.Invoke( sender, e );
 
       protected virtual Task OnExitRequestedAsync( object sender, EventArgs e ) => AsyncExitRequested?.Invoke( sender, e );
+
+      protected virtual void OnConfirmExitRequested( object sender, EventArgs e ) => ConfirmExitRequested?.Invoke( sender, e );
 
       private async Task BeginShutDownAsync( ExitReason exitReason )
       {
