@@ -5,10 +5,29 @@
    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
    xmlns:local="clr-namespace:GitWrite.Views.Controls"
+   xmlns:converters="clr-namespace:GitWrite.Views.Converters"
    mc:Ignorable="d" 
    d:DesignHeight="300"
    d:DesignWidth="300">
-   <Grid>
-            
-   </Grid>
+
+   <UserControl.Resources>
+      <converters:BorderToGeometryConverter x:Key="BorderToGeometry" />
+   </UserControl.Resources>
+
+   <Border Background="#8000">
+      <Border.Clip>
+         <MultiBinding Converter="{StaticResource BorderToGeometry}">
+            <Binding Path="ActualWidth" RelativeSource="{RelativeSource Self}" />
+            <Binding Path="ActualHeight" RelativeSource="{RelativeSource Self}" />
+         </MultiBinding>
+      </Border.Clip>
+
+      <StackPanel HorizontalAlignment="Center"
+         VerticalAlignment="Center">
+         <TextBlock FontSize="32">Save changes?</TextBlock>
+         <TextBlock>[Y]es</TextBlock>
+         <TextBlock>[N]o</TextBlock>
+         <TextBlock>[C]ancel</TextBlock>
+      </StackPanel>
+   </Border>
 </UserControl>
