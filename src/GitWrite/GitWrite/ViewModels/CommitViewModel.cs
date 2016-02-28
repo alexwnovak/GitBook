@@ -197,7 +197,7 @@ namespace GitWrite.ViewModels
 
       private void ShutDown() => SimpleIoc.Default.GetInstance<IAppService>().Shutdown();
 
-      private bool DismissHelpIfActive()
+      public bool DismissHelpIfActive()
       {
          if ( IsHelpStateActive )
          {
