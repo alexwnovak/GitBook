@@ -5,6 +5,7 @@
    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
    xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WPF45"
    xmlns:views="clr-namespace:GitWrite.Views"
+   xmlns:behaviors="clr-namespace:GitWrite.Behaviors"
    AllowsTransparency="True"
    Background="Transparent"
    Title="CommitWindow"
@@ -26,6 +27,10 @@
          </ResourceDictionary.MergedDictionaries>
       </ResourceDictionary>
    </Window.Resources>
+
+   <i:Interaction.Behaviors>
+      <behaviors:CommitKeyPressBehavior />
+   </i:Interaction.Behaviors>
 
    <i:Interaction.Triggers>
       <i:EventTrigger EventName="Closing">
