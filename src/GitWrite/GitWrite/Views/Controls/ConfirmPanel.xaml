@@ -10,7 +10,7 @@
    d:DesignHeight="300"
    d:DesignWidth="300"
    Foreground="{StaticResource WindowCommitForegroundColor}"
-   FontSize="24"
+   FontSize="30"
    Focusable="True"
    PreviewKeyDown="ConfirmPanel_OnPreviewKeyDown">
 
@@ -49,7 +49,7 @@
       </Storyboard>
    </UserControl.Resources>
 
-   <Border Background="#8000">
+   <Border Background="#C000">
       <Border.Clip>
          <MultiBinding Converter="{StaticResource BorderToGeometry}">
             <Binding Path="ActualWidth" RelativeSource="{RelativeSource Self}" />
@@ -57,7 +57,8 @@
          </MultiBinding>
       </Border.Clip>
 
-      <Grid Width="300">
+      <Grid Width="400"
+         Margin="0,-6,0,0">
          <TextBlock HorizontalAlignment="Left"
             VerticalAlignment="Center">
             <TextBlock.RenderTransform>
