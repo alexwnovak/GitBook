@@ -42,7 +42,11 @@ namespace GitWrite.Views.Controls
             case Key.Escape:
                Complete( ConfirmationResult.Cancel );
                break;
+            default:
+               return;
          }
+
+         e.Handled = true;
       }
    }
 }
