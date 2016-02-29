@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media.Animation;
 using GitWrite.ViewModels;
 using GitWrite.Views.Controls;
@@ -68,7 +69,7 @@ namespace GitWrite.Views
          return exitPanel.ShowAsync();
       }
 
-      private void OnConfirmExitRequested( object sender, EventArgs e )
+      private async Task<ConfirmationResult> OnConfirmExitRequested( object sender, EventArgs e )
       {
          var confirmPanel = new ConfirmPanel
          {
@@ -77,6 +78,16 @@ namespace GitWrite.Views
          };
 
          MainGrid.Children.Add( confirmPanel );
+
+         var previousFocusElement = Keyboard.FocusedElement;
+         confirmPanel.Focus();
+
+         var confirmationResult = await confirmPanel.ShowAsync();
+
+         MainGrid.Children.Remove( confirmPanel );
+         previousFocusElement.Focus();
+
+         return confirmationResult;
       }
 
       private void OnExpansionRequested( object sender, EventArgs eventArgs )

@@ -10,6 +10,7 @@ using GalaSoft.MvvmLight.Ioc;
 using GitWrite.Resources;
 using GitWrite.Services;
 using GitWrite.Views;
+using GitWrite.Views.Controls;
 
 namespace GitWrite.ViewModels
 {
@@ -145,7 +146,7 @@ namespace GitWrite.ViewModels
 
       public event EventHandler ExpansionRequested;
       public event AsyncEventHandler AsyncExitRequested;
-      public event EventHandler ConfirmExitRequested;
+      public event AsyncEventHandler<ConfirmationResult> ConfirmExitRequested;
       public event EventHandler HelpRequested;
       public event EventHandler CollapseHelpRequested;
        
@@ -181,7 +182,8 @@ namespace GitWrite.ViewModels
 
       protected virtual Task OnExitRequestedAsync( object sender, EventArgs e ) => AsyncExitRequested?.Invoke( sender, e );
 
-      protected virtual void OnConfirmExitRequested( object sender, EventArgs e ) => ConfirmExitRequested?.Invoke( sender, e );
+      protected virtual Task<ConfirmationResult> OnConfirmExitRequestedAsync( object sender, EventArgs e )
+         => ConfirmExitRequested?.Invoke( sender, e );
 
       private async Task BeginShutDownAsync( ExitReason exitReason )
       {
@@ -243,16 +245,6 @@ namespace GitWrite.ViewModels
          }
       }
 
-      private bool ConfirmExitForChanges()
-      {
-         if ( _hasEditedCommitMessage )
-         {
-            OnConfirmExitRequested( this, EventArgs.Empty );
-         }
-
-         return false;
-      }
-
       private async void CancelCommit()
       {
          if ( IsExiting )
@@ -260,9 +252,14 @@ namespace GitWrite.ViewModels
             return;
          }
 
-         if ( _hasEditedCommitMessage && !ConfirmExitForChanges() )
+         if ( _hasEditedCommitMessage )
          {
-            return;
+            var confirmationResult = await OnConfirmExitRequestedAsync( this, EventArgs.Empty );
+
+            if ( confirmationResult == ConfirmationResult.Cancel )
+            {
+               return;
+            }
          }
 
          InputState = CommitInputState.Exiting;
@@ -280,12 +277,6 @@ namespace GitWrite.ViewModels
       {
          if ( IsExiting )
          {
-            return;
-         }
-         
-         if ( !ConfirmExitForChanges() )
-         {
-            e.Cancel = true;
             return;
          }
 
