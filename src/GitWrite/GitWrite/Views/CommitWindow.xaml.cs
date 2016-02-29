@@ -35,6 +35,7 @@ namespace GitWrite.Views
          _viewModel = (CommitViewModel) DataContext;
          _viewModel.ExpansionRequested += OnExpansionRequested;
          _viewModel.AsyncExitRequested += OnAsyncExitRequested;
+         _viewModel.ConfirmExitRequested += OnConfirmExitRequested;
          _viewModel.HelpRequested += OnHelpRequested;
          _viewModel.CollapseHelpRequested += OnCollapseHelpRequested;
       }
@@ -65,6 +66,17 @@ namespace GitWrite.Views
          MainGrid.Children.Add( exitPanel );
 
          return exitPanel.ShowAsync();
+      }
+
+      private void OnConfirmExitRequested( object sender, EventArgs e )
+      {
+         var confirmPanel = new ConfirmPanel
+         {
+            Height = OuterBorder.ActualHeight,
+            VerticalAlignment = VerticalAlignment.Top,
+         };
+
+         MainGrid.Children.Add( confirmPanel );
       }
 
       private void OnExpansionRequested( object sender, EventArgs eventArgs )

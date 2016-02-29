@@ -15,11 +15,6 @@ namespace GitWrite.ViewModels
 {
    public class CommitViewModel : ViewModelBase
    {
-      public RelayCommand<KeyEventArgs> CommitNotesKeyDownCommand
-      {
-         get;
-      }
-
       public RelayCommand PrimaryMessageGotFocusCommand
       {
          get;
@@ -56,6 +51,12 @@ namespace GitWrite.ViewModels
       public RelayCommand<CancelEventArgs> CloseCommand
       {
          get;
+      }
+
+      public CommitInputState InputState
+      {
+         get;
+         set;
       }
 
       private string _shortMessage;
@@ -144,12 +145,12 @@ namespace GitWrite.ViewModels
 
       public event EventHandler ExpansionRequested;
       public event AsyncEventHandler AsyncExitRequested;
+      public event EventHandler ConfirmExitRequested;
       public event EventHandler HelpRequested;
       public event EventHandler CollapseHelpRequested;
        
       public CommitViewModel()
       {
-         CommitNotesKeyDownCommand = new RelayCommand<KeyEventArgs>( OnCommitNotesKeyDown );
          PrimaryMessageGotFocusCommand = new RelayCommand( () => ControlState = CommitControlState.EditingPrimaryMessage );
          SecondaryNotesGotFocusCommand = new RelayCommand( ExpandUI );
          ExpandCommand = new RelayCommand( ExpandUI );
@@ -180,6 +181,8 @@ namespace GitWrite.ViewModels
 
       protected virtual Task OnExitRequestedAsync( object sender, EventArgs e ) => AsyncExitRequested?.Invoke( sender, e );
 
+      protected virtual void OnConfirmExitRequested( object sender, EventArgs e ) => ConfirmExitRequested?.Invoke( sender, e );
+
       private async Task BeginShutDownAsync( ExitReason exitReason )
       {
          ExitReason = exitReason;
@@ -191,7 +194,7 @@ namespace GitWrite.ViewModels
 
       private void ShutDown() => SimpleIoc.Default.GetInstance<IAppService>().Shutdown();
 
-      private bool DismissHelpIfActive()
+      public bool DismissHelpIfActive()
       {
          if ( IsHelpStateActive )
          {
@@ -202,30 +205,6 @@ namespace GitWrite.ViewModels
          }
 
          return false;
-      }
-
-      public void OnCommitNotesKeyDown( KeyEventArgs e )
-      {
-         if ( DismissHelpIfActive() )
-         {
-            return;
-         }
-
-         if ( e.Key == Key.F1 )
-         {
-            HelpCommand.Execute( null );
-         }
-         else if ( e.Key == Key.Enter )
-         {
-            SaveCommand.Execute( null );
-         }
-         else if ( e.Key == Key.Escape
-            || ( e.Key == Key.W && ( Keyboard.Modifiers & ModifierKeys.Control ) == ModifierKeys.Control )
-            || ( e.Key == Key.F4 && ( Keyboard.Modifiers & ModifierKeys.Control ) == ModifierKeys.Control ) )
-         {
-            e.Handled = true;
-            AbortCommand.Execute( null );
-         }
       }
 
       private async void SaveCommit()
@@ -266,27 +245,27 @@ namespace GitWrite.ViewModels
 
       private bool ConfirmExitForChanges()
       {
-         var appService = SimpleIoc.Default.GetInstance<IAppService>();
-
          if ( _hasEditedCommitMessage )
          {
-            var result = appService.DisplayMessageBox( Strings.ConfirmDiscardMessage, MessageBoxButton.YesNo );
-
-            if ( result == MessageBoxResult.No )
-            {
-               return false;
-            }
+            OnConfirmExitRequested( this, EventArgs.Empty );
          }
 
-         return true;
+         return false;
       }
 
       private async void CancelCommit()
       {
-         if ( IsExiting || !ConfirmExitForChanges() )
+         if ( IsExiting )
          {
             return;
          }
+
+         if ( _hasEditedCommitMessage && !ConfirmExitForChanges() )
+         {
+            return;
+         }
+
+         InputState = CommitInputState.Exiting;
 
          var shutDownTask = BeginShutDownAsync( ExitReason.AbortCommit );
 

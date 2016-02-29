@@ -91,59 +91,59 @@ namespace GitWrite.UnitTests.ViewModels
          Assert.AreEqual( longMessage, commitViewModel.ExtraCommitText );
       }
 
-      [TestMethod]
-      public void KeyDown_PressesF1_RunsHelpCommand()
-      {
-         bool helpCommandExecuted = false;
+      //[TestMethod]
+      //public void KeyDown_PressesF1_RunsHelpCommand()
+      //{
+      //   bool helpCommandExecuted = false;
 
-         var commitViewModel = new CommitViewModel
-         {
-            HelpCommand = new RelayCommand( () => helpCommandExecuted = true )
-         };
+      //   var commitViewModel = new CommitViewModel
+      //   {
+      //      HelpCommand = new RelayCommand( () => helpCommandExecuted = true )
+      //   };
 
-         var args = TestHelper.GetKeyEventArgs( Key.F1 );
+      //   var args = TestHelper.GetKeyEventArgs( Key.F1 );
 
-         commitViewModel.OnCommitNotesKeyDown( args );
+      //   commitViewModel.OnCommitNotesKeyDown( args );
 
-         Assert.IsTrue( helpCommandExecuted );
-      }
+      //   Assert.IsTrue( helpCommandExecuted );
+      //}
 
-      [TestMethod]
-      public void KeyDown_PressesF1WhileHelpStateIsActive_DoesNotRunHelpCommand()
-      {
-         bool helpCommandExecuted = false;
+      //[TestMethod]
+      //public void KeyDown_PressesF1WhileHelpStateIsActive_DoesNotRunHelpCommand()
+      //{
+      //   bool helpCommandExecuted = false;
 
-         var commitViewModel = new CommitViewModel
-         {
-            HelpCommand = new RelayCommand( () => helpCommandExecuted = true ),
-            IsHelpStateActive = true
-         };
+      //   var commitViewModel = new CommitViewModel
+      //   {
+      //      HelpCommand = new RelayCommand( () => helpCommandExecuted = true ),
+      //      IsHelpStateActive = true
+      //   };
 
-         var args = TestHelper.GetKeyEventArgs( Key.F1 );
+      //   var args = TestHelper.GetKeyEventArgs( Key.F1 );
 
-         commitViewModel.OnCommitNotesKeyDown( args );
+      //   commitViewModel.OnCommitNotesKeyDown( args );
 
-         Assert.IsFalse( helpCommandExecuted );
-      }
+      //   Assert.IsFalse( helpCommandExecuted );
+      //}
 
-      [TestMethod]
-      public void KeyDown_PressesF1WhileHelpStateIsActive_DismissesHelpState()
-      {
-         bool collapseHelpRequested = false;
+      //[TestMethod]
+      //public void KeyDown_PressesF1WhileHelpStateIsActive_DismissesHelpState()
+      //{
+      //   bool collapseHelpRequested = false;
 
-         var commitViewModel = new CommitViewModel
-         {
-            IsHelpStateActive = true
-         };
+      //   var commitViewModel = new CommitViewModel
+      //   {
+      //      IsHelpStateActive = true
+      //   };
 
-         commitViewModel.CollapseHelpRequested += ( sender, e ) => collapseHelpRequested = true;
+      //   commitViewModel.CollapseHelpRequested += ( sender, e ) => collapseHelpRequested = true;
 
-         var args = TestHelper.GetKeyEventArgs( Key.F1 );
+      //   var args = TestHelper.GetKeyEventArgs( Key.F1 );
 
-         commitViewModel.OnCommitNotesKeyDown( args );
+      //   commitViewModel.OnCommitNotesKeyDown( args );
 
-         Assert.IsTrue( collapseHelpRequested );
-      }
+      //   Assert.IsTrue( collapseHelpRequested );
+      //}
 
       [TestMethod]
       public void HelpCommand_HelpStateNotActive_SetsHelpStateFlag()
@@ -205,75 +205,75 @@ namespace GitWrite.UnitTests.ViewModels
          Assert.IsFalse( raisedEvent );
       }
 
-      [TestMethod]
-      public void KeyDown_PressesBKeyWhileHelpStateIsActive_DismissesHelpState()
-      {
-         bool collapseHelpRequested = false;
+      //[TestMethod]
+      //public void KeyDown_PressesBKeyWhileHelpStateIsActive_DismissesHelpState()
+      //{
+      //   bool collapseHelpRequested = false;
 
-         var commitViewModel = new CommitViewModel
-         {
-            IsHelpStateActive = true
-         };
+      //   var commitViewModel = new CommitViewModel
+      //   {
+      //      IsHelpStateActive = true
+      //   };
 
-         commitViewModel.CollapseHelpRequested += ( sender, e ) => collapseHelpRequested = true;
+      //   commitViewModel.CollapseHelpRequested += ( sender, e ) => collapseHelpRequested = true;
 
-         var args = TestHelper.GetKeyEventArgs( Key.B );
+      //   var args = TestHelper.GetKeyEventArgs( Key.B );
 
-         commitViewModel.OnCommitNotesKeyDown( args );
+      //   commitViewModel.OnCommitNotesKeyDown( args );
 
-         Assert.IsTrue( collapseHelpRequested );
-      }
+      //   Assert.IsTrue( collapseHelpRequested );
+      //}
 
-      [TestMethod]
-      public void KeyDown_PressesEnter_RunsSaveCommand()
-      {
-         bool saveCommandExecuted = false;
+      //[TestMethod]
+      //public void KeyDown_PressesEnter_RunsSaveCommand()
+      //{
+      //   bool saveCommandExecuted = false;
 
-         var commitViewModel = new CommitViewModel
-         {
-            SaveCommand = new RelayCommand( () => saveCommandExecuted = true )
-         };
+      //   var commitViewModel = new CommitViewModel
+      //   {
+      //      SaveCommand = new RelayCommand( () => saveCommandExecuted = true )
+      //   };
 
-         var args = TestHelper.GetKeyEventArgs( Key.Enter );
+      //   var args = TestHelper.GetKeyEventArgs( Key.Enter );
 
-         commitViewModel.OnCommitNotesKeyDown( args );
+      //   commitViewModel.OnCommitNotesKeyDown( args );
 
-         Assert.IsTrue( saveCommandExecuted );
-      }
+      //   Assert.IsTrue( saveCommandExecuted );
+      //}
 
-      [TestMethod]
-      public void KeyDown_PressesEscape_RunsAbortCommand()
-      {
-         bool abortCommandRun = false;
+      //[TestMethod]
+      //public void KeyDown_PressesEscape_RunsAbortCommand()
+      //{
+      //   bool abortCommandRun = false;
 
-         var commitViewModel = new CommitViewModel
-         {
-            AbortCommand = new RelayCommand( () => abortCommandRun = true )
-         };
+      //   var commitViewModel = new CommitViewModel
+      //   {
+      //      AbortCommand = new RelayCommand( () => abortCommandRun = true )
+      //   };
 
-         var args = TestHelper.GetKeyEventArgs( Key.Escape );
+      //   var args = TestHelper.GetKeyEventArgs( Key.Escape );
 
-         commitViewModel.OnCommitNotesKeyDown( args );
+      //   commitViewModel.OnCommitNotesKeyDown( args );
 
-         Assert.IsTrue( abortCommandRun );
-      }
+      //   Assert.IsTrue( abortCommandRun );
+      //}
 
-      [TestMethod]
-      public void KeyDown_PressesEscape_MarksEventAsHandled()
-      {
-         var commitViewModel = new CommitViewModel
-         {
-            AbortCommand = new RelayCommand( () =>
-            {
-            } )
-         };
+      //[TestMethod]
+      //public void KeyDown_PressesEscape_MarksEventAsHandled()
+      //{
+      //   var commitViewModel = new CommitViewModel
+      //   {
+      //      AbortCommand = new RelayCommand( () =>
+      //      {
+      //      } )
+      //   };
 
-         var args = TestHelper.GetKeyEventArgs( Key.Escape );
+      //   var args = TestHelper.GetKeyEventArgs( Key.Escape );
 
-         commitViewModel.OnCommitNotesKeyDown( args );
+      //   commitViewModel.OnCommitNotesKeyDown( args );
 
-         Assert.IsTrue( args.Handled );
-      }
+      //   Assert.IsTrue( args.Handled );
+      //}
 
       [TestMethod]
       public void ExpandCommand_IsNotExpanded_SetsExpandedFlag()
