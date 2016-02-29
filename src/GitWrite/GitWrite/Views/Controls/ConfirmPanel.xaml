@@ -31,7 +31,7 @@
             Storyboard.TargetProperty="X"
             From="50"
             To="0"
-            Duration="0:0:0.4">
+            Duration="0:0:0.3">
             <DoubleAnimation.EasingFunction>
                <ElasticEase EasingMode="EaseOut"
                   Oscillations="1" />
@@ -41,7 +41,7 @@
             Storyboard.TargetProperty="X"
             From="-50"
             To="0"
-            Duration="0:0:0.4">
+            Duration="0:0:0.3">
             <DoubleAnimation.EasingFunction>
                <ElasticEase EasingMode="EaseOut"
                   Oscillations="1" />
@@ -53,7 +53,7 @@
             Storyboard.TargetProperty="Opacity"
             From="1"
             To="0"
-            Duration="0:0:0.5">
+            Duration="0:0:0.4">
             <DoubleAnimation.EasingFunction>
                <CircleEase EasingMode="EaseOut" />
             </DoubleAnimation.EasingFunction>   
@@ -62,7 +62,7 @@
             Storyboard.TargetProperty="X"
             From="0"
             To="80"
-            Duration="0:0:0.6">
+            Duration="0:0:0.4">
             <DoubleAnimation.EasingFunction>
                <CircleEase EasingMode="EaseOut" />
             </DoubleAnimation.EasingFunction>
@@ -71,7 +71,7 @@
             Storyboard.TargetProperty="X"
             From="0"
             To="-80"
-            Duration="0:0:0.6">
+            Duration="0:0:0.4">
             <DoubleAnimation.EasingFunction>
                <CircleEase EasingMode="EaseOut" />
             </DoubleAnimation.EasingFunction>            
