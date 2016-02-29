@@ -260,6 +260,11 @@ namespace GitWrite.ViewModels
             {
                return;
             }
+            else if ( confirmationResult == ConfirmationResult.Save )
+            {
+               SaveCommit();
+               return;
+            }
          }
 
          InputState = CommitInputState.Exiting;

@@ -1,12 +1,14 @@
 ﻿using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Animation;
 
 namespace GitWrite.Views.Controls
 {
    public partial class ConfirmPanel : UserControl
    {
       private TaskCompletionSource<ConfirmationResult> _confirmationCompletionSource;
+      private bool _isDismissing;
        
       public ConfirmPanel()
       {
@@ -15,6 +17,8 @@ namespace GitWrite.Views.Controls
 
       public Task<ConfirmationResult> ShowAsync()
       {
+         ( Resources["ShowPanelStoryboard"] as Storyboard )?.Begin();
+
          _confirmationCompletionSource = new TaskCompletionSource<ConfirmationResult>();
 
          return _confirmationCompletionSource.Task;
@@ -22,9 +26,27 @@ namespace GitWrite.Views.Controls
 
       private void Complete( ConfirmationResult confirmationResult )
       {
+         if ( _isDismissing )
+         {
+            return;
+         }
+
+         _isDismissing = true;
+
          if ( _confirmationCompletionSource != null && !_confirmationCompletionSource.Task.IsCompleted )
          {
-            _confirmationCompletionSource.SetResult( confirmationResult );
+            if ( confirmationResult == ConfirmationResult.Cancel )
+            {
+               var storyboard = (Storyboard) Resources["DismissPanelStoryboard"];
+
+               storyboard.Completed += ( sender, e ) => _confirmationCompletionSource.SetResult( confirmationResult );
+               storyboard.Begin();
+            }
+            else
+            {
+               ( Resources["DismissPanelStoryboard"] as Storyboard )?.Begin();
+               _confirmationCompletionSource.SetResult( confirmationResult );
+            }
          }
       }
 
