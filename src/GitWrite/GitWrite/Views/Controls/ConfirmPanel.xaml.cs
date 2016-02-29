@@ -27,10 +27,18 @@ namespace GitWrite.Views.Controls
       {
          if ( _confirmationCompletionSource != null && !_confirmationCompletionSource.Task.IsCompleted )
          {
-            var storyboard = (Storyboard) Resources["DismissPanelStoryboard"];
+            if ( confirmationResult == ConfirmationResult.Cancel )
+            {
+               var storyboard = (Storyboard) Resources["DismissPanelStoryboard"];
 
-            storyboard.Completed += ( sender, e ) => _confirmationCompletionSource.SetResult( confirmationResult );
-            storyboard.Begin();
+               storyboard.Completed += ( sender, e ) => _confirmationCompletionSource.SetResult( confirmationResult );
+               storyboard.Begin();
+            }
+            else
+            {
+               ( Resources["DismissPanelStoryboard"] as Storyboard )?.Begin();
+               _confirmationCompletionSource.SetResult( confirmationResult );
+            }
          }
       }
 

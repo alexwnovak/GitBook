@@ -84,8 +84,11 @@ namespace GitWrite.Views
 
          var confirmationResult = await confirmPanel.ShowAsync();
 
-         MainGrid.Children.Remove( confirmPanel );
-         previousFocusElement.Focus();
+         if ( confirmationResult == ConfirmationResult.Cancel )
+         {
+            MainGrid.Children.Remove( confirmPanel );
+            previousFocusElement.Focus();
+         }
 
          return confirmationResult;
       }
