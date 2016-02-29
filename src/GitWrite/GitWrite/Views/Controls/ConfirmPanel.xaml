@@ -16,7 +16,7 @@
 
    <UserControl.Resources>
       <converters:BorderToGeometryConverter x:Key="BorderToGeometry" />
-      <Storyboard x:Key="ShowStoryboard">
+      <Storyboard x:Key="ShowPanelStoryboard">
          <DoubleAnimation Storyboard.TargetName="LayoutRoot"
             Storyboard.TargetProperty="Opacity"
             From="0"
@@ -44,6 +44,35 @@
             <DoubleAnimation.EasingFunction>
                <ElasticEase EasingMode="EaseOut"
                   Oscillations="1" />
+            </DoubleAnimation.EasingFunction>            
+         </DoubleAnimation>
+      </Storyboard>
+      <Storyboard x:Key="DismissPanelStoryboard">
+         <DoubleAnimation Storyboard.TargetName="LayoutRoot"
+            Storyboard.TargetProperty="Opacity"
+            From="1"
+            To="0"
+            Duration="0:0:0.5">
+            <DoubleAnimation.EasingFunction>
+               <CircleEase EasingMode="EaseOut" />
+            </DoubleAnimation.EasingFunction>   
+         </DoubleAnimation>
+         <DoubleAnimation Storyboard.TargetName="SaveTransform"
+            Storyboard.TargetProperty="X"
+            From="0"
+            To="80"
+            Duration="0:0:0.6">
+            <DoubleAnimation.EasingFunction>
+               <CircleEase EasingMode="EaseOut" />
+            </DoubleAnimation.EasingFunction>
+         </DoubleAnimation>
+         <DoubleAnimation Storyboard.TargetName="CancelTransform"
+            Storyboard.TargetProperty="X"
+            From="0"
+            To="-80"
+            Duration="0:0:0.6">
+            <DoubleAnimation.EasingFunction>
+               <CircleEase EasingMode="EaseOut" />
             </DoubleAnimation.EasingFunction>            
          </DoubleAnimation>
       </Storyboard>

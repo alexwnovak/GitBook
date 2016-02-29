@@ -16,7 +16,7 @@ namespace GitWrite.Views.Controls
 
       public Task<ConfirmationResult> ShowAsync()
       {
-         ( Resources["ShowStoryboard"] as Storyboard )?.Begin();
+         ( Resources["ShowPanelStoryboard"] as Storyboard )?.Begin();
 
          _confirmationCompletionSource = new TaskCompletionSource<ConfirmationResult>();
 
@@ -27,7 +27,10 @@ namespace GitWrite.Views.Controls
       {
          if ( _confirmationCompletionSource != null && !_confirmationCompletionSource.Task.IsCompleted )
          {
-            _confirmationCompletionSource.SetResult( confirmationResult );
+            var storyboard = (Storyboard) Resources["DismissPanelStoryboard"];
+
+            storyboard.Completed += ( sender, e ) => _confirmationCompletionSource.SetResult( confirmationResult );
+            storyboard.Begin();
          }
       }
 
