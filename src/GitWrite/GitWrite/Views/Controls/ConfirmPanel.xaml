@@ -10,6 +10,7 @@
    d:DesignHeight="300"
    d:DesignWidth="300"
    Foreground="{StaticResource WindowCommitForegroundColor}"
+   FontSize="24"
    Focusable="True"
    PreviewKeyDown="ConfirmPanel_OnPreviewKeyDown">
 
@@ -25,12 +26,21 @@
          </MultiBinding>
       </Border.Clip>
 
-      <StackPanel HorizontalAlignment="Center"
-         VerticalAlignment="Center">
-         <TextBlock FontSize="32">Save changes?</TextBlock>
-         <TextBlock>[Y]es</TextBlock>
-         <TextBlock>[N]o</TextBlock>
-         <TextBlock>[C]ancel</TextBlock>
-      </StackPanel>
+      <Grid Width="300">
+         <TextBlock HorizontalAlignment="Left"
+            VerticalAlignment="Center">
+            <Underline>S</Underline>ave
+         </TextBlock>
+
+         <TextBlock HorizontalAlignment="Center"
+            VerticalAlignment="Center">
+            <Underline>D</Underline>iscard
+         </TextBlock>
+
+         <TextBlock HorizontalAlignment="Right"
+            VerticalAlignment="Center">
+            <Underline>C</Underline>ancel
+         </TextBlock>
+      </Grid>
    </Border>
 </UserControl>
