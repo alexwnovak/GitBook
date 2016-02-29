@@ -39,7 +39,6 @@ namespace GitWrite.Views.Controls
                Complete( ConfirmationResult.Discard );
                break;
             case Key.C:
-            case Key.Escape:
                Complete( ConfirmationResult.Cancel );
                break;
             default:
