@@ -68,7 +68,7 @@ namespace GitWrite.Views
          return exitPanel.ShowAsync();
       }
 
-      private void OnConfirmExitRequested( object sender, EventArgs e )
+      private async Task<ConfirmationResult> OnConfirmExitRequested( object sender, EventArgs e )
       {
          var confirmPanel = new ConfirmPanel
          {
@@ -77,6 +77,8 @@ namespace GitWrite.Views
          };
 
          MainGrid.Children.Add( confirmPanel );
+
+         return await confirmPanel.ShowAsync();
       }
 
       private void OnExpansionRequested( object sender, EventArgs eventArgs )
