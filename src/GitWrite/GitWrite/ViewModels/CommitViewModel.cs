@@ -245,16 +245,6 @@ namespace GitWrite.ViewModels
          }
       }
 
-      private async Task<bool> ConfirmExitForChanges()
-      {
-         if ( _hasEditedCommitMessage )
-         {
-            var confirmationResult = await OnConfirmExitRequestedAsync( this, EventArgs.Empty );
-         }
-
-         return false;
-      }
-
       private async void CancelCommit()
       {
          if ( IsExiting )
@@ -262,9 +252,14 @@ namespace GitWrite.ViewModels
             return;
          }
 
-         if ( _hasEditedCommitMessage && !( await ConfirmExitForChanges() ) )
+         if ( _hasEditedCommitMessage )
          {
-            return;
+            var confirmationResult = await OnConfirmExitRequestedAsync( this, EventArgs.Empty );
+
+            if ( confirmationResult == ConfirmationResult.Cancel )
+            {
+               return;
+            }
          }
 
          InputState = CommitInputState.Exiting;
@@ -282,12 +277,6 @@ namespace GitWrite.ViewModels
       {
          if ( IsExiting )
          {
-            return;
-         }
-         
-         if ( !( await ConfirmExitForChanges() ) )
-         {
-            e.Cancel = true;
             return;
          }
 
