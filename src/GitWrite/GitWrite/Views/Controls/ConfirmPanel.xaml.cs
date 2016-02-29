@@ -8,6 +8,7 @@ namespace GitWrite.Views.Controls
    public partial class ConfirmPanel : UserControl
    {
       private TaskCompletionSource<ConfirmationResult> _confirmationCompletionSource;
+      private bool _isDismissing;
        
       public ConfirmPanel()
       {
@@ -25,6 +26,13 @@ namespace GitWrite.Views.Controls
 
       private void Complete( ConfirmationResult confirmationResult )
       {
+         if ( _isDismissing )
+         {
+            return;
+         }
+
+         _isDismissing = true;
+
          if ( _confirmationCompletionSource != null && !_confirmationCompletionSource.Task.IsCompleted )
          {
             if ( confirmationResult == ConfirmationResult.Cancel )
