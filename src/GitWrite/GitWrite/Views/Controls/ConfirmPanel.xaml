@@ -16,6 +16,37 @@
 
    <UserControl.Resources>
       <converters:BorderToGeometryConverter x:Key="BorderToGeometry" />
+      <Storyboard x:Key="ShowStoryboard">
+         <DoubleAnimation Storyboard.TargetName="LayoutRoot"
+            Storyboard.TargetProperty="Opacity"
+            From="0"
+            To="1"
+            Duration="0:0:0.3">
+            <DoubleAnimation.EasingFunction>
+               <CircleEase EasingMode="EaseOut" />
+            </DoubleAnimation.EasingFunction>   
+         </DoubleAnimation>
+         <DoubleAnimation Storyboard.TargetName="SaveTransform"
+            Storyboard.TargetProperty="X"
+            From="50"
+            To="0"
+            Duration="0:0:0.4">
+            <DoubleAnimation.EasingFunction>
+               <ElasticEase EasingMode="EaseOut"
+                  Oscillations="1" />
+            </DoubleAnimation.EasingFunction>
+         </DoubleAnimation>
+         <DoubleAnimation Storyboard.TargetName="CancelTransform"
+            Storyboard.TargetProperty="X"
+            From="-50"
+            To="0"
+            Duration="0:0:0.4">
+            <DoubleAnimation.EasingFunction>
+               <ElasticEase EasingMode="EaseOut"
+                  Oscillations="1" />
+            </DoubleAnimation.EasingFunction>            
+         </DoubleAnimation>
+      </Storyboard>
    </UserControl.Resources>
 
    <Border Background="#8000">
@@ -29,16 +60,25 @@
       <Grid Width="300">
          <TextBlock HorizontalAlignment="Left"
             VerticalAlignment="Center">
+            <TextBlock.RenderTransform>
+               <TranslateTransform x:Name="SaveTransform" />
+            </TextBlock.RenderTransform>
+
             <Underline>S</Underline>ave
          </TextBlock>
 
          <TextBlock HorizontalAlignment="Center"
             VerticalAlignment="Center">
+
             <Underline>D</Underline>iscard
          </TextBlock>
 
          <TextBlock HorizontalAlignment="Right"
             VerticalAlignment="Center">
+            <TextBlock.RenderTransform>
+               <TranslateTransform x:Name="CancelTransform" />
+            </TextBlock.RenderTransform>
+
             <Underline>C</Underline>ancel
          </TextBlock>
       </Grid>

@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Animation;
 
 namespace GitWrite.Views.Controls
 {
@@ -15,6 +16,8 @@ namespace GitWrite.Views.Controls
 
       public Task<ConfirmationResult> ShowAsync()
       {
+         ( Resources["ShowStoryboard"] as Storyboard )?.Begin();
+
          _confirmationCompletionSource = new TaskCompletionSource<ConfirmationResult>();
 
          return _confirmationCompletionSource.Task;
