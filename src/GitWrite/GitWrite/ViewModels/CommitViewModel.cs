@@ -245,27 +245,27 @@ namespace GitWrite.ViewModels
 
       private bool ConfirmExitForChanges()
       {
-         var appService = SimpleIoc.Default.GetInstance<IAppService>();
-
          if ( _hasEditedCommitMessage )
          {
-            var result = appService.DisplayMessageBox( Strings.ConfirmDiscardMessage, MessageBoxButton.YesNo );
-
-            if ( result == MessageBoxResult.No )
-            {
-               return false;
-            }
+            OnConfirmExitRequested( this, EventArgs.Empty );
          }
 
-         return true;
+         return false;
       }
 
       private async void CancelCommit()
       {
-         if ( IsExiting || !ConfirmExitForChanges() )
+         if ( IsExiting )
          {
             return;
          }
+
+         if ( _hasEditedCommitMessage && !ConfirmExitForChanges() )
+         {
+            return;
+         }
+
+         InputState = CommitInputState.Exiting;
 
          var shutDownTask = BeginShutDownAsync( ExitReason.AbortCommit );
 
