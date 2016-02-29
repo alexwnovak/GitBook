@@ -12,6 +12,7 @@
    Foreground="{StaticResource WindowCommitForegroundColor}"
    FontSize="30"
    Focusable="True"
+   FocusVisualStyle="{x:Null}"
    PreviewKeyDown="ConfirmPanel_OnPreviewKeyDown">
 
    <UserControl.Resources>
