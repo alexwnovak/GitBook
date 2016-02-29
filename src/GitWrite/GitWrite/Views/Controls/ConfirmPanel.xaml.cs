@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace GitWrite.Views.Controls
 {
@@ -15,9 +16,33 @@ namespace GitWrite.Views.Controls
       public Task<ConfirmationResult> ShowAsync()
       {
          _confirmationCompletionSource = new TaskCompletionSource<ConfirmationResult>();
-         _confirmationCompletionSource.SetResult( ConfirmationResult.Discard );
 
          return _confirmationCompletionSource.Task;
+      }
+
+      private void Complete( ConfirmationResult confirmationResult )
+      {
+         if ( _confirmationCompletionSource != null && !_confirmationCompletionSource.Task.IsCompleted )
+         {
+            _confirmationCompletionSource.SetResult( confirmationResult );
+         }
+      }
+
+      private void ConfirmPanel_OnPreviewKeyDown( object sender, KeyEventArgs e )
+      {
+         switch ( e.Key )
+         {
+            case Key.S:
+               Complete( ConfirmationResult.Save );
+               break;
+            case Key.D:
+               Complete( ConfirmationResult.Discard );
+               break;
+            case Key.C:
+            case Key.Escape:
+               Complete( ConfirmationResult.Cancel );
+               break;
+         }
       }
    }
 }

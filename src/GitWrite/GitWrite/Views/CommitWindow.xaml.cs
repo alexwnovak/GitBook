@@ -78,6 +78,8 @@ namespace GitWrite.Views
 
          MainGrid.Children.Add( confirmPanel );
 
+         confirmPanel.Focus();
+
          return await confirmPanel.ShowAsync();
       }
 
