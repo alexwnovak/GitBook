@@ -138,6 +138,12 @@ namespace GitWrite.ViewModels
          set;
       }
 
+      public bool IsConfirming
+      {
+         get;
+         set;
+      }
+
       private bool _hasEditedCommitMessage;
 
       public event EventHandler ExpansionRequested;
@@ -243,17 +249,19 @@ namespace GitWrite.ViewModels
 
       private async void CancelCommit()
       {
-         if ( IsExiting )
+         if ( IsExiting || IsConfirming )
          {
             return;
          }
 
          if ( _hasEditedCommitMessage )
          {
+            IsConfirming = true;
             var confirmationResult = await OnConfirmExitRequestedAsync( this, EventArgs.Empty );
 
             if ( confirmationResult == ConfirmationResult.Cancel )
             {
+               IsConfirming = false;
                return;
             }
             else if ( confirmationResult == ConfirmationResult.Save )
