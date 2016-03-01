@@ -98,8 +98,6 @@ namespace GitWrite.Views
 
       private void CommitWindow_OnLoaded( object sender, RoutedEventArgs e )
       {
-         Left = ( SystemParameters.FullPrimaryScreenWidth - Width) / 2;
-
          if ( !string.IsNullOrEmpty( _viewModel.ShortMessage ) )
          {
             CommitText.SelectionStart = CommitText.Text.Length;
