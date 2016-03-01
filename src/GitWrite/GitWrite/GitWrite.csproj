@@ -70,6 +70,7 @@
     <Compile Include="ApplicationMode.cs" />
     <Compile Include="ApplicationModeInterpreter.cs" />
     <Compile Include="AsyncEventHandler.cs" />
+    <Compile Include="Behaviors\CommitCaretPositionBehavior.cs" />
     <Compile Include="Behaviors\CommitKeyPressBehavior.cs" />
     <Compile Include="Behaviors\WindowPlacementBehavior.cs" />
     <Compile Include="CommitDocument.cs" />
