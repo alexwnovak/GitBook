@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
+using GitWrite;
 using GitWrite.ViewModels;
 using GitWrite.Views.Controls;
 
@@ -45,13 +46,11 @@ namespace GitWrite.Views
       {
          HelpScrollDistance = -ActualHeight;
 
-         (Resources["ActivateHelpStoryboard"] as Storyboard)?.Begin();
+         this.PlayStoryboard( "ActivateHelpStoryboard" );
       }
 
       private void OnCollapseHelpRequested( object sender, EventArgs e )
-      {
-         (Resources["CollapseHelpStoryboard"] as Storyboard)?.Begin();
-      }
+         => this.PlayStoryboard( "CollapseHelpStoryboard" );
 
       private Task OnAsyncExitRequested( object sender, EventArgs e )
       {

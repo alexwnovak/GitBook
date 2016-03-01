@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using GitWrite;
 
 namespace GitWrite.Views.Controls
 {
@@ -18,7 +19,7 @@ namespace GitWrite.Views.Controls
 
       public Task<ConfirmationResult> ShowAsync()
       {
-         ( Resources["ShowPanelStoryboard"] as Storyboard )?.Begin();
+         this.PlayStoryboard( "ShowPanelStoryboard" );
 
          _confirmationCompletionSource = new TaskCompletionSource<ConfirmationResult>();
 
@@ -45,7 +46,7 @@ namespace GitWrite.Views.Controls
             }
             else
             {
-               ( Resources["DismissPanelStoryboard"] as Storyboard )?.Begin();
+               this.PlayStoryboard( "DismissPanelStoryboard" );
                _confirmationCompletionSource.SetResult( confirmationResult );
             }
          }
