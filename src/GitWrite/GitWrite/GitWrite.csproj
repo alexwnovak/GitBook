@@ -74,6 +74,7 @@
     <Compile Include="Behaviors\WindowPlacementBehavior.cs" />
     <Compile Include="CommitDocument.cs" />
     <Compile Include="CommitFileReader.cs" />
+    <Compile Include="FrameworkElementExtensions.cs" />
     <Compile Include="GitFileAttribute.cs" />
     <Compile Include="Views\CommitInputState.cs" />
     <Compile Include="Views\Controls\ConfirmationResult.cs" />
