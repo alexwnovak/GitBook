@@ -6,15 +6,20 @@
    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
    xmlns:local="clr-namespace:GitWrite.Views.Controls"
    xmlns:converters="clr-namespace:GitWrite.Views.Converters"
+   xmlns:p="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
    mc:Ignorable="d" 
    d:DesignHeight="300"
    d:DesignWidth="300"
    Foreground="{StaticResource WindowCommitForegroundColor}"
    FontSize="30"
    Focusable="True"
+   FocusVisualStyle="{x:Null}"
    PreviewKeyDown="ConfirmPanel_OnPreviewKeyDown">
 
    <UserControl.Resources>
+      <SolidColorBrush x:Key="SaveTextBrush" Color="#0F0" p:Freeze="True" />
+      <SolidColorBrush x:Key="DiscardTextBrush" Color="#F00" p:Freeze="True" />
+      <SolidColorBrush x:Key="CancelTextBrush" Color="#FB0" p:Freeze="True" />
       <converters:BorderToGeometryConverter x:Key="BorderToGeometry" />
       <Storyboard x:Key="ShowPanelStoryboard">
          <DoubleAnimation Storyboard.TargetName="LayoutRoot"
@@ -30,7 +35,7 @@
             Storyboard.TargetProperty="X"
             From="50"
             To="0"
-            Duration="0:0:0.4">
+            Duration="0:0:0.3">
             <DoubleAnimation.EasingFunction>
                <ElasticEase EasingMode="EaseOut"
                   Oscillations="1" />
@@ -40,7 +45,7 @@
             Storyboard.TargetProperty="X"
             From="-50"
             To="0"
-            Duration="0:0:0.4">
+            Duration="0:0:0.3">
             <DoubleAnimation.EasingFunction>
                <ElasticEase EasingMode="EaseOut"
                   Oscillations="1" />
@@ -52,27 +57,30 @@
             Storyboard.TargetProperty="Opacity"
             From="1"
             To="0"
-            Duration="0:0:0.5">
+            BeginTime="0:0:0.18"
+            Duration="0:0:0.4">
             <DoubleAnimation.EasingFunction>
-               <CircleEase EasingMode="EaseOut" />
+               <CubicEase EasingMode="EaseOut" />
             </DoubleAnimation.EasingFunction>   
          </DoubleAnimation>
          <DoubleAnimation Storyboard.TargetName="SaveTransform"
             Storyboard.TargetProperty="X"
             From="0"
             To="80"
-            Duration="0:0:0.6">
+            BeginTime="0:0:0.18"
+            Duration="0:0:0.25">
             <DoubleAnimation.EasingFunction>
-               <CircleEase EasingMode="EaseOut" />
+               <CubicEase EasingMode="EaseOut" />
             </DoubleAnimation.EasingFunction>
          </DoubleAnimation>
          <DoubleAnimation Storyboard.TargetName="CancelTransform"
             Storyboard.TargetProperty="X"
             From="0"
             To="-80"
-            Duration="0:0:0.6">
+            BeginTime="0:0:0.18"
+            Duration="0:0:0.25">
             <DoubleAnimation.EasingFunction>
-               <CircleEase EasingMode="EaseOut" />
+               <CubicEase EasingMode="EaseOut" />
             </DoubleAnimation.EasingFunction>            
          </DoubleAnimation>
       </Storyboard>
@@ -88,7 +96,8 @@
 
       <Grid Width="400"
          Margin="0,-6,0,0">
-         <TextBlock HorizontalAlignment="Left"
+         <TextBlock x:Name="SaveText"
+            HorizontalAlignment="Left"
             VerticalAlignment="Center">
             <TextBlock.RenderTransform>
                <TranslateTransform x:Name="SaveTransform" />
@@ -97,13 +106,15 @@
             <Underline>S</Underline>ave
          </TextBlock>
 
-         <TextBlock HorizontalAlignment="Center"
+         <TextBlock x:Name="DiscardText"
+            HorizontalAlignment="Center"
             VerticalAlignment="Center">
 
             <Underline>D</Underline>iscard
          </TextBlock>
 
-         <TextBlock HorizontalAlignment="Right"
+         <TextBlock x:Name="CancelText"
+            HorizontalAlignment="Right"
             VerticalAlignment="Center">
             <TextBlock.RenderTransform>
                <TranslateTransform x:Name="CancelTransform" />

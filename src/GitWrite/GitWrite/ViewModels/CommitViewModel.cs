@@ -1,13 +1,9 @@
 using System;
 using System.ComponentModel;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
-using GitWrite.Resources;
 using GitWrite.Services;
 using GitWrite.Views;
 using GitWrite.Views.Controls;
@@ -142,6 +138,12 @@ namespace GitWrite.ViewModels
          set;
       }
 
+      public bool IsConfirming
+      {
+         get;
+         set;
+      }
+
       private bool _hasEditedCommitMessage;
 
       public event EventHandler ExpansionRequested;
@@ -247,17 +249,19 @@ namespace GitWrite.ViewModels
 
       private async void CancelCommit()
       {
-         if ( IsExiting )
+         if ( IsExiting || IsConfirming )
          {
             return;
          }
 
          if ( _hasEditedCommitMessage )
          {
+            IsConfirming = true;
             var confirmationResult = await OnConfirmExitRequestedAsync( this, EventArgs.Empty );
 
             if ( confirmationResult == ConfirmationResult.Cancel )
             {
+               IsConfirming = false;
                return;
             }
             else if ( confirmationResult == ConfirmationResult.Save )
