@@ -15,8 +15,7 @@
    ResizeMode="NoResize"
    WindowStyle="None"
    FocusManager.FocusedElement="{Binding ElementName=CommitText}"
-   DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=CommitViewModel}"
-   Loaded="CommitWindow_OnLoaded">
+   DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=CommitViewModel}">
 
    <Window.Resources>
       <ResourceDictionary>
@@ -45,6 +44,9 @@
          <cmd:EventToCommand Command="{Binding CloseCommand, Mode=OneTime}"
             PassEventArgsToCommand="True"
             MustToggleIsEnabledValue="True" />
+      </i:EventTrigger>
+      <i:EventTrigger EventName="Loaded">
+         <cmd:EventToCommand Command="{Binding LoadCommand, Mode=OneTime}" />
       </i:EventTrigger>
    </i:Interaction.Triggers>
 

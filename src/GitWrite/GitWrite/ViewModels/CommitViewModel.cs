@@ -50,6 +50,11 @@ namespace GitWrite.ViewModels
          get;
       }
 
+      public RelayCommand LoadCommand
+      {
+         get;
+      }
+
       public CommitInputState InputState
       {
          get;
@@ -161,6 +166,7 @@ namespace GitWrite.ViewModels
          AbortCommand = new RelayCommand( CancelCommit );
          HelpCommand = new RelayCommand( ActivateHelp );
          CloseCommand = new RelayCommand<CancelEventArgs>( CloseWindow );
+         LoadCommand = new RelayCommand( ViewLoaded );
 
          ShortMessage = App.CommitDocument?.ShortMessage;
          ExtraCommitText = App.CommitDocument?.LongMessage;

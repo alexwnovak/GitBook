@@ -94,10 +94,5 @@ namespace GitWrite.Views
 
       private void OnExpansionRequested( object sender, EventArgs eventArgs )
          => VisualStateManager.GoToElementState( MainGrid, "Expanded", true );
-
-      private void CommitWindow_OnLoaded( object sender, RoutedEventArgs e )
-      {
-         _viewModel.ViewLoaded();
-      }
    }
 }
