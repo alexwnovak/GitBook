@@ -1,13 +1,9 @@
 using System;
 using System.ComponentModel;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
-using GitWrite.Resources;
 using GitWrite.Services;
 using GitWrite.Views;
 using GitWrite.Views.Controls;
