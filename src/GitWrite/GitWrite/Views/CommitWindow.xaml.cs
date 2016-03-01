@@ -97,11 +97,6 @@ namespace GitWrite.Views
 
       private void CommitWindow_OnLoaded( object sender, RoutedEventArgs e )
       {
-         if ( !string.IsNullOrEmpty( _viewModel.ShortMessage ) )
-         {
-            CommitText.SelectionStart = CommitText.Text.Length;
-         }
-
          _viewModel.ViewLoaded();
       }
    }
