@@ -2,8 +2,6 @@
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media.Animation;
-using GitWrite;
 using GitWrite.ViewModels;
 using GitWrite.Views.Controls;
 
