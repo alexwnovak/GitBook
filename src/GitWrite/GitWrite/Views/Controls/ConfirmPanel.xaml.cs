@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Animation;
 
 namespace GitWrite.Views.Controls
@@ -9,7 +10,7 @@ namespace GitWrite.Views.Controls
    {
       private TaskCompletionSource<ConfirmationResult> _confirmationCompletionSource;
       private bool _isDismissing;
-       
+
       public ConfirmPanel()
       {
          InitializeComponent();
@@ -55,12 +56,15 @@ namespace GitWrite.Views.Controls
          switch ( e.Key )
          {
             case Key.S:
+               SaveText.Foreground = (SolidColorBrush) Resources["SaveTextBrush"];
                Complete( ConfirmationResult.Save );
                break;
             case Key.D:
+               DiscardText.Foreground = (SolidColorBrush) Resources["DiscardTextBrush"];
                Complete( ConfirmationResult.Discard );
                break;
             case Key.C:
+               CancelText.Foreground = (SolidColorBrush) Resources["CancelTextBrush"];
                Complete( ConfirmationResult.Cancel );
                break;
             default:
