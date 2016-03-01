@@ -33,6 +33,12 @@
       <behaviors:WindowPlacementBehavior />
    </i:Interaction.Behaviors>
 
+   <Window.Triggers>
+      <EventTrigger RoutedEvent="Window.Loaded">
+         <BeginStoryboard Storyboard="{StaticResource WindowEntranceStoryboard}" />
+      </EventTrigger>
+   </Window.Triggers>
+
    <i:Interaction.Triggers>
       <i:EventTrigger EventName="Closing">
          <cmd:EventToCommand Command="{Binding CloseCommand, Mode=OneTime}"
