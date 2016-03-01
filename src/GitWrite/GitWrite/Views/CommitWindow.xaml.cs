@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media.Animation;
 using GitWrite.ViewModels;
 using GitWrite.Views.Controls;
 
@@ -45,13 +44,11 @@ namespace GitWrite.Views
       {
          HelpScrollDistance = -ActualHeight;
 
-         (Resources["ActivateHelpStoryboard"] as Storyboard)?.Begin();
+         this.PlayStoryboard( "ActivateHelpStoryboard" );
       }
 
       private void OnCollapseHelpRequested( object sender, EventArgs e )
-      {
-         (Resources["CollapseHelpStoryboard"] as Storyboard)?.Begin();
-      }
+         => this.PlayStoryboard( "CollapseHelpStoryboard" );
 
       private Task OnAsyncExitRequested( object sender, EventArgs e )
       {
@@ -95,19 +92,5 @@ namespace GitWrite.Views
 
       private void OnExpansionRequested( object sender, EventArgs eventArgs )
          => VisualStateManager.GoToElementState( MainGrid, "Expanded", true );
-
-      private void CommitWindow_OnLoaded( object sender, RoutedEventArgs e )
-      {
-         Left = ( SystemParameters.FullPrimaryScreenWidth - Width) / 2;
-
-         if ( !string.IsNullOrEmpty( _viewModel.ShortMessage ) )
-         {
-            CommitText.SelectionStart = CommitText.Text.Length;
-         }
-
-         ( Resources["WindowEntranceStoryboard"] as Storyboard )?.Begin();
-
-         _viewModel.ViewLoaded();
-      }
    }
 }
