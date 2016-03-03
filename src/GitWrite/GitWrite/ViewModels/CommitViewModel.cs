@@ -297,6 +297,12 @@ namespace GitWrite.ViewModels
 
          e.Cancel = true;
 
+         if ( _hasEditedCommitMessage )
+         {
+            CancelCommit();
+            return;
+         }
+
          await BeginShutDownAsync( ExitReason.AbortCommit );
          ShutDown();
       }
