@@ -140,11 +140,6 @@
                         TextWrapping="Wrap"
                         Text="{Binding ExtraCommitText, UpdateSourceTrigger=PropertyChanged}">
                         <i:Interaction.Triggers>
-                           <i:EventTrigger EventName="KeyDown">
-                              <cmd:EventToCommand Command="{Binding CommitNotesKeyDownCommand, Mode=OneTime}"
-                                 PassEventArgsToCommand="True"
-                                 MustToggleIsEnabledValue="True" />
-                           </i:EventTrigger>
                            <i:EventTrigger EventName="GotFocus">
                               <cmd:EventToCommand Command="{Binding SecondaryNotesGotFocusCommand, Mode=OneTime}"
                                  MustToggleIsEnabledValue="True" />
