@@ -91,11 +91,6 @@
                <TranslateTransform x:Name="OuterBorderTranslateTransform" />
             </Grid.RenderTransform>
 
-            <Grid.ColumnDefinitions>
-               <ColumnDefinition />
-               <ColumnDefinition Width="40" />
-            </Grid.ColumnDefinitions>
-
             <Border x:Name="InnerBorder"
                CornerRadius="8"
                Padding="16"
@@ -122,6 +117,14 @@
                            </i:EventTrigger>
                         </i:Interaction.Triggers>
                      </TextBox>
+
+                     <TextBlock x:Name="RemainingCharactersTextBlock"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Margin="0,0,4,0"
+                        Foreground="{StaticResource WindowCommitForegroundColor}"
+                        FontStyle="Italic"
+                        Text="{Binding Text.Length, ElementName=CommitText, Converter={StaticResource TextLengthInversionConverter}}" />
                   </Grid>
 
                   <Rectangle Grid.Row="1"
@@ -149,30 +152,6 @@
                   </Grid>
                </Grid>
             </Border>
-
-            <Grid Grid.Column="1">
-               <Grid.RowDefinitions>
-                  <RowDefinition Height="30" />
-                  <RowDefinition />
-                  <RowDefinition Height="30" />
-               </Grid.RowDefinitions>
-
-               <Border CornerRadius="0,12,0,0">
-                  <TextBlock x:Name="RemainingCharactersTextBlock"
-                     HorizontalAlignment="Center"
-                     VerticalAlignment="Center"
-                     Margin="0,10,0,0"
-                     Foreground="{StaticResource WindowCommitForegroundColor}"
-                     FontStyle="Italic"
-                     Text="{Binding Text.Length, ElementName=CommitText, Converter={StaticResource TextLengthInversionConverter}}" />
-               </Border>
-
-               <Button Grid.Row="2"
-                  Foreground="{StaticResource WindowCommitForegroundColor}"
-                  Content="?"
-                  IsTabStop="False"
-                  Command="{Binding HelpCommand, Mode=OneTime}"/>
-            </Grid>
          </Grid>
       </Border>
    </Grid>
