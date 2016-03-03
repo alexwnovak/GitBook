@@ -94,10 +94,17 @@
          </MultiBinding>
       </Border.Clip>
 
-      <Grid Width="400"
-         Margin="0,-6,0,0">
+      <Grid Margin="0,-6,0,0"
+         Width="600">
+         <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+         </Grid.ColumnDefinitions>
+         
          <TextBlock x:Name="SaveText"
-            HorizontalAlignment="Left"
+            Grid.Column="0"
+            HorizontalAlignment="Center"
             VerticalAlignment="Center">
             <TextBlock.RenderTransform>
                <TranslateTransform x:Name="SaveTransform" />
@@ -107,6 +114,7 @@
          </TextBlock>
 
          <TextBlock x:Name="DiscardText"
+            Grid.Column="1"
             HorizontalAlignment="Center"
             VerticalAlignment="Center">
 
@@ -114,7 +122,8 @@
          </TextBlock>
 
          <TextBlock x:Name="CancelText"
-            HorizontalAlignment="Right"
+            Grid.Column="2"
+            HorizontalAlignment="Center"
             VerticalAlignment="Center">
             <TextBlock.RenderTransform>
                <TranslateTransform x:Name="CancelTransform" />
