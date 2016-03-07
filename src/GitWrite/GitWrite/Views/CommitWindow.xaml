@@ -15,7 +15,7 @@
    ResizeMode="NoResize"
    WindowStyle="None"
    FocusManager.FocusedElement="{Binding ElementName=CommitText}"
-   DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=CommitViewModel}">
+   DataContext="{Binding CommitViewModel, Source={StaticResource ViewModelLocator}}">
 
    <Window.Resources>
       <ResourceDictionary>

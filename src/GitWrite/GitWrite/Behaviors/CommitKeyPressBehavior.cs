@@ -21,9 +21,6 @@ namespace GitWrite.Behaviors
             case CommitInputState.Editing:
                HandleEditingState( e );
                break;
-            case CommitInputState.Exiting:
-               HandleExitingState( e );
-               break;
          }
       }
 
@@ -49,10 +46,6 @@ namespace GitWrite.Behaviors
             e.Handled = true;
             _commitViewModel.AbortCommand.Execute( null );
          }
-      }
-
-      private void HandleExitingState( KeyEventArgs e )
-      {
       }
    }
 }
