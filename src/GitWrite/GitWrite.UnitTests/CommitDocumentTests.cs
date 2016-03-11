@@ -62,7 +62,7 @@ namespace GitWrite.UnitTests
          fileAdapterMock.Setup( fa => fa.WriteAllLines( It.IsAny<string>(), It.IsAny<IEnumerable<string>>() ) ).Callback<string, IEnumerable<string>>( ( p, l ) =>
          {
             var lines = l.ToList();
-            parametersMatch = (p == path && lines[0] == shortMessage && lines[1] == longMessage);
+            parametersMatch = (p == path && lines[0] == shortMessage && lines[1] == string.Empty && lines[2] == longMessage);
          } );
          SimpleIoc.Default.Register( () => fileAdapterMock.Object );
 
@@ -96,7 +96,7 @@ namespace GitWrite.UnitTests
          fileAdapterMock.Setup( fa => fa.WriteAllLines( It.IsAny<string>(), It.IsAny<IEnumerable<string>>() ) ).Callback<string, IEnumerable<string>>( ( p, l ) =>
          {
             var lines = l.ToList();
-            parametersMatch = ( p == path && lines[0] == shortMessage && lines[1] == longMessage );
+            parametersMatch = ( p == path && lines[0] == shortMessage && lines[1] == string.Empty && lines[2] == longMessage );
          } );
          SimpleIoc.Default.Register( () => fileAdapterMock.Object );
 
