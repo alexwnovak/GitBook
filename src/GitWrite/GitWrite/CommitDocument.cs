@@ -33,6 +33,7 @@ namespace GitWrite
          var lines = new[]
          {
             ShortMessage,
+            string.Empty,
             LongMessage
          };
 
