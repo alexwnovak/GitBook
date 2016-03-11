@@ -11,10 +11,10 @@ namespace GitWrite.Behaviors
    {
       private readonly CommitViewModel _commitViewModel = SimpleIoc.Default.GetInstance<CommitViewModel>();
 
-      protected override void OnAttached() => AssociatedObject.PreviewKeyDown += PreviewKeyDown;
-      protected override void OnDetaching() => AssociatedObject.PreviewKeyDown -= PreviewKeyDown;
+      protected override void OnAttached() => AssociatedObject.KeyDown += KeyDown;
+      protected override void OnDetaching() => AssociatedObject.KeyDown -= KeyDown;
       
-      public void PreviewKeyDown( object sender, KeyEventArgs e )
+      public void KeyDown( object sender, KeyEventArgs e )
       {
          switch ( _commitViewModel.InputState )
          {
