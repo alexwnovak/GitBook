@@ -109,6 +109,9 @@
     <Compile Include="Services\AppService.cs" />
     <Compile Include="ViewModels\CommitViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
+    <Compile Include="Views\InteractiveRebaseWindow.xaml.cs">
+      <DependentUpon>InteractiveRebaseWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\IStoryboardHelper.cs" />
     <Compile Include="Views\StoryboardHelper.cs" />
     <Compile Include="Views\WindowDragBehavior.cs" />
@@ -144,6 +147,10 @@
     <Page Include="Views\Controls\ExitPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\InteractiveRebaseWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
