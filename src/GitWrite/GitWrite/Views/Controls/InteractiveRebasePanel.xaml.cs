@@ -63,19 +63,35 @@ namespace GitWrite.Views.Controls
 
       private async void InteractiveRebaseWindow_OnPreviewKeyDown( object sender, KeyEventArgs e )
       {
+         bool isCtrlDown = Keyboard.IsKeyDown( Key.LeftCtrl ) || Keyboard.IsKeyDown( Key.RightCtrl );
+
          if ( e.Key == Key.Down )
          {
-            if ( SelectedIndex + 1 < Items.Count )
+            if ( SelectedIndex == Items.Count - 1 )
             {
-               SelectedIndex++;
+               return;
             }
+
+            if ( isCtrlDown )
+            {
+               await SwapItemsAsync( SelectedIndex, SelectedIndex + 1 );
+            }
+
+            SelectedIndex++;
          }
-         else if ( e.Key == Key.Up )
+         else if ( e.Key == Key.Up && isCtrlDown )
          {
-            if ( SelectedIndex - 1 >= 0 )
+            if ( SelectedIndex == 0 )
             {
-               SelectedIndex--;
+               return;
             }
+
+            if ( isCtrlDown )
+            {
+               await SwapItemsAsync( SelectedIndex - 1, SelectedIndex );
+            }
+
+            SelectedIndex--;
          }
       }
    }
