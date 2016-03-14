@@ -13,7 +13,8 @@
    BorderThickness="0"
    SelectedIndex="0"
    d:DesignHeight="300"
-   d:DesignWidth="300">
+   d:DesignWidth="300"
+   PreviewKeyDown="InteractiveRebaseWindow_OnPreviewKeyDown"> 
    <ListBox.ItemContainerStyle>
       <Style TargetType="ListBoxItem">
          <Setter Property="Padding" Value="0" />
