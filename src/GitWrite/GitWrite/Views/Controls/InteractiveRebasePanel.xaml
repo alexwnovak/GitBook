@@ -8,4 +8,18 @@
    mc:Ignorable="d"
    d:DesignHeight="300"
    d:DesignWidth="300">
+   <ListBox.ItemTemplate>
+      <DataTemplate>
+         <Grid x:Name="ItemTemplateRoot">
+            <Grid.RenderTransform>
+               <TranslateTransform x:Name="TranslateTransform" />
+            </Grid.RenderTransform>
+   
+            <TextBlock
+               Margin="20,0,0,0"
+               VerticalAlignment="Center"
+               Text="{Binding Text}" />
+         </Grid>
+      </DataTemplate>
+   </ListBox.ItemTemplate>
 </ListBox>
