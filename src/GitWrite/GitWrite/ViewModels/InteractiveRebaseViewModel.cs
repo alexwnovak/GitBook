@@ -19,5 +19,12 @@ namespace GitWrite.ViewModels
             new RebaseItem( "Three" )
          };
       }
+
+      public void SwapItems( int indexOne, int indexTwo )
+      {
+         var tempItem = Items[indexOne];
+         Items.RemoveAt( indexOne );
+         Items.Insert( indexTwo, tempItem );
+      }
    }
 }
