@@ -14,6 +14,15 @@
    SelectedIndex="0"
    d:DesignHeight="300"
    d:DesignWidth="300">
+   <ListBox.ItemContainerStyle>
+      <Style TargetType="ListBoxItem">
+         <Setter Property="Padding" Value="0" />
+         <Setter Property="Margin" Value="0" />
+         <Setter Property="Height" Value="30" />
+         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+         <Setter Property="VerticalContentAlignment" Value="Stretch" />
+      </Style>
+   </ListBox.ItemContainerStyle>
    <ListBox.ItemTemplate>
       <DataTemplate>
          <Grid x:Name="ItemTemplateRoot">
