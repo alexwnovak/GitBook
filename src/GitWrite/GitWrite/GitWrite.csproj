@@ -77,10 +77,15 @@
     <Compile Include="CommitFileReader.cs" />
     <Compile Include="FrameworkElementExtensions.cs" />
     <Compile Include="GitFileAttribute.cs" />
+    <Compile Include="ViewModels\InteractiveRebaseViewModel.cs" />
+    <Compile Include="ViewModels\RebaseItem.cs" />
     <Compile Include="Views\CommitInputState.cs" />
     <Compile Include="Views\Controls\ConfirmationResult.cs" />
     <Compile Include="Views\Controls\ConfirmPanel.xaml.cs">
       <DependentUpon>ConfirmPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\InteractiveRebasePanel.xaml.cs">
+      <DependentUpon>InteractiveRebasePanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Converters\BorderToGeometryConverter.cs" />
     <Compile Include="Views\Controls\ExitPanel.xaml.cs">
@@ -108,6 +113,9 @@
     <Compile Include="Services\AppService.cs" />
     <Compile Include="ViewModels\CommitViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
+    <Compile Include="Views\InteractiveRebaseWindow.xaml.cs">
+      <DependentUpon>InteractiveRebaseWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\IStoryboardHelper.cs" />
     <Compile Include="Views\StoryboardHelper.cs" />
     <Compile Include="Views\WindowDragBehavior.cs" />
@@ -143,6 +151,14 @@
     <Page Include="Views\Controls\ExitPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\InteractiveRebasePanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\InteractiveRebaseWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>

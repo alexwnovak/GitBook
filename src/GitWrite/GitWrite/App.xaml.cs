@@ -23,6 +23,7 @@ namespace GitWrite
          ServiceLocator.SetLocatorProvider( () => SimpleIoc.Default );
 
          SimpleIoc.Default.Register<CommitViewModel>();
+         SimpleIoc.Default.Register<InteractiveRebaseViewModel>();
          SimpleIoc.Default.Register<IAppService, AppService>();
          SimpleIoc.Default.Register<IEnvironmentAdapter, EnvironmentAdapter>();
          SimpleIoc.Default.Register<ICommitFileReader, CommitFileReader>();
