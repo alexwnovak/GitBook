@@ -15,6 +15,7 @@
    WindowStartupLocation="Manual"
    ResizeMode="NoResize"
    WindowStyle="None"
+   FocusManager.FocusedElement="{Binding ElementName=RebasePanel}"
    DataContext="{Binding InteractiveRebaseViewMdoel, Source={StaticResource ViewModelLocator}}">
 
    <Window.Resources>
