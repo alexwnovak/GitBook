@@ -6,6 +6,7 @@
    xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WPF45"
    xmlns:views="clr-namespace:GitWrite.Views"
    xmlns:behaviors="clr-namespace:GitWrite.Behaviors"
+   xmlns:controls="clr-namespace:GitWrite.Views.Controls"
    AllowsTransparency="True"
    Background="Transparent"
    Title="CommitWindow"
@@ -50,7 +51,9 @@
                Padding="16"
                VerticalAlignment="Stretch">
                <Grid VerticalAlignment="Stretch">
-
+                  <controls:InteractiveRebasePanel x:Name="RebasePanel"
+                     ItemsSource="{Binding Items}">
+                  </controls:InteractiveRebasePanel>
                </Grid>
             </Border>
          </Grid>
