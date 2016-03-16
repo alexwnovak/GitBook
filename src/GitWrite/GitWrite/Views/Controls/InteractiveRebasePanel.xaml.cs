@@ -14,8 +14,8 @@ namespace GitWrite.Views.Controls
    {
       private enum MovementDirection
       {
-         Up,
-         Down
+         Up = -1,
+         Down = 1
       }
 
       public static DependencyProperty ItemsSourceProperty = DependencyProperty.Register( "ItemsSource",
@@ -35,6 +35,7 @@ namespace GitWrite.Views.Controls
          }
       }
 
+      private const int _movementAnimationDuration = 70;
       private int _highlightedIndex;
       private bool _isHighlightMoving;
 
@@ -43,6 +44,8 @@ namespace GitWrite.Views.Controls
          InitializeComponent();
       }
 
+      private Duration AnimationDuration => new Duration( TimeSpan.FromMilliseconds( _movementAnimationDuration ) );
+
       private void InteractiveRebasePanel_Loaded( object sender, RoutedEventArgs e )
       {
          ListBox.Focus();
@@ -50,12 +53,11 @@ namespace GitWrite.Views.Controls
 
       private Task MoveItemAsync( int index, MovementDirection direction )
       {
-         int directionMultiplier = direction == MovementDirection.Up ? -1 : 1;
          var taskCompletionSource = new TaskCompletionSource<bool>();
 
          var container = (ListBoxItem) ListBox.ItemContainerGenerator.ContainerFromIndex( index );
          var child = (FrameworkElement) VisualTreeHelper.GetChild( container, 0 );
-         var doubleAnimation = new DoubleAnimation( 0, container.ActualHeight * directionMultiplier, new Duration( TimeSpan.FromMilliseconds( 70 ) ) )
+         var doubleAnimation = new DoubleAnimation( 0, container.ActualHeight * (int) direction, AnimationDuration )
          {
             EasingFunction = new QuarticEase()
          };
@@ -85,7 +87,7 @@ namespace GitWrite.Views.Controls
          double from = _highlightedIndex * height;
          double to = newIndex * height;
 
-         var doubleAnimation = new DoubleAnimation( from, to, new Duration( TimeSpan.FromMilliseconds( 70 ) ) )
+         var doubleAnimation = new DoubleAnimation( from, to, AnimationDuration )
          {
             EasingFunction = new QuarticEase()
          };
@@ -104,15 +106,15 @@ namespace GitWrite.Views.Controls
       {
          _isHighlightMoving = true;
 
-         int directionMultiplier = direction == MovementDirection.Up ? -1 : 1;
          var taskCompletionSource = new TaskCompletionSource<bool>();
 
          var container = (ListBoxItem) ListBox.ItemContainerGenerator.ContainerFromIndex( _highlightedIndex );
 
          double height = container.ActualHeight;
-         double y = _highlightedIndex * height;
+         double from = _highlightedIndex * height;
+         double to = from + container.ActualHeight * (int) direction;
 
-         var doubleAnimation = new DoubleAnimation( y, y + container.ActualHeight * directionMultiplier, new Duration( TimeSpan.FromMilliseconds( 70 ) ) )
+         var doubleAnimation = new DoubleAnimation( from, to, AnimationDuration )
          {
             EasingFunction = new QuarticEase()
          };
