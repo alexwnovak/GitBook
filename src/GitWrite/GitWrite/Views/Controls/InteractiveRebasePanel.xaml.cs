@@ -35,6 +35,9 @@ namespace GitWrite.Views.Controls
          }
       }
 
+      private int _highlightedIndex;
+      private bool _isHighlightMoving;
+
       public InteractiveRebasePanel()
       {
          InitializeComponent();
@@ -119,8 +122,51 @@ namespace GitWrite.Views.Controls
          viewModel.SwapItems( moveDownIndex, MoveUpIndex );
       }
 
-      private void InteractiveRebaseWindow_OnPreviewKeyDown( object sender, KeyEventArgs e )
+      private async void InteractiveRebaseWindow_OnPreviewKeyDown( object sender, KeyEventArgs e )
       {
+         if ( _isHighlightMoving )
+         {
+            return;
+         }
+
+         bool isCtrlDown = Keyboard.IsKeyDown( Key.LeftCtrl ) || Keyboard.IsKeyDown( Key.RightCtrl );
+
+         if ( e.Key == Key.Down )
+         {
+            if ( _highlightedIndex == ListBox.Items.Count - 1 )
+            {
+               return;
+            }
+
+            if ( isCtrlDown )
+            {
+               await SwapItemsAsync( _highlightedIndex, _highlightedIndex + 1 );
+            }
+            else
+            {
+               await MoveHighlightAsync( MovementDirection.Down );
+            }
+
+            _highlightedIndex++;
+         }
+         else if ( e.Key == Key.Up )
+         {
+            if ( _highlightedIndex == 0 )
+            {
+               return;
+            }
+
+            if ( isCtrlDown )
+            {
+               await SwapItemsAsync( _highlightedIndex - 1, _highlightedIndex );
+            }
+            else
+            {
+               await MoveHighlightAsync( MovementDirection.Up );
+            }
+
+            _highlightedIndex--;
+         }
       }
    }
 }
