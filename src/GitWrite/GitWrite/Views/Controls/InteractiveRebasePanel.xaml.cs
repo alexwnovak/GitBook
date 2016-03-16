@@ -73,6 +73,33 @@ namespace GitWrite.Views.Controls
          return taskCompletionSource.Task;
       }
 
+      private Task MoveHighlightAsync( int newIndex )
+      {
+         _isHighlightMoving = true;
+
+         var taskCompletionSource = new TaskCompletionSource<bool>();
+
+         var container = (ListBoxItem) ListBox.ItemContainerGenerator.ContainerFromIndex( _highlightedIndex );
+
+         double height = container.ActualHeight;
+         double from = _highlightedIndex * height;
+         double to = newIndex * height;
+
+         var doubleAnimation = new DoubleAnimation( from, to, new Duration( TimeSpan.FromMilliseconds( 70 ) ) )
+         {
+            EasingFunction = new QuarticEase()
+         };
+         doubleAnimation.Completed += ( sender, e ) =>
+         {
+            _isHighlightMoving = false;
+            taskCompletionSource.SetResult( true );
+         };
+
+         HighlightElement.BeginAnimation( Canvas.TopProperty, doubleAnimation );
+
+         return taskCompletionSource.Task;
+      }
+
       private Task MoveHighlightAsync( MovementDirection direction )
       {
          _isHighlightMoving = true;
@@ -166,6 +193,16 @@ namespace GitWrite.Views.Controls
             }
 
             _highlightedIndex--;
+         }
+         else if ( e.Key == Key.Home && isCtrlDown )
+         {
+            await MoveHighlightAsync( 0 );
+            _highlightedIndex = 0;
+         }
+         else if ( e.Key == Key.End && isCtrlDown )
+         {
+            await MoveHighlightAsync( ListBox.Items.Count - 1 );
+            _highlightedIndex = ListBox.Items.Count - 1;
          }
       }
    }
