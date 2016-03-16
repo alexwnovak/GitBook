@@ -40,6 +40,11 @@ namespace GitWrite.Views.Controls
          InitializeComponent();
       }
 
+      private void InteractiveRebasePanel_Loaded( object sender, RoutedEventArgs e )
+      {
+         ListBox.Focus();
+      }
+
       private Task MoveItemAsync( int index, MovementDirection direction )
       {
          int directionMultiplier = direction == MovementDirection.Up ? -1 : 1;
@@ -68,49 +73,57 @@ namespace GitWrite.Views.Controls
          return taskCompletionSource.Task;
       }
 
+      private Task MoveHighlightAsync( MovementDirection direction )
+      {
+         _isHighlightMoving = true;
+
+         int directionMultiplier = direction == MovementDirection.Up ? -1 : 1;
+         var taskCompletionSource = new TaskCompletionSource<bool>();
+
+         var container = (ListBoxItem) ListBox.ItemContainerGenerator.ContainerFromIndex( _highlightedIndex );
+
+         double height = container.ActualHeight;
+         double y = _highlightedIndex * height;
+
+         var doubleAnimation = new DoubleAnimation( y, y + container.ActualHeight * directionMultiplier, new Duration( TimeSpan.FromMilliseconds( 70 ) ) )
+         {
+            EasingFunction = new QuarticEase()
+         };
+         doubleAnimation.Completed += ( sender, e ) =>
+         {
+            _isHighlightMoving = false;
+            taskCompletionSource.SetResult( true );
+         };
+
+         HighlightElement.BeginAnimation( Canvas.TopProperty, doubleAnimation );
+
+         return taskCompletionSource.Task;
+      }
+
       private async Task SwapItemsAsync( int moveDownIndex, int MoveUpIndex )
       {
          var moveDownTask = MoveItemAsync( moveDownIndex, MovementDirection.Down );
          var moveUpTask = MoveItemAsync( MoveUpIndex, MovementDirection.Up );
 
-         await Task.WhenAll( moveDownTask, moveUpTask );
+         Task moveHighlightTask;
+
+         if ( moveDownIndex == _highlightedIndex )
+         {
+            moveHighlightTask = MoveHighlightAsync( MovementDirection.Down );
+         }
+         else
+         {
+            moveHighlightTask = MoveHighlightAsync( MovementDirection.Up );
+         }
+
+         await Task.WhenAll( moveDownTask, moveUpTask, moveHighlightTask );
 
          var viewModel = (InteractiveRebaseViewModel) DataContext;
          viewModel.SwapItems( moveDownIndex, MoveUpIndex );
       }
 
-      private async void InteractiveRebaseWindow_OnPreviewKeyDown( object sender, KeyEventArgs e )
+      private void InteractiveRebaseWindow_OnPreviewKeyDown( object sender, KeyEventArgs e )
       {
-         bool isCtrlDown = Keyboard.IsKeyDown( Key.LeftCtrl ) || Keyboard.IsKeyDown( Key.RightCtrl );
-
-         if ( e.Key == Key.Down )
-         {
-            if ( SelectedIndex == Items.Count - 1 )
-            {
-               return;
-            }
-
-            if ( isCtrlDown )
-            {
-               await SwapItemsAsync( SelectedIndex, SelectedIndex + 1 );
-            }
-
-            SelectedIndex++;
-         }
-         else if ( e.Key == Key.Up && isCtrlDown )
-         {
-            if ( SelectedIndex == 0 )
-            {
-               return;
-            }
-
-            if ( isCtrlDown )
-            {
-               await SwapItemsAsync( SelectedIndex - 1, SelectedIndex );
-            }
-
-            SelectedIndex--;
-         }
       }
    }
 }
