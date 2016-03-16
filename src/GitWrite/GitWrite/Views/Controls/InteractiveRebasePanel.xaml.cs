@@ -50,14 +50,11 @@ namespace GitWrite.Views.Controls
          int directionMultiplier = direction == MovementDirection.Up ? -1 : 1;
          var taskCompletionSource = new TaskCompletionSource<bool>();
 
-         var container = (ListBoxItem) ItemContainerGenerator.ContainerFromIndex( index );
-         var child = (Border) VisualTreeHelper.GetChild( container, 0 );
-         var doubleAnimation = new DoubleAnimation( 0, container.ActualHeight * directionMultiplier, new Duration( TimeSpan.FromMilliseconds( 100 ) ) )
+         var container = (ListBoxItem) ListBox.ItemContainerGenerator.ContainerFromIndex( index );
+         var child = (FrameworkElement) VisualTreeHelper.GetChild( container, 0 );
+         var doubleAnimation = new DoubleAnimation( 0, container.ActualHeight * directionMultiplier, new Duration( TimeSpan.FromMilliseconds( 70 ) ) )
          {
-            EasingFunction = new CircleEase
-            {
-               EasingMode = EasingMode.EaseOut
-            }
+            EasingFunction = new QuarticEase()
          };
          doubleAnimation.Completed += ( sender, e ) =>
          {
