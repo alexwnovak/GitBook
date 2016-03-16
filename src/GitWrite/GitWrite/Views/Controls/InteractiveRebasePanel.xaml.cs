@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,12 +10,29 @@ using GitWrite.ViewModels;
 
 namespace GitWrite.Views.Controls
 {
-   public partial class InteractiveRebasePanel : ListBox
+   public partial class InteractiveRebasePanel
    {
       private enum MovementDirection
       {
          Up,
          Down
+      }
+
+      public static DependencyProperty ItemsSourceProperty = DependencyProperty.Register( "ItemsSource",
+         typeof( IEnumerable ),
+         typeof( InteractiveRebasePanel ),
+         new FrameworkPropertyMetadata( null ) );
+
+      public IEnumerable ItemsSource
+      {
+         get
+         {
+            return (IEnumerable) GetValue( ItemsSourceProperty );
+         }
+         set
+         {
+            SetValue( ItemsSourceProperty, value );
+         }
       }
 
       public InteractiveRebasePanel()
