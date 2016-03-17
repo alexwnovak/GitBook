@@ -14,8 +14,8 @@ namespace GitWrite.Views.Controls
    {
       private enum MovementDirection
       {
-         Up,
-         Down
+         Up = -1,
+         Down = 1
       }
 
       public static DependencyProperty ItemsSourceProperty = DependencyProperty.Register( "ItemsSource",
@@ -35,6 +35,7 @@ namespace GitWrite.Views.Controls
          }
       }
 
+      private const int _movementAnimationDuration = 70;
       private int _highlightedIndex;
       private bool _isHighlightMoving;
 
@@ -43,22 +44,28 @@ namespace GitWrite.Views.Controls
          InitializeComponent();
       }
 
+      private Duration AnimationDuration => new Duration( TimeSpan.FromMilliseconds( _movementAnimationDuration ) );
+
       private void InteractiveRebasePanel_Loaded( object sender, RoutedEventArgs e )
       {
          ListBox.Focus();
       }
 
+      private DoubleAnimation GetDoubleAnimation( double from, double to )
+         => new DoubleAnimation( from, to, AnimationDuration )
+         {
+            EasingFunction = new QuarticEase()
+         };
+
       private Task MoveItemAsync( int index, MovementDirection direction )
       {
-         int directionMultiplier = direction == MovementDirection.Up ? -1 : 1;
          var taskCompletionSource = new TaskCompletionSource<bool>();
 
          var container = (ListBoxItem) ListBox.ItemContainerGenerator.ContainerFromIndex( index );
          var child = (FrameworkElement) VisualTreeHelper.GetChild( container, 0 );
-         var doubleAnimation = new DoubleAnimation( 0, container.ActualHeight * directionMultiplier, new Duration( TimeSpan.FromMilliseconds( 70 ) ) )
-         {
-            EasingFunction = new QuarticEase()
-         };
+
+         var doubleAnimation = GetDoubleAnimation( 0, container.ActualHeight * (int) direction );
+
          doubleAnimation.Completed += ( sender, e ) =>
          {
             child.RenderTransform = null;
@@ -73,22 +80,40 @@ namespace GitWrite.Views.Controls
          return taskCompletionSource.Task;
       }
 
+      private Task MoveHighlightAsync( int newIndex )
+      {
+         _isHighlightMoving = true;
+
+         var taskCompletionSource = new TaskCompletionSource<bool>();
+
+         var container = (ListBoxItem) ListBox.ItemContainerGenerator.ContainerFromIndex( _highlightedIndex );
+
+         var doubleAnimation = GetDoubleAnimation( _highlightedIndex * container.ActualHeight, newIndex * container.ActualHeight );
+
+         doubleAnimation.Completed += ( sender, e ) =>
+         {
+            _isHighlightMoving = false;
+            taskCompletionSource.SetResult( true );
+         };
+
+         HighlightElement.BeginAnimation( Canvas.TopProperty, doubleAnimation );
+
+         return taskCompletionSource.Task;
+      }
+
       private Task MoveHighlightAsync( MovementDirection direction )
       {
          _isHighlightMoving = true;
 
-         int directionMultiplier = direction == MovementDirection.Up ? -1 : 1;
          var taskCompletionSource = new TaskCompletionSource<bool>();
 
          var container = (ListBoxItem) ListBox.ItemContainerGenerator.ContainerFromIndex( _highlightedIndex );
 
          double height = container.ActualHeight;
-         double y = _highlightedIndex * height;
+         double from = _highlightedIndex * height;
+         double to = from + container.ActualHeight * (int) direction;
 
-         var doubleAnimation = new DoubleAnimation( y, y + container.ActualHeight * directionMultiplier, new Duration( TimeSpan.FromMilliseconds( 70 ) ) )
-         {
-            EasingFunction = new QuarticEase()
-         };
+         var doubleAnimation = GetDoubleAnimation( from, to );
          doubleAnimation.Completed += ( sender, e ) =>
          {
             _isHighlightMoving = false;
@@ -129,7 +154,7 @@ namespace GitWrite.Views.Controls
             return;
          }
 
-         bool isCtrlDown = Keyboard.IsKeyDown( Key.LeftCtrl ) || Keyboard.IsKeyDown( Key.RightCtrl );
+         bool isCtrlDown = Keyboard.Modifiers == ModifierKeys.Control;
 
          if ( e.Key == Key.Down )
          {
@@ -166,6 +191,16 @@ namespace GitWrite.Views.Controls
             }
 
             _highlightedIndex--;
+         }
+         else if ( e.Key == Key.Home && isCtrlDown )
+         {
+            await MoveHighlightAsync( 0 );
+            _highlightedIndex = 0;
+         }
+         else if ( e.Key == Key.End && isCtrlDown )
+         {
+            await MoveHighlightAsync( ListBox.Items.Count - 1 );
+            _highlightedIndex = ListBox.Items.Count - 1;
          }
       }
    }
