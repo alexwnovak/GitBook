@@ -158,7 +158,7 @@ namespace GitWrite.Views.Controls
             return;
          }
 
-         bool isCtrlDown = Keyboard.IsKeyDown( Key.LeftCtrl ) || Keyboard.IsKeyDown( Key.RightCtrl );
+         bool isCtrlDown = Keyboard.Modifiers == ModifierKeys.Control;
 
          if ( e.Key == Key.Down )
          {
