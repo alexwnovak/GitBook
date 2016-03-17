@@ -51,16 +51,21 @@ namespace GitWrite.Views.Controls
          ListBox.Focus();
       }
 
+      private DoubleAnimation GetDoubleAnimation( double from, double to )
+         => new DoubleAnimation( from, to, AnimationDuration )
+         {
+            EasingFunction = new QuarticEase()
+         };
+
       private Task MoveItemAsync( int index, MovementDirection direction )
       {
          var taskCompletionSource = new TaskCompletionSource<bool>();
 
          var container = (ListBoxItem) ListBox.ItemContainerGenerator.ContainerFromIndex( index );
          var child = (FrameworkElement) VisualTreeHelper.GetChild( container, 0 );
-         var doubleAnimation = new DoubleAnimation( 0, container.ActualHeight * (int) direction, AnimationDuration )
-         {
-            EasingFunction = new QuarticEase()
-         };
+
+         var doubleAnimation = GetDoubleAnimation( 0, container.ActualHeight * (int) direction );
+
          doubleAnimation.Completed += ( sender, e ) =>
          {
             child.RenderTransform = null;
@@ -83,14 +88,8 @@ namespace GitWrite.Views.Controls
 
          var container = (ListBoxItem) ListBox.ItemContainerGenerator.ContainerFromIndex( _highlightedIndex );
 
-         double height = container.ActualHeight;
-         double from = _highlightedIndex * height;
-         double to = newIndex * height;
+         var doubleAnimation = GetDoubleAnimation( _highlightedIndex * container.ActualHeight, newIndex * container.ActualHeight );
 
-         var doubleAnimation = new DoubleAnimation( from, to, AnimationDuration )
-         {
-            EasingFunction = new QuarticEase()
-         };
          doubleAnimation.Completed += ( sender, e ) =>
          {
             _isHighlightMoving = false;
@@ -114,10 +113,7 @@ namespace GitWrite.Views.Controls
          double from = _highlightedIndex * height;
          double to = from + container.ActualHeight * (int) direction;
 
-         var doubleAnimation = new DoubleAnimation( from, to, AnimationDuration )
-         {
-            EasingFunction = new QuarticEase()
-         };
+         var doubleAnimation = GetDoubleAnimation( from, to );
          doubleAnimation.Completed += ( sender, e ) =>
          {
             _isHighlightMoving = false;
