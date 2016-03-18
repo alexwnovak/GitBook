@@ -25,6 +25,7 @@ namespace GitWrite
          SimpleIoc.Default.Register<CommitViewModel>();
          SimpleIoc.Default.Register<InteractiveRebaseViewModel>();
          SimpleIoc.Default.Register<IAppService, AppService>();
+         SimpleIoc.Default.Register<IClipboardService, ClipboardService>();
          SimpleIoc.Default.Register<IEnvironmentAdapter, EnvironmentAdapter>();
          SimpleIoc.Default.Register<ICommitFileReader, CommitFileReader>();
          SimpleIoc.Default.Register<IFileAdapter, FileAdapter>();
