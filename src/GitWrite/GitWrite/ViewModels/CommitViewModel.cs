@@ -55,6 +55,11 @@ namespace GitWrite.ViewModels
          get;
       }
 
+      public RelayCommand PasteCommand
+      {
+         get;
+      }
+
       public CommitInputState InputState
       {
          get;
@@ -167,6 +172,7 @@ namespace GitWrite.ViewModels
          HelpCommand = new RelayCommand( ActivateHelp );
          CloseCommand = new RelayCommand<CancelEventArgs>( CloseWindow );
          LoadCommand = new RelayCommand( ViewLoaded );
+         PasteCommand = new RelayCommand( PasteFromClipboard );
 
          ShortMessage = App.CommitDocument?.ShortMessage;
          ExtraCommitText = App.CommitDocument?.LongMessage;
@@ -305,6 +311,10 @@ namespace GitWrite.ViewModels
 
          await BeginShutDownAsync( ExitReason.AbortCommit );
          ShutDown();
+      }
+
+      private void PasteFromClipboard()
+      {
       }
    }
 }
