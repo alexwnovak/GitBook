@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Windows;
-using System.Windows.Input;
-using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Ioc;
-using GitWrite.Resources;
-using GitWrite.Services;
-using GitWrite.UnitTests.Helpers;
+﻿using GalaSoft.MvvmLight.Ioc;
 using GitWrite.ViewModels;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
