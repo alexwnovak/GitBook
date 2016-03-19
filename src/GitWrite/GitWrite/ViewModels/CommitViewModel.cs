@@ -75,7 +75,7 @@ namespace GitWrite.ViewModels
          }
          set
          {
-            _shortMessage = value;
+            Set( () => ShortMessage, ref _shortMessage, value );
             _hasEditedCommitMessage = true;
          }
       }
@@ -89,7 +89,7 @@ namespace GitWrite.ViewModels
          }
          set
          {
-            _extraCommitText = value;
+            Set( () => ExtraCommitText, ref _extraCommitText, value );
             _hasEditedCommitMessage = true;
          }
       }
