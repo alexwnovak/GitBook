@@ -41,7 +41,9 @@ namespace GitWrite.Themes
          "Bold",
       };
 
-      private static readonly List<Theme> _themes = new List<Theme>(); 
+      private static readonly List<Theme> _themes = new List<Theme>();
+
+      public static string ThemeName => _themes[_currentThemeIndex].Name;
       
       public static void Initialize()
       {

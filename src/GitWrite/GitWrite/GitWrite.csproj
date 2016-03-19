@@ -79,6 +79,8 @@
     <Compile Include="GitFileAttribute.cs" />
     <Compile Include="Services\ClipboardService.cs" />
     <Compile Include="Services\IClipboardService.cs" />
+    <Compile Include="Services\IRegistryService.cs" />
+    <Compile Include="Services\RegistryService.cs" />
     <Compile Include="ViewModels\InteractiveRebaseViewModel.cs" />
     <Compile Include="ViewModels\RebaseItem.cs" />
     <Compile Include="Themes\ThemeSwitcher.cs" />
