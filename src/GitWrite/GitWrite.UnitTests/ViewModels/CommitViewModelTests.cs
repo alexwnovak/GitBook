@@ -8,10 +8,11 @@ namespace GitWrite.UnitTests.ViewModels
    [TestClass]
    public class CommitViewModelTests
    {
-      [TestCleanup]
+      [TestInitialize]
       public void Cleanup()
       {
          SimpleIoc.Default.Reset();
+         App.CommitDocument = null;
       }
 
       [TestMethod]
