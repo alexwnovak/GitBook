@@ -34,6 +34,7 @@ namespace GitWrite.Themes
          }
       }
 
+      private static int _currentThemeIndex;
       private static readonly string[] _themeFiles =
       {
          "Default",
@@ -53,9 +54,22 @@ namespace GitWrite.Themes
 
       public static void SwitchTo( string name )
       {
-         var theme = _themes.Single( t => t.Name == name );
+         for ( int index = 0; index < _themes.Count; index++ )
+         {
+            if ( _themes[index].Name == name )
+            {
+               _currentThemeIndex = index;
+               _themes[index].Apply();
 
-         theme.Apply();
+               return;
+            }
+         }
+      }
+
+      public static void SwitchToNext()
+      {
+         _currentThemeIndex = ++_currentThemeIndex % _themes.Count;
+         _themes[_currentThemeIndex].Apply();
       }
 
       private static Theme LoadTheme( string name )
