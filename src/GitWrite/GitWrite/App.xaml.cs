@@ -5,6 +5,7 @@ using System.Windows;
 using Microsoft.Practices.ServiceLocation;
 using GalaSoft.MvvmLight.Ioc;
 using GitWrite.Services;
+using GitWrite.Themes;
 using GitWrite.ViewModels;
 using GitWrite.Views;
 
@@ -30,6 +31,9 @@ namespace GitWrite
          SimpleIoc.Default.Register<ICommitFileReader, CommitFileReader>();
          SimpleIoc.Default.Register<IFileAdapter, FileAdapter>();
          SimpleIoc.Default.Register<IStoryboardHelper, StoryboardHelper>();
+
+         ThemeSwitcher.Initialize();
+         ThemeSwitcher.SwitchTo( "Default" );
 
          // Load the commit file
 

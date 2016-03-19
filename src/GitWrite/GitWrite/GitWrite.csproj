@@ -81,6 +81,7 @@
     <Compile Include="Services\IClipboardService.cs" />
     <Compile Include="ViewModels\InteractiveRebaseViewModel.cs" />
     <Compile Include="ViewModels\RebaseItem.cs" />
+    <Compile Include="Themes\ThemeSwitcher.cs" />
     <Compile Include="Views\CommitInputState.cs" />
     <Compile Include="Views\Controls\ConfirmationResult.cs" />
     <Compile Include="Views\Controls\ConfirmPanel.xaml.cs">
@@ -127,6 +128,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\TextBoxStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\BoldTheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\DefaultTheme.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
