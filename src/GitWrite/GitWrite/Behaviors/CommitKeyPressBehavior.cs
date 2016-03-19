@@ -11,8 +11,20 @@ namespace GitWrite.Behaviors
    {
       private readonly CommitViewModel _commitViewModel = SimpleIoc.Default.GetInstance<CommitViewModel>();
 
-      protected override void OnAttached() => AssociatedObject.KeyDown += KeyDown;
-      protected override void OnDetaching() => AssociatedObject.KeyDown -= KeyDown;
+      protected override void OnAttached() => AssociatedObject.Loaded += OnLoaded;
+      protected override void OnDetaching() => AssociatedObject.Unloaded -= OnUnloaded;
+
+      private void OnLoaded( object sender, RoutedEventArgs e )
+      {
+         AssociatedObject.KeyDown += KeyDown;
+         AssociatedObject.PreviewKeyDown += PreviewKeyDown;
+      }
+
+      private void OnUnloaded( object sender, RoutedEventArgs e )
+      {
+         AssociatedObject.KeyDown -= KeyDown;
+         AssociatedObject.PreviewKeyDown -= PreviewKeyDown;
+      }
       
       public void KeyDown( object sender, KeyEventArgs e )
       {
@@ -21,6 +33,14 @@ namespace GitWrite.Behaviors
             case CommitInputState.Editing:
                HandleEditingState( e );
                break;
+         }
+      }
+
+      private void PreviewKeyDown( object sender, KeyEventArgs e )
+      {
+         if ( e.Key == Key.V && Keyboard.Modifiers == ModifierKeys.Control )
+         {
+            _commitViewModel.PasteCommand.Execute( null );
          }
       }
 

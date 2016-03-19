@@ -15,6 +15,7 @@
    ResizeMode="NoResize"
    WindowStyle="None"
    FocusManager.FocusedElement="{Binding ElementName=CommitText}"
+   CommandManager.PreviewCanExecute="CommitWindow_OnPreviewCanExecute"
    DataContext="{Binding CommitViewModel, Source={StaticResource ViewModelLocator}}">
 
    <Window.Resources>

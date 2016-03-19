@@ -55,6 +55,11 @@ namespace GitWrite.ViewModels
          get;
       }
 
+      public RelayCommand PasteCommand
+      {
+         get;
+      }
+
       public CommitInputState InputState
       {
          get;
@@ -70,7 +75,7 @@ namespace GitWrite.ViewModels
          }
          set
          {
-            _shortMessage = value;
+            Set( () => ShortMessage, ref _shortMessage, value );
             _hasEditedCommitMessage = true;
          }
       }
@@ -84,7 +89,7 @@ namespace GitWrite.ViewModels
          }
          set
          {
-            _extraCommitText = value;
+            Set( () => ExtraCommitText, ref _extraCommitText, value );
             _hasEditedCommitMessage = true;
          }
       }
@@ -167,6 +172,7 @@ namespace GitWrite.ViewModels
          HelpCommand = new RelayCommand( ActivateHelp );
          CloseCommand = new RelayCommand<CancelEventArgs>( CloseWindow );
          LoadCommand = new RelayCommand( ViewLoaded );
+         PasteCommand = new RelayCommand( PasteFromClipboard );
 
          ShortMessage = App.CommitDocument?.ShortMessage;
          ExtraCommitText = App.CommitDocument?.LongMessage;
@@ -305,6 +311,33 @@ namespace GitWrite.ViewModels
 
          await BeginShutDownAsync( ExitReason.AbortCommit );
          ShutDown();
+      }
+
+      private void PasteFromClipboard()
+      {
+         var clipboard = SimpleIoc.Default.GetInstance<IClipboardService>();
+         string clipboardText = clipboard.GetText();
+
+         if ( !string.IsNullOrEmpty( clipboardText ) )
+         {
+            clipboardText = clipboardText.Trim( '\r', '\n' );
+            int lineBreakIndex = clipboardText.IndexOf( Environment.NewLine );
+
+            if ( lineBreakIndex != -1 )
+            {
+               ExpandUI();
+
+               ShortMessage = clipboardText.Substring( 0, lineBreakIndex );
+
+               string extraNotes = clipboardText.Substring( lineBreakIndex + Environment.NewLine.Length );
+               extraNotes = extraNotes.TrimStart( '\r', '\n' ).TrimEnd( '\r', '\n' );
+               ExtraCommitText = extraNotes;
+            }
+            else
+            {
+               ShortMessage = clipboardText;
+            }
+         }
       }
    }
 }

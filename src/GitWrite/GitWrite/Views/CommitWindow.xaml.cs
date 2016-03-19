@@ -92,5 +92,14 @@ namespace GitWrite.Views
 
       private void OnExpansionRequested( object sender, EventArgs eventArgs )
          => VisualStateManager.GoToElementState( MainGrid, "Expanded", true );
+
+      private void CommitWindow_OnPreviewCanExecute( object sender, CanExecuteRoutedEventArgs e )
+      {
+         if ( e.Command == ApplicationCommands.Paste )
+         {
+            e.CanExecute = false;
+            e.Handled = true;
+         }
+      }
    }
 }
