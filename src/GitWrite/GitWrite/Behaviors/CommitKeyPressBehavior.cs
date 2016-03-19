@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using System.Windows.Interactivity;
 using GalaSoft.MvvmLight.Ioc;
+using GitWrite.Services;
 using GitWrite.Themes;
 using GitWrite.ViewModels;
 using GitWrite.Views;
@@ -46,6 +47,9 @@ namespace GitWrite.Behaviors
          else if ( e.Key == Key.T && Keyboard.Modifiers == ModifierKeys.Control )
          {
             ThemeSwitcher.SwitchToNext();
+
+            var registryService = SimpleIoc.Default.GetInstance<IRegistryService>();
+            registryService.SetTheme( ThemeSwitcher.ThemeName );
          }
       }
 
