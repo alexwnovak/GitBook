@@ -81,6 +81,7 @@
     <Compile Include="Services\IClipboardService.cs" />
     <Compile Include="ViewModels\InteractiveRebaseViewModel.cs" />
     <Compile Include="ViewModels\RebaseItem.cs" />
+    <Compile Include="Themes\ThemeSwitcher.cs" />
     <Compile Include="Views\CommitInputState.cs" />
     <Compile Include="Views\Controls\ConfirmationResult.cs" />
     <Compile Include="Views\Controls\ConfirmPanel.xaml.cs">
