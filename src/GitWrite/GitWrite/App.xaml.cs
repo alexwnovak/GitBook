@@ -34,7 +34,11 @@ namespace GitWrite
          SimpleIoc.Default.Register<IStoryboardHelper, StoryboardHelper>();
 
          ThemeSwitcher.Initialize();
-         ThemeSwitcher.SwitchTo( "Default" );
+
+         var registryService = new RegistryService();
+         string theme = registryService.GetTheme();
+
+         ThemeSwitcher.SwitchTo( theme );
 
          // Load the commit file
 
