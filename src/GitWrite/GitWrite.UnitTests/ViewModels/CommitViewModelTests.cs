@@ -1,4 +1,6 @@
-﻿using GalaSoft.MvvmLight.Ioc;
+﻿using System;
+using GalaSoft.MvvmLight.Ioc;
+using GitWrite.Services;
 using GitWrite.ViewModels;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -356,6 +358,168 @@ namespace GitWrite.UnitTests.ViewModels
          commitViewModel.ExpandCommand.Execute( null );
 
          Assert.IsFalse( expansionEventRaised );
+      }
+
+      [TestMethod]
+      public void PasteCommand_ClipboardHasOneLineOfText_SetsShortMessage()
+      {
+         const string clipboardText = "Some text";
+
+         // Setup
+
+         var clipboardServiceMock = new Mock<IClipboardService>();
+         clipboardServiceMock.Setup( cs => cs.GetText() ).Returns( clipboardText );
+         SimpleIoc.Default.Register( () => clipboardServiceMock.Object );
+
+         // Test
+
+         var viewModel = new CommitViewModel();
+
+         viewModel.PasteCommand.Execute( null );
+
+         // Assert
+
+         Assert.AreEqual( clipboardText, viewModel.ShortMessage );
+      }
+
+      [TestMethod]
+      public void PasteCommand_ClipboardHasTwoLinesWithNoBlankLine_SetsBothMessages()
+      {
+         string clipboardText = $"First line{Environment.NewLine}Second line";
+
+         // Setup
+
+         var clipboardServiceMock = new Mock<IClipboardService>();
+         clipboardServiceMock.Setup( cs => cs.GetText() ).Returns( clipboardText );
+         SimpleIoc.Default.Register( () => clipboardServiceMock.Object );
+
+         // Test
+
+         var viewModel = new CommitViewModel();
+
+         viewModel.PasteCommand.Execute( null );
+
+         // Assert
+
+         Assert.AreEqual( "First line", viewModel.ShortMessage );
+         Assert.AreEqual( "Second line", viewModel.ExtraCommitText );
+      }
+
+      [TestMethod]
+      public void PasteCommand_ClipboardHasOneLineEndingWithLineBreak_SetsShortMessage()
+      {
+         string clipboardText = $"First line{Environment.NewLine}";
+
+         // Setup
+
+         var clipboardServiceMock = new Mock<IClipboardService>();
+         clipboardServiceMock.Setup( cs => cs.GetText() ).Returns( clipboardText );
+         SimpleIoc.Default.Register( () => clipboardServiceMock.Object );
+
+         // Test
+
+         var viewModel = new CommitViewModel();
+
+         viewModel.PasteCommand.Execute( null );
+
+         // Assert
+
+         Assert.AreEqual( "First line", viewModel.ShortMessage );
+         Assert.IsNull( viewModel.ExtraCommitText );
+      }
+
+      [TestMethod]
+      public void PasteCommand_ClipboardHasOneLineEndingWithTwoLineBreaks_SetsShortMessage()
+      {
+         string clipboardText = $"First line{Environment.NewLine}{Environment.NewLine}";
+
+         // Setup
+
+         var clipboardServiceMock = new Mock<IClipboardService>();
+         clipboardServiceMock.Setup( cs => cs.GetText() ).Returns( clipboardText );
+         SimpleIoc.Default.Register( () => clipboardServiceMock.Object );
+
+         // Test
+
+         var viewModel = new CommitViewModel();
+
+         viewModel.PasteCommand.Execute( null );
+
+         // Assert
+
+         Assert.AreEqual( "First line", viewModel.ShortMessage );
+         Assert.IsNull( viewModel.ExtraCommitText );
+      }
+
+      [TestMethod]
+      public void PasteCommand_ClipboardHasBothMessagesSeparatedByBlankLine_SetsBothMessages()
+      {
+         string clipboardText = $"Short message{Environment.NewLine}{Environment.NewLine}Secondary notes";
+
+         // Setup
+
+         var clipboardServiceMock = new Mock<IClipboardService>();
+         clipboardServiceMock.Setup( cs => cs.GetText() ).Returns( clipboardText );
+         SimpleIoc.Default.Register( () => clipboardServiceMock.Object );
+
+         // Test
+
+         var viewModel = new CommitViewModel();
+
+         viewModel.PasteCommand.Execute( null );
+
+         // Assert
+
+         Assert.AreEqual( "Short message", viewModel.ShortMessage );
+         Assert.AreEqual( "Secondary notes", viewModel.ExtraCommitText );
+      }
+
+      [TestMethod]
+      public void PasteCommand_ClipboardHasBothMessagesEndingWithLineBreaks_TrimsEndLineBreaks()
+      {
+         string clipboardText = $"Short message{Environment.NewLine}Secondary notes{Environment.NewLine}{Environment.NewLine}";
+
+         // Setup
+
+         var clipboardServiceMock = new Mock<IClipboardService>();
+         clipboardServiceMock.Setup( cs => cs.GetText() ).Returns( clipboardText );
+         SimpleIoc.Default.Register( () => clipboardServiceMock.Object );
+
+         // Test
+
+         var viewModel = new CommitViewModel();
+
+         viewModel.PasteCommand.Execute( null );
+
+         // Assert
+
+         Assert.AreEqual( "Short message", viewModel.ShortMessage );
+         Assert.AreEqual( "Secondary notes", viewModel.ExtraCommitText );
+      }
+
+      [TestMethod]
+      public void PasteCommand_ClipboardHasBothMessagesAndExtraNotesSpanMultipleLines_SetsBothMessage()
+      {
+         const string shortMessage = "First line message";
+         string extraMessage = $"Secondary notes, first line{Environment.NewLine}{Environment.NewLine}Second line{Environment.NewLine}Third line";
+         string clipboardText = $"{shortMessage}{Environment.NewLine}{Environment.NewLine}{extraMessage}";
+
+         // Setup
+
+         var clipboardServiceMock = new Mock<IClipboardService>();
+         clipboardServiceMock.Setup( cs => cs.GetText() ).Returns( clipboardText );
+         SimpleIoc.Default.Register( () => clipboardServiceMock.Object );
+
+         // Test
+
+         var viewModel = new CommitViewModel();
+
+         viewModel.PasteCommand.Execute( null );
+
+         // Assert
+
+         Assert.AreEqual( shortMessage, viewModel.ShortMessage );
+         Assert.AreEqual( extraMessage, viewModel.ExtraCommitText );
       }
 
       //[TestMethod]

@@ -315,6 +315,29 @@ namespace GitWrite.ViewModels
 
       private void PasteFromClipboard()
       {
+         var clipboard = SimpleIoc.Default.GetInstance<IClipboardService>();
+         string clipboardText = clipboard.GetText();
+
+         if ( !string.IsNullOrEmpty( clipboardText ) )
+         {
+            clipboardText = clipboardText.Trim( '\r', '\n' );
+            int lineBreakIndex = clipboardText.IndexOf( Environment.NewLine );
+
+            if ( lineBreakIndex != -1 )
+            {
+               ExpandUI();
+
+               ShortMessage = clipboardText.Substring( 0, lineBreakIndex );
+
+               string extraNotes = clipboardText.Substring( lineBreakIndex + Environment.NewLine.Length );
+               extraNotes = extraNotes.TrimStart( '\r', '\n' ).TrimEnd( '\r', '\n' );
+               ExtraCommitText = extraNotes;
+            }
+            else
+            {
+               ShortMessage = clipboardText;
+            }
+         }
       }
    }
 }
