@@ -39,6 +39,7 @@ namespace GitWrite.Themes
       {
          "Default",
          "Bold",
+         "Umber"
       };
 
       private static readonly List<Theme> _themes = new List<Theme>();
