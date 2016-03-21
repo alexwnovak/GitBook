@@ -86,7 +86,7 @@
          CornerRadius="14"
          Background="{DynamicResource WindowBackgroundColor}"
          BorderThickness="2"
-         BorderBrush="{DynamicResource WindowCommitBackgroundColor}">
+         BorderBrush="{DynamicResource WindowBorderColor}">
          <Grid>
             <Grid.RenderTransform>
                <TranslateTransform x:Name="OuterBorderTranslateTransform" />
@@ -130,7 +130,7 @@
 
                   <Rectangle Grid.Row="1"
                      Height="1"
-                     Fill="{DynamicResource WindowCommitBackgroundColor}" />
+                     Fill="{DynamicResource WindowBorderColor}" />
 
                   <Grid x:Name="SecondaryCommitGrid"
                      Grid.Row="2"

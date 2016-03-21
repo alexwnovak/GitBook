@@ -41,7 +41,7 @@
          CornerRadius="14"
          Background="{StaticResource WindowBackgroundColor}"
          BorderThickness="2"
-         BorderBrush="{StaticResource WindowCommitBackgroundColor}">
+         BorderBrush="{StaticResource WindowBorderColor}">
          <Grid>
             <Grid.RenderTransform>
                <TranslateTransform x:Name="OuterBorderTranslateTransform" />
