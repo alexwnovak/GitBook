@@ -1,0 +1,10 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+   xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options">
+   <SolidColorBrush x:Key="WindowBackgroundColor" Color="#260707" PresentationOptions:Freeze="True" />
+   <SolidColorBrush x:Key="WindowBorderColor" Color="#8C7042" PresentationOptions:Freeze="True" />
+   <SolidColorBrush x:Key="SeparatorColor" Color="#BFB4A3" PresentationOptions:Freeze="True" />
+   <SolidColorBrush x:Key="TextSelectionColor" Color="#E8BCC3" PresentationOptions:Freeze="True" />
+   <SolidColorBrush x:Key="TextColor" Color="#E8DEBC" PresentationOptions:Freeze="True" />
+   <SolidColorBrush x:Key="CaretColor" Color="#E8DEBC" PresentationOptions:Freeze="True" />
+</ResourceDictionary>

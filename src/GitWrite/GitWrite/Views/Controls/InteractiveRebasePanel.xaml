@@ -18,7 +18,7 @@
    <Canvas>
       <ListBox x:Name="ListBox"
          Background="Transparent"
-         Foreground="{StaticResource WindowCommitForegroundColor}"
+         Foreground="{StaticResource TextColor}"
          FontFamily="Consolas"
          FontSize="24"
          BorderThickness="0"

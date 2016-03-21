@@ -84,9 +84,9 @@
       <Border x:Name="OuterBorder"
          Margin="0,0,0,10"
          CornerRadius="14"
-         Background="{DynamicResource WindowOuterBorderColor}"
+         Background="{DynamicResource WindowBackgroundColor}"
          BorderThickness="2"
-         BorderBrush="{DynamicResource WindowCommitBackgroundColor}">
+         BorderBrush="{DynamicResource WindowBorderColor}">
          <Grid>
             <Grid.RenderTransform>
                <TranslateTransform x:Name="OuterBorderTranslateTransform" />
@@ -106,7 +106,7 @@
                   <Grid x:Name="PrimaryCommitNotesGrid" Grid.Row="0">
                      <TextBox x:Name="CommitText"  
                         Background="Transparent"
-                        Foreground="{DynamicResource WindowCommitForegroundColor}"
+                        Foreground="{DynamicResource TextColor}"
                         FontFamily="Consolas"
                         FontSize="24"
                         MaxLength="72"
@@ -123,20 +123,20 @@
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"
                         Margin="0,0,4,0"
-                        Foreground="{DynamicResource WindowCommitForegroundColor}"
+                        Foreground="{DynamicResource TextColor}"
                         FontStyle="Italic"
                         Text="{Binding Text.Length, ElementName=CommitText, Converter={StaticResource TextLengthInversionConverter}}" />
                   </Grid>
 
                   <Rectangle Grid.Row="1"
                      Height="1"
-                     Fill="{DynamicResource WindowCommitBackgroundColor}" />
+                     Fill="{DynamicResource SeparatorColor}" />
 
                   <Grid x:Name="SecondaryCommitGrid"
                      Grid.Row="2"
                      VerticalAlignment="Stretch">
                      <TextBox x:Name="SecondaryCommitText"
-                        Foreground="{DynamicResource WindowCommitForegroundColor}"
+                        Foreground="{DynamicResource TextColor}"
                         Background="Transparent"
                         FontFamily="Consolas"
                         FontSize="24"
