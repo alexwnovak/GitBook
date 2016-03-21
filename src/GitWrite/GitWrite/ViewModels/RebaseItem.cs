@@ -10,6 +10,12 @@ namespace GitWrite.ViewModels
          set;
       }
 
+      public RebaseItemAction Action
+      {
+         get;
+         set;
+      }
+
       public RebaseItem( string text )
       {
          Text = text;
