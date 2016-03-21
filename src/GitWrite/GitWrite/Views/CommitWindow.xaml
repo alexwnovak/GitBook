@@ -119,8 +119,7 @@
                         </i:Interaction.Triggers>
                      </TextBox>
 
-                     <TextBlock x:Name="RemainingCharactersTextBlock"
-                        HorizontalAlignment="Right"
+                     <TextBlock HorizontalAlignment="Right"
                         VerticalAlignment="Center"
                         Margin="0,0,4,0"
                         Foreground="{DynamicResource TextColor}"
