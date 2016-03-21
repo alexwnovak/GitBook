@@ -84,7 +84,7 @@
       <Border x:Name="OuterBorder"
          Margin="0,0,0,10"
          CornerRadius="14"
-         Background="{DynamicResource WindowOuterBorderColor}"
+         Background="{DynamicResource WindowBackgroundColor}"
          BorderThickness="2"
          BorderBrush="{DynamicResource WindowCommitBackgroundColor}">
          <Grid>

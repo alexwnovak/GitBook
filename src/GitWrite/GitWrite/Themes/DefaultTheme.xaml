@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
    xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options">
-   <SolidColorBrush x:Key="WindowOuterBorderColor" Color="#DD022835" PresentationOptions:Freeze="True" />
+   <SolidColorBrush x:Key="WindowBackgroundColor" Color="#DD022835" PresentationOptions:Freeze="True" />
    <SolidColorBrush x:Key="TextSelectionColor" Color="#2080A0" PresentationOptions:Freeze="True" />
    <SolidColorBrush x:Key="WindowCommitBackgroundColor" Color="#6C929F" PresentationOptions:Freeze="True"/>
    <SolidColorBrush x:Key="WindowCommitForegroundColor" Color="#DEF" PresentationOptions:Freeze="True"/>
