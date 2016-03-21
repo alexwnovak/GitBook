@@ -6,5 +6,5 @@
    <SolidColorBrush x:Key="SeparatorColor" Color="#0F0" PresentationOptions:Freeze="True" />
    <SolidColorBrush x:Key="TextSelectionColor" Color="#EEE" PresentationOptions:Freeze="True" />
    <SolidColorBrush x:Key="TextColor" Color="#DEF" PresentationOptions:Freeze="True" />
-   <SolidColorBrush x:Key="CaretBrush" Color="#FFF" PresentationOptions:Freeze="True" />
+   <SolidColorBrush x:Key="CaretColor" Color="#FFF" PresentationOptions:Freeze="True" />
 </ResourceDictionary>
