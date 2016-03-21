@@ -10,7 +10,7 @@
    mc:Ignorable="d" 
    d:DesignHeight="300"
    d:DesignWidth="300"
-   Foreground="{DynamicResource WindowCommitForegroundColor}"
+   Foreground="{DynamicResource TextColor}"
    FontSize="30"
    Focusable="True"
    FocusVisualStyle="{x:Null}"

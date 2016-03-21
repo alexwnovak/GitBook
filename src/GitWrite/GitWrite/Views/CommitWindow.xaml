@@ -106,7 +106,7 @@
                   <Grid x:Name="PrimaryCommitNotesGrid" Grid.Row="0">
                      <TextBox x:Name="CommitText"  
                         Background="Transparent"
-                        Foreground="{DynamicResource WindowCommitForegroundColor}"
+                        Foreground="{DynamicResource TextColor}"
                         FontFamily="Consolas"
                         FontSize="24"
                         MaxLength="72"
@@ -123,7 +123,7 @@
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"
                         Margin="0,0,4,0"
-                        Foreground="{DynamicResource WindowCommitForegroundColor}"
+                        Foreground="{DynamicResource TextColor}"
                         FontStyle="Italic"
                         Text="{Binding Text.Length, ElementName=CommitText, Converter={StaticResource TextLengthInversionConverter}}" />
                   </Grid>
@@ -136,7 +136,7 @@
                      Grid.Row="2"
                      VerticalAlignment="Stretch">
                      <TextBox x:Name="SecondaryCommitText"
-                        Foreground="{DynamicResource WindowCommitForegroundColor}"
+                        Foreground="{DynamicResource TextColor}"
                         Background="Transparent"
                         FontFamily="Consolas"
                         FontSize="24"
