@@ -15,6 +15,10 @@
       <converters:TextLengthInversionConverter x:Key="TextLengthInversionConverter" />
       <converters:BoolToCaretBrushConverter x:Key="BoolToCaretBrushConverter" />
       <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+      <SolidColorBrush x:Key="AcceptCommitBackgroundColor" Color="#C281" PresentationOptions:Freeze="True"/>
+      <SolidColorBrush x:Key="AcceptCommitGlyphBackgroundColor" Color="#84F2" PresentationOptions:Freeze="True"/>
+      <SolidColorBrush x:Key="AbortCommitBackgroundColor" Color="#C812" PresentationOptions:Freeze="True"/>
+      <SolidColorBrush x:Key="AbortCommitGlyphBackgroundColor" Color="#8F24" PresentationOptions:Freeze="True"/>
       <SolidColorBrush x:Key="HiddenCaretColor" Color="#0000" PresentationOptions:Freeze="True" />
       <SolidColorBrush x:Key="HighlightColor" Color="#80D2F560" PresentationOptions:Freeze="True" />
       <clr:String x:Key="AcceptCommitGlyph">&#xE10B;</clr:String>
