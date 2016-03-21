@@ -130,7 +130,7 @@
 
                   <Rectangle Grid.Row="1"
                      Height="1"
-                     Fill="{DynamicResource WindowBorderColor}" />
+                     Fill="{DynamicResource SeparatorColor}" />
 
                   <Grid x:Name="SecondaryCommitGrid"
                      Grid.Row="2"
