@@ -13,10 +13,10 @@ namespace GitWrite.Views.Converters
 
          if ( boolValue )
          {
-            return Application.Current.Resources["HiddenCaretBrush"];
+            return Application.Current.Resources["HiddenCaretColor"];
          }
 
-         return Application.Current.Resources["CaretBrush"];
+         return Application.Current.Resources["CaretColor"];
       }
 
       public object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture )
