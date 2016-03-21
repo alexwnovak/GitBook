@@ -2,9 +2,9 @@
    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
    xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options">
    <SolidColorBrush x:Key="WindowBackgroundColor" Color="#A000" PresentationOptions:Freeze="True" />
-   <SolidColorBrush x:Key="WindowBorderColor" Color="#FB4" PresentationOptions:Freeze="True" />
-   <SolidColorBrush x:Key="SeparatorColor" Color="#0F0" PresentationOptions:Freeze="True" />
-   <SolidColorBrush x:Key="TextSelectionColor" Color="#EEE" PresentationOptions:Freeze="True" />
-   <SolidColorBrush x:Key="TextColor" Color="#DEF" PresentationOptions:Freeze="True" />
+   <SolidColorBrush x:Key="WindowBorderColor" Color="#FC2" PresentationOptions:Freeze="True" />
+   <SolidColorBrush x:Key="SeparatorColor" Color="#802" PresentationOptions:Freeze="True" />
+   <SolidColorBrush x:Key="TextSelectionColor" Color="#A0F0" PresentationOptions:Freeze="True" />
+   <SolidColorBrush x:Key="TextColor" Color="#EEE" PresentationOptions:Freeze="True" />
    <SolidColorBrush x:Key="CaretColor" Color="#FFF" PresentationOptions:Freeze="True" />
 </ResourceDictionary>
