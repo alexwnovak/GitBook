@@ -77,6 +77,7 @@
     <Compile Include="CommitFileReader.cs" />
     <Compile Include="FrameworkElementExtensions.cs" />
     <Compile Include="GitFileAttribute.cs" />
+    <Compile Include="RebaseItemActionExtensions.cs" />
     <Compile Include="Services\ClipboardService.cs" />
     <Compile Include="Services\IClipboardService.cs" />
     <Compile Include="Services\IRegistryService.cs" />
