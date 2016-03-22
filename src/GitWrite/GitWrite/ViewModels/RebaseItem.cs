@@ -4,20 +4,13 @@ namespace GitWrite.ViewModels
 {
    public class RebaseItem : ObservableObject
    {
-      private double _offsetY;
-      public double OffsetY
+      public string Text
       {
-         get
-         {
-            return _offsetY;
-         }
-         set
-         {
-            Set( () => OffsetY, ref _offsetY, value );
-         }
+         get;
+         set;
       }
 
-      public string Text
+      public RebaseItemAction Action
       {
          get;
          set;

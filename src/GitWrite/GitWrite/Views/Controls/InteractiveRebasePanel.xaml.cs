@@ -18,6 +18,12 @@ namespace GitWrite.Views.Controls
          Down = 1
       }
 
+      private enum TextBoxSelector
+      {
+         First,
+         Second
+      }
+
       public static DependencyProperty ItemsSourceProperty = DependencyProperty.Register( "ItemsSource",
          typeof( IEnumerable ),
          typeof( InteractiveRebasePanel ),
@@ -202,6 +208,106 @@ namespace GitWrite.Views.Controls
             await MoveHighlightAsync( ListBox.Items.Count - 1 );
             _highlightedIndex = ListBox.Items.Count - 1;
          }
+         else if ( e.Key == Key.P )
+         {
+            await ChangeActionAsync( RebaseItemAction.Pick );
+         }
+         else if ( e.Key == Key.R )
+         {
+            await ChangeActionAsync( RebaseItemAction.Reword );
+         }
+         else if ( e.Key == Key.E )
+         {
+            await ChangeActionAsync( RebaseItemAction.Edit );
+         }
+         else if ( e.Key == Key.S )
+         {
+            await ChangeActionAsync( RebaseItemAction.Squash );
+         }
+         else if ( e.Key == Key.F )
+         {
+            await ChangeActionAsync( RebaseItemAction.Fixup );
+         }
+         else if ( e.Key == Key.X )
+         {
+            await ChangeActionAsync( RebaseItemAction.Exec );
+         }
+      }
+
+      private Task ChangeActionAsync( RebaseItemAction itemAction )
+      {
+         var rebaseItem = (RebaseItem) ListBox.Items[_highlightedIndex];
+
+         if ( rebaseItem.Action == itemAction )
+         {
+            return Task.FromResult( 0 );
+         }
+
+         var container = (ListBoxItem) ListBox.ItemContainerGenerator.ContainerFromIndex( _highlightedIndex );
+         var animationTargets = GetAnimationTarget( container );
+
+         rebaseItem.Action = itemAction;
+         animationTargets.Item1.Text = rebaseItem.Action.ToString();
+
+         const double duration = 120;
+
+         var moveOutTask = TranslateHorizontalAsync( animationTargets.Item2, 0, 10, TimeSpan.FromMilliseconds( duration ) );
+         var fadeOutTask = FadeAsync( animationTargets.Item2, 1, 0, TimeSpan.FromMilliseconds( duration ) );
+
+         var moveInTask = TranslateHorizontalAsync( animationTargets.Item1, -10, 0, TimeSpan.FromMilliseconds( duration ) );
+         var fadeInTask = FadeAsync( animationTargets.Item1, 0, 1, TimeSpan.FromMilliseconds( duration ) );
+
+         return Task.WhenAll( moveOutTask, moveInTask, fadeOutTask, fadeInTask );
+      }
+
+      private Tuple<TextBlock, TextBlock> GetAnimationTarget( ListBoxItem item )
+      {
+         var textBoxSelector = (TextBoxSelector?) item.Tag ?? TextBoxSelector.First;
+         string firstName, secondName;
+
+         if ( textBoxSelector == TextBoxSelector.First )
+         {
+            firstName = "ActionTextOne";
+            secondName = "ActionTextTwo";
+            item.Tag = TextBoxSelector.Second;
+         }
+         else
+         {
+            firstName = "ActionTextTwo";
+            secondName = "ActionTextOne";
+            item.Tag = TextBoxSelector.First;
+         }
+
+         var firstTextBlock = (TextBlock) item.Template.FindName( firstName, item );
+         var secondTextBlock = (TextBlock) item.Template.FindName( secondName, item );
+
+         return new Tuple<TextBlock, TextBlock>( firstTextBlock, secondTextBlock );
+      }
+
+      private Task TranslateHorizontalAsync( UIElement element, double from, double to, TimeSpan duration )
+      {
+         var taskCompletionSource = new TaskCompletionSource<bool>();
+         var translateTransform = new TranslateTransform();
+
+         var doubleAnimation = new DoubleAnimation( from, to, new Duration( duration ) );
+         doubleAnimation.Completed += ( sender, e ) => taskCompletionSource.SetResult( true );
+
+         element.RenderTransform = translateTransform;
+         translateTransform.BeginAnimation( TranslateTransform.XProperty, doubleAnimation );
+
+         return taskCompletionSource.Task;
+      }
+
+      private Task FadeAsync( UIElement element, double from, double to, TimeSpan duration )
+      {
+         var taskCompletionSource = new TaskCompletionSource<bool>();
+
+         var opacityAnimation = new DoubleAnimation( from, to, new Duration( duration ) );
+         opacityAnimation.Completed += ( sender, e ) => taskCompletionSource.SetResult( true );
+
+         element.BeginAnimation( UIElement.OpacityProperty, opacityAnimation );
+
+         return taskCompletionSource.Task;
       }
    }
 }

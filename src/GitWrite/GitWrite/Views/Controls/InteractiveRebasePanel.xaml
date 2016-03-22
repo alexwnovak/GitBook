@@ -28,17 +28,29 @@
          <ListBox.ItemContainerStyle>
             <Style TargetType="ListBoxItem">
                <Setter Property="Padding" Value="0" />
-               <Setter Property="Margin" Value="0" />
-               <Setter Property="Height" Value="30" />
+               <Setter Property="Margin" Value="10,0,0,0" />
+               <Setter Property="Height" Value="{Binding Height, ElementName=HighlightElement}" />
                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                <Setter Property="VerticalContentAlignment" Value="Stretch" />
                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
                <Setter Property="Template">
                   <Setter.Value>
                      <ControlTemplate>
-                        <TextBlock Margin="20,0,0,0"
-                           VerticalAlignment="Center"
-                           Text="{Binding Text}" />
+                        <Grid>
+                           <TextBlock x:Name="ActionTextOne"
+                              Margin="0,5,0,0"
+                              FontSize="14"
+                              Opacity="0"
+                              VerticalAlignment="Top" />
+                           <TextBlock x:Name="ActionTextTwo"
+                              Margin="0,5,0,0"
+                              FontSize="14"
+                              VerticalAlignment="Top"
+                              Text="{Binding Action}" />
+                           <TextBlock Margin="-1,0,0,5"
+                              VerticalAlignment="Bottom"
+                              Text="{Binding Text}" />
+                        </Grid>
                      </ControlTemplate>
                   </Setter.Value>
                </Setter>
@@ -50,7 +62,7 @@
          IsHitTestVisible="False"
          VerticalAlignment="Top"
          Width="{Binding ActualWidth, ElementName=LayoutRoot}"
-         Height="30"
+         Height="56"
          Fill="{StaticResource HighlightColor}" />
    </Canvas>
 </UserControl>
