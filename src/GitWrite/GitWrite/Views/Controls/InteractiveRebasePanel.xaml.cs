@@ -208,6 +208,30 @@ namespace GitWrite.Views.Controls
             await MoveHighlightAsync( ListBox.Items.Count - 1 );
             _highlightedIndex = ListBox.Items.Count - 1;
          }
+         else if ( e.Key == Key.P )
+         {
+            await ChangeActionAsync( RebaseItemAction.Pick );
+         }
+         else if ( e.Key == Key.R )
+         {
+            await ChangeActionAsync( RebaseItemAction.Reword );
+         }
+         else if ( e.Key == Key.E )
+         {
+            await ChangeActionAsync( RebaseItemAction.Edit );
+         }
+         else if ( e.Key == Key.S )
+         {
+            await ChangeActionAsync( RebaseItemAction.Squash );
+         }
+         else if ( e.Key == Key.F )
+         {
+            await ChangeActionAsync( RebaseItemAction.Fixup );
+         }
+         else if ( e.Key == Key.X )
+         {
+            await ChangeActionAsync( RebaseItemAction.Exec );
+         }
       }
 
       private Task ChangeActionAsync( RebaseItemAction itemAction )
