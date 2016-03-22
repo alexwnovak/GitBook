@@ -18,6 +18,12 @@ namespace GitWrite.Views.Controls
          Down = 1
       }
 
+      private enum TextBoxSelector
+      {
+         First,
+         Second
+      }
+
       public static DependencyProperty ItemsSourceProperty = DependencyProperty.Register( "ItemsSource",
          typeof( IEnumerable ),
          typeof( InteractiveRebasePanel ),
