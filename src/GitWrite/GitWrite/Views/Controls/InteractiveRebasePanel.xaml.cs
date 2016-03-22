@@ -232,6 +232,18 @@ namespace GitWrite.Views.Controls
          {
             await ChangeActionAsync( RebaseItemAction.Exec );
          }
+         else if ( e.Key == Key.Right )
+         {
+            var currentItem = (RebaseItem) ListBox.Items[_highlightedIndex];
+
+            await ChangeActionAsync( currentItem.Action.NextValue() );
+         }
+         else if ( e.Key == Key.Left )
+         {
+            var currentItem = (RebaseItem) ListBox.Items[_highlightedIndex];
+
+            await ChangeActionAsync( currentItem.Action.PreviousValue() );
+         }
       }
 
       private Task ChangeActionAsync( RebaseItemAction itemAction )
