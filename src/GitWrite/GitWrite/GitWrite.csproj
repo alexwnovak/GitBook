@@ -105,6 +105,7 @@
     <Compile Include="Views\Converters\ExitReasonToGlyphBackgroundConverter.cs" />
     <Compile Include="Views\Dwm\AccentPolicy.cs" />
     <Compile Include="Views\Dwm\AccentState.cs" />
+    <Compile Include="Views\Dwm\WindowCompositionAttribute.cs" />
     <Compile Include="Views\ExitReason.cs" />
     <Compile Include="Views\CommitControlState.cs" />
     <Compile Include="EnvironmentAdapter.cs" />
