@@ -106,6 +106,7 @@
     <Compile Include="Views\Dwm\AccentPolicy.cs" />
     <Compile Include="Views\Dwm\AccentState.cs" />
     <Compile Include="Views\Dwm\WindowCompositionAttribute.cs" />
+    <Compile Include="Views\Dwm\WindowCompositionManager.cs" />
     <Compile Include="Views\Dwm\WindowsCompositionAttributeData.cs" />
     <Compile Include="Views\ExitReason.cs" />
     <Compile Include="Views\CommitControlState.cs" />
