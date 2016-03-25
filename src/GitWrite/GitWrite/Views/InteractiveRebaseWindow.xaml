@@ -29,7 +29,6 @@
 
    <Grid x:Name="MainGrid">
       <Border x:Name="OuterBorder"
-         Margin="0,0,0,10"
          CornerRadius="14"
          Background="{StaticResource WindowBackgroundColor}"
          BorderThickness="2"

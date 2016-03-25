@@ -67,7 +67,6 @@
       </VisualStateManager.VisualStateGroups>
 
       <Border x:Name="OuterBorder"
-         Margin="0,0,0,10"
          CornerRadius="14"
          Background="{DynamicResource WindowBackgroundColor}"
          BorderThickness="2"
