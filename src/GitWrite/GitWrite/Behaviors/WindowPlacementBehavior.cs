@@ -1,5 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Interactivity;
+using GalaSoft.MvvmLight.Ioc;
+using GitWrite.Services;
 
 namespace GitWrite.Behaviors
 {
@@ -10,8 +12,11 @@ namespace GitWrite.Behaviors
 
       private void AssociatedObject_OnLoaded( object sender, RoutedEventArgs e )
       {
+         var registryService = SimpleIoc.Default.GetInstance<IRegistryService>();
+
          AssociatedObject.WindowStartupLocation = WindowStartupLocation.Manual;
-         AssociatedObject.Left = ( SystemParameters.FullPrimaryScreenWidth - AssociatedObject.Width ) / 2;
+         AssociatedObject.Left = registryService.GetWindowX();
+         AssociatedObject.Top = registryService.GetWindowY();
       }
    }
 }
