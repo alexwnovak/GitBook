@@ -28,13 +28,6 @@
       </ResourceDictionary>
    </Window.Resources>
 
-   <Window.Effect>
-      <DropShadowEffect BlurRadius="4"
-         ShadowDepth="5"
-         Direction="270"
-         Opacity="0.6" />
-   </Window.Effect>
-
    <Grid x:Name="MainGrid">
       <Border x:Name="OuterBorder"
          Margin="0,0,0,10"

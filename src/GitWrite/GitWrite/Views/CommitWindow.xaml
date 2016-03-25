@@ -45,13 +45,6 @@
       </i:EventTrigger>
    </i:Interaction.Triggers>
 
-   <Window.Effect>
-      <DropShadowEffect BlurRadius="4"
-         ShadowDepth="5"
-         Direction="270"
-         Opacity="0.6" />
-   </Window.Effect>
-
    <Grid x:Name="MainGrid">
       <VisualStateManager.VisualStateGroups>
          <VisualStateGroup x:Name="ExpansionStates">
