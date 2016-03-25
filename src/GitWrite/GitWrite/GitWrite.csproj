@@ -72,6 +72,7 @@
     <Compile Include="AsyncEventHandler.cs" />
     <Compile Include="Behaviors\CommitCaretPositionBehavior.cs" />
     <Compile Include="Behaviors\CommitKeyPressBehavior.cs" />
+    <Compile Include="Behaviors\WindowDragBehavior.cs" />
     <Compile Include="Behaviors\WindowPlacementBehavior.cs" />
     <Compile Include="CommitDocument.cs" />
     <Compile Include="CommitFileReader.cs" />
@@ -131,7 +132,6 @@
     <Compile Include="Views\IStoryboardHelper.cs" />
     <Compile Include="Views\StoryboardHelper.cs" />
     <Compile Include="Views\WindowBase.cs" />
-    <Compile Include="Views\WindowDragBehavior.cs" />
     <Compile Include="Views\WindowValues.cs" />
     <Page Include="Styles\ButtonStyle.xaml">
       <SubType>Designer</SubType>
