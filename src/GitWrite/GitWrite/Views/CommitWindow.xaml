@@ -30,7 +30,6 @@
    <i:Interaction.Behaviors>
       <behaviors:CommitCaretPositionBehavior />
       <behaviors:CommitKeyPressBehavior />
-      <behaviors:WindowPlacementBehavior />
    </i:Interaction.Behaviors>
 
    <i:Interaction.Triggers>

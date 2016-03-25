@@ -10,6 +10,7 @@ namespace GitWrite.Views
       public WindowBase()
       {
          Interaction.GetBehaviors( this ).Add( new WindowDragBehavior() );
+         Interaction.GetBehaviors( this ).Add( new WindowPlacementBehavior() );
 
          Loaded += ( sender, e ) =>
          {
