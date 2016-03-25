@@ -43,5 +43,21 @@ namespace GitWrite.Services
             gitWriteKey.SetValue( "WindowY", y );
          }
       }
+
+      public int GetWindowX()
+      {
+         using ( var gitWriteKey = Registry.CurrentUser.CreateSubKey( @"SOFTWARE\GitWrite" ) )
+         {
+            return (int) gitWriteKey.GetValue( "WindowX" );
+         }
+      }
+
+      public int GetWindowY()
+      {
+         using ( var gitWriteKey = Registry.CurrentUser.CreateSubKey( @"SOFTWARE\GitWrite" ) )
+         {
+            return (int) gitWriteKey.GetValue( "WindowY" );
+         }
+      }
    }
 }

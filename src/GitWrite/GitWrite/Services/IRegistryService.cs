@@ -8,5 +8,8 @@
 
       void SetWindowX( int x );
       void SetWindowY( int y );
+
+      int GetWindowX();
+      int GetWindowY();
    }
 }
