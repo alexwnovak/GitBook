@@ -2,7 +2,7 @@
 
 namespace GitWrite.Views
 {
-   public partial class InteractiveRebaseWindow : Window
+   public partial class InteractiveRebaseWindow : WindowBase
    {
       public InteractiveRebaseWindow()
       {

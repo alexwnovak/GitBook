@@ -7,7 +7,7 @@ using GitWrite.Views.Controls;
 
 namespace GitWrite.Views
 {
-   public partial class CommitWindow : Window
+   public partial class CommitWindow : WindowBase
    {
       private readonly CommitViewModel _viewModel;
 

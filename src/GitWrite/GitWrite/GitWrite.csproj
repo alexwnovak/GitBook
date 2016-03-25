@@ -103,6 +103,11 @@
     <Compile Include="Views\Converters\ExitReasonToBackgroundConverter.cs" />
     <Compile Include="Views\Converters\ExitReasonToGlyphConverter.cs" />
     <Compile Include="Views\Converters\ExitReasonToGlyphBackgroundConverter.cs" />
+    <Compile Include="Views\Dwm\AccentPolicy.cs" />
+    <Compile Include="Views\Dwm\AccentState.cs" />
+    <Compile Include="Views\Dwm\WindowCompositionAttribute.cs" />
+    <Compile Include="Views\Dwm\WindowCompositionManager.cs" />
+    <Compile Include="Views\Dwm\WindowsCompositionAttributeData.cs" />
     <Compile Include="Views\ExitReason.cs" />
     <Compile Include="Views\CommitControlState.cs" />
     <Compile Include="EnvironmentAdapter.cs" />
@@ -125,6 +130,7 @@
     </Compile>
     <Compile Include="Views\IStoryboardHelper.cs" />
     <Compile Include="Views\StoryboardHelper.cs" />
+    <Compile Include="Views\WindowBase.cs" />
     <Compile Include="Views\WindowDragBehavior.cs" />
     <Compile Include="Views\WindowValues.cs" />
     <Page Include="Styles\ButtonStyle.xaml">

@@ -1,4 +1,4 @@
-﻿<Window x:Class="GitWrite.Views.InteractiveRebaseWindow"
+﻿<views:WindowBase x:Class="GitWrite.Views.InteractiveRebaseWindow"
    x:Name="PageRoot"
    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -60,4 +60,4 @@
          </Grid>
       </Border>
    </Grid>
-</Window>
+</views:WindowBase>
