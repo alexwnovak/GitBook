@@ -89,6 +89,7 @@
     <Compile Include="CommitFileReaderTests.cs" />
     <Compile Include="Helpers\TestHelper.cs" />
     <Compile Include="HelpTextProviderTests.cs" />
+    <Compile Include="Services\ApplicationSettingsTests.cs" />
     <Compile Include="ViewModels\CommitViewModelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\Converters\TextLengthInversionConverterTests.cs" />
