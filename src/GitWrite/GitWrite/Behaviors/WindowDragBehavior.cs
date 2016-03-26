@@ -26,10 +26,10 @@ namespace GitWrite.Behaviors
          {
             AssociatedObject.DragMove();
 
-            var registryService = SimpleIoc.Default.GetInstance<IRegistryService>();
+            var appSettings = SimpleIoc.Default.GetInstance<IApplicationSettings>();
 
-            registryService.SetWindowX( (int) AssociatedObject.RestoreBounds.Left );
-            registryService.SetWindowY( (int) AssociatedObject.RestoreBounds.Top );
+            appSettings.WindowX = (int) AssociatedObject.RestoreBounds.Left;
+            appSettings.WindowY = (int) AssociatedObject.RestoreBounds.Top;
          }
       }
 

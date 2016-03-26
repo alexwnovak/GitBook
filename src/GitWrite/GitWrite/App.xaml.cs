@@ -36,10 +36,8 @@ namespace GitWrite
 
          ThemeSwitcher.Initialize();
 
-         var registryService = new RegistryService();
-         string theme = registryService.GetTheme();
-
-         ThemeSwitcher.SwitchTo( theme );
+         var appSettings = SimpleIoc.Default.GetInstance<IApplicationSettings>();
+         ThemeSwitcher.SwitchTo( appSettings.Theme );
 
          // Load the commit file
 
