@@ -101,5 +101,48 @@ namespace GitWrite.UnitTests.Services
 
          Assert.AreEqual( x, actualWindowX );
       }
+
+      [TestMethod]
+      public void WindowYProperty_SetsVerticalPosition_IsStoredWithRegistry()
+      {
+         const int y = 12332345;
+
+         // Setup
+
+         var registryServiceMock = new Mock<IRegistryService>();
+         SimpleIoc.Default.Register( () => registryServiceMock.Object );
+
+         // Test
+
+         var appSettings = new ApplicationSettings
+         {
+            WindowY = y
+         };
+
+         // Assert
+
+         registryServiceMock.Verify( rs => rs.WriteInt( It.IsAny<RegistryKey>(), It.IsAny<string>(), It.IsAny<string>(), y ), Times.Once );
+      }
+
+      [TestMethod]
+      public void WindowYProperty_GetsVericalPosition_ReturnsIntFromRegistry()
+      {
+         const int y = 54123321;
+
+         // Setup
+
+         var registryServiceMock = new Mock<IRegistryService>();
+         registryServiceMock.Setup( rs => rs.ReadInt( It.IsAny<RegistryKey>(), It.IsAny<string>(), It.IsAny<string>() ) ).Returns( y );
+         SimpleIoc.Default.Register( () => registryServiceMock.Object );
+
+         // Test
+
+         var appSettings = new ApplicationSettings();
+         int actualWindowY = appSettings.WindowY;
+
+         // Assert
+
+         Assert.AreEqual( y, actualWindowY );
+      }
    }
 }
