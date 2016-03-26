@@ -21,23 +21,8 @@ namespace GitWrite
 
       private void Application_OnStartup( object sender, StartupEventArgs e )
       {
-         ServiceLocator.SetLocatorProvider( () => SimpleIoc.Default );
-
-         SimpleIoc.Default.Register<CommitViewModel>();
-         SimpleIoc.Default.Register<InteractiveRebaseViewModel>();
-         SimpleIoc.Default.Register<IRegistryService, RegistryService>();
-         SimpleIoc.Default.Register<IApplicationSettings, ApplicationSettings>();
-         SimpleIoc.Default.Register<IAppService, AppService>();
-         SimpleIoc.Default.Register<IClipboardService, ClipboardService>();
-         SimpleIoc.Default.Register<IEnvironmentAdapter, EnvironmentAdapter>();
-         SimpleIoc.Default.Register<ICommitFileReader, CommitFileReader>();
-         SimpleIoc.Default.Register<IFileAdapter, FileAdapter>();
-         SimpleIoc.Default.Register<IStoryboardHelper, StoryboardHelper>();
-
-         ThemeSwitcher.Initialize();
-
-         var appSettings = SimpleIoc.Default.GetInstance<IApplicationSettings>();
-         ThemeSwitcher.SwitchTo( appSettings.Theme );
+         InitializeDependencies();
+         InitializeTheme();
 
          // Load the commit file
 
@@ -58,6 +43,29 @@ namespace GitWrite
          }
 
          StartupUri = GetStartupWindow( appController.ApplicationMode );
+      }
+
+      private void InitializeDependencies()
+      {
+         ServiceLocator.SetLocatorProvider( () => SimpleIoc.Default );
+         SimpleIoc.Default.Register<CommitViewModel>();
+         SimpleIoc.Default.Register<InteractiveRebaseViewModel>();
+         SimpleIoc.Default.Register<IRegistryService, RegistryService>();
+         SimpleIoc.Default.Register<IApplicationSettings, ApplicationSettings>();
+         SimpleIoc.Default.Register<IAppService, AppService>();
+         SimpleIoc.Default.Register<IClipboardService, ClipboardService>();
+         SimpleIoc.Default.Register<IEnvironmentAdapter, EnvironmentAdapter>();
+         SimpleIoc.Default.Register<ICommitFileReader, CommitFileReader>();
+         SimpleIoc.Default.Register<IFileAdapter, FileAdapter>();
+         SimpleIoc.Default.Register<IStoryboardHelper, StoryboardHelper>();
+      }
+
+      private void InitializeTheme()
+      {
+         ThemeSwitcher.Initialize();
+
+         var appSettings = SimpleIoc.Default.GetInstance<IApplicationSettings>();
+         ThemeSwitcher.SwitchTo( appSettings.Theme );
       }
 
       private void PassThrough( string[] arguments )
