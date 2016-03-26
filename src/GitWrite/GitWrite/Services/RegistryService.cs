@@ -11,6 +11,12 @@ namespace GitWrite.Services
       public void WriteString( RegistryKey registryKey, string path, string name, string value )
          => OpenKey( registryKey, path, k => k.SetValue( name, value ) );
 
+      public int ReadInt( RegistryKey registryKey, string path, string name )
+         => OpenKey( registryKey, path, k => (int) k.GetValue( name ) );
+
+      public void WriteInt( RegistryKey registryKey, string path, string name, int value )
+         => OpenKey( registryKey, path, k => k.SetValue( name, value ) );
+
       private static T OpenKey<T>( RegistryKey registryKey, string path, Func<RegistryKey, T> readAction )
       {
          using ( var key = registryKey.CreateSubKey( path ) )
