@@ -2,5 +2,10 @@
 {
    public interface IApplicationSettings
    {
+      string Theme
+      {
+         get;
+         set;
+      }
    }
 }
