@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight.Ioc;
+﻿using System.Security.Cryptography.X509Certificates;
+using GalaSoft.MvvmLight.Ioc;
 using GitWrite.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.Win32;
@@ -56,6 +57,49 @@ namespace GitWrite.UnitTests.Services
          // Assert
 
          Assert.AreEqual( themeName, actualThemeName );
+      }
+
+      [TestMethod]
+      public void WindowXProperty_SetsHorizontalPosition_IsStoredWithRegistry()
+      {
+         const int x = 12345;
+
+         // Setup
+
+         var registryServiceMock = new Mock<IRegistryService>();
+         SimpleIoc.Default.Register( () => registryServiceMock.Object );
+
+         // Test
+
+         var appSettings = new ApplicationSettings
+         {
+            WindowX = x
+         };
+
+         // Assert
+
+         registryServiceMock.Verify( rs => rs.WriteInt( It.IsAny<RegistryKey>(), It.IsAny<string>(), It.IsAny<string>(), x ), Times.Once );
+      }
+
+      [TestMethod]
+      public void WindowXProperty_GetsHorizontalPosition_ReturnsIntFromRegistry()
+      {
+         const int x = 54321;
+
+         // Setup
+
+         var registryServiceMock = new Mock<IRegistryService>();
+         registryServiceMock.Setup( rs => rs.ReadInt( It.IsAny<RegistryKey>(), It.IsAny<string>(), It.IsAny<string>() ) ).Returns( x );
+         SimpleIoc.Default.Register( () => registryServiceMock.Object );
+
+         // Test
+
+         var appSettings = new ApplicationSettings();
+         int actualWindowX = appSettings.WindowX;
+
+         // Assert
+
+         Assert.AreEqual( x, actualWindowX );
       }
    }
 }
