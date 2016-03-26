@@ -7,5 +7,17 @@
          get;
          set;
       }
+
+      int WindowX
+      {
+         get;
+         set;
+      }
+
+      int WindowY
+      {
+         get;
+         set;
+      }
    }
 }

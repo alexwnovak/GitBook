@@ -21,5 +21,29 @@ namespace GitWrite.Services
             RegistryService.WriteString( Registry.CurrentUser, _path, nameof( Theme ), value );
          }
       }
+
+      public int WindowX
+      {
+         get
+         {
+            return RegistryService.ReadInt( Registry.CurrentUser, _path, nameof( WindowX ) );
+         }
+         set
+         {
+            RegistryService.WriteInt( Registry.CurrentUser, _path, nameof( WindowX ), value );
+         }
+      }
+
+      public int WindowY
+      {
+         get
+         {
+            return RegistryService.ReadInt( Registry.CurrentUser, _path, nameof( WindowY ) );
+         }
+         set
+         {
+            RegistryService.WriteInt( Registry.CurrentUser, _path, nameof( WindowY ), value );
+         }
+      }
    }
 }
