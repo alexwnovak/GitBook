@@ -12,11 +12,11 @@ namespace GitWrite.Behaviors
 
       private void AssociatedObject_OnLoaded( object sender, RoutedEventArgs e )
       {
-         var registryService = SimpleIoc.Default.GetInstance<IRegistryService>();
+         var appSettings = SimpleIoc.Default.GetInstance<IApplicationSettings>();
 
          AssociatedObject.WindowStartupLocation = WindowStartupLocation.Manual;
-         AssociatedObject.Left = registryService.GetWindowX();
-         AssociatedObject.Top = registryService.GetWindowY();
+         AssociatedObject.Left = appSettings.WindowX;
+         AssociatedObject.Top = appSettings.WindowY;
       }
    }
 }

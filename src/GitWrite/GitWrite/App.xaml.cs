@@ -26,6 +26,7 @@ namespace GitWrite
          SimpleIoc.Default.Register<CommitViewModel>();
          SimpleIoc.Default.Register<InteractiveRebaseViewModel>();
          SimpleIoc.Default.Register<IRegistryService, RegistryService>();
+         SimpleIoc.Default.Register<IApplicationSettings, ApplicationSettings>();
          SimpleIoc.Default.Register<IAppService, AppService>();
          SimpleIoc.Default.Register<IClipboardService, ClipboardService>();
          SimpleIoc.Default.Register<IEnvironmentAdapter, EnvironmentAdapter>();
@@ -35,10 +36,8 @@ namespace GitWrite
 
          ThemeSwitcher.Initialize();
 
-         var registryService = new RegistryService();
-         string theme = registryService.GetTheme();
-
-         ThemeSwitcher.SwitchTo( theme );
+         var appSettings = SimpleIoc.Default.GetInstance<IApplicationSettings>();
+         ThemeSwitcher.SwitchTo( appSettings.Theme );
 
          // Load the commit file
 

@@ -48,8 +48,8 @@ namespace GitWrite.Behaviors
          {
             ThemeSwitcher.SwitchToNext();
 
-            var registryService = SimpleIoc.Default.GetInstance<IRegistryService>();
-            registryService.SetTheme( ThemeSwitcher.ThemeName );
+            var appSettings = SimpleIoc.Default.GetInstance<IApplicationSettings>();
+            appSettings.Theme = ThemeSwitcher.ThemeName;
          }
       }
 
