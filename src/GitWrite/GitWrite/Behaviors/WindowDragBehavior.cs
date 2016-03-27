@@ -2,7 +2,9 @@
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interactivity;
+using System.Windows.Media.Animation;
 using GalaSoft.MvvmLight.Ioc;
+using GitWrite.Animation;
 using GitWrite.Services;
 
 namespace GitWrite.Behaviors
@@ -33,10 +35,23 @@ namespace GitWrite.Behaviors
          }
       }
 
-      private void OnMouseDoubleClick( object sender, MouseButtonEventArgs e )
+      private async void OnMouseDoubleClick( object sender, MouseButtonEventArgs e )
       {
-         AssociatedObject.Left = ( SystemParameters.FullPrimaryScreenWidth - AssociatedObject.Width ) / 2;
-         AssociatedObject.Top = 0.7 * ( SystemParameters.FullPrimaryScreenHeight - 30 ) / 2;
+         double x = ( SystemParameters.FullPrimaryScreenWidth - AssociatedObject.Width ) / 2;
+         double y = 0.7 * ( SystemParameters.FullPrimaryScreenHeight - 30 ) / 2;
+
+         await AssociatedObject.Animate()
+            .Position()
+            .From( 500, 500 )
+            .To( x, y )
+            .For( 2000 )
+            .EaseOut<CircleEase>()
+            .PlayAsync();
+
+         var appSettings = SimpleIoc.Default.GetInstance<IApplicationSettings>();
+
+         //appSettings.WindowX = (int) AssociatedObject.RestoreBounds.Left;
+         //appSettings.WindowY = (int) AssociatedObject.RestoreBounds.Top;
       }
    }
 }

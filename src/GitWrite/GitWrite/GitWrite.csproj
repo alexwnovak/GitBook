@@ -76,6 +76,9 @@
     <Compile Include="Behaviors\WindowPlacementBehavior.cs" />
     <Compile Include="CommitDocument.cs" />
     <Compile Include="CommitFileReader.cs" />
+    <Compile Include="Animation\AnimationBuilder.cs" />
+    <Compile Include="Animation\PositionAnimator.cs" />
+    <Compile Include="Animation\UIElementExtensions.cs" />
     <Compile Include="FrameworkElementExtensions.cs" />
     <Compile Include="GitFileAttribute.cs" />
     <Compile Include="RebaseItemActionExtensions.cs" />
