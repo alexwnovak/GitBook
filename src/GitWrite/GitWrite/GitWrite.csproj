@@ -90,6 +90,7 @@
     <Compile Include="ViewModels\RebaseItem.cs" />
     <Compile Include="Themes\ThemeSwitcher.cs" />
     <Compile Include="ViewModels\RebaseItemAction.cs" />
+    <Compile Include="ViewModels\ShutdownEventArgs.cs" />
     <Compile Include="Views\CommitInputState.cs" />
     <Compile Include="Views\Controls\ConfirmationResult.cs" />
     <Compile Include="Views\Controls\ConfirmPanel.xaml.cs">
