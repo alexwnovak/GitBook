@@ -3,7 +3,6 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
-using GitWrite;
 
 namespace GitWrite.Views.Controls
 {
@@ -54,6 +53,11 @@ namespace GitWrite.Views.Controls
 
       private void ConfirmPanel_OnPreviewKeyDown( object sender, KeyEventArgs e )
       {
+         if ( _isDismissing )
+         {
+            return;
+         }
+
          switch ( e.Key )
          {
             case Key.S:
@@ -69,10 +73,9 @@ namespace GitWrite.Views.Controls
                Complete( ConfirmationResult.Cancel );
                break;
             default:
+               e.Handled = true;
                return;
          }
-
-         e.Handled = true;
       }
    }
 }
