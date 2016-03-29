@@ -34,6 +34,18 @@ namespace GitWrite.ViewModels
          protected internal set;
       }
 
+      public RelayCommand SaveCommand
+      {
+         get;
+         protected internal set;
+      }
+
+      public RelayCommand PasteCommand
+      {
+         get;
+         protected internal set;
+      }
+
       public event EventHandler<ShutdownEventArgs> ShutdownRequested;
 
       protected virtual void OnShutdownRequested( object sender, ShutdownEventArgs e ) => ShutdownRequested?.Invoke( sender, e );
