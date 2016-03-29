@@ -91,6 +91,8 @@ namespace GitWrite.ViewModels
 
             await OnShutdownRequested( this, new ShutdownEventArgs( exitReason ) );
 
+            var appService = SimpleIoc.Default.GetInstance<IAppService>();
+            appService.Shutdown();
          }
       }
 
