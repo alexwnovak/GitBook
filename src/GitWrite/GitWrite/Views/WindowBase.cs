@@ -30,7 +30,26 @@ namespace GitWrite.Views
 
       public async Task<ConfirmationResult> ConfirmExitAsync()
       {
-         throw new NotImplementedException();
+         var confirmPanel = new ConfirmPanel
+         {
+            VerticalAlignment = VerticalAlignment.Stretch
+         };
+
+         var layoutRoot = (Panel) Content;
+         layoutRoot.Children.Add( confirmPanel );
+
+         var previousFocusElement = Keyboard.FocusedElement;
+         confirmPanel.Focus();
+
+         var confirmationResult = await confirmPanel.ShowAsync();
+
+         if ( confirmationResult == ConfirmationResult.Cancel )
+         {
+            layoutRoot.Children.Remove( confirmPanel );
+            previousFocusElement.Focus();
+         }
+
+         return confirmationResult;
       }
    }
 }
