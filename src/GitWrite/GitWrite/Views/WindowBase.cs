@@ -6,6 +6,7 @@ using GalaSoft.MvvmLight.Ioc;
 using GitWrite.Behaviors;
 using GitWrite.Services;
 using GitWrite.Views.Controls;
+using GitWrite.Views.Dwm;
 
 namespace GitWrite.Views
 {
@@ -18,6 +19,13 @@ namespace GitWrite.Views
          var behaviors = Interaction.GetBehaviors( this );
          behaviors.Add( new WindowDragBehavior() );
          behaviors.Add( new WindowPlacementBehavior() );
+
+         Loaded += OnLoaded;
+      }
+
+      private void OnLoaded( object sender, EventArgs e )
+      {
+         WindowCompositionManager.EnableWindowBlur( this );
       }
 
       public async Task<ConfirmationResult> ConfirmExitAsync()
