@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Interactivity;
 using GalaSoft.MvvmLight.Ioc;
 using GitWrite.Behaviors;
 using GitWrite.Services;
+using GitWrite.ViewModels;
 using GitWrite.Views.Controls;
 using GitWrite.Views.Dwm;
 
@@ -12,6 +15,14 @@ namespace GitWrite.Views
 {
    public class WindowBase : Window, IViewService
    {
+      private GitWriteViewModelBase _viewModel;
+
+      public bool IsDirty
+      {
+         get;
+         set;
+      }
+
       public WindowBase()
       {
          SimpleIoc.Default.Register<IViewService>( () => this );
@@ -26,6 +37,9 @@ namespace GitWrite.Views
 
       private void OnLoaded( object sender, EventArgs e )
       {
+         _viewModel = (GitWriteViewModelBase) DataContext;
+         _viewModel.ShutdownRequested += PlayExitAnimationAsync;
+
          WindowCompositionManager.EnableWindowBlur( this );
       }
 
@@ -51,6 +65,20 @@ namespace GitWrite.Views
          }
 
          return confirmationResult;
+      }
+
+      protected async void PlayExitAnimationAsync( object sender, ShutdownEventArgs e )
+      {
+         var exitPanel = new ExitPanel
+         {
+            ExitReason = e.ExitReason,
+            VerticalAlignment = VerticalAlignment.Stretch
+         };
+
+         var layoutRoot = (Panel) Content;
+         layoutRoot.Children.Add( exitPanel );
+
+         await exitPanel.ShowAsync();
       }
    }
 }
