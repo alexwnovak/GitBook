@@ -237,8 +237,8 @@ namespace GitWrite.ViewModels
             return;
          }
 
-         var appController = SimpleIoc.Default.GetInstance<IAppController>();
-         await appController.ShutDownAsync( ExitReason.AbortCommit );
+         //var appController = SimpleIoc.Default.GetInstance<IAppController>();
+         //await appController.ShutDownAsync( ExitReason.AbortCommit );
 
          //await BeginShutDownAsync( ExitReason.AbortCommit );
          //ShutDown();
