@@ -38,7 +38,7 @@ namespace GitWrite.Views
       private void OnLoaded( object sender, EventArgs e )
       {
          _viewModel = (GitWriteViewModelBase) DataContext;
-         _viewModel.ShutdownRequested += PlayExitAnimationAsync;
+         _viewModel.ShutdownRequested += OnShutdownRequested;
 
          WindowCompositionManager.EnableWindowBlur( this );
       }
@@ -67,11 +67,16 @@ namespace GitWrite.Views
          return confirmationResult;
       }
 
-      protected async void PlayExitAnimationAsync( object sender, ShutdownEventArgs e )
+      private async Task OnShutdownRequested( object sender, ShutdownEventArgs e )
+      {
+         await PlayExitAnimationAsync( e.ExitReason );
+      }
+
+      protected async Task PlayExitAnimationAsync( ExitReason exitReason )
       {
          var exitPanel = new ExitPanel
          {
-            ExitReason = e.ExitReason,
+            ExitReason = exitReason,
             VerticalAlignment = VerticalAlignment.Stretch
          };
 

@@ -46,9 +46,9 @@ namespace GitWrite.ViewModels
          protected internal set;
       }
 
-      public event EventHandler<ShutdownEventArgs> ShutdownRequested;
+      public event AsyncEventHandler<ShutdownEventArgs> ShutdownRequested;
 
-      protected virtual void OnShutdownRequested( object sender, ShutdownEventArgs e ) => ShutdownRequested?.Invoke( sender, e );
+      protected virtual async Task OnShutdownRequested( object sender, ShutdownEventArgs e ) => await ShutdownRequested?.Invoke( sender, e );
 
       public GitWriteViewModelBase()
       {
@@ -89,7 +89,8 @@ namespace GitWrite.ViewModels
                exitReason = ExitReason.AbortCommit;
             }
 
-            OnShutdownRequested( this, new ShutdownEventArgs( exitReason ) );
+            await OnShutdownRequested( this, new ShutdownEventArgs( exitReason ) );
+
          }
       }
 
