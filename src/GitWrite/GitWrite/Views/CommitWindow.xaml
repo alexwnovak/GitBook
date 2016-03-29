@@ -29,7 +29,6 @@
 
    <i:Interaction.Behaviors>
       <behaviors:CommitCaretPositionBehavior />
-      <behaviors:CommitKeyPressBehavior />
    </i:Interaction.Behaviors>
 
    <i:Interaction.Triggers>

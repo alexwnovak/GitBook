@@ -19,6 +19,7 @@ namespace GitWrite.Views
          var behaviors = Interaction.GetBehaviors( this );
          behaviors.Add( new WindowDragBehavior() );
          behaviors.Add( new WindowPlacementBehavior() );
+         behaviors.Add( new CommitKeyPressBehavior() );
 
          Loaded += OnLoaded;
       }
