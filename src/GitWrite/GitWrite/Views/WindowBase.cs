@@ -33,6 +33,7 @@ namespace GitWrite.Views
          behaviors.Add( new CommitKeyPressBehavior() );
 
          Loaded += OnLoaded;
+         Closing += OnClosing;
       }
 
       private void OnLoaded( object sender, EventArgs e )
@@ -41,6 +42,12 @@ namespace GitWrite.Views
          _viewModel.ShutdownRequested += OnShutdownRequested;
 
          WindowCompositionManager.EnableWindowBlur( this );
+      }
+
+      private void OnClosing( object sender, CancelEventArgs e )
+      {
+         e.Cancel = true;
+         _viewModel.AbortCommand.Execute( null );
       }
 
       public async Task<ConfirmationResult> ConfirmExitAsync()
