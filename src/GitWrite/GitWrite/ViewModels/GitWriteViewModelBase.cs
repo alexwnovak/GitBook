@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
@@ -89,6 +88,7 @@ namespace GitWrite.ViewModels
                exitReason = ExitReason.AbortCommit;
             }
 
+            IsExiting = true;
             await OnShutdownRequested( this, new ShutdownEventArgs( exitReason ) );
 
             var appService = SimpleIoc.Default.GetInstance<IAppService>();
