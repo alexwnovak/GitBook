@@ -52,7 +52,6 @@ namespace GitWrite.ViewModels
 
       public GitWriteViewModelBase()
       {
-         IsDirty = true;
          AbortCommand = new RelayCommand( OnAbort );
       }
 

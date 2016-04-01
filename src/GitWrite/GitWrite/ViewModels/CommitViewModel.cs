@@ -62,6 +62,7 @@ namespace GitWrite.ViewModels
          set
          {
             Set( () => ShortMessage, ref _shortMessage, value );
+            IsDirty = true;
          }
       }
 
@@ -75,6 +76,7 @@ namespace GitWrite.ViewModels
          set
          {
             Set( () => ExtraCommitText, ref _extraCommitText, value );
+            IsDirty = true;
          }
       }
 
