@@ -135,6 +135,7 @@ namespace GitWrite.ViewModels
          ExpandCommand = new RelayCommand( ExpandUI );
          HelpCommand = new RelayCommand( ActivateHelp );
          LoadCommand = new RelayCommand( ViewLoaded );
+         SaveCommand = new RelayCommand( async () => await OnSaveAsync() );
          PasteCommand = new RelayCommand( PasteFromClipboard );
 
          ShortMessage = App.CommitDocument?.ShortMessage;
@@ -163,6 +164,22 @@ namespace GitWrite.ViewModels
 
       protected override async Task OnSaveAsync()
       {
+         if ( string.IsNullOrWhiteSpace( ShortMessage ) || IsExiting )
+         {
+            return;
+         }
+
+         var shutdownTask = OnShutdownRequested( this, new ShutdownEventArgs( ExitReason.AcceptCommit ) );
+
+         App.CommitDocument.ShortMessage = ShortMessage;
+         App.CommitDocument.LongMessage = ExtraCommitText;
+
+         App.CommitDocument.Save();
+
+         await shutdownTask;
+
+         var appService = SimpleIoc.Default.GetInstance<IAppService>();
+         appService.Shutdown();
       }
 
       protected override async Task OnDiscardAsync()
@@ -180,27 +197,6 @@ namespace GitWrite.ViewModels
          }
 
          return false;
-      }
-
-      public async void Save()
-      {
-         if ( string.IsNullOrWhiteSpace( ShortMessage ) || IsExiting )
-         {
-            return;
-         }
-
-         var appController = SimpleIoc.Default.GetInstance<IAppController>();
-         var exitTask = appController.ShutDownAsync( ExitReason.AcceptCommit );
-
-          //= BeginShutDownAsync( ExitReason.AcceptCommit );
-
-         App.CommitDocument.ShortMessage = ShortMessage;
-         App.CommitDocument.LongMessage = ExtraCommitText;
-
-         App.CommitDocument.Save();
-
-         await exitTask;
-         ShutDown();
       }
 
       private void ExpandUI()
