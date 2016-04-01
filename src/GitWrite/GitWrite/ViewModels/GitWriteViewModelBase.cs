@@ -15,6 +15,7 @@ namespace GitWrite.ViewModels
          get;
          set;
       }
+
       public bool IsExiting
       {
          get;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,12 +17,6 @@ namespace GitWrite.Views
    public class WindowBase : Window, IViewService
    {
       private GitWriteViewModelBase _viewModel;
-
-      public bool IsDirty
-      {
-         get;
-         set;
-      }
 
       public WindowBase()
       {
@@ -50,6 +45,25 @@ namespace GitWrite.Views
          _viewModel.AbortCommand.Execute( null );
       }
 
+      private async Task OnShutdownRequested( object sender, ShutdownEventArgs e )
+      {
+         await PlayExitAnimationAsync( e.ExitReason );
+      }
+
+      private async Task PlayExitAnimationAsync( ExitReason exitReason )
+      {
+         var exitPanel = new ExitPanel
+         {
+            ExitReason = exitReason,
+            VerticalAlignment = VerticalAlignment.Stretch
+         };
+
+         var layoutRoot = (Panel) Content;
+         layoutRoot.Children.Add( exitPanel );
+
+         await exitPanel.ShowAsync();
+      }
+
       public async Task<ConfirmationResult> ConfirmExitAsync()
       {
          var confirmPanel = new ConfirmPanel
@@ -72,25 +86,6 @@ namespace GitWrite.Views
          }
 
          return confirmationResult;
-      }
-
-      private async Task OnShutdownRequested( object sender, ShutdownEventArgs e )
-      {
-         await PlayExitAnimationAsync( e.ExitReason );
-      }
-
-      protected async Task PlayExitAnimationAsync( ExitReason exitReason )
-      {
-         var exitPanel = new ExitPanel
-         {
-            ExitReason = exitReason,
-            VerticalAlignment = VerticalAlignment.Stretch
-         };
-
-         var layoutRoot = (Panel) Content;
-         layoutRoot.Children.Add( exitPanel );
-
-         await exitPanel.ShowAsync();
       }
    }
 }
