@@ -11,13 +11,15 @@ namespace GitWrite.Behaviors
 {
    public class CommitKeyPressBehavior : Behavior<WindowBase>
    {
-      private readonly GitWriteViewModelBase _viewModel = SimpleIoc.Default.GetInstance<CommitViewModel>();
+      private GitWriteViewModelBase _viewModel;
 
       protected override void OnAttached() => AssociatedObject.Loaded += OnLoaded;
       protected override void OnDetaching() => AssociatedObject.Unloaded -= OnUnloaded;
 
       private void OnLoaded( object sender, RoutedEventArgs e )
       {
+         _viewModel = (GitWriteViewModelBase) AssociatedObject.DataContext;
+
          AssociatedObject.KeyDown += KeyDown;
          AssociatedObject.PreviewKeyDown += PreviewKeyDown;
       }
