@@ -63,6 +63,8 @@ namespace GitWrite.ViewModels
             return;
          }
 
+         ExitReason exitReason = ExitReason.AbortCommit;
+
          if ( IsDirty )
          {
             IsConfirming = true;
@@ -76,8 +78,6 @@ namespace GitWrite.ViewModels
                return;
             }
 
-            ExitReason exitReason;
-
             if ( confirmationResult == ConfirmationResult.Save )
             {
                await OnSaveAsync();
@@ -88,13 +88,13 @@ namespace GitWrite.ViewModels
                await OnDiscardAsync();
                exitReason = ExitReason.AbortCommit;
             }
-
-            IsExiting = true;
-            await OnShutdownRequested( this, new ShutdownEventArgs( exitReason ) );
-
-            var appService = SimpleIoc.Default.GetInstance<IAppService>();
-            appService.Shutdown();
          }
+
+         IsExiting = true;
+         await OnShutdownRequested( this, new ShutdownEventArgs( exitReason ) );
+
+         var appService = SimpleIoc.Default.GetInstance<IAppService>();
+         appService.Shutdown();
       }
 
       protected virtual Task OnSaveAsync()
