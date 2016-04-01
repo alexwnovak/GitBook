@@ -62,7 +62,6 @@ namespace GitWrite.ViewModels
          set
          {
             Set( () => ShortMessage, ref _shortMessage, value );
-            _hasEditedCommitMessage = true;
          }
       }
 
@@ -76,7 +75,6 @@ namespace GitWrite.ViewModels
          set
          {
             Set( () => ExtraCommitText, ref _extraCommitText, value );
-            _hasEditedCommitMessage = true;
          }
       }
 
@@ -121,8 +119,6 @@ namespace GitWrite.ViewModels
          set;
       }
 
-      private bool _hasEditedCommitMessage;
-
       public event EventHandler ExpansionRequested;
       public event AsyncEventHandler AsyncExitRequested;
       public event EventHandler HelpRequested;
@@ -140,8 +136,6 @@ namespace GitWrite.ViewModels
 
          ShortMessage = App.CommitDocument?.ShortMessage;
          ExtraCommitText = App.CommitDocument?.LongMessage;
-
-         _hasEditedCommitMessage = false;
       }
 
       public void ViewLoaded()
@@ -159,8 +153,6 @@ namespace GitWrite.ViewModels
       protected virtual void OnCollapseHelpRequested( object sender, EventArgs e ) => CollapseHelpRequested?.Invoke( sender, e );
 
       protected virtual Task OnExitRequestedAsync( object sender, EventArgs e ) => AsyncExitRequested?.Invoke( sender, e );
-
-      private void ShutDown() => SimpleIoc.Default.GetInstance<IAppService>().Shutdown();
 
       protected override async Task OnSaveAsync()
       {
