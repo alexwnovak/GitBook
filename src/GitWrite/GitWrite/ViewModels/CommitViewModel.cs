@@ -134,7 +134,6 @@ namespace GitWrite.ViewModels
          SecondaryNotesGotFocusCommand = new RelayCommand( ExpandUI );
          ExpandCommand = new RelayCommand( ExpandUI );
          HelpCommand = new RelayCommand( ActivateHelp );
-         CloseCommand = new RelayCommand<CancelEventArgs>( CloseWindow );
          LoadCommand = new RelayCommand( ViewLoaded );
          PasteCommand = new RelayCommand( PasteFromClipboard );
 
@@ -220,28 +219,6 @@ namespace GitWrite.ViewModels
             IsHelpStateActive = true;
             OnHelpRequested( this, EventArgs.Empty );
          }
-      }
-
-      private async void CloseWindow( CancelEventArgs e )
-      {
-         if ( IsExiting )
-         {
-            return;
-         }
-
-         e.Cancel = true;
-
-         if ( _hasEditedCommitMessage )
-         {
-            //CancelCommit();
-            return;
-         }
-
-         //var appController = SimpleIoc.Default.GetInstance<IAppController>();
-         //await appController.ShutDownAsync( ExitReason.AbortCommit );
-
-         //await BeginShutDownAsync( ExitReason.AbortCommit );
-         //ShutDown();
       }
 
       private void PasteFromClipboard()
