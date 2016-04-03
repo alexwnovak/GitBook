@@ -1,16 +1,14 @@
 using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
-using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using GitWrite.Services;
 using GitWrite.Views;
-using GitWrite.Views.Controls;
 
 namespace GitWrite.ViewModels
 {
-   public class CommitViewModel : ViewModelBase
+   public class CommitViewModel : GitWriteViewModelBase
    {
       public RelayCommand PrimaryMessageGotFocusCommand
       {
@@ -25,18 +23,6 @@ namespace GitWrite.ViewModels
       public RelayCommand ExpandCommand
       {
          get;
-      }
-
-      public RelayCommand SaveCommand
-      {
-         get;
-         protected internal set;
-      }
-
-      public RelayCommand AbortCommand
-      {
-         get;
-         protected internal set;
       }
 
       public RelayCommand HelpCommand
@@ -76,7 +62,7 @@ namespace GitWrite.ViewModels
          set
          {
             Set( () => ShortMessage, ref _shortMessage, value );
-            _hasEditedCommitMessage = true;
+            IsDirty = true;
          }
       }
 
@@ -90,7 +76,7 @@ namespace GitWrite.ViewModels
          set
          {
             Set( () => ExtraCommitText, ref _extraCommitText, value );
-            _hasEditedCommitMessage = true;
+            IsDirty = true;
          }
       }
 
@@ -129,36 +115,14 @@ namespace GitWrite.ViewModels
          set;
       }
 
-      private ExitReason _exitReason;
-      public ExitReason ExitReason
-      {
-         get
-         {
-            return _exitReason;
-         }
-         set
-         {
-            Set( () => ExitReason, ref _exitReason, value );
-         }
-      }
-
       public bool IsExpanded
       {
          get;
          set;
       }
 
-      public bool IsConfirming
-      {
-         get;
-         set;
-      }
-
-      private bool _hasEditedCommitMessage;
-
       public event EventHandler ExpansionRequested;
       public event AsyncEventHandler AsyncExitRequested;
-      public event AsyncEventHandler<ConfirmationResult> ConfirmExitRequested;
       public event EventHandler HelpRequested;
       public event EventHandler CollapseHelpRequested;
        
@@ -167,17 +131,15 @@ namespace GitWrite.ViewModels
          PrimaryMessageGotFocusCommand = new RelayCommand( () => ControlState = CommitControlState.EditingPrimaryMessage );
          SecondaryNotesGotFocusCommand = new RelayCommand( ExpandUI );
          ExpandCommand = new RelayCommand( ExpandUI );
-         SaveCommand = new RelayCommand( SaveCommit );
-         AbortCommand = new RelayCommand( CancelCommit );
          HelpCommand = new RelayCommand( ActivateHelp );
-         CloseCommand = new RelayCommand<CancelEventArgs>( CloseWindow );
          LoadCommand = new RelayCommand( ViewLoaded );
+         SaveCommand = new RelayCommand( async () => await OnSaveAsync() );
          PasteCommand = new RelayCommand( PasteFromClipboard );
 
          ShortMessage = App.CommitDocument?.ShortMessage;
          ExtraCommitText = App.CommitDocument?.LongMessage;
 
-         _hasEditedCommitMessage = false;
+         IsDirty = false;
       }
 
       public void ViewLoaded()
@@ -196,19 +158,29 @@ namespace GitWrite.ViewModels
 
       protected virtual Task OnExitRequestedAsync( object sender, EventArgs e ) => AsyncExitRequested?.Invoke( sender, e );
 
-      protected virtual Task<ConfirmationResult> OnConfirmExitRequestedAsync( object sender, EventArgs e )
-         => ConfirmExitRequested?.Invoke( sender, e );
-
-      private async Task BeginShutDownAsync( ExitReason exitReason )
+      protected override async Task OnSaveAsync()
       {
-         ExitReason = exitReason;
-         IsExiting = true;
+         if ( string.IsNullOrWhiteSpace( ShortMessage ) || IsExiting )
+         {
+            return;
+         }
 
-         await OnExitRequestedAsync( this, EventArgs.Empty );
-         await SimpleIoc.Default.GetInstance<IStoryboardHelper>().PlayAsync( "WindowExitStoryboard" );
+         var shutdownTask = OnShutdownRequested( this, new ShutdownEventArgs( ExitReason.AcceptCommit ) );
+
+         App.CommitDocument.ShortMessage = ShortMessage;
+         App.CommitDocument.LongMessage = ExtraCommitText;
+
+         App.CommitDocument.Save();
+
+         await shutdownTask;
+
+         var appService = SimpleIoc.Default.GetInstance<IAppService>();
+         appService.Shutdown();
       }
 
-      private void ShutDown() => SimpleIoc.Default.GetInstance<IAppService>().Shutdown();
+      protected override async Task OnDiscardAsync()
+      {
+      }
 
       public bool DismissHelpIfActive()
       {
@@ -221,24 +193,6 @@ namespace GitWrite.ViewModels
          }
 
          return false;
-      }
-
-      private async void SaveCommit()
-      {
-         if ( string.IsNullOrWhiteSpace( ShortMessage ) || IsExiting )
-         {
-            return;
-         }
-
-         var exitTask = BeginShutDownAsync( ExitReason.AcceptCommit );
-
-         App.CommitDocument.ShortMessage = ShortMessage;
-         App.CommitDocument.LongMessage = ExtraCommitText;
-
-         App.CommitDocument.Save();
-
-         await exitTask;
-         ShutDown();
       }
 
       private void ExpandUI()
@@ -257,60 +211,6 @@ namespace GitWrite.ViewModels
             IsHelpStateActive = true;
             OnHelpRequested( this, EventArgs.Empty );
          }
-      }
-
-      private async void CancelCommit()
-      {
-         if ( IsExiting || IsConfirming )
-         {
-            return;
-         }
-
-         if ( _hasEditedCommitMessage )
-         {
-            IsConfirming = true;
-            var confirmationResult = await OnConfirmExitRequestedAsync( this, EventArgs.Empty );
-
-            if ( confirmationResult == ConfirmationResult.Cancel )
-            {
-               IsConfirming = false;
-               return;
-            }
-            else if ( confirmationResult == ConfirmationResult.Save )
-            {
-               SaveCommit();
-               return;
-            }
-         }
-
-         InputState = CommitInputState.Exiting;
-
-         var shutDownTask = BeginShutDownAsync( ExitReason.AbortCommit );
-
-         App.CommitDocument?.Clear();
-
-         await shutDownTask;
-
-         ShutDown();
-      }
-
-      private async void CloseWindow( CancelEventArgs e )
-      {
-         if ( IsExiting )
-         {
-            return;
-         }
-
-         e.Cancel = true;
-
-         if ( _hasEditedCommitMessage )
-         {
-            CancelCommit();
-            return;
-         }
-
-         await BeginShutDownAsync( ExitReason.AbortCommit );
-         ShutDown();
       }
 
       private void PasteFromClipboard()

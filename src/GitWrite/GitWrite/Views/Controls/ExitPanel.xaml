@@ -101,12 +101,12 @@
 
       <Grid>
          <Ellipse x:Name="BackgroundCircle"
-            Fill="{Binding ExitReason, Mode=OneWay, Converter={StaticResource ExitReasonToBackground}}"
+            Fill="{Binding ExitReason, ElementName=LayoutRoot, Mode=OneWay, Converter={StaticResource ExitReasonToBackground}}"
             HorizontalAlignment="Center"
             VerticalAlignment="Center" />
 
          <Ellipse x:Name="IconCircle"
-            Fill="{Binding ExitReason, Mode=OneWay, Converter={StaticResource ExitReasonToGlyphBackground}}"
+            Fill="{Binding ExitReason, ElementName=LayoutRoot, Mode=OneWay, Converter={StaticResource ExitReasonToGlyphBackground}}"
             Width="50"
             Height="50"
             HorizontalAlignment="Center"
@@ -124,7 +124,7 @@
             FontFamily="Segoe MDL2 Assets"
             FontSize="24"
             FontWeight="ExtraBold"
-            Text="{Binding ExitReason, Mode=OneWay, Converter={StaticResource ExitReasonToGlyph}}" />
+            Text="{Binding ExitReason, ElementName=LayoutRoot, Mode=OneWay, Converter={StaticResource ExitReasonToGlyph}}" />
       </Grid>
    </Border>
 </UserControl>

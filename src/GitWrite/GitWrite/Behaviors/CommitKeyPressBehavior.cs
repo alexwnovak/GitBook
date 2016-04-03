@@ -9,15 +9,17 @@ using GitWrite.Views;
 
 namespace GitWrite.Behaviors
 {
-   public class CommitKeyPressBehavior : Behavior<Window>
+   public class CommitKeyPressBehavior : Behavior<WindowBase>
    {
-      private readonly CommitViewModel _commitViewModel = SimpleIoc.Default.GetInstance<CommitViewModel>();
+      private GitWriteViewModelBase _viewModel;
 
       protected override void OnAttached() => AssociatedObject.Loaded += OnLoaded;
       protected override void OnDetaching() => AssociatedObject.Unloaded -= OnUnloaded;
 
       private void OnLoaded( object sender, RoutedEventArgs e )
       {
+         _viewModel = (GitWriteViewModelBase) AssociatedObject.DataContext;
+
          AssociatedObject.KeyDown += KeyDown;
          AssociatedObject.PreviewKeyDown += PreviewKeyDown;
       }
@@ -27,14 +29,19 @@ namespace GitWrite.Behaviors
          AssociatedObject.KeyDown -= KeyDown;
          AssociatedObject.PreviewKeyDown -= PreviewKeyDown;
       }
-      
+
       public void KeyDown( object sender, KeyEventArgs e )
       {
-         switch ( _commitViewModel.InputState )
+         if ( e.Key == Key.Enter )
          {
-            case CommitInputState.Editing:
-               HandleEditingState( e );
-               break;
+            _viewModel.SaveCommand.Execute( null );
+         }
+         else if ( e.Key == Key.Escape
+            || ( e.Key == Key.W && ( Keyboard.Modifiers & ModifierKeys.Control ) == ModifierKeys.Control )
+            || ( e.Key == Key.F4 && ( Keyboard.Modifiers & ModifierKeys.Control ) == ModifierKeys.Control ) )
+         {
+            e.Handled = true;
+            _viewModel.AbortCommand.Execute( null );
          }
       }
 
@@ -42,7 +49,7 @@ namespace GitWrite.Behaviors
       {
          if ( e.Key == Key.V && Keyboard.Modifiers == ModifierKeys.Control )
          {
-            _commitViewModel.PasteCommand.Execute( null );
+            _viewModel.PasteCommand.Execute( null );
          }
          else if ( e.Key == Key.T && Keyboard.Modifiers == ModifierKeys.Control )
          {
@@ -50,30 +57,6 @@ namespace GitWrite.Behaviors
 
             var appSettings = SimpleIoc.Default.GetInstance<IApplicationSettings>();
             appSettings.Theme = ThemeSwitcher.ThemeName;
-         }
-      }
-
-      private void HandleEditingState( KeyEventArgs e )
-      {
-         if ( _commitViewModel.DismissHelpIfActive() )
-         {
-            return;
-         }
-
-         if ( e.Key == Key.F1 )
-         {
-            _commitViewModel.HelpCommand.Execute( null );
-         }
-         else if ( e.Key == Key.Enter )
-         {
-            _commitViewModel.SaveCommand.Execute( null );
-         }
-         else if ( e.Key == Key.Escape
-            || ( e.Key == Key.W && ( Keyboard.Modifiers & ModifierKeys.Control ) == ModifierKeys.Control )
-            || ( e.Key == Key.F4 && ( Keyboard.Modifiers & ModifierKeys.Control ) == ModifierKeys.Control ) )
-         {
-            e.Handled = true;
-            _commitViewModel.AbortCommand.Execute( null );
          }
       }
    }

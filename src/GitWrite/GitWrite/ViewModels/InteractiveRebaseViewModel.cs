@@ -1,9 +1,8 @@
 ﻿using System.Collections.ObjectModel;
-using GalaSoft.MvvmLight;
 
 namespace GitWrite.ViewModels
 {
-   public class InteractiveRebaseViewModel : ViewModelBase
+   public class InteractiveRebaseViewModel : GitWriteViewModelBase
    {
       public ObservableCollection<RebaseItem> Items 
       {

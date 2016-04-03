@@ -29,15 +29,9 @@
 
    <i:Interaction.Behaviors>
       <behaviors:CommitCaretPositionBehavior />
-      <behaviors:CommitKeyPressBehavior />
    </i:Interaction.Behaviors>
 
    <i:Interaction.Triggers>
-      <i:EventTrigger EventName="Closing">
-         <cmd:EventToCommand Command="{Binding CloseCommand, Mode=OneTime}"
-            PassEventArgsToCommand="True"
-            MustToggleIsEnabledValue="True" />
-      </i:EventTrigger>
       <i:EventTrigger EventName="Loaded">
          <cmd:EventToCommand Command="{Binding LoadCommand, Mode=OneTime}" />
       </i:EventTrigger>

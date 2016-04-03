@@ -1,9 +1,11 @@
 ﻿using System.IO;
+using System.Threading.Tasks;
 using GalaSoft.MvvmLight.Ioc;
+using GitWrite.Views;
 
 namespace GitWrite
 {
-   public class AppController
+   public class AppController : IAppController
    {
       public ApplicationMode ApplicationMode
       {
@@ -46,6 +48,11 @@ namespace GitWrite
 
             environmentAdapter.Exit( 1 );
          }
+      }
+
+      public async Task ShutDownAsync( ExitReason exitReason )
+      {
+         
       }
    }
 }
