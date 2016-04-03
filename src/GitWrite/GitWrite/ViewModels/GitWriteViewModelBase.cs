@@ -89,6 +89,11 @@ namespace GitWrite.ViewModels
             }
          }
 
+         if ( exitReason == ExitReason.Abort )
+         {
+            await OnDiscardAsync();
+         }
+
          IsExiting = true;
          await OnShutdownRequested( this, new ShutdownEventArgs( exitReason ) );
 
