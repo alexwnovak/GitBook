@@ -138,6 +138,8 @@ namespace GitWrite.ViewModels
 
          ShortMessage = App.CommitDocument?.ShortMessage;
          ExtraCommitText = App.CommitDocument?.LongMessage;
+
+         IsDirty = false;
       }
 
       public void ViewLoaded()
