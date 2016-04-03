@@ -10,9 +10,9 @@ namespace GitWrite.Views.Converters
       {
          switch ( exitReason )
          {
-            case ExitReason.AcceptCommit:
+            case ExitReason.Accept:
                return Application.Current.Resources["AcceptCommitBackgroundColor"];
-            case ExitReason.AbortCommit:
+            case ExitReason.Abort:
                return Application.Current.Resources["AbortCommitBackgroundColor"];
          }
 

@@ -165,7 +165,7 @@ namespace GitWrite.ViewModels
             return;
          }
 
-         var shutdownTask = OnShutdownRequested( this, new ShutdownEventArgs( ExitReason.AcceptCommit ) );
+         var shutdownTask = OnShutdownRequested( this, new ShutdownEventArgs( ExitReason.Accept ) );
 
          App.CommitDocument.ShortMessage = ShortMessage;
          App.CommitDocument.LongMessage = ExtraCommitText;

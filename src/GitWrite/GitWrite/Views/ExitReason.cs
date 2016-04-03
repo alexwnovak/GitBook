@@ -2,7 +2,7 @@
 {
    public enum ExitReason
    {
-      AcceptCommit,
-      AbortCommit
+      Accept,
+      Abort
    }
 }

@@ -10,7 +10,7 @@ namespace GitWrite.Views.Controls
       public static DependencyProperty ExitReasonProperty = DependencyProperty.Register( "ExitReason",
          typeof( ExitReason ),
          typeof( ExitPanel ),
-         new FrameworkPropertyMetadata( ExitReason.AbortCommit ) );
+         new FrameworkPropertyMetadata( ExitReason.Abort ) );
 
       public ExitReason ExitReason
       {

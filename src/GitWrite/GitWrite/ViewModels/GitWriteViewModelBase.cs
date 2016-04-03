@@ -62,7 +62,7 @@ namespace GitWrite.ViewModels
             return;
          }
 
-         ExitReason exitReason = ExitReason.AbortCommit;
+         ExitReason exitReason = ExitReason.Abort;
 
          if ( IsDirty )
          {
@@ -80,12 +80,12 @@ namespace GitWrite.ViewModels
             if ( confirmationResult == ConfirmationResult.Save )
             {
                await OnSaveAsync();
-               exitReason = ExitReason.AcceptCommit;
+               exitReason = ExitReason.Accept;
             }
             else
             {
                await OnDiscardAsync();
-               exitReason = ExitReason.AbortCommit;
+               exitReason = ExitReason.Abort;
             }
          }
 
