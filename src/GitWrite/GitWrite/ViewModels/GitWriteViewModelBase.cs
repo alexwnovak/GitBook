@@ -48,7 +48,15 @@ namespace GitWrite.ViewModels
 
       public event AsyncEventHandler<ShutdownEventArgs> ShutdownRequested;
 
-      protected virtual async Task OnShutdownRequested( object sender, ShutdownEventArgs e ) => await ShutdownRequested?.Invoke( sender, e );
+      protected virtual async Task OnShutdownRequested( object sender, ShutdownEventArgs e )
+      {
+         var handler = ShutdownRequested;
+
+         if ( handler != null )
+         {
+            await handler( sender, e );
+         }
+      } 
 
       public GitWriteViewModelBase()
       {
