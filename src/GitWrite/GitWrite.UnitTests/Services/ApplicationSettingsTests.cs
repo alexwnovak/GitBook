@@ -1,22 +1,20 @@
-﻿using System.Security.Cryptography.X509Certificates;
+﻿using FluentAssertions;
 using GalaSoft.MvvmLight.Ioc;
 using GitWrite.Services;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.Win32;
 using Moq;
+using Xunit;
 
 namespace GitWrite.UnitTests.Services
 {
-   [TestClass]
    public class ApplicationSettingsTests
    {
-      [TestInitialize]
-      public void Initialize()
+      public ApplicationSettingsTests()
       {
          SimpleIoc.Default.Reset();
       }
 
-      [TestMethod]
+      [Fact]
       public void ThemeProperty_SetsThemeName_IsStoredWithRegistry()
       {
          const string themeName = "SomeThemeName";
@@ -38,7 +36,7 @@ namespace GitWrite.UnitTests.Services
          registryServiceMock.Verify( rs => rs.WriteString( It.IsAny<RegistryKey>(), It.IsAny<string>(), It.IsAny<string>(), themeName ), Times.Once );
       }
 
-      [TestMethod]
+      [Fact]
       public void ThemeProperty_GetsThemeName_ReturnsStringFromRegistry()
       {
          const string themeName = "SomeThemeName";
@@ -56,10 +54,10 @@ namespace GitWrite.UnitTests.Services
 
          // Assert
 
-         Assert.AreEqual( themeName, actualThemeName );
+         actualThemeName.Should().Be( themeName );
       }
 
-      [TestMethod]
+      [Fact]
       public void WindowXProperty_SetsHorizontalPosition_IsStoredWithRegistry()
       {
          const int x = 12345;
@@ -81,7 +79,7 @@ namespace GitWrite.UnitTests.Services
          registryServiceMock.Verify( rs => rs.WriteInt( It.IsAny<RegistryKey>(), It.IsAny<string>(), It.IsAny<string>(), x ), Times.Once );
       }
 
-      [TestMethod]
+      [Fact]
       public void WindowXProperty_GetsHorizontalPosition_ReturnsIntFromRegistry()
       {
          const int x = 54321;
@@ -99,10 +97,10 @@ namespace GitWrite.UnitTests.Services
 
          // Assert
 
-         Assert.AreEqual( x, actualWindowX );
+         actualWindowX.Should().Be( x );
       }
 
-      [TestMethod]
+      [Fact]
       public void WindowYProperty_SetsVerticalPosition_IsStoredWithRegistry()
       {
          const int y = 12332345;
@@ -124,7 +122,7 @@ namespace GitWrite.UnitTests.Services
          registryServiceMock.Verify( rs => rs.WriteInt( It.IsAny<RegistryKey>(), It.IsAny<string>(), It.IsAny<string>(), y ), Times.Once );
       }
 
-      [TestMethod]
+      [Fact]
       public void WindowYProperty_GetsVericalPosition_ReturnsIntFromRegistry()
       {
          const int y = 54123321;
@@ -142,7 +140,7 @@ namespace GitWrite.UnitTests.Services
 
          // Assert
 
-         Assert.AreEqual( y, actualWindowY );
+         actualWindowY.Should().Be( y );
       }
    }
 }
