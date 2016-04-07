@@ -51,7 +51,7 @@ namespace GitWrite
          SimpleIoc.Default.Register<CommitViewModel>();
          SimpleIoc.Default.Register<InteractiveRebaseViewModel>();
          SimpleIoc.Default.Register<IRegistryService, RegistryService>();
-         SimpleIoc.Default.Register<IApplicationSettings, ApplicationSettings>();
+         SimpleIoc.Default.Register<IApplicationSettings>( () => new ApplicationSettings( new RegistryService() ) );
          SimpleIoc.Default.Register<IAppService, AppService>();
          SimpleIoc.Default.Register<IClipboardService, ClipboardService>();
          SimpleIoc.Default.Register<IEnvironmentAdapter, EnvironmentAdapter>();
