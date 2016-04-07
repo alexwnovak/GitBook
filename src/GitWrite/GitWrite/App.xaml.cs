@@ -26,7 +26,7 @@ namespace GitWrite
 
          // Load the commit file
 
-         var appController = new AppController();
+         var appController = new AppController( new EnvironmentAdapter(), new CommitFileReader( new FileAdapter() ) );
 
          appController.Start( e.Args );
 
