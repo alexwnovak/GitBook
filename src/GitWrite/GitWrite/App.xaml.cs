@@ -48,12 +48,14 @@ namespace GitWrite
       private void InitializeDependencies()
       {
          ServiceLocator.SetLocatorProvider( () => SimpleIoc.Default );
-         SimpleIoc.Default.Register<CommitViewModel>();
+
+         var appService = new AppService();
+
+         SimpleIoc.Default.Register( () => new CommitViewModel( SimpleIoc.Default.GetInstance<IViewService>(), appService, new ClipboardService() ) );
          SimpleIoc.Default.Register<InteractiveRebaseViewModel>();
          SimpleIoc.Default.Register<IRegistryService, RegistryService>();
          SimpleIoc.Default.Register<IApplicationSettings>( () => new ApplicationSettings( new RegistryService() ) );
          SimpleIoc.Default.Register<IAppService, AppService>();
-         SimpleIoc.Default.Register<IClipboardService, ClipboardService>();
          SimpleIoc.Default.Register<IEnvironmentAdapter, EnvironmentAdapter>();
          SimpleIoc.Default.Register<ICommitFileReader>( () => new CommitFileReader( new FileAdapter() ) );
          SimpleIoc.Default.Register<IFileAdapter, FileAdapter>();

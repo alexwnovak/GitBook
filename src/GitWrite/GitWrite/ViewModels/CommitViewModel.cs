@@ -2,7 +2,6 @@ using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Ioc;
 using GitWrite.Services;
 using GitWrite.Views;
 
@@ -10,6 +9,8 @@ namespace GitWrite.ViewModels
 {
    public class CommitViewModel : GitWriteViewModelBase
    {
+      private readonly IClipboardService _clipboardService;
+
       public RelayCommand PrimaryMessageGotFocusCommand
       {
          get;
@@ -126,8 +127,11 @@ namespace GitWrite.ViewModels
       public event EventHandler HelpRequested;
       public event EventHandler CollapseHelpRequested;
        
-      public CommitViewModel()
+      public CommitViewModel( IViewService viewService, IAppService appService, IClipboardService clipboardService )
+         : base( viewService, appService )
       {
+         _clipboardService = clipboardService;
+
          PrimaryMessageGotFocusCommand = new RelayCommand( () => ControlState = CommitControlState.EditingPrimaryMessage );
          SecondaryNotesGotFocusCommand = new RelayCommand( ExpandUI );
          ExpandCommand = new RelayCommand( ExpandUI );
@@ -174,8 +178,7 @@ namespace GitWrite.ViewModels
 
          await shutdownTask;
 
-         var appService = SimpleIoc.Default.GetInstance<IAppService>();
-         appService.Shutdown();
+         AppService.Shutdown();
       }
 
       protected override async Task OnDiscardAsync()
@@ -215,8 +218,7 @@ namespace GitWrite.ViewModels
 
       private void PasteFromClipboard()
       {
-         var clipboard = SimpleIoc.Default.GetInstance<IClipboardService>();
-         string clipboardText = clipboard.GetText();
+         string clipboardText = _clipboardService.GetText();
 
          if ( !string.IsNullOrEmpty( clipboardText ) )
          {

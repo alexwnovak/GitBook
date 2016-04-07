@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Ioc;
 using GitWrite.Services;
 using GitWrite.Views;
 using GitWrite.Views.Controls;
@@ -10,6 +9,16 @@ namespace GitWrite.ViewModels
 {
    public class GitWriteViewModelBase : ViewModelBase
    {
+      protected IViewService ViewService
+      {
+         get;
+      }
+
+      protected IAppService AppService
+      {
+         get;
+      }
+
       public bool IsDirty
       {
          get;
@@ -58,8 +67,11 @@ namespace GitWrite.ViewModels
          }
       } 
 
-      public GitWriteViewModelBase()
+      public GitWriteViewModelBase( IViewService viewService, IAppService appService )
       {
+         ViewService = viewService;
+         AppService = appService;
+
          AbortCommand = new RelayCommand( OnAbort );
       }
 
@@ -76,8 +88,7 @@ namespace GitWrite.ViewModels
          {
             IsConfirming = true;
 
-            var viewService = SimpleIoc.Default.GetInstance<IViewService>();
-            var confirmationResult = await viewService.ConfirmExitAsync();
+            var confirmationResult = await ViewService.ConfirmExitAsync();
 
             if ( confirmationResult == ConfirmationResult.Cancel )
             {
@@ -105,8 +116,7 @@ namespace GitWrite.ViewModels
          IsExiting = true;
          await OnShutdownRequested( this, new ShutdownEventArgs( exitReason ) );
 
-         var appService = SimpleIoc.Default.GetInstance<IAppService>();
-         appService.Shutdown();
+         AppService.Shutdown();
       }
 
       protected virtual Task OnSaveAsync()

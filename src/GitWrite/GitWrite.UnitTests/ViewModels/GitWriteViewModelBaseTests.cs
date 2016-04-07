@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using FluentAssertions;
-using GalaSoft.MvvmLight.Ioc;
 using GitWrite.Services;
 using GitWrite.ViewModels;
 using Moq;
@@ -10,22 +9,16 @@ namespace GitWrite.UnitTests.ViewModels
 {
    public class GitWriteViewModelBaseTests
    {
-      public GitWriteViewModelBaseTests()
-      {
-         SimpleIoc.Default.Reset();
-      }
-
       [Fact]
       public void AbortCommand_DoesNotNeedConfirmation_ShutsDownTheApp()
       {
          // Setup
 
          var appServiceMock = new Mock<IAppService>();
-         SimpleIoc.Default.Register( () => appServiceMock.Object );
 
          // Test
 
-         var viewModel = new GitWriteViewModelBase();
+         var viewModel = new GitWriteViewModelBase( null, appServiceMock.Object );
 
          viewModel.AbortCommand.Execute( null );
 
@@ -42,11 +35,10 @@ namespace GitWrite.UnitTests.ViewModels
          // Setup
 
          var appServiceMock = new Mock<IAppService>();
-         SimpleIoc.Default.Register( () => appServiceMock.Object );
 
          // Test
 
-         var viewModel = new GitWriteViewModelBase();
+         var viewModel = new GitWriteViewModelBase( null, appServiceMock.Object );
 
          viewModel.ShutdownRequested += ( sender, e ) =>
          {

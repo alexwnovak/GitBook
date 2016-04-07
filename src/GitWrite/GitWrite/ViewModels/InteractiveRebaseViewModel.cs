@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using GitWrite.Services;
 
 namespace GitWrite.ViewModels
 {
@@ -9,7 +10,8 @@ namespace GitWrite.ViewModels
          get;
       }
 
-      public InteractiveRebaseViewModel()
+      public InteractiveRebaseViewModel( IViewService viewService, IAppService appService )
+         : base ( viewService, appService )
       {
          Items = new ObservableCollection<RebaseItem>
          {
