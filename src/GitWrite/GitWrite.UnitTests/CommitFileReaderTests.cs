@@ -19,11 +19,10 @@ namespace GitWrite.UnitTests
          // Setup
 
          var fileAdapterMock = new Mock<IFileAdapter>();
-         SimpleIoc.Default.Register( () => fileAdapterMock.Object );
 
          // Test
 
-         var commitFileReader = new CommitFileReader();
+         var commitFileReader = new CommitFileReader( fileAdapterMock.Object );
 
          Assert.Throws<GitFileLoadException>( () => commitFileReader.FromFile( "SomeFile" ) );
       }
@@ -42,11 +41,10 @@ namespace GitWrite.UnitTests
          var fileAdapterMock = new Mock<IFileAdapter>();
          fileAdapterMock.Setup( fa => fa.Exists( path ) ).Returns( true );
          fileAdapterMock.Setup( fa => fa.ReadAllLines( path ) ).Returns( contents );
-         SimpleIoc.Default.Register( () => fileAdapterMock.Object );
 
          // Test
 
-         var commitFileReader = new CommitFileReader();
+         var commitFileReader = new CommitFileReader( fileAdapterMock.Object );
 
          commitFileReader.FromFile( path );
 
@@ -71,11 +69,10 @@ namespace GitWrite.UnitTests
          var fileAdapterMock = new Mock<IFileAdapter>();
          fileAdapterMock.Setup( fa => fa.Exists( path ) ).Returns( true );
          fileAdapterMock.Setup( fa => fa.ReadAllLines( path ) ).Returns( lines );
-         SimpleIoc.Default.Register( () => fileAdapterMock.Object );
 
          // Test
 
-         var commitFileReader = new CommitFileReader();
+         var commitFileReader = new CommitFileReader( fileAdapterMock.Object );
 
          var commitDocument = commitFileReader.FromFile( path );
 
@@ -100,11 +97,10 @@ namespace GitWrite.UnitTests
          var fileAdapterMock = new Mock<IFileAdapter>();
          fileAdapterMock.Setup( fa => fa.Exists( path ) ).Returns( true );
          fileAdapterMock.Setup( fa => fa.ReadAllLines( path ) ).Returns( contents );
-         SimpleIoc.Default.Register( () => fileAdapterMock.Object );
 
          // Test
 
-         var commitFileReader = new CommitFileReader();
+         var commitFileReader = new CommitFileReader( fileAdapterMock.Object );
 
          var commitDocument = commitFileReader.FromFile( path );
 
@@ -124,11 +120,10 @@ namespace GitWrite.UnitTests
          var fileAdapterMock = new Mock<IFileAdapter>();
          fileAdapterMock.Setup( fa => fa.Exists( path ) ).Returns( true );
          fileAdapterMock.Setup( fa => fa.ReadAllLines( path ) ).Returns( contents );
-         SimpleIoc.Default.Register( () => fileAdapterMock.Object );
 
          // Test
 
-         var commitFileReader = new CommitFileReader();
+         var commitFileReader = new CommitFileReader( fileAdapterMock.Object );
 
          Assert.Throws<GitFileLoadException>( () => commitFileReader.FromFile( path ) );
       }
@@ -144,11 +139,10 @@ namespace GitWrite.UnitTests
          var fileAdapterMock = new Mock<IFileAdapter>();
          fileAdapterMock.Setup( fa => fa.Exists( path ) ).Returns( true );
          fileAdapterMock.Setup( fa => fa.ReadAllLines( path ) ).Returns( contents );
-         SimpleIoc.Default.Register( () => fileAdapterMock.Object );
 
          // Test
 
-         var commitFileReader = new CommitFileReader();
+         var commitFileReader = new CommitFileReader( fileAdapterMock.Object );
 
          Assert.Throws<GitFileLoadException>( () => commitFileReader.FromFile( path ) );
       }
@@ -173,11 +167,10 @@ namespace GitWrite.UnitTests
          var fileAdapterMock = new Mock<IFileAdapter>();
          fileAdapterMock.Setup( fa => fa.Exists( path ) ).Returns( true );
          fileAdapterMock.Setup( fa => fa.ReadAllLines( path ) ).Returns( contents );
-         SimpleIoc.Default.Register( () => fileAdapterMock.Object );
 
          // Test
 
-         var commitFileReader = new CommitFileReader();
+         var commitFileReader = new CommitFileReader( fileAdapterMock.Object );
 
          var commitDocument = commitFileReader.FromFile( path );
 
@@ -209,11 +202,10 @@ namespace GitWrite.UnitTests
          var fileAdapterMock = new Mock<IFileAdapter>();
          fileAdapterMock.Setup( fa => fa.Exists( path ) ).Returns( true );
          fileAdapterMock.Setup( fa => fa.ReadAllLines( path ) ).Returns( contents );
-         SimpleIoc.Default.Register( () => fileAdapterMock.Object );
 
          // Test
 
-         var commitFileReader = new CommitFileReader();
+         var commitFileReader = new CommitFileReader( fileAdapterMock.Object );
 
          var commitDocument = commitFileReader.FromFile( path );
 
@@ -245,11 +237,10 @@ namespace GitWrite.UnitTests
          var fileAdapterMock = new Mock<IFileAdapter>();
          fileAdapterMock.Setup( fa => fa.Exists( path ) ).Returns( true );
          fileAdapterMock.Setup( fa => fa.ReadAllLines( path ) ).Returns( contents );
-         SimpleIoc.Default.Register( () => fileAdapterMock.Object );
 
          // Test
 
-         var commitFileReader = new CommitFileReader();
+         var commitFileReader = new CommitFileReader( fileAdapterMock.Object );
 
          var commitDocument = commitFileReader.FromFile( path );
 
@@ -283,11 +274,10 @@ namespace GitWrite.UnitTests
          var fileAdapterMock = new Mock<IFileAdapter>();
          fileAdapterMock.Setup( fa => fa.Exists( path ) ).Returns( true );
          fileAdapterMock.Setup( fa => fa.ReadAllLines( path ) ).Returns( contents );
-         SimpleIoc.Default.Register( () => fileAdapterMock.Object );
 
          // Test
 
-         var commitFileReader = new CommitFileReader();
+         var commitFileReader = new CommitFileReader( fileAdapterMock.Object );
 
          var commitDocument = commitFileReader.FromFile( path );
 
@@ -321,11 +311,10 @@ namespace GitWrite.UnitTests
          var fileAdapterMock = new Mock<IFileAdapter>();
          fileAdapterMock.Setup( fa => fa.Exists( path ) ).Returns( true );
          fileAdapterMock.Setup( fa => fa.ReadAllLines( path ) ).Returns( contents );
-         SimpleIoc.Default.Register( () => fileAdapterMock.Object );
 
          // Test
 
-         var commitFileReader = new CommitFileReader();
+         var commitFileReader = new CommitFileReader( fileAdapterMock.Object );
 
          var commitDocument = commitFileReader.FromFile( path );
 
@@ -361,11 +350,10 @@ namespace GitWrite.UnitTests
          var fileAdapterMock = new Mock<IFileAdapter>();
          fileAdapterMock.Setup( fa => fa.Exists( path ) ).Returns( true );
          fileAdapterMock.Setup( fa => fa.ReadAllLines( path ) ).Returns( contents );
-         SimpleIoc.Default.Register( () => fileAdapterMock.Object );
 
          // Test
 
-         var commitFileReader = new CommitFileReader();
+         var commitFileReader = new CommitFileReader( fileAdapterMock.Object );
 
          var commitDocument = commitFileReader.FromFile( path );
 
@@ -403,11 +391,10 @@ namespace GitWrite.UnitTests
          var fileAdapterMock = new Mock<IFileAdapter>();
          fileAdapterMock.Setup( fa => fa.Exists( path ) ).Returns( true );
          fileAdapterMock.Setup( fa => fa.ReadAllLines( path ) ).Returns( contents );
-         SimpleIoc.Default.Register( () => fileAdapterMock.Object );
 
          // Test
 
-         var commitFileReader = new CommitFileReader();
+         var commitFileReader = new CommitFileReader( fileAdapterMock.Object );
 
          var commitDocument = commitFileReader.FromFile( path );
 
@@ -448,11 +435,10 @@ namespace GitWrite.UnitTests
          var fileAdapterMock = new Mock<IFileAdapter>();
          fileAdapterMock.Setup( fa => fa.Exists( path ) ).Returns( true );
          fileAdapterMock.Setup( fa => fa.ReadAllLines( path ) ).Returns( contents );
-         SimpleIoc.Default.Register( () => fileAdapterMock.Object );
 
          // Test
 
-         var commitFileReader = new CommitFileReader();
+         var commitFileReader = new CommitFileReader( fileAdapterMock.Object );
 
          var commitDocument = commitFileReader.FromFile( path );
 
@@ -492,11 +478,10 @@ namespace GitWrite.UnitTests
          var fileAdapterMock = new Mock<IFileAdapter>();
          fileAdapterMock.Setup( fa => fa.Exists( path ) ).Returns( true );
          fileAdapterMock.Setup( fa => fa.ReadAllLines( path ) ).Returns( contents );
-         SimpleIoc.Default.Register( () => fileAdapterMock.Object );
 
          // Test
 
-         var commitFileReader = new CommitFileReader();
+         var commitFileReader = new CommitFileReader( fileAdapterMock.Object );
 
          var commitDocument = commitFileReader.FromFile( path );
 
@@ -531,11 +516,10 @@ namespace GitWrite.UnitTests
          var fileAdapterMock = new Mock<IFileAdapter>();
          fileAdapterMock.Setup( fa => fa.Exists( path ) ).Returns( true );
          fileAdapterMock.Setup( fa => fa.ReadAllLines( path ) ).Returns( contents );
-         SimpleIoc.Default.Register( () => fileAdapterMock.Object );
 
          // Test
 
-         var commitFileReader = new CommitFileReader();
+         var commitFileReader = new CommitFileReader( fileAdapterMock.Object );
 
          var commitDocument = commitFileReader.FromFile( path );
 
@@ -563,11 +547,10 @@ namespace GitWrite.UnitTests
          var fileAdapterMock = new Mock<IFileAdapter>();
          fileAdapterMock.Setup( fa => fa.Exists( path ) ).Returns( true );
          fileAdapterMock.Setup( fa => fa.ReadAllLines( path ) ).Returns( contents );
-         SimpleIoc.Default.Register( () => fileAdapterMock.Object );
 
          // Test
 
-         var commitFileReader = new CommitFileReader();
+         var commitFileReader = new CommitFileReader( fileAdapterMock.Object );
 
          var commitDocument = commitFileReader.FromFile( path );
 
@@ -599,11 +582,10 @@ namespace GitWrite.UnitTests
          var fileAdapterMock = new Mock<IFileAdapter>();
          fileAdapterMock.Setup( fa => fa.Exists( path ) ).Returns( true );
          fileAdapterMock.Setup( fa => fa.ReadAllLines( path ) ).Returns( contents );
-         SimpleIoc.Default.Register( () => fileAdapterMock.Object );
 
          // Test
 
-         var commitFileReader = new CommitFileReader();
+         var commitFileReader = new CommitFileReader( fileAdapterMock.Object );
 
          var commitDocument = commitFileReader.FromFile( path );
 
@@ -636,11 +618,10 @@ namespace GitWrite.UnitTests
          var fileAdapterMock = new Mock<IFileAdapter>();
          fileAdapterMock.Setup( fa => fa.Exists( path ) ).Returns( true );
          fileAdapterMock.Setup( fa => fa.ReadAllLines( path ) ).Returns( contents );
-         SimpleIoc.Default.Register( () => fileAdapterMock.Object );
 
          // Test
 
-         var commitFileReader = new CommitFileReader();
+         var commitFileReader = new CommitFileReader( fileAdapterMock.Object );
 
          var commitDocument = commitFileReader.FromFile( path );
 

@@ -55,7 +55,7 @@ namespace GitWrite
          SimpleIoc.Default.Register<IAppService, AppService>();
          SimpleIoc.Default.Register<IClipboardService, ClipboardService>();
          SimpleIoc.Default.Register<IEnvironmentAdapter, EnvironmentAdapter>();
-         SimpleIoc.Default.Register<ICommitFileReader, CommitFileReader>();
+         SimpleIoc.Default.Register<ICommitFileReader>( () => new CommitFileReader( new FileAdapter() ) );
          SimpleIoc.Default.Register<IFileAdapter, FileAdapter>();
          SimpleIoc.Default.Register<IStoryboardHelper, StoryboardHelper>();
       }
