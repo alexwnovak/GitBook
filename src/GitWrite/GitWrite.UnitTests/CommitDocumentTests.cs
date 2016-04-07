@@ -1,22 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using FluentAssertions;
 using GalaSoft.MvvmLight.Ioc;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Xunit;
 
 namespace GitWrite.UnitTests
 {
-   [TestClass]
    public class CommitDocumentTests
    {
-      [TestCleanup]
-      public void Cleanup()
+      public CommitDocumentTests()
       {
          SimpleIoc.Default.Reset();
       }
 
-      [TestMethod]
+      [Fact]
       public void Save_OnlyHasShortMessage_WritesCommitNotes()
       {
          bool parametersMatch = false;
@@ -45,10 +44,10 @@ namespace GitWrite.UnitTests
 
          // Assert
 
-         Assert.IsTrue( parametersMatch );
+         parametersMatch.Should().BeTrue();
       }
 
-      [TestMethod]
+      [Fact]
       public void Save_HasLongMessage_WritesLongMessage()
       {
          bool parametersMatch = false;
@@ -79,10 +78,10 @@ namespace GitWrite.UnitTests
 
          // Assert
 
-         Assert.IsTrue( parametersMatch );
+         parametersMatch.Should().BeTrue();
       }
 
-      [TestMethod]
+      [Fact]
       public void Save_HasLongMessageInTwoParagraphs_WritesLongMessage()
       {
          bool parametersMatch = false;
@@ -113,7 +112,7 @@ namespace GitWrite.UnitTests
 
          // Assert
 
-         Assert.IsTrue( parametersMatch );
+         parametersMatch.Should().BeTrue();
       }
    }
 }

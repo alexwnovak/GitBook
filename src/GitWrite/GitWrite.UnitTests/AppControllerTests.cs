@@ -1,19 +1,18 @@
-﻿using GalaSoft.MvvmLight.Ioc;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using FluentAssertions;
+using GalaSoft.MvvmLight.Ioc;
 using Moq;
+using Xunit;
 
 namespace GitWrite.UnitTests
 {
-   [TestClass]
    public class AppControllerTest
    {
-      [TestCleanup]
-      public void Cleanup()
+      public AppControllerTest()
       {
          SimpleIoc.Default.Reset();
       }
 
-      [TestMethod]
+      [Fact]
       public void Start_CommandLineArgumentsAreNull_ExitsWithCodeOne()
       {
          // Setup
@@ -32,7 +31,7 @@ namespace GitWrite.UnitTests
          environmentAdapterMock.Verify( ea => ea.Exit( 1 ), Times.Once() );
       }
 
-      [TestMethod]
+      [Fact]
       public void Start_CommandLineArgumentsAreEmpty_ExitsWithCodeOne()
       {
          // Setup
@@ -51,7 +50,7 @@ namespace GitWrite.UnitTests
          environmentAdapterMock.Verify( ea => ea.Exit( 1 ), Times.Once() );
       }
 
-      [TestMethod]
+      [Fact]
       public void Start_HasCommandLineArgument_CallsCommitFileReader()
       {
          // Setup
@@ -75,7 +74,7 @@ namespace GitWrite.UnitTests
          commitFileReaderMock.Verify( cfr => cfr.FromFile( arguments[0] ), Times.Once() );
       }
 
-      [TestMethod]
+      [Fact]
       public void Start_HasCommandLineArgument_CommitDocumentIsStoredOnApp()
       {
          var commitDocument = new CommitDocument();
@@ -101,10 +100,10 @@ namespace GitWrite.UnitTests
 
          // Assert
 
-         Assert.AreEqual( commitDocument, App.CommitDocument );
+         App.CommitDocument.Should().Be( commitDocument );
       }
 
-      [TestMethod]
+      [Fact]
       public void Start_PassesFileThatDoesNotExist_ExitsWithCodeOne()
       {
          // Setup
@@ -134,7 +133,7 @@ namespace GitWrite.UnitTests
          environmentAdapterMock.Verify( ea => ea.Exit( 1 ), Times.Once() );
       }
 
-      [TestMethod]
+      [Fact]
       public void Start_PassesInFileThatExistsButIsNotAGitFile_ExitsWithCodeOne()
       {
          // Setup

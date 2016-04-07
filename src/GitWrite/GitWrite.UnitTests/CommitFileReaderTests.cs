@@ -1,22 +1,19 @@
 ﻿using System;
-using System.Linq;
+using FluentAssertions;
 using GalaSoft.MvvmLight.Ioc;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Xunit;
 
 namespace GitWrite.UnitTests
 {
-   [TestClass]
    public class CommitFileReaderTests
    {
-      [TestCleanup]
-      public void Cleanup()
+      public CommitFileReaderTests()
       {
          SimpleIoc.Default.Reset();
       }
 
-      [TestMethod]
-      [ExpectedException( typeof( GitFileLoadException ) )]
+      [Fact]
       public void FromFile_FileDoesNotExist_ThrowsGitFileLoadException()
       {
          // Setup
@@ -28,10 +25,10 @@ namespace GitWrite.UnitTests
 
          var commitFileReader = new CommitFileReader();
 
-         commitFileReader.FromFile( "SomeFile" );
+         Assert.Throws<GitFileLoadException>( () => commitFileReader.FromFile( "SomeFile" ) );
       }
 
-      [TestMethod]
+      [Fact]
       public void FromFile_FileExists_ReadsAllFileLines()
       {
          const string path = "SomeFile.txt";
@@ -58,7 +55,7 @@ namespace GitWrite.UnitTests
          fileAdapterMock.Verify( fa => fa.ReadAllLines( path ), Times.Once() );
       }
 
-      [TestMethod]
+      [Fact]
       public void FromFile_FileExists_StoresTheFileLinesInTheDocument()
       {
          const string path = "SomeFile.txt";
@@ -84,12 +81,12 @@ namespace GitWrite.UnitTests
 
          // Assert
 
-         Assert.AreEqual( lines.Length, commitDocument.RawLines.Length );
-         Assert.AreEqual( lines[0], commitDocument.RawLines[0] );
-         Assert.AreEqual( lines[1], commitDocument.RawLines[1] );
+         commitDocument.RawLines.Length.Should().Be( lines.Length );
+         commitDocument.RawLines[0].Should().Be( lines[0] );
+         commitDocument.RawLines[1].Should().Be( lines[1] );
       }
 
-      [TestMethod]
+      [Fact]
       public void FromFile_FileExists_StoresThePathInTheDocument()
       {
          const string path = "SomeFile.txt";
@@ -113,11 +110,10 @@ namespace GitWrite.UnitTests
 
          // Assert
 
-         Assert.AreEqual( path, commitDocument.Name );
+         commitDocument.Name.Should().Be( path );
       }
 
-      [TestMethod]
-      [ExpectedException( typeof( GitFileLoadException ) )]
+      [Fact]
       public void FromFile_FileReturnsNullLines_ThrowsGitFileLoadException()
       {
          const string path = "COMMIT_EDITMSG";
@@ -134,11 +130,10 @@ namespace GitWrite.UnitTests
 
          var commitFileReader = new CommitFileReader();
 
-         commitFileReader.FromFile( path );
+         Assert.Throws<GitFileLoadException>( () => commitFileReader.FromFile( path ) );
       }
 
-      [TestMethod]
-      [ExpectedException( typeof( GitFileLoadException ) )]
+      [Fact]
       public void FromFile_FileReturnsZeroLines_ThrowsGitFileLoadException()
       {
          const string path = "COMMIT_EDITMSG";
@@ -155,10 +150,10 @@ namespace GitWrite.UnitTests
 
          var commitFileReader = new CommitFileReader();
 
-         commitFileReader.FromFile( path );
+         Assert.Throws<GitFileLoadException>( () => commitFileReader.FromFile( path ) );
       }
 
-      [TestMethod]
+      [Fact]
       public void FromFile_FileContainsOnlyComments_DoesNotSetExistingNotes()
       {
          const string path = "COMMIT_EDITMSG";
@@ -188,11 +183,11 @@ namespace GitWrite.UnitTests
 
          // Assert
 
-         Assert.IsNull( commitDocument.ShortMessage );
-         Assert.IsNull( commitDocument.LongMessage );
+         commitDocument.ShortMessage.Should().BeNull();
+         commitDocument.LongMessage.Should().BeNull();
       }
 
-      [TestMethod]
+      [Fact]
       public void FromFile_FileHasShortMessage_SetsShortMessage()
       {
          const string path = "COMMIT_EDITMSG";
@@ -224,10 +219,10 @@ namespace GitWrite.UnitTests
 
          // Assert
 
-         Assert.AreEqual( shortMessage, commitDocument.ShortMessage );
+         commitDocument.ShortMessage.Should().Be( shortMessage );
       }
 
-      [TestMethod]
+      [Fact]
       public void FromFile_FileHasShortMessageWithLeadingLineBreak_SetsShortMessage()
       {
          const string path = "COMMIT_EDITMSG";
@@ -260,10 +255,10 @@ namespace GitWrite.UnitTests
 
          // Assert
 
-         Assert.AreEqual( shortMessage, commitDocument.ShortMessage );
+         commitDocument.ShortMessage.Should().Be( shortMessage );
       }
 
-      [TestMethod]
+      [Fact]
       public void FromFile_FileHasShortMessageWithLeadingComments_SetsShortMessage()
       {
          const string path = "COMMIT_EDITMSG";
@@ -298,10 +293,10 @@ namespace GitWrite.UnitTests
 
          // Assert
 
-         Assert.AreEqual( shortMessage, commitDocument.ShortMessage );
+         commitDocument.ShortMessage.Should().Be( shortMessage );
       }
 
-      [TestMethod]
+      [Fact]
       public void FromFile_FileHasLongMessageWithOneLine_SetsShortAndLongMessage()
       {
          const string path = "COMMIT_EDITMSG";
@@ -336,11 +331,11 @@ namespace GitWrite.UnitTests
 
          // Assert
 
-         Assert.AreEqual( shortMessage, commitDocument.ShortMessage );
-         Assert.AreEqual( longMessage, commitDocument.LongMessage );
+         commitDocument.ShortMessage.Should().Be( shortMessage );
+         commitDocument.LongMessage.Should().Be( longMessage );
       }
 
-      [TestMethod]
+      [Fact]
       public void FromFile_FileHasLongMessageWithOneLineAndMiddleLineBreak_SetsShortAndLongMessage()
       {
          const string path = "COMMIT_EDITMSG";
@@ -376,11 +371,11 @@ namespace GitWrite.UnitTests
 
          // Assert
 
-         Assert.AreEqual( shortMessage, commitDocument.ShortMessage );
-         Assert.AreEqual( longMessage, commitDocument.LongMessage );
+         commitDocument.ShortMessage.Should().Be( shortMessage );
+         commitDocument.LongMessage.Should().Be( longMessage );
       }
 
-      [TestMethod]
+      [Fact]
       public void FromFile_FileHasLongMessageWithOneLineAndCommentInBetween_SetsShortAndLongMessage()
       {
          const string path = "COMMIT_EDITMSG";
@@ -418,11 +413,11 @@ namespace GitWrite.UnitTests
 
          // Assert
 
-         Assert.AreEqual( shortMessage, commitDocument.ShortMessage );
-         Assert.AreEqual( longMessage, commitDocument.LongMessage );
+         commitDocument.ShortMessage.Should().Be( shortMessage );
+         commitDocument.LongMessage.Should().Be( longMessage );
       }
 
-      [TestMethod]
+      [Fact]
       public void FromFile_FileHasLongMessageWithTwoLines_SetsShortAndLongMessage()
       {
          const string path = "COMMIT_EDITMSG";
@@ -463,11 +458,11 @@ namespace GitWrite.UnitTests
 
          // Assert
 
-         Assert.AreEqual( shortMessage, commitDocument.ShortMessage );
-         Assert.AreEqual( expectedLongMessage, commitDocument.LongMessage );
+         commitDocument.ShortMessage.Should().Be( shortMessage );
+         commitDocument.LongMessage.Should().Be( expectedLongMessage );
       }
 
-      [TestMethod]
+      [Fact]
       public void FromFile_FileHasLongMessageWithThreeLinesAndNoSpaceFromTheShortMessage_SetsShortAndLongMessage()
       {
          const string path = "COMMIT_EDITMSG";
@@ -507,11 +502,11 @@ namespace GitWrite.UnitTests
 
          // Assert
 
-         Assert.AreEqual( shortMessage, commitDocument.ShortMessage );
-         Assert.AreEqual( expectedLongMessage, commitDocument.LongMessage );
+         commitDocument.ShortMessage.Should().Be( shortMessage );
+         commitDocument.LongMessage.Should().Be( expectedLongMessage );
       }
 
-      [TestMethod]
+      [Fact]
       public void FromFile_FileHasLongMessageWithFourLinesAndNoComments_SetsShortAndLongMessage()
       {
          const string path = "COMMIT_EDITMSG";
@@ -546,11 +541,11 @@ namespace GitWrite.UnitTests
 
          // Assert
 
-         Assert.AreEqual( shortMessage, commitDocument.ShortMessage );
-         Assert.AreEqual( expectedLongMessage, commitDocument.LongMessage );
+         commitDocument.ShortMessage.Should().Be( shortMessage );
+         commitDocument.LongMessage.Should().Be( expectedLongMessage );
       }
 
-      [TestMethod]
+      [Fact]
       public void FromFile_FileHasLongLongMessage_SetsShortAndLongMessage()
       {
          const string path = "COMMIT_EDITMSG";
@@ -578,11 +573,11 @@ namespace GitWrite.UnitTests
 
          // Assert
 
-         Assert.AreEqual( shortMessage, commitDocument.ShortMessage );
-         Assert.AreEqual( longMessage, commitDocument.LongMessage );
+         commitDocument.ShortMessage.Should().Be( shortMessage );
+         commitDocument.LongMessage.Should().Be( longMessage );
       }
 
-      [TestMethod]
+      [Fact]
       public void FromFile_FileHasTwoLongMessagesSeparatedByBlankLine_SetsShortAndLongMessage()
       {
          const string path = "COMMIT_EDITMSG";
@@ -614,11 +609,11 @@ namespace GitWrite.UnitTests
 
          // Assert
 
-         Assert.AreEqual( shortMessage, commitDocument.ShortMessage );
-         Assert.AreEqual( expectedLongMessage, commitDocument.LongMessage );
+         commitDocument.ShortMessage.Should().Be( shortMessage );
+         commitDocument.LongMessage.Should().Be( expectedLongMessage );
       }
 
-      [TestMethod]
+      [Fact]
       public void FromFile_FileHasTwoLongMessagesSeparatedByTwoBlankLines_SetsShortAndLongMessage()
       {
          const string path = "COMMIT_EDITMSG";
@@ -651,8 +646,8 @@ namespace GitWrite.UnitTests
 
          // Assert
 
-         Assert.AreEqual( shortMessage, commitDocument.ShortMessage );
-         Assert.AreEqual( expectedLongMessage, commitDocument.LongMessage );
+         commitDocument.ShortMessage.Should().Be( shortMessage );
+         commitDocument.LongMessage.Should().Be( expectedLongMessage );
       }
    }
 }

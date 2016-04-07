@@ -1,23 +1,22 @@
 ﻿using System;
+using FluentAssertions;
 using GalaSoft.MvvmLight.Ioc;
 using GitWrite.Services;
 using GitWrite.ViewModels;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Xunit;
 
 namespace GitWrite.UnitTests.ViewModels
 {
-   [TestClass]
    public class CommitViewModelTests
    {
-      [TestInitialize]
-      public void Cleanup()
+      public CommitViewModelTests()
       {
          SimpleIoc.Default.Reset();
          App.CommitDocument = null;
       }
 
-      [TestMethod]
+      [Fact]
       public void ViewLoaded_DoesNotHaveExtraNotes_DoesNotRaiseExpansionEvent()
       {
          bool expanded = false;
@@ -27,10 +26,10 @@ namespace GitWrite.UnitTests.ViewModels
 
          commitViewModel.ViewLoaded();
 
-         Assert.IsFalse( expanded );
+         expanded.Should().BeFalse();
       }
 
-      [TestMethod]
+      [Fact]
       public void ViewLoaded_HasExtraNotes_RaisesExpansionEvent()
       {
          bool expanded = false;
@@ -43,10 +42,10 @@ namespace GitWrite.UnitTests.ViewModels
          commitViewModel.ExpansionRequested += ( sender, e ) => expanded = true;
          commitViewModel.ViewLoaded();
 
-         Assert.IsTrue( expanded );
+         expanded.Should().BeTrue();
       }
 
-      [TestMethod]
+      [Fact]
       public void Constructor_CommitDocumentHasShortMessage_ViewModelReadsShortMessage()
       {
          const string shortMessage = "Short commit message";
@@ -62,10 +61,10 @@ namespace GitWrite.UnitTests.ViewModels
 
          var commitViewModel = new CommitViewModel();
 
-         Assert.AreEqual( shortMessage, commitViewModel.ShortMessage );
+         commitViewModel.ShortMessage.Should().Be( shortMessage );
       }
 
-      [TestMethod]
+      [Fact]
       public void Constructor_HasSingleLineLongMessage_ViewModelReadsTheLongMessage()
       {
          const string longMessage = "Long message here";
@@ -81,10 +80,10 @@ namespace GitWrite.UnitTests.ViewModels
 
          var commitViewModel = new CommitViewModel();
 
-         Assert.AreEqual( longMessage, commitViewModel.ExtraCommitText );
+         commitViewModel.ExtraCommitText.Should().Be( longMessage );
       }
 
-      //[TestMethod]
+      //[Fact]
       //public void KeyDown_PressesF1_RunsHelpCommand()
       //{
       //   bool helpCommandExecuted = false;
@@ -101,7 +100,7 @@ namespace GitWrite.UnitTests.ViewModels
       //   Assert.IsTrue( helpCommandExecuted );
       //}
 
-      //[TestMethod]
+      //[Fact]
       //public void KeyDown_PressesF1WhileHelpStateIsActive_DoesNotRunHelpCommand()
       //{
       //   bool helpCommandExecuted = false;
@@ -119,7 +118,7 @@ namespace GitWrite.UnitTests.ViewModels
       //   Assert.IsFalse( helpCommandExecuted );
       //}
 
-      //[TestMethod]
+      //[Fact]
       //public void KeyDown_PressesF1WhileHelpStateIsActive_DismissesHelpState()
       //{
       //   bool collapseHelpRequested = false;
@@ -138,7 +137,7 @@ namespace GitWrite.UnitTests.ViewModels
       //   Assert.IsTrue( collapseHelpRequested );
       //}
 
-      [TestMethod]
+      [Fact]
       public void HelpCommand_HelpStateNotActive_SetsHelpStateFlag()
       {
          var commitViewModel = new CommitViewModel
@@ -148,10 +147,10 @@ namespace GitWrite.UnitTests.ViewModels
 
          commitViewModel.HelpCommand.Execute( null );
 
-         Assert.IsTrue( commitViewModel.IsHelpStateActive );
+         commitViewModel.IsHelpStateActive.Should().BeTrue();
       }
 
-      [TestMethod]
+      [Fact]
       public void HelpCommand_HelpStateNotActive_RaisesHelpRequestedEvent()
       {
          bool raisedEvent = false;
@@ -165,10 +164,10 @@ namespace GitWrite.UnitTests.ViewModels
 
          commitViewModel.HelpCommand.Execute( null );
 
-         Assert.IsTrue( raisedEvent );
+         raisedEvent.Should().BeTrue();
       }
 
-      [TestMethod]
+      [Fact]
       public void HelpCommand_HelpStateIsActive_DoesNotChangeHelpFlag()
       {
          var commitViewModel = new CommitViewModel
@@ -178,10 +177,10 @@ namespace GitWrite.UnitTests.ViewModels
 
          commitViewModel.HelpCommand.Execute( null );
 
-         Assert.IsTrue( commitViewModel.IsHelpStateActive );
+         commitViewModel.IsHelpStateActive.Should().BeTrue();
       }
 
-      [TestMethod]
+      [Fact]
       public void HelpCommand_HelpStateIsActive_DoesNotRaiseHelpRequestedEvent()
       {
          bool raisedEvent = false;
@@ -195,10 +194,10 @@ namespace GitWrite.UnitTests.ViewModels
 
          commitViewModel.HelpCommand.Execute( null );
 
-         Assert.IsFalse( raisedEvent );
+         raisedEvent.Should().BeFalse();
       }
 
-      //[TestMethod]
+      //[Fact]
       //public void KeyDown_PressesBKeyWhileHelpStateIsActive_DismissesHelpState()
       //{
       //   bool collapseHelpRequested = false;
@@ -217,7 +216,7 @@ namespace GitWrite.UnitTests.ViewModels
       //   Assert.IsTrue( collapseHelpRequested );
       //}
 
-      //[TestMethod]
+      //[Fact]
       //public void KeyDown_PressesEnter_RunsSaveCommand()
       //{
       //   bool saveCommandExecuted = false;
@@ -234,7 +233,7 @@ namespace GitWrite.UnitTests.ViewModels
       //   Assert.IsTrue( saveCommandExecuted );
       //}
 
-      //[TestMethod]
+      //[Fact]
       //public void KeyDown_PressesEscape_RunsAbortCommand()
       //{
       //   bool abortCommandRun = false;
@@ -251,7 +250,7 @@ namespace GitWrite.UnitTests.ViewModels
       //   Assert.IsTrue( abortCommandRun );
       //}
 
-      //[TestMethod]
+      //[Fact]
       //public void KeyDown_PressesEscape_MarksEventAsHandled()
       //{
       //   var commitViewModel = new CommitViewModel
@@ -268,7 +267,7 @@ namespace GitWrite.UnitTests.ViewModels
       //   Assert.IsTrue( args.Handled );
       //}
 
-      [TestMethod]
+      [Fact]
       public void ExpandCommand_IsNotExpanded_SetsExpandedFlag()
       {
          var commitViewModel = new CommitViewModel
@@ -278,10 +277,10 @@ namespace GitWrite.UnitTests.ViewModels
 
          commitViewModel.ExpandCommand.Execute( null );
 
-         Assert.IsTrue( commitViewModel.IsExpanded );
+         commitViewModel.IsExpanded.Should().BeTrue();
       }
 
-      [TestMethod]
+      [Fact]
       public void ExpandCommand_IsNotExpanded_RaisesExpansionRequestedEvent()
       {
          bool expansionEventRaised = false;
@@ -295,10 +294,10 @@ namespace GitWrite.UnitTests.ViewModels
 
          commitViewModel.ExpandCommand.Execute( null );
 
-         Assert.IsTrue( expansionEventRaised );
+         expansionEventRaised.Should().BeTrue();
       }
 
-      [TestMethod]
+      [Fact]
       public void ExpandCommand_IsAlreadyExpanded_DoesNotChangeExpandedFlag()
       {
          var commitViewModel = new CommitViewModel
@@ -308,10 +307,10 @@ namespace GitWrite.UnitTests.ViewModels
 
          commitViewModel.ExpandCommand.Execute( null );
 
-         Assert.IsTrue( commitViewModel.IsExpanded );
+         commitViewModel.IsExpanded.Should().BeTrue();
       }
 
-      [TestMethod]
+      [Fact]
       public void ExpandCommand_IsAlreadyExpanded_DoesNotRaiseExpansionRequestedEvent()
       {
          bool expansionEventRaised = false;
@@ -325,10 +324,10 @@ namespace GitWrite.UnitTests.ViewModels
 
          commitViewModel.ExpandCommand.Execute( null );
 
-         Assert.IsFalse( expansionEventRaised );
+         expansionEventRaised.Should().BeFalse();
       }
 
-      [TestMethod]
+      [Fact]
       public void ExpandCommand_IsExitingFlagSetButIsNotExpanded_DoesNotChangeExpandedFlag()
       {
          var commitViewModel = new CommitViewModel
@@ -339,10 +338,10 @@ namespace GitWrite.UnitTests.ViewModels
 
          commitViewModel.ExpandCommand.Execute( null );
 
-         Assert.IsFalse( commitViewModel.IsExpanded );
+         commitViewModel.IsExpanded.Should().BeFalse();
       }
 
-      [TestMethod]
+      [Fact]
       public void ExpandCommand_IsExitingFlagSetAndIsExpanded_DoesNotRaiseExpansionRequestedEvent()
       {
          bool expansionEventRaised = false;
@@ -357,10 +356,10 @@ namespace GitWrite.UnitTests.ViewModels
 
          commitViewModel.ExpandCommand.Execute( null );
 
-         Assert.IsFalse( expansionEventRaised );
+         expansionEventRaised.Should().BeFalse();
       }
 
-      [TestMethod]
+      [Fact]
       public void PasteCommand_ClipboardHasOneLineOfText_SetsShortMessage()
       {
          const string clipboardText = "Some text";
@@ -379,10 +378,10 @@ namespace GitWrite.UnitTests.ViewModels
 
          // Assert
 
-         Assert.AreEqual( clipboardText, viewModel.ShortMessage );
+         viewModel.ShortMessage.Should().Be( clipboardText );
       }
 
-      [TestMethod]
+      [Fact]
       public void PasteCommand_ClipboardHasTwoLinesWithNoBlankLine_SetsBothMessages()
       {
          string clipboardText = $"First line{Environment.NewLine}Second line";
@@ -401,11 +400,11 @@ namespace GitWrite.UnitTests.ViewModels
 
          // Assert
 
-         Assert.AreEqual( "First line", viewModel.ShortMessage );
-         Assert.AreEqual( "Second line", viewModel.ExtraCommitText );
+         viewModel.ShortMessage.Should().Be( "First line" );
+         viewModel.ExtraCommitText.Should().Be( "Second line" );
       }
 
-      [TestMethod]
+      [Fact]
       public void PasteCommand_ClipboardHasOneLineEndingWithLineBreak_SetsShortMessage()
       {
          string clipboardText = $"First line{Environment.NewLine}";
@@ -424,11 +423,11 @@ namespace GitWrite.UnitTests.ViewModels
 
          // Assert
 
-         Assert.AreEqual( "First line", viewModel.ShortMessage );
-         Assert.IsNull( viewModel.ExtraCommitText );
+         viewModel.ShortMessage.Should().Be( "First line" );
+         viewModel.ExtraCommitText.Should().BeNull();
       }
 
-      [TestMethod]
+      [Fact]
       public void PasteCommand_ClipboardHasOneLineEndingWithTwoLineBreaks_SetsShortMessage()
       {
          string clipboardText = $"First line{Environment.NewLine}{Environment.NewLine}";
@@ -447,11 +446,11 @@ namespace GitWrite.UnitTests.ViewModels
 
          // Assert
 
-         Assert.AreEqual( "First line", viewModel.ShortMessage );
-         Assert.IsNull( viewModel.ExtraCommitText );
+         viewModel.ShortMessage.Should().Be( "First line" );
+         viewModel.ExtraCommitText.Should().BeNull();
       }
 
-      [TestMethod]
+      [Fact]
       public void PasteCommand_ClipboardHasBothMessagesSeparatedByBlankLine_SetsBothMessages()
       {
          string clipboardText = $"Short message{Environment.NewLine}{Environment.NewLine}Secondary notes";
@@ -470,11 +469,11 @@ namespace GitWrite.UnitTests.ViewModels
 
          // Assert
 
-         Assert.AreEqual( "Short message", viewModel.ShortMessage );
-         Assert.AreEqual( "Secondary notes", viewModel.ExtraCommitText );
+         viewModel.ShortMessage.Should().Be( "Short message" );
+         viewModel.ExtraCommitText.Should().Be( "Secondary notes" );
       }
 
-      [TestMethod]
+      [Fact]
       public void PasteCommand_ClipboardHasBothMessagesEndingWithLineBreaks_TrimsEndLineBreaks()
       {
          string clipboardText = $"Short message{Environment.NewLine}Secondary notes{Environment.NewLine}{Environment.NewLine}";
@@ -493,11 +492,11 @@ namespace GitWrite.UnitTests.ViewModels
 
          // Assert
 
-         Assert.AreEqual( "Short message", viewModel.ShortMessage );
-         Assert.AreEqual( "Secondary notes", viewModel.ExtraCommitText );
+         viewModel.ShortMessage.Should().Be( "Short message" );
+         viewModel.ExtraCommitText.Should().Be( "Secondary notes" );
       }
 
-      [TestMethod]
+      [Fact]
       public void PasteCommand_ClipboardHasBothMessagesAndExtraNotesSpanMultipleLines_SetsBothMessage()
       {
          const string shortMessage = "First line message";
@@ -518,11 +517,11 @@ namespace GitWrite.UnitTests.ViewModels
 
          // Assert
 
-         Assert.AreEqual( shortMessage, viewModel.ShortMessage );
-         Assert.AreEqual( extraMessage, viewModel.ExtraCommitText );
+         viewModel.ShortMessage.Should().Be( shortMessage );
+         viewModel.ExtraCommitText.Should().Be( extraMessage );
       }
 
-      //[TestMethod]
+      //[Fact]
       //public void OnCommitNotesKeyDown_KeyIsEscapeAndHasNoCommitText_CallsShutdown()
       //{
       //   // Setup
@@ -543,7 +542,7 @@ namespace GitWrite.UnitTests.ViewModels
       //   serviceMock.Verify( sm => sm.Shutdown(), Times.Once() );
       //}
 
-      //[TestMethod]
+      //[Fact]
       //public void OnCommitNotesKeyDown_KeyIsEscapeAndNotesHaveNotBeenEntered_DoesNotDisplayConfirmDialog()
       //{
       //   // Setup
@@ -564,7 +563,7 @@ namespace GitWrite.UnitTests.ViewModels
       //   serviceMock.Verify( sm => sm.DisplayMessageBox( It.IsAny<string>(), It.IsAny<MessageBoxButton>() ), Times.Never() );
       //}
 
-      //[TestMethod]
+      //[Fact]
       //public void OnCommitNotesKeyDown_KeyIsEscapeAndNotesHaveBeenEntered_DisplaysConfirmDialog()
       //{
       //   // Setup
@@ -588,7 +587,7 @@ namespace GitWrite.UnitTests.ViewModels
       //   serviceMock.Verify( sm => sm.DisplayMessageBox( It.IsAny<string>(), It.IsAny<MessageBoxButton>() ), Times.Once() );
       //}
 
-      //[TestMethod]
+      //[Fact]
       //public void OnCommitNotesKeyDown_KeyIsEscapeAndNotesHaveBeenEntered_DisplaysConfirmDialogWithCorrectTextAndButtons()
       //{
       //   // Setup
@@ -612,7 +611,7 @@ namespace GitWrite.UnitTests.ViewModels
       //   serviceMock.Verify( sm => sm.DisplayMessageBox( Strings.ConfirmDiscardMessage, MessageBoxButton.YesNo ), Times.Once() );
       //}
 
-      //[TestMethod]
+      //[Fact]
       //public void OnCommitNotesKeyDown_UserDiscardsTheirCommit_ShutsDownAfterConfirmation()
       //{
       //   // Setup
@@ -639,7 +638,7 @@ namespace GitWrite.UnitTests.ViewModels
       //   serviceMock.Verify( sm => sm.Shutdown(), Times.Once() );
       //}
 
-      //[TestMethod]
+      //[Fact]
       //public void OnCommitNotesKeyDown_UserDoesNotDiscardTheirCommit_DoesNotShutDownAfterConfirmation()
       //{
       //   // Setup
@@ -666,7 +665,7 @@ namespace GitWrite.UnitTests.ViewModels
       //   serviceMock.Verify( sm => sm.Shutdown(), Times.Never() );
       //}
 
-      //[TestMethod]
+      //[Fact]
       //public void OnCommitNotesKeyDown_EnterKeyPressed_StoresCommitNotesIntoDocument()
       //{
       //   const string commitText = "This commit text.";
@@ -697,7 +696,7 @@ namespace GitWrite.UnitTests.ViewModels
       //   Assert.AreEqual( commitText, App.CommitDocument.ShortMessage );
       //}
 
-      //[TestMethod]
+      //[Fact]
       //public void OnCommitNotesKeyDown_EnterKeyPressed_StoresExtraCommitNotesIntoDocument()
       //{
       //   string extraCommitText = "This is much longer" + Environment.NewLine + "text for the commit.";
@@ -727,7 +726,7 @@ namespace GitWrite.UnitTests.ViewModels
       //   Assert.AreEqual( extraCommitText, App.CommitDocument.LongMessage.First() );
       //}
 
-      //[TestMethod]
+      //[Fact]
       //public void OnCommitNotesKeyDown_EnterKeyPressed_SavesCommitNotes()
       //{
       //   // Setup
@@ -752,7 +751,7 @@ namespace GitWrite.UnitTests.ViewModels
       //   commitDocumentMock.Verify( cd => cd.Save(), Times.Once() );
       //}
 
-      //[TestMethod]
+      //[Fact]
       //public void OnCommitNotesKeyDown_EnterKeyPressed_ExitsAppWithCodeZero()
       //{
       //   // Setup

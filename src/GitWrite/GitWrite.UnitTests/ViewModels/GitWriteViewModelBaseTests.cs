@@ -1,22 +1,21 @@
 ﻿using System.Threading.Tasks;
+using FluentAssertions;
 using GalaSoft.MvvmLight.Ioc;
 using GitWrite.Services;
 using GitWrite.ViewModels;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Xunit;
 
 namespace GitWrite.UnitTests.ViewModels
 {
-   [TestClass]
    public class GitWriteViewModelBaseTests
    {
-      [TestInitialize]
-      public void Initialize()
+      public GitWriteViewModelBaseTests()
       {
          SimpleIoc.Default.Reset();
       }
 
-      [TestMethod]
+      [Fact]
       public void AbortCommand_DoesNotNeedConfirmation_ShutsDownTheApp()
       {
          // Setup
@@ -35,7 +34,7 @@ namespace GitWrite.UnitTests.ViewModels
          appServiceMock.Verify( @as => @as.Shutdown(), Times.Once );
       }
 
-      [TestMethod]
+      [Fact]
       public void AbortCommand_DoesNotNeedConfirmation_RaisesShutdownEvent()
       {
          bool shutdownRequestedRaised = false;
@@ -59,7 +58,7 @@ namespace GitWrite.UnitTests.ViewModels
 
          // Assert
 
-         Assert.IsTrue( shutdownRequestedRaised );
+         shutdownRequestedRaised.Should().BeTrue();
       }
    }
 }
