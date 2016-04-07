@@ -68,7 +68,7 @@ namespace GitWrite.UnitTests
       [Fact]
       public void Start_HasCommandLineArgument_CommitDocumentIsStoredOnApp()
       {
-         var commitDocument = new CommitDocument();
+         var commitDocument = new CommitDocument( null );
 
          // Setup
 

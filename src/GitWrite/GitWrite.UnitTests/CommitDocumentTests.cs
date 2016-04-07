@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
-using GalaSoft.MvvmLight.Ioc;
 using Moq;
 using Xunit;
 
@@ -10,11 +9,6 @@ namespace GitWrite.UnitTests
 {
    public class CommitDocumentTests
    {
-      public CommitDocumentTests()
-      {
-         SimpleIoc.Default.Reset();
-      }
-
       [Fact]
       public void Save_OnlyHasShortMessage_WritesCommitNotes()
       {
@@ -30,11 +24,10 @@ namespace GitWrite.UnitTests
             var lines = l.ToList();
             parametersMatch = ( p == path && lines[0] == shortMessage );
          } );    
-         SimpleIoc.Default.Register( () => fileAdapterMock.Object );
 
          // Test
 
-         var commitDocument = new CommitDocument
+         var commitDocument = new CommitDocument( fileAdapterMock.Object )
          {
             Name = path,
             ShortMessage = shortMessage
@@ -63,11 +56,10 @@ namespace GitWrite.UnitTests
             var lines = l.ToList();
             parametersMatch = (p == path && lines[0] == shortMessage && lines[1] == string.Empty && lines[2] == longMessage);
          } );
-         SimpleIoc.Default.Register( () => fileAdapterMock.Object );
 
          // Test
 
-         var commitDocument = new CommitDocument
+         var commitDocument = new CommitDocument( fileAdapterMock.Object )
          {
             Name = path,
             ShortMessage = shortMessage,
@@ -97,11 +89,10 @@ namespace GitWrite.UnitTests
             var lines = l.ToList();
             parametersMatch = ( p == path && lines[0] == shortMessage && lines[1] == string.Empty && lines[2] == longMessage );
          } );
-         SimpleIoc.Default.Register( () => fileAdapterMock.Object );
 
          // Test
 
-         var commitDocument = new CommitDocument
+         var commitDocument = new CommitDocument( fileAdapterMock.Object )
          {
             Name = path,
             ShortMessage = shortMessage,

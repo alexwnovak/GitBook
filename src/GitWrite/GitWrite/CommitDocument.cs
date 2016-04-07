@@ -1,9 +1,9 @@
-﻿using GalaSoft.MvvmLight.Ioc;
-
-namespace GitWrite
+﻿namespace GitWrite
 {
    public class CommitDocument : ICommitDocument
    {
+      private readonly IFileAdapter _fileAdapter;
+
       public string Name
       {
          get;
@@ -28,6 +28,11 @@ namespace GitWrite
          set;
       }
 
+      public CommitDocument( IFileAdapter fileAdapter )
+      {
+         _fileAdapter = fileAdapter;
+      }
+
       public void Save()
       {
          var lines = new[]
@@ -37,18 +42,13 @@ namespace GitWrite
             LongMessage
          };
 
-         var fileAdapter = SimpleIoc.Default.GetInstance<IFileAdapter>();
-
-         fileAdapter.WriteAllLines( Name, lines );
+         _fileAdapter.WriteAllLines( Name, lines );
       }
 
       public void Clear()
       {
-         var fileAdapter = SimpleIoc.Default.GetInstance<IFileAdapter>();
-
-         fileAdapter.Delete( Name );
-
-         fileAdapter.Create( Name );
+         _fileAdapter.Delete( Name );
+         _fileAdapter.Create( Name );
       }
    }
 }

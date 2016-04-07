@@ -39,7 +39,7 @@ namespace GitWrite
 
       private CommitDocument CreateBasicDocument( string path )
       {
-         return new CommitDocument
+         return new CommitDocument( _fileAdapter )
          {
             RawLines = _fileAdapter.ReadAllLines( path ),
             Name = path
