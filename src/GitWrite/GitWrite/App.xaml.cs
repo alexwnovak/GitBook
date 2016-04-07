@@ -26,7 +26,7 @@ namespace GitWrite
 
          // Load the commit file
 
-         var appController = new AppController( new EnvironmentAdapter(), new CommitFileReader( new FileAdapter() ) );
+         var appController = new AppController( new EnvironmentAdapter(), SimpleIoc.Default.GetInstance<ICommitFileReader>() );
 
          appController.Start( e.Args );
 
@@ -49,16 +49,10 @@ namespace GitWrite
       {
          ServiceLocator.SetLocatorProvider( () => SimpleIoc.Default );
 
-         var appService = new AppService();
-
-         SimpleIoc.Default.Register( () => new CommitViewModel( SimpleIoc.Default.GetInstance<IViewService>(), appService, new ClipboardService() ) );
+         SimpleIoc.Default.Register( () => new CommitViewModel( SimpleIoc.Default.GetInstance<IViewService>(), new AppService(), new ClipboardService() ) );
          SimpleIoc.Default.Register<InteractiveRebaseViewModel>();
-         SimpleIoc.Default.Register<IRegistryService, RegistryService>();
          SimpleIoc.Default.Register<IApplicationSettings>( () => new ApplicationSettings( new RegistryService() ) );
-         SimpleIoc.Default.Register<IAppService, AppService>();
-         SimpleIoc.Default.Register<IEnvironmentAdapter, EnvironmentAdapter>();
          SimpleIoc.Default.Register<ICommitFileReader>( () => new CommitFileReader( new FileAdapter() ) );
-         SimpleIoc.Default.Register<IFileAdapter, FileAdapter>();
          SimpleIoc.Default.Register<IStoryboardHelper, StoryboardHelper>();
       }
 
