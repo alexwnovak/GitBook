@@ -28,7 +28,7 @@ namespace GitWrite
 
          var appController = new AppController( new EnvironmentAdapter(), SimpleIoc.Default.GetInstance<ICommitFileReader>() );
 
-         appController.Start( e.Args );
+         App.CommitDocument = appController.Start( e.Args );
 
          // Set the startup UI and we're off
 

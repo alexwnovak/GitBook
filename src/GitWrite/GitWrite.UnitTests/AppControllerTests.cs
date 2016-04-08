@@ -86,11 +86,11 @@ namespace GitWrite.UnitTests
 
          var appController = new AppController( null, commitFileReaderMock.Object );
 
-         appController.Start( arguments );
+         var actualCommitDocument = appController.Start( arguments );
 
          // Assert
 
-         App.CommitDocument.Should().Be( commitDocument );
+         actualCommitDocument.Should().Be( commitDocument );
       }
 
       [Fact]
