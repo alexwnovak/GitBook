@@ -47,6 +47,11 @@ namespace GitWrite.ViewModels
          get;
       }
 
+      public ICommitDocument CommitDocument
+      {
+         get;
+      }
+
       public CommitInputState InputState
       {
          get;
@@ -127,10 +132,11 @@ namespace GitWrite.ViewModels
       public event EventHandler HelpRequested;
       public event EventHandler CollapseHelpRequested;
        
-      public CommitViewModel( IViewService viewService, IAppService appService, IClipboardService clipboardService )
+      public CommitViewModel( IViewService viewService, IAppService appService, IClipboardService clipboardService, ICommitDocument commitDocument )
          : base( viewService, appService )
       {
          _clipboardService = clipboardService;
+         CommitDocument = commitDocument;
 
          PrimaryMessageGotFocusCommand = new RelayCommand( () => ControlState = CommitControlState.EditingPrimaryMessage );
          SecondaryNotesGotFocusCommand = new RelayCommand( ExpandUI );
@@ -140,8 +146,8 @@ namespace GitWrite.ViewModels
          SaveCommand = new RelayCommand( async () => await OnSaveAsync() );
          PasteCommand = new RelayCommand( PasteFromClipboard );
 
-         ShortMessage = App.CommitDocument?.ShortMessage;
-         ExtraCommitText = App.CommitDocument?.LongMessage;
+         ShortMessage = CommitDocument?.ShortMessage;
+         ExtraCommitText = CommitDocument?.LongMessage;
 
          IsDirty = false;
       }
@@ -171,10 +177,9 @@ namespace GitWrite.ViewModels
 
          var shutdownTask = OnShutdownRequested( this, new ShutdownEventArgs( ExitReason.Accept ) );
 
-         App.CommitDocument.ShortMessage = ShortMessage;
-         App.CommitDocument.LongMessage = ExtraCommitText;
-
-         App.CommitDocument.Save();
+         CommitDocument.ShortMessage = ShortMessage;
+         CommitDocument.LongMessage = ExtraCommitText;
+         CommitDocument.Save();
 
          await shutdownTask;
 

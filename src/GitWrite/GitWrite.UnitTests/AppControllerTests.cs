@@ -75,8 +75,6 @@ namespace GitWrite.UnitTests
          var commitFileReaderMock = new Mock<ICommitFileReader>();
          commitFileReaderMock.Setup( cfr => cfr.FromFile( It.IsAny<string>() ) ).Returns( commitDocument );    
 
-         App.CommitDocument = null;
-
          // Test
 
          var arguments = new[]
@@ -102,8 +100,6 @@ namespace GitWrite.UnitTests
 
          var commitFileReaderMock = new Mock<ICommitFileReader>();
          commitFileReaderMock.Setup( cfr => cfr.FromFile( It.IsAny<string>() ) ).Throws<GitFileLoadException>();
-
-         App.CommitDocument = null;
 
          // Test
 
