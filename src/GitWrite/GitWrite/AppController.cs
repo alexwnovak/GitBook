@@ -5,7 +5,7 @@ using GitWrite.Views;
 
 namespace GitWrite
 {
-   public class AppController : IAppController
+   public class AppController
    {
       private readonly IEnvironmentAdapter _environmentAdapter;
       private readonly ICommitFileReader _commitFileReader;
@@ -51,11 +51,6 @@ namespace GitWrite
          }
 
          return commitDocument;
-      }
-
-      public async Task ShutDownAsync( ExitReason exitReason )
-      {
-         
       }
    }
 }
