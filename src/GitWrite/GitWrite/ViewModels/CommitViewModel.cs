@@ -42,11 +42,6 @@ namespace GitWrite.ViewModels
          get;
       }
 
-      public RelayCommand PasteCommand
-      {
-         get;
-      }
-
       public ICommitDocument CommitDocument
       {
          get;
@@ -99,19 +94,6 @@ namespace GitWrite.ViewModels
          {
             Set( () => ControlState, ref _commitControlState, value );
             RaisePropertyChanged( () => HelpText );
-         }
-      }
-
-      private bool _isExiting;
-      public bool IsExiting
-      {
-         get
-         {
-            return _isExiting;
-         }
-         set
-         {
-            Set( () => IsExiting, ref _isExiting, value );
          }
       }
 
@@ -184,10 +166,6 @@ namespace GitWrite.ViewModels
          await shutdownTask;
 
          AppService.Shutdown();
-      }
-
-      protected override async Task OnDiscardAsync()
-      {
       }
 
       public bool DismissHelpIfActive()
