@@ -1,9 +1,9 @@
 ﻿using System;
 using FluentAssertions;
-using GitWrite.Services;
-using GitWrite.ViewModels;
 using Moq;
 using Xunit;
+using GitWrite.Services;
+using GitWrite.ViewModels;
 
 namespace GitWrite.UnitTests.ViewModels
 {
