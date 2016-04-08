@@ -13,12 +13,6 @@ namespace GitWrite
 {
    public partial class App : Application
    {
-      public static ICommitDocument CommitDocument
-      {
-         get;
-         set;
-      }
-
       private void Application_OnStartup( object sender, StartupEventArgs e )
       {
          InitializeDependencies();
@@ -26,9 +20,10 @@ namespace GitWrite
 
          // Load the commit file
 
-         var appController = new AppController();
+         var appController = new AppController( new EnvironmentAdapter(), SimpleIoc.Default.GetInstance<ICommitFileReader>() );
+         var commitDocument = appController.Start( e.Args );
 
-         appController.Start( e.Args );
+         SimpleIoc.Default.Register<ICommitDocument>( () => commitDocument );
 
          // Set the startup UI and we're off
 
@@ -48,15 +43,10 @@ namespace GitWrite
       private void InitializeDependencies()
       {
          ServiceLocator.SetLocatorProvider( () => SimpleIoc.Default );
-         SimpleIoc.Default.Register<CommitViewModel>();
+
          SimpleIoc.Default.Register<InteractiveRebaseViewModel>();
-         SimpleIoc.Default.Register<IRegistryService, RegistryService>();
-         SimpleIoc.Default.Register<IApplicationSettings, ApplicationSettings>();
-         SimpleIoc.Default.Register<IAppService, AppService>();
-         SimpleIoc.Default.Register<IClipboardService, ClipboardService>();
-         SimpleIoc.Default.Register<IEnvironmentAdapter, EnvironmentAdapter>();
-         SimpleIoc.Default.Register<ICommitFileReader, CommitFileReader>();
-         SimpleIoc.Default.Register<IFileAdapter, FileAdapter>();
+         SimpleIoc.Default.Register<IApplicationSettings>( () => new ApplicationSettings( new RegistryService() ) );
+         SimpleIoc.Default.Register<ICommitFileReader>( () => new CommitFileReader( new FileAdapter() ) );
          SimpleIoc.Default.Register<IStoryboardHelper, StoryboardHelper>();
       }
 

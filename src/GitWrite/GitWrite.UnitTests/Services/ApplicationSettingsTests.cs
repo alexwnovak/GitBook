@@ -1,19 +1,13 @@
-﻿using FluentAssertions;
-using GalaSoft.MvvmLight.Ioc;
-using GitWrite.Services;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
+using FluentAssertions;
 using Moq;
 using Xunit;
+using GitWrite.Services;
 
 namespace GitWrite.UnitTests.Services
 {
    public class ApplicationSettingsTests
    {
-      public ApplicationSettingsTests()
-      {
-         SimpleIoc.Default.Reset();
-      }
-
       [Fact]
       public void ThemeProperty_SetsThemeName_IsStoredWithRegistry()
       {
@@ -22,11 +16,10 @@ namespace GitWrite.UnitTests.Services
          // Setup
 
          var registryServiceMock = new Mock<IRegistryService>();
-         SimpleIoc.Default.Register( () => registryServiceMock.Object );
 
          // Test
 
-         var appSettings = new ApplicationSettings
+         var appSettings = new ApplicationSettings( registryServiceMock.Object )
          {
             Theme = themeName
          };
@@ -45,11 +38,10 @@ namespace GitWrite.UnitTests.Services
 
          var registryServiceMock = new Mock<IRegistryService>();
          registryServiceMock.Setup( rs => rs.ReadString( It.IsAny<RegistryKey>(), It.IsAny<string>(), It.IsAny<string>() ) ).Returns( themeName );
-         SimpleIoc.Default.Register( () => registryServiceMock.Object );
 
          // Test
 
-         var appSettings = new ApplicationSettings();
+         var appSettings = new ApplicationSettings( registryServiceMock.Object );
          string actualThemeName = appSettings.Theme;
 
          // Assert
@@ -65,11 +57,10 @@ namespace GitWrite.UnitTests.Services
          // Setup
 
          var registryServiceMock = new Mock<IRegistryService>();
-         SimpleIoc.Default.Register( () => registryServiceMock.Object );
 
          // Test
 
-         var appSettings = new ApplicationSettings
+         var appSettings = new ApplicationSettings( registryServiceMock.Object )
          {
             WindowX = x
          };
@@ -88,11 +79,10 @@ namespace GitWrite.UnitTests.Services
 
          var registryServiceMock = new Mock<IRegistryService>();
          registryServiceMock.Setup( rs => rs.ReadInt( It.IsAny<RegistryKey>(), It.IsAny<string>(), It.IsAny<string>() ) ).Returns( x );
-         SimpleIoc.Default.Register( () => registryServiceMock.Object );
 
          // Test
 
-         var appSettings = new ApplicationSettings();
+         var appSettings = new ApplicationSettings( registryServiceMock.Object );
          int actualWindowX = appSettings.WindowX;
 
          // Assert
@@ -108,11 +98,10 @@ namespace GitWrite.UnitTests.Services
          // Setup
 
          var registryServiceMock = new Mock<IRegistryService>();
-         SimpleIoc.Default.Register( () => registryServiceMock.Object );
 
          // Test
 
-         var appSettings = new ApplicationSettings
+         var appSettings = new ApplicationSettings( registryServiceMock.Object )
          {
             WindowY = y
          };
@@ -131,11 +120,10 @@ namespace GitWrite.UnitTests.Services
 
          var registryServiceMock = new Mock<IRegistryService>();
          registryServiceMock.Setup( rs => rs.ReadInt( It.IsAny<RegistryKey>(), It.IsAny<string>(), It.IsAny<string>() ) ).Returns( y );
-         SimpleIoc.Default.Register( () => registryServiceMock.Object );
 
          // Test
 
-         var appSettings = new ApplicationSettings();
+         var appSettings = new ApplicationSettings( registryServiceMock.Object );
          int actualWindowY = appSettings.WindowY;
 
          // Assert

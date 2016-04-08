@@ -1,48 +1,25 @@
 ﻿using System;
 using FluentAssertions;
-using GalaSoft.MvvmLight.Ioc;
-using GitWrite.Services;
-using GitWrite.ViewModels;
 using Moq;
 using Xunit;
+using GitWrite.Services;
+using GitWrite.ViewModels;
 
 namespace GitWrite.UnitTests.ViewModels
 {
    public class CommitViewModelTests
    {
-      public CommitViewModelTests()
-      {
-         SimpleIoc.Default.Reset();
-         App.CommitDocument = null;
-      }
-
       [Fact]
       public void ViewLoaded_DoesNotHaveExtraNotes_DoesNotRaiseExpansionEvent()
       {
          bool expanded = false;
 
-         var commitViewModel = new CommitViewModel();
+         var commitViewModel = new CommitViewModel( null, null, null, null );
          commitViewModel.ExpansionRequested += ( sender, e ) => expanded = true;
 
          commitViewModel.ViewLoaded();
 
          expanded.Should().BeFalse();
-      }
-
-      [Fact]
-      public void ViewLoaded_HasExtraNotes_RaisesExpansionEvent()
-      {
-         bool expanded = false;
-
-         var commitViewModel = new CommitViewModel
-         {
-            ExtraCommitText = "Extra notes"
-         };
-
-         commitViewModel.ExpansionRequested += ( sender, e ) => expanded = true;
-         commitViewModel.ViewLoaded();
-
-         expanded.Should().BeTrue();
       }
 
       [Fact]
@@ -55,11 +32,9 @@ namespace GitWrite.UnitTests.ViewModels
          var commitDocumentMock = new Mock<ICommitDocument>();
          commitDocumentMock.SetupGet( cd => cd.ShortMessage ).Returns( shortMessage );
 
-         App.CommitDocument = commitDocumentMock.Object;
-
          // Test
 
-         var commitViewModel = new CommitViewModel();
+         var commitViewModel = new CommitViewModel( null, null, null, commitDocumentMock.Object );
 
          commitViewModel.ShortMessage.Should().Be( shortMessage );
       }
@@ -74,13 +49,27 @@ namespace GitWrite.UnitTests.ViewModels
          var commitDocumentMock = new Mock<ICommitDocument>();
          commitDocumentMock.SetupGet( cd => cd.LongMessage ).Returns( longMessage );
 
-         App.CommitDocument = commitDocumentMock.Object;
-
          // Test
 
-         var commitViewModel = new CommitViewModel();
+         var commitViewModel = new CommitViewModel( null, null, null, commitDocumentMock.Object );
 
          commitViewModel.ExtraCommitText.Should().Be( longMessage );
+      }
+
+      [Fact]
+      public void ViewLoaded_HasExtraNotes_RaisesExpansionEvent()
+      {
+         bool expanded = false;
+
+         var commitViewModel = new CommitViewModel( null, null, null, null )
+         {
+            ExtraCommitText = "Extra notes"
+         };
+
+         commitViewModel.ExpansionRequested += ( sender, e ) => expanded = true;
+         commitViewModel.ViewLoaded();
+
+         expanded.Should().BeTrue();
       }
 
       //[Fact]
@@ -140,7 +129,7 @@ namespace GitWrite.UnitTests.ViewModels
       [Fact]
       public void HelpCommand_HelpStateNotActive_SetsHelpStateFlag()
       {
-         var commitViewModel = new CommitViewModel
+         var commitViewModel = new CommitViewModel( null, null, null, null )
          {
             IsHelpStateActive = false
          };
@@ -155,7 +144,7 @@ namespace GitWrite.UnitTests.ViewModels
       {
          bool raisedEvent = false;
 
-         var commitViewModel = new CommitViewModel
+         var commitViewModel = new CommitViewModel( null, null, null, null )
          {
             IsHelpStateActive = false
          };
@@ -170,7 +159,7 @@ namespace GitWrite.UnitTests.ViewModels
       [Fact]
       public void HelpCommand_HelpStateIsActive_DoesNotChangeHelpFlag()
       {
-         var commitViewModel = new CommitViewModel
+         var commitViewModel = new CommitViewModel( null, null, null, null )
          {
             IsHelpStateActive = true
          };
@@ -185,7 +174,7 @@ namespace GitWrite.UnitTests.ViewModels
       {
          bool raisedEvent = false;
 
-         var commitViewModel = new CommitViewModel
+         var commitViewModel = new CommitViewModel( null, null, null, null )
          {
             IsHelpStateActive = true
          };
@@ -270,7 +259,7 @@ namespace GitWrite.UnitTests.ViewModels
       [Fact]
       public void ExpandCommand_IsNotExpanded_SetsExpandedFlag()
       {
-         var commitViewModel = new CommitViewModel
+         var commitViewModel = new CommitViewModel( null, null, null, null )
          {
             IsExpanded = false
          };
@@ -285,7 +274,7 @@ namespace GitWrite.UnitTests.ViewModels
       {
          bool expansionEventRaised = false;
 
-         var commitViewModel = new CommitViewModel
+         var commitViewModel = new CommitViewModel( null, null, null, null )
          {
             IsExpanded = false
          };
@@ -300,7 +289,7 @@ namespace GitWrite.UnitTests.ViewModels
       [Fact]
       public void ExpandCommand_IsAlreadyExpanded_DoesNotChangeExpandedFlag()
       {
-         var commitViewModel = new CommitViewModel
+         var commitViewModel = new CommitViewModel( null, null, null, null )
          {
             IsExpanded = true
          };
@@ -315,7 +304,7 @@ namespace GitWrite.UnitTests.ViewModels
       {
          bool expansionEventRaised = false;
 
-         var commitViewModel = new CommitViewModel
+         var commitViewModel = new CommitViewModel( null, null, null, null )
          {
             IsExpanded = true
          };
@@ -330,7 +319,7 @@ namespace GitWrite.UnitTests.ViewModels
       [Fact]
       public void ExpandCommand_IsExitingFlagSetButIsNotExpanded_DoesNotChangeExpandedFlag()
       {
-         var commitViewModel = new CommitViewModel
+         var commitViewModel = new CommitViewModel( null, null, null, null )
          {
             IsExiting = true,
             IsExpanded = false
@@ -346,7 +335,7 @@ namespace GitWrite.UnitTests.ViewModels
       {
          bool expansionEventRaised = false;
 
-         var commitViewModel = new CommitViewModel
+         var commitViewModel = new CommitViewModel( null, null, null, null )
          {
             IsExiting = true,
             IsExpanded = true
@@ -368,11 +357,10 @@ namespace GitWrite.UnitTests.ViewModels
 
          var clipboardServiceMock = new Mock<IClipboardService>();
          clipboardServiceMock.Setup( cs => cs.GetText() ).Returns( clipboardText );
-         SimpleIoc.Default.Register( () => clipboardServiceMock.Object );
 
          // Test
 
-         var viewModel = new CommitViewModel();
+         var viewModel = new CommitViewModel( null, null, clipboardServiceMock.Object, null );
 
          viewModel.PasteCommand.Execute( null );
 
@@ -390,11 +378,10 @@ namespace GitWrite.UnitTests.ViewModels
 
          var clipboardServiceMock = new Mock<IClipboardService>();
          clipboardServiceMock.Setup( cs => cs.GetText() ).Returns( clipboardText );
-         SimpleIoc.Default.Register( () => clipboardServiceMock.Object );
 
          // Test
 
-         var viewModel = new CommitViewModel();
+         var viewModel = new CommitViewModel( null, null, clipboardServiceMock.Object, null );
 
          viewModel.PasteCommand.Execute( null );
 
@@ -413,11 +400,10 @@ namespace GitWrite.UnitTests.ViewModels
 
          var clipboardServiceMock = new Mock<IClipboardService>();
          clipboardServiceMock.Setup( cs => cs.GetText() ).Returns( clipboardText );
-         SimpleIoc.Default.Register( () => clipboardServiceMock.Object );
 
          // Test
 
-         var viewModel = new CommitViewModel();
+         var viewModel = new CommitViewModel( null, null, clipboardServiceMock.Object, null );
 
          viewModel.PasteCommand.Execute( null );
 
@@ -436,11 +422,10 @@ namespace GitWrite.UnitTests.ViewModels
 
          var clipboardServiceMock = new Mock<IClipboardService>();
          clipboardServiceMock.Setup( cs => cs.GetText() ).Returns( clipboardText );
-         SimpleIoc.Default.Register( () => clipboardServiceMock.Object );
 
          // Test
 
-         var viewModel = new CommitViewModel();
+         var viewModel = new CommitViewModel( null, null, clipboardServiceMock.Object, null );
 
          viewModel.PasteCommand.Execute( null );
 
@@ -459,11 +444,10 @@ namespace GitWrite.UnitTests.ViewModels
 
          var clipboardServiceMock = new Mock<IClipboardService>();
          clipboardServiceMock.Setup( cs => cs.GetText() ).Returns( clipboardText );
-         SimpleIoc.Default.Register( () => clipboardServiceMock.Object );
 
          // Test
 
-         var viewModel = new CommitViewModel();
+         var viewModel = new CommitViewModel( null, null, clipboardServiceMock.Object, null );
 
          viewModel.PasteCommand.Execute( null );
 
@@ -482,11 +466,10 @@ namespace GitWrite.UnitTests.ViewModels
 
          var clipboardServiceMock = new Mock<IClipboardService>();
          clipboardServiceMock.Setup( cs => cs.GetText() ).Returns( clipboardText );
-         SimpleIoc.Default.Register( () => clipboardServiceMock.Object );
 
          // Test
 
-         var viewModel = new CommitViewModel();
+         var viewModel = new CommitViewModel( null, null, clipboardServiceMock.Object, null );
 
          viewModel.PasteCommand.Execute( null );
 
@@ -507,11 +490,10 @@ namespace GitWrite.UnitTests.ViewModels
 
          var clipboardServiceMock = new Mock<IClipboardService>();
          clipboardServiceMock.Setup( cs => cs.GetText() ).Returns( clipboardText );
-         SimpleIoc.Default.Register( () => clipboardServiceMock.Object );
 
          // Test
 
-         var viewModel = new CommitViewModel();
+         var viewModel = new CommitViewModel( null, null, clipboardServiceMock.Object, null );
 
          viewModel.PasteCommand.Execute( null );
 

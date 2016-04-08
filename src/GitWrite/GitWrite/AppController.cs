@@ -1,27 +1,33 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Threading.Tasks;
-using GalaSoft.MvvmLight.Ioc;
 using GitWrite.Views;
 
 namespace GitWrite
 {
    public class AppController : IAppController
    {
+      private readonly IEnvironmentAdapter _environmentAdapter;
+      private readonly ICommitFileReader _commitFileReader;
+
       public ApplicationMode ApplicationMode
       {
          get;
          private set;
       }
 
-      public void Start( string[] arguments )
+      public AppController( IEnvironmentAdapter environmentAdapter, ICommitFileReader commitFileReader )
+      {
+         _environmentAdapter = environmentAdapter;
+         _commitFileReader = commitFileReader;
+      }
+
+      public CommitDocument Start( string[] arguments )
       {
          if ( arguments == null || arguments.Length == 0 )
          {
-            var environmentAdapter = SimpleIoc.Default.GetInstance<IEnvironmentAdapter>();
-
-            environmentAdapter.Exit( 1 );
-
-            return;
+            _environmentAdapter.Exit( 1 );
+            return null;
          }
 
          string fileName = Path.GetFileName( arguments[0] );
@@ -29,25 +35,22 @@ namespace GitWrite
 
          if ( ApplicationMode == ApplicationMode.Unknown )
          {
-            var environmentAdapter = SimpleIoc.Default.GetInstance<IEnvironmentAdapter>();
-
-            environmentAdapter.Exit( 1 );
-
-            return;
+            _environmentAdapter.Exit( 1 );
+            return null;
          }
 
-         var commitFileReader = SimpleIoc.Default.GetInstance<ICommitFileReader>();
+         CommitDocument commitDocument = null;
 
          try
          {
-            App.CommitDocument = commitFileReader.FromFile( arguments[0] );
+            commitDocument = _commitFileReader.FromFile( arguments[0] );
          }
          catch ( GitFileLoadException )
          {
-            var environmentAdapter = SimpleIoc.Default.GetInstance<IEnvironmentAdapter>();
-
-            environmentAdapter.Exit( 1 );
+            _environmentAdapter.Exit( 1 );
          }
+
+         return commitDocument;
       }
 
       public async Task ShutDownAsync( ExitReason exitReason )

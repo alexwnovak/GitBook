@@ -1,24 +1,21 @@
-﻿using System;
-using GalaSoft.MvvmLight.Ioc;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 
 namespace GitWrite.Services
 {
    public class ApplicationSettings : IApplicationSettings
    {
       private const string _path = @"SOFTWARE\GitWrite";
-      private readonly Lazy<IRegistryService> _registryLazy = new Lazy<IRegistryService>( () => SimpleIoc.Default.GetInstance<IRegistryService>() );
-      private IRegistryService RegistryService => _registryLazy.Value;
+      private readonly IRegistryService _registryService;
 
       public string Theme
       {
          get
          {
-            return RegistryService.ReadString( Registry.CurrentUser, _path, nameof( Theme ) );
+            return _registryService.ReadString( Registry.CurrentUser, _path, nameof( Theme ) );
          }
          set
          {
-            RegistryService.WriteString( Registry.CurrentUser, _path, nameof( Theme ), value );
+            _registryService.WriteString( Registry.CurrentUser, _path, nameof( Theme ), value );
          }
       }
 
@@ -26,11 +23,11 @@ namespace GitWrite.Services
       {
          get
          {
-            return RegistryService.ReadInt( Registry.CurrentUser, _path, nameof( WindowX ) );
+            return _registryService.ReadInt( Registry.CurrentUser, _path, nameof( WindowX ) );
          }
          set
          {
-            RegistryService.WriteInt( Registry.CurrentUser, _path, nameof( WindowX ), value );
+            _registryService.WriteInt( Registry.CurrentUser, _path, nameof( WindowX ), value );
          }
       }
 
@@ -38,12 +35,17 @@ namespace GitWrite.Services
       {
          get
          {
-            return RegistryService.ReadInt( Registry.CurrentUser, _path, nameof( WindowY ) );
+            return _registryService.ReadInt( Registry.CurrentUser, _path, nameof( WindowY ) );
          }
          set
          {
-            RegistryService.WriteInt( Registry.CurrentUser, _path, nameof( WindowY ), value );
+            _registryService.WriteInt( Registry.CurrentUser, _path, nameof( WindowY ), value );
          }
+      }
+
+      public ApplicationSettings( IRegistryService registryService )
+      {
+         _registryService = registryService;
       }
    }
 }

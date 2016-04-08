@@ -1,5 +1,4 @@
 ﻿using FluentAssertions;
-using GalaSoft.MvvmLight.Ioc;
 using Moq;
 using Xunit;
 
@@ -7,22 +6,16 @@ namespace GitWrite.UnitTests
 {
    public class AppControllerTest
    {
-      public AppControllerTest()
-      {
-         SimpleIoc.Default.Reset();
-      }
-
       [Fact]
       public void Start_CommandLineArgumentsAreNull_ExitsWithCodeOne()
       {
          // Setup
 
          var environmentAdapterMock = new Mock<IEnvironmentAdapter>();
-         SimpleIoc.Default.Register( () => environmentAdapterMock.Object );
 
          // Test
 
-         var appController = new AppController();
+         var appController = new AppController( environmentAdapterMock.Object, null );
 
          appController.Start( null );
 
@@ -37,11 +30,10 @@ namespace GitWrite.UnitTests
          // Setup
 
          var environmentAdapterMock = new Mock<IEnvironmentAdapter>();
-         SimpleIoc.Default.Register( () => environmentAdapterMock.Object );
 
          // Test
 
-         var appController = new AppController();
+         var appController = new AppController( environmentAdapterMock.Object, null );
 
          appController.Start( new string[0] );
 
@@ -56,7 +48,6 @@ namespace GitWrite.UnitTests
          // Setup
 
          var commitFileReaderMock = new Mock<ICommitFileReader>();
-         SimpleIoc.Default.Register( () => commitFileReaderMock.Object );
 
          // Test
 
@@ -65,7 +56,7 @@ namespace GitWrite.UnitTests
             GitFileNames.CommitFileName
          };
 
-         var appController = new AppController();
+         var appController = new AppController( null, commitFileReaderMock.Object );
 
          appController.Start( arguments );
 
@@ -77,15 +68,12 @@ namespace GitWrite.UnitTests
       [Fact]
       public void Start_HasCommandLineArgument_CommitDocumentIsStoredOnApp()
       {
-         var commitDocument = new CommitDocument();
+         var commitDocument = new CommitDocument( null );
 
          // Setup
 
          var commitFileReaderMock = new Mock<ICommitFileReader>();
          commitFileReaderMock.Setup( cfr => cfr.FromFile( It.IsAny<string>() ) ).Returns( commitDocument );    
-         SimpleIoc.Default.Register( () => commitFileReaderMock.Object );
-
-         App.CommitDocument = null;
 
          // Test
 
@@ -94,13 +82,13 @@ namespace GitWrite.UnitTests
             GitFileNames.CommitFileName
          };
 
-         var appController = new AppController();
+         var appController = new AppController( null, commitFileReaderMock.Object );
 
-         appController.Start( arguments );
+         var actualCommitDocument = appController.Start( arguments );
 
          // Assert
 
-         App.CommitDocument.Should().Be( commitDocument );
+         actualCommitDocument.Should().Be( commitDocument );
       }
 
       [Fact]
@@ -109,13 +97,9 @@ namespace GitWrite.UnitTests
          // Setup
 
          var environmentAdapterMock = new Mock<IEnvironmentAdapter>();
-         SimpleIoc.Default.Register( () => environmentAdapterMock.Object );
 
          var commitFileReaderMock = new Mock<ICommitFileReader>();
          commitFileReaderMock.Setup( cfr => cfr.FromFile( It.IsAny<string>() ) ).Throws<GitFileLoadException>();
-         SimpleIoc.Default.Register( () => commitFileReaderMock.Object );
-
-         App.CommitDocument = null;
 
          // Test
 
@@ -124,7 +108,7 @@ namespace GitWrite.UnitTests
             "Some Argument"
          };
 
-         var appController = new AppController();
+         var appController = new AppController( environmentAdapterMock.Object, commitFileReaderMock.Object );
 
          appController.Start( arguments );
 
@@ -139,7 +123,6 @@ namespace GitWrite.UnitTests
          // Setup
 
          var environmentAdapterMock = new Mock<IEnvironmentAdapter>();
-         SimpleIoc.Default.Register( () => environmentAdapterMock.Object );
 
          // Test
 
@@ -148,7 +131,7 @@ namespace GitWrite.UnitTests
             "Not a Git file"
          };
 
-         var appController = new AppController();
+         var appController = new AppController( environmentAdapterMock.Object, null );
 
          appController.Start( arguments );
 
