@@ -24,6 +24,7 @@ namespace GitWrite
          var commitDocument = appController.Start( e.Args );
 
          SimpleIoc.Default.Register<ICommitDocument>( () => commitDocument );
+         SimpleIoc.Default.Register<IGitService>( () => new GitService( GitRepositoryPathConverter.GetPath( commitDocument ) )  );
 
          // Set the startup UI and we're off
 

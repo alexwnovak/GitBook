@@ -10,6 +10,7 @@ namespace GitWrite.ViewModels
    public class CommitViewModel : GitWriteViewModelBase
    {
       private readonly IClipboardService _clipboardService;
+      private readonly IGitService _gitService;
 
       public RelayCommand PrimaryMessageGotFocusCommand
       {
@@ -114,10 +115,12 @@ namespace GitWrite.ViewModels
       public event EventHandler HelpRequested;
       public event EventHandler CollapseHelpRequested;
        
-      public CommitViewModel( IViewService viewService, IAppService appService, IClipboardService clipboardService, ICommitDocument commitDocument )
+      public CommitViewModel( IViewService viewService, IAppService appService, IClipboardService clipboardService, ICommitDocument commitDocument, IGitService gitService )
          : base( viewService, appService )
       {
          _clipboardService = clipboardService;
+         _gitService = gitService;
+
          CommitDocument = commitDocument;
 
          PrimaryMessageGotFocusCommand = new RelayCommand( () => ControlState = CommitControlState.EditingPrimaryMessage );
