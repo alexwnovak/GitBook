@@ -88,6 +88,7 @@
     <Compile Include="GitFileAttribute.cs" />
     <Compile Include="RebaseItemActionExtensions.cs" />
     <Compile Include="Services\ApplicationSettings.cs" />
+    <Compile Include="Services\GitRepositoryPathConverter.cs" />
     <Compile Include="Services\ClipboardService.cs" />
     <Compile Include="Services\GitService.cs" />
     <Compile Include="Services\IApplicationSettings.cs" />
