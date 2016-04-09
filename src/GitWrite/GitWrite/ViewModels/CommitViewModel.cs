@@ -10,6 +10,7 @@ namespace GitWrite.ViewModels
    public class CommitViewModel : GitWriteViewModelBase
    {
       private readonly IClipboardService _clipboardService;
+      private readonly ICommitDocument _commitDocument;
       private readonly IGitService _gitService;
 
       public RelayCommand PrimaryMessageGotFocusCommand
@@ -39,11 +40,6 @@ namespace GitWrite.ViewModels
       }
 
       public RelayCommand LoadCommand
-      {
-         get;
-      }
-
-      public ICommitDocument CommitDocument
       {
          get;
       }
@@ -121,9 +117,8 @@ namespace GitWrite.ViewModels
          : base( viewService, appService )
       {
          _clipboardService = clipboardService;
+         _commitDocument = commitDocument;
          _gitService = gitService;
-
-         CommitDocument = commitDocument;
 
          PrimaryMessageGotFocusCommand = new RelayCommand( () => ControlState = CommitControlState.EditingPrimaryMessage );
          SecondaryNotesGotFocusCommand = new RelayCommand( ExpandUI );
@@ -133,8 +128,8 @@ namespace GitWrite.ViewModels
          SaveCommand = new RelayCommand( async () => await OnSaveAsync() );
          PasteCommand = new RelayCommand( PasteFromClipboard );
 
-         ShortMessage = CommitDocument?.ShortMessage;
-         ExtraCommitText = CommitDocument?.LongMessage;
+         ShortMessage = _commitDocument?.ShortMessage;
+         ExtraCommitText = _commitDocument?.LongMessage;
 
          IsDirty = false;
       }
@@ -164,9 +159,9 @@ namespace GitWrite.ViewModels
 
          var shutdownTask = OnShutdownRequested( this, new ShutdownEventArgs( ExitReason.Accept ) );
 
-         CommitDocument.ShortMessage = ShortMessage;
-         CommitDocument.LongMessage = ExtraCommitText;
-         CommitDocument.Save();
+         _commitDocument.ShortMessage = ShortMessage;
+         _commitDocument.LongMessage = ExtraCommitText;
+         _commitDocument.Save();
 
          await shutdownTask;
 
