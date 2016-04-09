@@ -17,6 +17,8 @@ namespace GitWrite.UnitTests.Services
       [Theory]
       [InlineData( null, "" )]
       [InlineData( "", "" )]
+      [InlineData( @"C:\NotARepository\COMMIT_EDITMSG", "" )]
+      [InlineData( @"C:\Git\SomeRepo\.git\COMMIT_EDITMSG", @"C:\Git\SomeRepo\.git" )]
       public void GetPath_DocumentNameVaries( string documentName, string expectedPath )
       {
          var commitDocument = new CommitDocument( null )
