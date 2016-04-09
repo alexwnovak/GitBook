@@ -7,7 +7,7 @@ namespace GitWrite
       public static ApplicationMode GetFromFileName( string fileName )
       {
          var enumType = typeof( ApplicationMode );
-         var enumValues = Enum.GetValues( typeof ( ApplicationMode ) );
+         var enumValues = Enum.GetValues( typeof( ApplicationMode ) );
 
          foreach ( var enumValue in enumValues )
          {
@@ -25,7 +25,7 @@ namespace GitWrite
             }
 
          }
-      
+
          return ApplicationMode.Unknown;
       }
    }
