@@ -8,7 +8,7 @@
    xmlns:behaviors="clr-namespace:GitWrite.Behaviors"
    AllowsTransparency="True"
    Background="Transparent"
-   Title="CommitWindow"
+   Title="{Binding Title}"
    Width="1036"
    Height="{x:Static views:WindowValues.NonExpandedHeight}"
    ResizeMode="NoResize"
