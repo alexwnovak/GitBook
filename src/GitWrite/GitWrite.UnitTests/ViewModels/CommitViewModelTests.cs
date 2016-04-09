@@ -503,6 +503,26 @@ namespace GitWrite.UnitTests.ViewModels
          viewModel.ExtraCommitText.Should().Be( extraMessage );
       }
 
+      [Fact]
+      public void Title_HappyPath_TitleContainsBranchName()
+      {
+         const string branchName = "master";
+
+         // Setup
+
+         var gitServiceMock = new Mock<IGitService>();
+         gitServiceMock.Setup( gs => gs.GetCurrentBranchName() ).Returns( branchName );
+
+         // Test
+
+         var viewModel = new CommitViewModel( null, null, null, null, gitServiceMock.Object );
+         string title = viewModel.Title;
+
+         // Assert
+
+         title.Should().Contain( branchName );
+      }
+
       //[Fact]
       //public void OnCommitNotesKeyDown_KeyIsEscapeAndHasNoCommitText_CallsShutdown()
       //{
