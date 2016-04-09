@@ -2,5 +2,6 @@
 {
    public interface IGitService
    {
+      string GetCurrentBranchName();
    }
 }
