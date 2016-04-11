@@ -1,6 +1,5 @@
 using GalaSoft.MvvmLight.Ioc;
 using GitWrite.Services;
-using Microsoft.Practices.ServiceLocation;
 
 namespace GitWrite.ViewModels
 {
@@ -16,9 +15,5 @@ namespace GitWrite.ViewModels
       public InteractiveRebaseViewModel InteractiveRebaseViewMdoel
          => new InteractiveRebaseViewModel( SimpleIoc.Default.GetInstance<IViewService>(),
             new AppService() );
-
-      public static void Cleanup()
-      {
-      }
    }
 }
