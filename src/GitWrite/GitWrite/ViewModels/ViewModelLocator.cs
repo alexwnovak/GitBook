@@ -13,7 +13,9 @@ namespace GitWrite.ViewModels
             SimpleIoc.Default.GetInstance<ICommitDocument>(),
             SimpleIoc.Default.GetInstance<IGitService>() );
 
-      public InteractiveRebaseViewModel InteractiveRebaseViewMdoel => ServiceLocator.Current.GetInstance<InteractiveRebaseViewModel>();
+      public InteractiveRebaseViewModel InteractiveRebaseViewMdoel
+         => new InteractiveRebaseViewModel( SimpleIoc.Default.GetInstance<IViewService>(),
+            new AppService() );
 
       public static void Cleanup()
       {
