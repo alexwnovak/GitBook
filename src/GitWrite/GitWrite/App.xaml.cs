@@ -18,19 +18,17 @@ namespace GitWrite
          InitializeDependencies();
          InitializeTheme();
 
-         // Load the commit file
+         var appController = new AppController( new EnvironmentAdapter() );
+         var applicationMode = appController.Start( e.Args );
 
-         var appController = new AppController( new EnvironmentAdapter(), SimpleIoc.Default.GetInstance<ICommitFileReader>() );
-         var commitDocument = appController.Start( e.Args );
-
-         SimpleIoc.Default.Register<ICommitDocument>( () => commitDocument );
-         SimpleIoc.Default.Register<IGitService>( () => new GitService( GitRepositoryPathConverter.GetPath( commitDocument ) )  );
-
-         // Set the startup UI and we're off
-
-         switch ( appController.ApplicationMode )
+         switch ( applicationMode )
          {
-            case ApplicationMode.InteractiveRebase:
+            case ApplicationMode.Commit:
+            {
+               CommitPath( e.Args[0] );
+               break;
+            }
+            //case ApplicationMode.InteractiveRebase:
             case ApplicationMode.EditPatch:
             case ApplicationMode.Unknown:
                PassThrough( e.Args );
@@ -39,6 +37,27 @@ namespace GitWrite
          }
 
          StartupUri = GetStartupWindow( appController.ApplicationMode );
+      }
+
+      private void CommitPath( string fileName )
+      {
+         CommitDocument commitDocument = null;
+
+         try
+         {
+            var commitDocumentReader = new CommitFileReader( new FileAdapter() );
+            commitDocument = commitDocumentReader.FromFile( fileName );
+         }
+         catch ( GitFileLoadException )
+         {
+            Shutdown();
+         }
+
+         SimpleIoc.Default.Register( () => new CommitViewModel( SimpleIoc.Default.GetInstance<IViewService>(),
+            new AppService(),
+            new ClipboardService(),
+            commitDocument,
+            new GitService( GitRepositoryPathConverter.GetPath( commitDocument ) ) ) );
       }
 
       private void InitializeDependencies()

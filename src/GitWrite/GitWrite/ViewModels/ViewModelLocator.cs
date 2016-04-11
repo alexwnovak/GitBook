@@ -5,12 +5,7 @@ namespace GitWrite.ViewModels
 {
    public class ViewModelLocator
    {
-      public CommitViewModel CommitViewModel
-         => new CommitViewModel( SimpleIoc.Default.GetInstance<IViewService>(),
-            new AppService(),
-            new ClipboardService(),
-            SimpleIoc.Default.GetInstance<ICommitDocument>(),
-            SimpleIoc.Default.GetInstance<IGitService>() );
+      public CommitViewModel CommitViewModel => SimpleIoc.Default.GetInstance<CommitViewModel>();
 
       public InteractiveRebaseViewModel InteractiveRebaseViewMdoel
          => new InteractiveRebaseViewModel( SimpleIoc.Default.GetInstance<IViewService>(),
