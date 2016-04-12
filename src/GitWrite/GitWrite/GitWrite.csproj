@@ -87,6 +87,7 @@
     <Compile Include="FrameworkElementExtensions.cs" />
     <Compile Include="GitFileAttribute.cs" />
     <Compile Include="InteractiveRebaseDocument.cs" />
+    <Compile Include="InteractiveRebaseFileReader.cs" />
     <Compile Include="RebaseItemActionExtensions.cs" />
     <Compile Include="Services\ApplicationSettings.cs" />
     <Compile Include="Services\GitRepositoryPathConverter.cs" />
