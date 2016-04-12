@@ -10,6 +10,12 @@ namespace GitWrite.ViewModels
          set;
       }
 
+      public string CommitHash
+      {
+         get;
+         set;
+      }
+
       public RebaseItemAction Action
       {
          get;
