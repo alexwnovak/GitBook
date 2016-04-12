@@ -66,11 +66,12 @@ namespace GitWrite
 
       private void InteractiveRebasePath( string fileName )
       {
-         InteractiveRebaseDocument document = new InteractiveRebaseDocument();
+         InteractiveRebaseDocument document = null;
 
          try
          {
-            
+            var documentReader = new InteractiveRebaseFileReader( new FileAdapter() );
+            document = documentReader.FromFile( fileName );
          }
          catch ( GitFileLoadException )
          {
