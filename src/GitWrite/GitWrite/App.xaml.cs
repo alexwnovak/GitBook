@@ -28,7 +28,11 @@ namespace GitWrite
                CommitPath( e.Args[0] );
                break;
             }
-            //case ApplicationMode.InteractiveRebase:
+            case ApplicationMode.InteractiveRebase:
+            {
+               InteractiveRebasePath( e.Args[0] );
+               break;
+            }
             case ApplicationMode.EditPatch:
             case ApplicationMode.Unknown:
                PassThrough( e.Args );
@@ -60,11 +64,28 @@ namespace GitWrite
             new GitService( GitRepositoryPathConverter.GetPath( commitDocument ) ) ) );
       }
 
+      private void InteractiveRebasePath( string fileName )
+      {
+         InteractiveRebaseDocument document = new InteractiveRebaseDocument();
+
+         try
+         {
+            
+         }
+         catch ( GitFileLoadException )
+         {
+            Shutdown();
+         }
+
+         SimpleIoc.Default.Register( () => new InteractiveRebaseViewModel( SimpleIoc.Default.GetInstance<IViewService>(),
+            new AppService(),
+            document ) );
+      }
+
       private void InitializeDependencies()
       {
          ServiceLocator.SetLocatorProvider( () => SimpleIoc.Default );
 
-         SimpleIoc.Default.Register<InteractiveRebaseViewModel>();
          SimpleIoc.Default.Register<IApplicationSettings>( () => new ApplicationSettings( new RegistryService() ) );
          SimpleIoc.Default.Register<ICommitFileReader>( () => new CommitFileReader( new FileAdapter() ) );
          SimpleIoc.Default.Register<IStoryboardHelper, StoryboardHelper>();

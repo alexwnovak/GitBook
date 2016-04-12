@@ -1,5 +1,4 @@
 using GalaSoft.MvvmLight.Ioc;
-using GitWrite.Services;
 
 namespace GitWrite.ViewModels
 {
@@ -7,8 +6,6 @@ namespace GitWrite.ViewModels
    {
       public CommitViewModel CommitViewModel => SimpleIoc.Default.GetInstance<CommitViewModel>();
 
-      public InteractiveRebaseViewModel InteractiveRebaseViewMdoel
-         => new InteractiveRebaseViewModel( SimpleIoc.Default.GetInstance<IViewService>(),
-            new AppService() );
+      public InteractiveRebaseViewModel InteractiveRebaseViewMdoel => SimpleIoc.Default.GetInstance<InteractiveRebaseViewModel>();
    }
 }
