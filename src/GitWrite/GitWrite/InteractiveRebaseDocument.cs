@@ -28,13 +28,6 @@ namespace GitWrite
       public InteractiveRebaseDocument( IFileAdapter fileAdapter )
       {
          _fileAdapter = fileAdapter;
-
-         RebaseItems = new[]
-         {
-            new RebaseItem( "One" ), 
-            new RebaseItem( "Two" ), 
-            new RebaseItem( "Three" ), 
-         };
       }
 
       public void Save()
