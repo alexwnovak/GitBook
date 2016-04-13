@@ -111,6 +111,7 @@
     <Compile Include="HelpTextProviderTests.cs" />
     <Compile Include="InteractiveRebaseDocumentTests.cs" />
     <Compile Include="InteractiveRebaseFileReaderTests.cs" />
+    <Compile Include="RebaseItemHelper.cs" />
     <Compile Include="Services\ApplicationSettingsTests.cs" />
     <Compile Include="Services\GitRepositoryPathConverterTests.cs" />
     <Compile Include="ViewModels\CommitViewModelTests.cs" />
