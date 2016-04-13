@@ -18,19 +18,21 @@ namespace GitWrite
          InitializeDependencies();
          InitializeTheme();
 
-         // Load the commit file
+         var appController = new AppController( new EnvironmentAdapter() );
+         var applicationMode = appController.Start( e.Args );
 
-         var appController = new AppController( new EnvironmentAdapter(), SimpleIoc.Default.GetInstance<ICommitFileReader>() );
-         var commitDocument = appController.Start( e.Args );
-
-         SimpleIoc.Default.Register<ICommitDocument>( () => commitDocument );
-         SimpleIoc.Default.Register<IGitService>( () => new GitService( GitRepositoryPathConverter.GetPath( commitDocument ) )  );
-
-         // Set the startup UI and we're off
-
-         switch ( appController.ApplicationMode )
+         switch ( applicationMode )
          {
+            case ApplicationMode.Commit:
+            {
+               CommitPath( e.Args[0] );
+               break;
+            }
             case ApplicationMode.InteractiveRebase:
+            {
+               InteractiveRebasePath( e.Args[0] );
+               break;
+            }
             case ApplicationMode.EditPatch:
             case ApplicationMode.Unknown:
                PassThrough( e.Args );
@@ -41,11 +43,50 @@ namespace GitWrite
          StartupUri = GetStartupWindow( appController.ApplicationMode );
       }
 
+      private void CommitPath( string fileName )
+      {
+         CommitDocument commitDocument = null;
+
+         try
+         {
+            var commitDocumentReader = new CommitFileReader( new FileAdapter() );
+            commitDocument = commitDocumentReader.FromFile( fileName );
+         }
+         catch ( GitFileLoadException )
+         {
+            Shutdown();
+         }
+
+         SimpleIoc.Default.Register( () => new CommitViewModel( SimpleIoc.Default.GetInstance<IViewService>(),
+            new AppService(),
+            new ClipboardService(),
+            commitDocument,
+            new GitService( GitRepositoryPathConverter.GetPath( commitDocument ) ) ) );
+      }
+
+      private void InteractiveRebasePath( string fileName )
+      {
+         InteractiveRebaseDocument document = null;
+
+         try
+         {
+            var documentReader = new InteractiveRebaseFileReader( new FileAdapter() );
+            document = documentReader.FromFile( fileName );
+         }
+         catch ( GitFileLoadException )
+         {
+            Shutdown();
+         }
+
+         SimpleIoc.Default.Register( () => new InteractiveRebaseViewModel( SimpleIoc.Default.GetInstance<IViewService>(),
+            new AppService(),
+            document ) );
+      }
+
       private void InitializeDependencies()
       {
          ServiceLocator.SetLocatorProvider( () => SimpleIoc.Default );
 
-         SimpleIoc.Default.Register<InteractiveRebaseViewModel>();
          SimpleIoc.Default.Register<IApplicationSettings>( () => new ApplicationSettings( new RegistryService() ) );
          SimpleIoc.Default.Register<ICommitFileReader>( () => new CommitFileReader( new FileAdapter() ) );
          SimpleIoc.Default.Register<IStoryboardHelper, StoryboardHelper>();

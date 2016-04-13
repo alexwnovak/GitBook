@@ -1,14 +1,10 @@
-﻿using System;
-using System.IO;
-using System.Threading.Tasks;
-using GitWrite.Views;
+﻿using System.IO;
 
 namespace GitWrite
 {
    public class AppController
    {
       private readonly IEnvironmentAdapter _environmentAdapter;
-      private readonly ICommitFileReader _commitFileReader;
 
       public ApplicationMode ApplicationMode
       {
@@ -16,18 +12,17 @@ namespace GitWrite
          private set;
       }
 
-      public AppController( IEnvironmentAdapter environmentAdapter, ICommitFileReader commitFileReader )
+      public AppController( IEnvironmentAdapter environmentAdapter )
       {
          _environmentAdapter = environmentAdapter;
-         _commitFileReader = commitFileReader;
       }
 
-      public CommitDocument Start( string[] arguments )
+      public ApplicationMode Start( string[] arguments )
       {
          if ( arguments == null || arguments.Length == 0 )
          {
             _environmentAdapter.Exit( 1 );
-            return null;
+            return ApplicationMode.Unknown;
          }
 
          string fileName = Path.GetFileName( arguments[0] );
@@ -36,21 +31,10 @@ namespace GitWrite
          if ( ApplicationMode == ApplicationMode.Unknown )
          {
             _environmentAdapter.Exit( 1 );
-            return null;
+            return ApplicationMode.Unknown;
          }
 
-         CommitDocument commitDocument = null;
-
-         try
-         {
-            commitDocument = _commitFileReader.FromFile( arguments[0] );
-         }
-         catch ( GitFileLoadException )
-         {
-            _environmentAdapter.Exit( 1 );
-         }
-
-         return commitDocument;
+         return ApplicationMode;
       }
    }
 }
