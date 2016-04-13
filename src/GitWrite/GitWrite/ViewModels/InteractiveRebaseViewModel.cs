@@ -1,4 +1,6 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
 using GitWrite.Services;
 
 namespace GitWrite.ViewModels
@@ -25,6 +27,14 @@ namespace GitWrite.ViewModels
          var tempItem = Items[indexOne];
          Items.RemoveAt( indexOne );
          Items.Insert( indexTwo, tempItem );
+      }
+
+      protected override Task OnSaveAsync()
+      {
+         _document.RebaseItems = Items.ToArray();
+         _document.Save();
+
+         return Task.FromResult( true );
       }
    }
 }
