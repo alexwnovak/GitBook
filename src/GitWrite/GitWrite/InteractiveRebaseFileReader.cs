@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using GitWrite.ViewModels;
 
 namespace GitWrite
@@ -7,11 +8,15 @@ namespace GitWrite
    public class InteractiveRebaseFileReader
    {
       private readonly IFileAdapter _fileAdapter;
+      private static readonly RebaseItemAction[] _rebaseItemActions = GetRebaseItemActions();
 
       public InteractiveRebaseFileReader( IFileAdapter fileAdapter )
       {
          _fileAdapter = fileAdapter;
       }
+
+      private static RebaseItemAction[] GetRebaseItemActions()
+         => (RebaseItemAction[]) Enum.GetValues( typeof( RebaseItemAction ) );
 
       public InteractiveRebaseDocument FromFile( string path )
       {
@@ -48,10 +53,12 @@ namespace GitWrite
 
       private static RebaseItemAction ActionFromString( string action )
       {
-         switch ( action )
+         foreach ( var rebaseAction in _rebaseItemActions )
          {
-            case "pick":
-               return RebaseItemAction.Pick;
+            if ( rebaseAction.ToString().Equals( action, StringComparison.InvariantCultureIgnoreCase ) )
+            {
+               return rebaseAction;
+            }
          }
 
          throw new ArgumentException( $"Unknown action: {action}", nameof( action ) );
