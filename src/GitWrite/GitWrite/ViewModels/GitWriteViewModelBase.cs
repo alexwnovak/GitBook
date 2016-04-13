@@ -73,6 +73,7 @@ namespace GitWrite.ViewModels
          AppService = appService;
 
          AbortCommand = new RelayCommand( OnAbort );
+         SaveCommand = new RelayCommand( OnSave );
       }
 
       private async void OnAbort()
@@ -115,6 +116,16 @@ namespace GitWrite.ViewModels
 
          IsExiting = true;
          await OnShutdownRequested( this, new ShutdownEventArgs( exitReason ) );
+
+         AppService.Shutdown();
+      }
+
+      private async void OnSave()
+      {
+         await OnSaveAsync();
+
+         IsExiting = true;
+         await OnShutdownRequested( this, new ShutdownEventArgs( ExitReason.Accept ) );
 
          AppService.Shutdown();
       }

@@ -125,7 +125,6 @@ namespace GitWrite.ViewModels
          ExpandCommand = new RelayCommand( ExpandUI );
          HelpCommand = new RelayCommand( ActivateHelp );
          LoadCommand = new RelayCommand( ViewLoaded );
-         SaveCommand = new RelayCommand( async () => await OnSaveAsync() );
          PasteCommand = new RelayCommand( PasteFromClipboard );
 
          ShortMessage = _commitDocument?.ShortMessage;
@@ -150,22 +149,18 @@ namespace GitWrite.ViewModels
 
       protected virtual Task OnExitRequestedAsync( object sender, EventArgs e ) => AsyncExitRequested?.Invoke( sender, e );
 
-      protected override async Task OnSaveAsync()
+      protected override Task OnSaveAsync()
       {
          if ( string.IsNullOrWhiteSpace( ShortMessage ) || IsExiting )
          {
-            return;
+            return Task.FromResult( true );
          }
-
-         var shutdownTask = OnShutdownRequested( this, new ShutdownEventArgs( ExitReason.Accept ) );
 
          _commitDocument.ShortMessage = ShortMessage;
          _commitDocument.LongMessage = ExtraCommitText;
          _commitDocument.Save();
 
-         await shutdownTask;
-
-         AppService.Shutdown();
+         return Task.FromResult( true );
       }
 
       public bool DismissHelpIfActive()
