@@ -1,9 +1,12 @@
-﻿using GitWrite.ViewModels;
+﻿using System.Linq;
+using GitWrite.ViewModels;
 
 namespace GitWrite
 {
    public class InteractiveRebaseDocument
    {
+      private readonly IFileAdapter _fileAdapter;
+
       public string Name
       {
          get;
@@ -22,14 +25,23 @@ namespace GitWrite
          set;
       }
 
-      public InteractiveRebaseDocument()
+      public InteractiveRebaseDocument( IFileAdapter fileAdapter )
       {
+         _fileAdapter = fileAdapter;
+
          RebaseItems = new[]
          {
             new RebaseItem( "One" ), 
             new RebaseItem( "Two" ), 
             new RebaseItem( "Three" ), 
          };
+      }
+
+      public void Save()
+      {
+         var allLines = RebaseItems.Select( i => $"{i.Action.ToString().ToLower()} {i.CommitHash} {i.Text}" );
+
+         _fileAdapter.WriteAllLines( Name, allLines );
       }
    }
 }

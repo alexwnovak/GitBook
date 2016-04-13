@@ -66,7 +66,7 @@ namespace GitWrite
 
       private InteractiveRebaseDocument CreateBasicDocument( string path )
       {
-         return new InteractiveRebaseDocument
+         return new InteractiveRebaseDocument( _fileAdapter )
          {
             RawLines = _fileAdapter.ReadAllLines( path ),
             Name = path
