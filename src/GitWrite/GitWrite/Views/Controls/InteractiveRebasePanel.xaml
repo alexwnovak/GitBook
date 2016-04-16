@@ -11,7 +11,8 @@
    Foreground="White"
    FocusVisualStyle="{x:Null}"
    FontSize="24"
-   FontFamily="Consolas">
+   FontFamily="Consolas"
+   Loaded="InteractiveRebasePanel_OnLoaded">
    <ItemsControl.Template>
       <ControlTemplate>
          <ScrollViewer x:Name="ScrollViewer"
