@@ -12,4 +12,15 @@
    FocusVisualStyle="{x:Null}"
    FontSize="24"
    FontFamily="Consolas">
+   <ItemsControl.Template>
+      <ControlTemplate>
+         <ScrollViewer x:Name="ScrollViewer"
+            VerticalScrollBarVisibility="Hidden"
+            Padding="{TemplateBinding Padding}">
+            <Grid x:Name="LayoutGrid">
+               <ItemsPresenter />
+            </Grid>
+         </ScrollViewer>
+      </ControlTemplate>
+   </ItemsControl.Template>
 </ItemsControl>
