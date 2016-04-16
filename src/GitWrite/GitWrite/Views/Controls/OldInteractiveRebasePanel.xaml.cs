@@ -10,7 +10,7 @@ using GitWrite.ViewModels;
 
 namespace GitWrite.Views.Controls
 {
-   public partial class InteractiveRebasePanel
+   public partial class OldInteractiveRebasePanel
    {
       private enum MovementDirection
       {
@@ -26,7 +26,7 @@ namespace GitWrite.Views.Controls
 
       public static DependencyProperty ItemsSourceProperty = DependencyProperty.Register( "ItemsSource",
          typeof( IEnumerable ),
-         typeof( InteractiveRebasePanel ),
+         typeof( OldInteractiveRebasePanel ),
          new FrameworkPropertyMetadata( null ) );
 
       public IEnumerable ItemsSource
@@ -45,7 +45,7 @@ namespace GitWrite.Views.Controls
       private int _highlightedIndex;
       private bool _isHighlightMoving;
 
-      public InteractiveRebasePanel()
+      public OldInteractiveRebasePanel()
       {
          InitializeComponent();
       }

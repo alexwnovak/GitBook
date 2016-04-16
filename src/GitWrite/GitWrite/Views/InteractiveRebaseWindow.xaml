@@ -43,9 +43,9 @@
                Padding="16"
                VerticalAlignment="Stretch">
                <Grid VerticalAlignment="Stretch">
-                  <controls:InteractiveRebasePanel x:Name="RebasePanel"
+                  <controls:OldInteractiveRebasePanel x:Name="RebasePanel"
                      ItemsSource="{Binding Items}">
-                  </controls:InteractiveRebasePanel>
+                  </controls:OldInteractiveRebasePanel>
                </Grid>
             </Border>
          </Grid>
