@@ -109,6 +109,7 @@
     <Compile Include="Views\Controls\ConfirmPanel.xaml.cs">
       <DependentUpon>ConfirmPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Controls\ItemSelectionAdorner.cs" />
     <Compile Include="Views\Controls\OldInteractiveRebasePanel.xaml.cs">
       <DependentUpon>OldInteractiveRebasePanel.xaml</DependentUpon>
     </Compile>
