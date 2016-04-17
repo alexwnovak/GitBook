@@ -135,5 +135,27 @@ namespace GitWrite.Views.Controls
 
          _selectedObject.BringIntoView();
       }
+
+      private async void InteractiveRebasePanel_OnKeyDown( object sender, KeyEventArgs e )
+      {
+         if ( e.Key == Key.Down )
+         {
+            if ( _selectedIndex >= _itemCollection.Count - 1 )
+            {
+               return;
+            }
+
+            await UpdateSelectedIndex( _selectedIndex + 1 );
+         }
+         else if ( e.Key == Key.Up )
+         {
+            if ( _selectedIndex <= 0 )
+            {
+               return;
+            }
+
+            await UpdateSelectedIndex( _selectedIndex - 1 );
+         }
+      }
    }
 }
