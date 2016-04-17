@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace GitWrite.Views.Controls
@@ -9,6 +10,9 @@ namespace GitWrite.Views.Controls
       private ScrollViewer _scrollViewer;
       private Grid _layoutGrid;
       private ICollection _itemCollection;
+      private int _selectedIndex;
+      private FrameworkElement _selectedObject;
+      private ItemSelectionAdorner _currentAdorner;
 
       static InteractiveRebasePanel()
       {
@@ -30,6 +34,22 @@ namespace GitWrite.Views.Controls
       {
          var panel = (InteractiveRebasePanel) d;
          panel._itemCollection = (ICollection) e.NewValue;
+      }
+
+      private void SetAdorner( int index )
+      {
+         var currentObject = (ContentPresenter) ItemContainerGenerator.ContainerFromIndex( index );
+
+         var adornerLayer = AdornerLayer.GetAdornerLayer( currentObject );
+
+         _currentAdorner = new ItemSelectionAdorner( currentObject );
+
+         adornerLayer.Add( _currentAdorner );
+
+         _selectedObject = currentObject;
+         _selectedIndex = index;
+
+         _selectedObject.BringIntoView();
       }
    }
 }
