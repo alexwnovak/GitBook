@@ -3,323 +3,161 @@ using System.Collections;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
-using GitWrite.ViewModels;
+using System.Windows.Shapes;
 
 namespace GitWrite.Views.Controls
 {
-   public partial class InteractiveRebasePanel
+   public partial class InteractiveRebasePanel : ItemsControl
    {
-      private enum MovementDirection
+      private ScrollViewer _scrollViewer;
+      private Grid _layoutGrid;
+      private ICollection _itemCollection;
+      private int _selectedIndex;
+      private FrameworkElement _selectedObject;
+      private ItemSelectionAdorner _currentAdorner;
+      private bool _isMoving;
+      private double _previousY;
+
+      static InteractiveRebasePanel()
       {
-         Up = -1,
-         Down = 1
+         ItemsSourceProperty.OverrideMetadata( typeof( InteractiveRebasePanel ), new FrameworkPropertyMetadata( ItemsSourceChanged ) );
       }
-
-      private enum TextBoxSelector
-      {
-         First,
-         Second
-      }
-
-      public static DependencyProperty ItemsSourceProperty = DependencyProperty.Register( "ItemsSource",
-         typeof( IEnumerable ),
-         typeof( InteractiveRebasePanel ),
-         new FrameworkPropertyMetadata( null ) );
-
-      public IEnumerable ItemsSource
-      {
-         get
-         {
-            return (IEnumerable) GetValue( ItemsSourceProperty );
-         }
-         set
-         {
-            SetValue( ItemsSourceProperty, value );
-         }
-      }
-
-      private const int _movementAnimationDuration = 70;
-      private int _highlightedIndex;
-      private bool _isHighlightMoving;
 
       public InteractiveRebasePanel()
       {
          InitializeComponent();
       }
 
-      private Duration AnimationDuration => new Duration( TimeSpan.FromMilliseconds( _movementAnimationDuration ) );
-
-      private void InteractiveRebasePanel_Loaded( object sender, RoutedEventArgs e )
+      private async void InteractiveRebasePanel_OnLoaded( object sender, RoutedEventArgs e )
       {
-         ListBox.Focus();
+         _scrollViewer = (ScrollViewer) Template.FindName( "ScrollViewer", this );
+         _layoutGrid = (Grid) Template.FindName( "LayoutGrid", this );
+
+         await UpdateSelectedIndex( 0 );
       }
 
-      private DoubleAnimation GetDoubleAnimation( double from, double to )
-         => new DoubleAnimation( from, to, AnimationDuration )
-         {
-            EasingFunction = new QuarticEase()
-         };
-
-      private Task MoveItemAsync( int index, MovementDirection direction )
+      private static void ItemsSourceChanged( DependencyObject d, DependencyPropertyChangedEventArgs e )
       {
-         var taskCompletionSource = new TaskCompletionSource<bool>();
-
-         var container = (ListBoxItem) ListBox.ItemContainerGenerator.ContainerFromIndex( index );
-         var child = (FrameworkElement) VisualTreeHelper.GetChild( container, 0 );
-
-         var doubleAnimation = GetDoubleAnimation( 0, container.ActualHeight * (int) direction );
-
-         doubleAnimation.Completed += ( sender, e ) =>
-         {
-            child.RenderTransform = null;
-            taskCompletionSource.SetResult( true );
-         };
-
-         var translateTransform = new TranslateTransform();
-
-         child.RenderTransform = translateTransform;
-         translateTransform.BeginAnimation( TranslateTransform.YProperty, doubleAnimation );
-
-         return taskCompletionSource.Task;
+         var panel = (InteractiveRebasePanel) d;
+         panel._itemCollection = (ICollection) e.NewValue;
       }
 
-      private Task MoveHighlightAsync( int newIndex )
+      private async Task UpdateSelectedIndex( int index )
       {
-         _isHighlightMoving = true;
-
-         var taskCompletionSource = new TaskCompletionSource<bool>();
-
-         var container = (ListBoxItem) ListBox.ItemContainerGenerator.ContainerFromIndex( _highlightedIndex );
-
-         var doubleAnimation = GetDoubleAnimation( _highlightedIndex * container.ActualHeight, newIndex * container.ActualHeight );
-
-         doubleAnimation.Completed += ( sender, e ) =>
-         {
-            _isHighlightMoving = false;
-            taskCompletionSource.SetResult( true );
-         };
-
-         HighlightElement.BeginAnimation( Canvas.TopProperty, doubleAnimation );
-
-         return taskCompletionSource.Task;
-      }
-
-      private Task MoveHighlightAsync( MovementDirection direction )
-      {
-         _isHighlightMoving = true;
-
-         var taskCompletionSource = new TaskCompletionSource<bool>();
-
-         var container = (ListBoxItem) ListBox.ItemContainerGenerator.ContainerFromIndex( _highlightedIndex );
-
-         double height = container.ActualHeight;
-         double from = _highlightedIndex * height;
-         double to = from + container.ActualHeight * (int) direction;
-
-         var doubleAnimation = GetDoubleAnimation( from, to );
-         doubleAnimation.Completed += ( sender, e ) =>
-         {
-            _isHighlightMoving = false;
-            taskCompletionSource.SetResult( true );
-         };
-
-         HighlightElement.BeginAnimation( Canvas.TopProperty, doubleAnimation );
-
-         return taskCompletionSource.Task;
-      }
-
-      private async Task SwapItemsAsync( int moveDownIndex, int MoveUpIndex )
-      {
-         var moveDownTask = MoveItemAsync( moveDownIndex, MovementDirection.Down );
-         var moveUpTask = MoveItemAsync( MoveUpIndex, MovementDirection.Up );
-
-         Task moveHighlightTask;
-
-         if ( moveDownIndex == _highlightedIndex )
-         {
-            moveHighlightTask = MoveHighlightAsync( MovementDirection.Down );
-         }
-         else
-         {
-            moveHighlightTask = MoveHighlightAsync( MovementDirection.Up );
-         }
-
-         await Task.WhenAll( moveDownTask, moveUpTask, moveHighlightTask );
-
-         var viewModel = (InteractiveRebaseViewModel) DataContext;
-         viewModel.SwapItems( moveDownIndex, MoveUpIndex );
-      }
-
-      private async void InteractiveRebaseWindow_OnPreviewKeyDown( object sender, KeyEventArgs e )
-      {
-         if ( _isHighlightMoving )
+         if ( _isMoving )
          {
             return;
          }
 
-         bool isCtrlDown = Keyboard.Modifiers == ModifierKeys.Control;
+         _isMoving = true;
+         RemoveCurrentAdorner();
 
+         if ( _selectedObject != null )
+         {
+            int direction = index > _selectedIndex ? 1 : -1;
+            var pos = _selectedObject.TranslatePoint( new Point( 0, 0 ), _scrollViewer );
+            double offset = pos.Y;
+
+            if ( offset != _previousY )
+            {
+               _previousY = offset;
+               offset += _scrollViewer.VerticalOffset;
+
+               var margin = new Thickness( 0, offset, 0, 0 );
+               var marginAfter = new Thickness( 0, offset + 28 * direction, 0, 0 );
+
+               var animatedRectangle = new Rectangle
+               {
+                  IsHitTestVisible = false,
+                  VerticalAlignment = VerticalAlignment.Top,
+                  Width = ActualWidth,
+                  Margin = margin,
+                  Height = 28,
+                  Fill = (Brush) Application.Current.Resources["HighlightColor"]
+               };
+
+               _layoutGrid.Children.Add( animatedRectangle );
+
+               var thicknessAnimation = new ThicknessAnimation( margin, marginAfter, new Duration( TimeSpan.FromMilliseconds( 70 ) ) )
+               {
+                  EasingFunction = new CircleEase
+                  {
+                     EasingMode = EasingMode.EaseOut
+                  }
+               };
+
+               var storyboard = new Storyboard();
+
+               Storyboard.SetTarget( thicknessAnimation, animatedRectangle );
+               Storyboard.SetTargetProperty( thicknessAnimation, new PropertyPath( MarginProperty ) );
+
+               var tcs = new TaskCompletionSource<bool>();
+
+               storyboard.Children.Add( thicknessAnimation );
+               storyboard.Completed += ( sender, args ) => tcs.SetResult( true );
+               storyboard.Begin();
+
+               await tcs.Task;
+
+               _layoutGrid.Children.Remove( animatedRectangle );
+            }
+         }
+
+         SetAdorner( index );
+         _isMoving = false;
+      }
+
+      private void RemoveCurrentAdorner()
+      {
+         if ( _selectedObject == null || _currentAdorner == null )
+         {
+            return;
+         }
+
+         var adornerLayer = AdornerLayer.GetAdornerLayer( _selectedObject );
+         adornerLayer.Remove( _currentAdorner );
+      }
+
+      private void SetAdorner( int index )
+      {
+         var currentObject = (ContentPresenter) ItemContainerGenerator.ContainerFromIndex( index );
+
+         var adornerLayer = AdornerLayer.GetAdornerLayer( currentObject );
+
+         _currentAdorner = new ItemSelectionAdorner( currentObject );
+
+         adornerLayer.Add( _currentAdorner );
+
+         _selectedObject = currentObject;
+         _selectedIndex = index;
+
+         _selectedObject.BringIntoView();
+      }
+
+      private async void InteractiveRebasePanel_OnKeyDown( object sender, KeyEventArgs e )
+      {
          if ( e.Key == Key.Down )
          {
-            if ( _highlightedIndex == ListBox.Items.Count - 1 )
+            if ( _selectedIndex >= _itemCollection.Count - 1 )
             {
                return;
             }
 
-            if ( isCtrlDown )
-            {
-               await SwapItemsAsync( _highlightedIndex, _highlightedIndex + 1 );
-            }
-            else
-            {
-               await MoveHighlightAsync( MovementDirection.Down );
-            }
-
-            _highlightedIndex++;
+            await UpdateSelectedIndex( _selectedIndex + 1 );
          }
          else if ( e.Key == Key.Up )
          {
-            if ( _highlightedIndex == 0 )
+            if ( _selectedIndex <= 0 )
             {
                return;
             }
 
-            if ( isCtrlDown )
-            {
-               await SwapItemsAsync( _highlightedIndex - 1, _highlightedIndex );
-            }
-            else
-            {
-               await MoveHighlightAsync( MovementDirection.Up );
-            }
-
-            _highlightedIndex--;
+            await UpdateSelectedIndex( _selectedIndex - 1 );
          }
-         else if ( e.Key == Key.Home && isCtrlDown )
-         {
-            await MoveHighlightAsync( 0 );
-            _highlightedIndex = 0;
-         }
-         else if ( e.Key == Key.End && isCtrlDown )
-         {
-            await MoveHighlightAsync( ListBox.Items.Count - 1 );
-            _highlightedIndex = ListBox.Items.Count - 1;
-         }
-         else if ( e.Key == Key.P )
-         {
-            await ChangeActionAsync( RebaseItemAction.Pick );
-         }
-         else if ( e.Key == Key.R )
-         {
-            await ChangeActionAsync( RebaseItemAction.Reword );
-         }
-         else if ( e.Key == Key.E )
-         {
-            await ChangeActionAsync( RebaseItemAction.Edit );
-         }
-         else if ( e.Key == Key.S )
-         {
-            await ChangeActionAsync( RebaseItemAction.Squash );
-         }
-         else if ( e.Key == Key.F )
-         {
-            await ChangeActionAsync( RebaseItemAction.Fixup );
-         }
-         else if ( e.Key == Key.X )
-         {
-            await ChangeActionAsync( RebaseItemAction.Exec );
-         }
-         else if ( e.Key == Key.Right )
-         {
-            var currentItem = (RebaseItem) ListBox.Items[_highlightedIndex];
-
-            await ChangeActionAsync( currentItem.Action.NextValue() );
-         }
-         else if ( e.Key == Key.Left )
-         {
-            var currentItem = (RebaseItem) ListBox.Items[_highlightedIndex];
-
-            await ChangeActionAsync( currentItem.Action.PreviousValue() );
-         }
-      }
-
-      private Task ChangeActionAsync( RebaseItemAction itemAction )
-      {
-         var rebaseItem = (RebaseItem) ListBox.Items[_highlightedIndex];
-
-         if ( rebaseItem.Action == itemAction )
-         {
-            return Task.FromResult( 0 );
-         }
-
-         var container = (ListBoxItem) ListBox.ItemContainerGenerator.ContainerFromIndex( _highlightedIndex );
-         var animationTargets = GetAnimationTarget( container );
-
-         rebaseItem.Action = itemAction;
-         animationTargets.Item1.Text = rebaseItem.Action.ToString();
-
-         const double duration = 120;
-
-         var moveOutTask = TranslateHorizontalAsync( animationTargets.Item2, 0, 10, TimeSpan.FromMilliseconds( duration ) );
-         var fadeOutTask = FadeAsync( animationTargets.Item2, 1, 0, TimeSpan.FromMilliseconds( duration ) );
-
-         var moveInTask = TranslateHorizontalAsync( animationTargets.Item1, -10, 0, TimeSpan.FromMilliseconds( duration ) );
-         var fadeInTask = FadeAsync( animationTargets.Item1, 0, 1, TimeSpan.FromMilliseconds( duration ) );
-
-         return Task.WhenAll( moveOutTask, moveInTask, fadeOutTask, fadeInTask );
-      }
-
-      private Tuple<TextBlock, TextBlock> GetAnimationTarget( ListBoxItem item )
-      {
-         var textBoxSelector = (TextBoxSelector?) item.Tag ?? TextBoxSelector.First;
-         string firstName, secondName;
-
-         if ( textBoxSelector == TextBoxSelector.First )
-         {
-            firstName = "ActionTextOne";
-            secondName = "ActionTextTwo";
-            item.Tag = TextBoxSelector.Second;
-         }
-         else
-         {
-            firstName = "ActionTextTwo";
-            secondName = "ActionTextOne";
-            item.Tag = TextBoxSelector.First;
-         }
-
-         var firstTextBlock = (TextBlock) item.Template.FindName( firstName, item );
-         var secondTextBlock = (TextBlock) item.Template.FindName( secondName, item );
-
-         return new Tuple<TextBlock, TextBlock>( firstTextBlock, secondTextBlock );
-      }
-
-      private Task TranslateHorizontalAsync( UIElement element, double from, double to, TimeSpan duration )
-      {
-         var taskCompletionSource = new TaskCompletionSource<bool>();
-         var translateTransform = new TranslateTransform();
-
-         var doubleAnimation = new DoubleAnimation( from, to, new Duration( duration ) );
-         doubleAnimation.Completed += ( sender, e ) => taskCompletionSource.SetResult( true );
-
-         element.RenderTransform = translateTransform;
-         translateTransform.BeginAnimation( TranslateTransform.XProperty, doubleAnimation );
-
-         return taskCompletionSource.Task;
-      }
-
-      private Task FadeAsync( UIElement element, double from, double to, TimeSpan duration )
-      {
-         var taskCompletionSource = new TaskCompletionSource<bool>();
-
-         var opacityAnimation = new DoubleAnimation( from, to, new Duration( duration ) );
-         opacityAnimation.Completed += ( sender, e ) => taskCompletionSource.SetResult( true );
-
-         element.BeginAnimation( UIElement.OpacityProperty, opacityAnimation );
-
-         return taskCompletionSource.Task;
       }
    }
 }
