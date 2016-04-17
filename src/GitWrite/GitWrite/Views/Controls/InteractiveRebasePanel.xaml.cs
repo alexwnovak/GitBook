@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Windows.Controls;
 
 namespace GitWrite.Views.Controls
@@ -7,6 +8,12 @@ namespace GitWrite.Views.Controls
    {
       private ScrollViewer _scrollViewer;
       private Grid _layoutGrid;
+      private ICollection _itemCollection;
+
+      static InteractiveRebasePanel()
+      {
+         ItemsSourceProperty.OverrideMetadata( typeof( InteractiveRebasePanel ), new FrameworkPropertyMetadata( ItemsSourceChanged ) );
+      }
 
       public InteractiveRebasePanel()
       {
@@ -17,6 +24,12 @@ namespace GitWrite.Views.Controls
       {
          _scrollViewer = (ScrollViewer) Template.FindName( "ScrollViewer", this );
          _layoutGrid = (Grid) Template.FindName( "LayoutGrid", this );
+      }
+
+      private static void ItemsSourceChanged( DependencyObject d, DependencyPropertyChangedEventArgs e )
+      {
+         var panel = (InteractiveRebasePanel) d;
+         panel._itemCollection = (ICollection) e.NewValue;
       }
    }
 }
