@@ -13,6 +13,12 @@ namespace GitWrite.Views.Controls
 {
    public partial class InteractiveRebasePanel : ItemsControl
    {
+      private enum MovementDirection
+      {
+         Up = -1,
+         Down = 1
+      }
+
       private ScrollViewer _scrollViewer;
       private Grid _layoutGrid;
       private ICollection _itemCollection;
@@ -44,6 +50,35 @@ namespace GitWrite.Views.Controls
       {
          var panel = (InteractiveRebasePanel) d;
          panel._itemCollection = (ICollection) e.NewValue;
+      }
+
+      private DoubleAnimation GetDoubleAnimation( double from, double to, TimeSpan duration )
+          => new DoubleAnimation( from, to, new Duration( duration ) )
+          {
+             EasingFunction = new QuarticEase()
+          };
+
+      private Task MoveItemAsync( int index, MovementDirection direction )
+      {
+         var taskCompletionSource = new TaskCompletionSource<bool>();
+
+         var container = (ContentPresenter) ItemContainerGenerator.ContainerFromIndex( index );
+         var child = (FrameworkElement) VisualTreeHelper.GetChild( container, 0 );
+
+         var doubleAnimation = GetDoubleAnimation( 0, container.ActualHeight * (int) direction, TimeSpan.FromMilliseconds( 200 ) );
+
+         doubleAnimation.Completed += ( sender, e ) =>
+         {
+            child.RenderTransform = null;
+            taskCompletionSource.SetResult( true );
+         };
+
+         var translateTransform = new TranslateTransform();
+
+         child.RenderTransform = translateTransform;
+         translateTransform.BeginAnimation( TranslateTransform.YProperty, doubleAnimation );
+
+         return taskCompletionSource.Task;
       }
 
       private async Task UpdateSelectedIndex( int index )
