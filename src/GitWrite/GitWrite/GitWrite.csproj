@@ -110,9 +110,6 @@
       <DependentUpon>ConfirmPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Controls\ItemSelectionAdorner.cs" />
-    <Compile Include="Views\Controls\OldInteractiveRebasePanel.xaml.cs">
-      <DependentUpon>OldInteractiveRebasePanel.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Controls\InteractiveRebasePanel.xaml.cs">
       <DependentUpon>InteractiveRebasePanel.xaml</DependentUpon>
     </Compile>
@@ -198,10 +195,6 @@
     <Page Include="Views\Controls\ExitPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Controls\OldInteractiveRebasePanel.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Controls\InteractiveRebasePanel.xaml">
       <SubType>Designer</SubType>
