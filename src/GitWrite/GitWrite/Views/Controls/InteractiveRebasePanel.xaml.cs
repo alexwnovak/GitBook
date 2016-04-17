@@ -32,10 +32,12 @@ namespace GitWrite.Views.Controls
          InitializeComponent();
       }
 
-      private void InteractiveRebasePanel_OnLoaded( object sender, RoutedEventArgs e )
+      private async void InteractiveRebasePanel_OnLoaded( object sender, RoutedEventArgs e )
       {
          _scrollViewer = (ScrollViewer) Template.FindName( "ScrollViewer", this );
          _layoutGrid = (Grid) Template.FindName( "LayoutGrid", this );
+
+         await UpdateSelectedIndex( 0 );
       }
 
       private static void ItemsSourceChanged( DependencyObject d, DependencyPropertyChangedEventArgs e )
