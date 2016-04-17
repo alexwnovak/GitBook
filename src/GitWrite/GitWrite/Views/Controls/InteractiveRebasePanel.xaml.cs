@@ -36,6 +36,17 @@ namespace GitWrite.Views.Controls
          panel._itemCollection = (ICollection) e.NewValue;
       }
 
+      private void RemoveCurrentAdorner()
+      {
+         if ( _selectedObject == null || _currentAdorner == null )
+         {
+            return;
+         }
+
+         var adornerLayer = AdornerLayer.GetAdornerLayer( _selectedObject );
+         adornerLayer.Remove( _currentAdorner );
+      }
+
       private void SetAdorner( int index )
       {
          var currentObject = (ContentPresenter) ItemContainerGenerator.ContainerFromIndex( index );
