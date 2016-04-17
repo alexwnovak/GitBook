@@ -8,6 +8,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using GitWrite.ViewModels;
 
 namespace GitWrite.Views.Controls
 {
@@ -81,6 +82,67 @@ namespace GitWrite.Views.Controls
          return taskCompletionSource.Task;
       }
 
+      private async Task SwapItemsAsync( int moveDownIndex, int moveUpIndex )
+      {
+         var moveDownTask = MoveItemAsync( moveDownIndex, MovementDirection.Down );
+         var moveUpTask = MoveItemAsync( moveUpIndex, MovementDirection.Up );
+
+         var pos = _selectedObject.TranslatePoint( new Point( 0, 0 ), _scrollViewer );
+         var moveHighlightTask = AnimateHighlight( pos.Y, pos.Y + 28, TimeSpan.FromMilliseconds( 70 ) );
+
+         RemoveCurrentAdorner();
+
+         await Task.WhenAll( moveDownTask, moveUpTask, moveHighlightTask );
+ 
+         var viewModel = (InteractiveRebaseViewModel) DataContext;
+         viewModel.SwapItems( moveDownIndex, moveUpIndex );
+
+         SetAdorner( moveUpIndex );
+      }
+
+      private Task AnimateHighlight( double from, double to, TimeSpan duration )
+      {
+         var margin = new Thickness( 0, from, 0, 0 );
+         var marginAfter = new Thickness( 0, to, 0, 0 );
+
+         var animatedRectangle = new Rectangle
+         {
+            IsHitTestVisible = false,
+            VerticalAlignment = VerticalAlignment.Top,
+            Width = ActualWidth,
+            Margin = margin,
+            Height = 28,
+            Fill = (Brush) Application.Current.Resources["HighlightColor"]
+         };
+
+         _layoutGrid.Children.Add( animatedRectangle );
+
+         var thicknessAnimation = new ThicknessAnimation( margin, marginAfter, new Duration( duration ) )
+         {
+            EasingFunction = new CircleEase
+            {
+               EasingMode = EasingMode.EaseOut
+            }
+         };
+
+         var storyboard = new Storyboard();
+
+         Storyboard.SetTarget( thicknessAnimation, animatedRectangle );
+         Storyboard.SetTargetProperty( thicknessAnimation, new PropertyPath( MarginProperty ) );
+
+         var tcs = new TaskCompletionSource<bool>();
+
+         storyboard.Children.Add( thicknessAnimation );
+         storyboard.Completed += ( sender, args ) =>
+         {
+            _layoutGrid.Children.Remove( animatedRectangle );
+            tcs.SetResult( true );
+         };
+         storyboard.Begin();
+
+         return tcs.Task;
+      }
+
       private async Task UpdateSelectedIndex( int index )
       {
          if ( _isMoving )
@@ -102,43 +164,7 @@ namespace GitWrite.Views.Controls
                _previousY = offset;
                offset += _scrollViewer.VerticalOffset;
 
-               var margin = new Thickness( 0, offset, 0, 0 );
-               var marginAfter = new Thickness( 0, offset + 28 * direction, 0, 0 );
-
-               var animatedRectangle = new Rectangle
-               {
-                  IsHitTestVisible = false,
-                  VerticalAlignment = VerticalAlignment.Top,
-                  Width = ActualWidth,
-                  Margin = margin,
-                  Height = 28,
-                  Fill = (Brush) Application.Current.Resources["HighlightColor"]
-               };
-
-               _layoutGrid.Children.Add( animatedRectangle );
-
-               var thicknessAnimation = new ThicknessAnimation( margin, marginAfter, new Duration( TimeSpan.FromMilliseconds( 70 ) ) )
-               {
-                  EasingFunction = new CircleEase
-                  {
-                     EasingMode = EasingMode.EaseOut
-                  }
-               };
-
-               var storyboard = new Storyboard();
-
-               Storyboard.SetTarget( thicknessAnimation, animatedRectangle );
-               Storyboard.SetTargetProperty( thicknessAnimation, new PropertyPath( MarginProperty ) );
-
-               var tcs = new TaskCompletionSource<bool>();
-
-               storyboard.Children.Add( thicknessAnimation );
-               storyboard.Completed += ( sender, args ) => tcs.SetResult( true );
-               storyboard.Begin();
-
-               await tcs.Task;
-
-               _layoutGrid.Children.Remove( animatedRectangle );
+               await AnimateHighlight( offset, offset + 28 * direction, TimeSpan.FromMilliseconds( 200 ) );
             }
          }
 
