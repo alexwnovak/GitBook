@@ -1,7 +1,13 @@
 ﻿using System;
 using System.Collections;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
+using System.Windows.Shapes;
 
 namespace GitWrite.Views.Controls
 {
@@ -13,6 +19,8 @@ namespace GitWrite.Views.Controls
       private int _selectedIndex;
       private FrameworkElement _selectedObject;
       private ItemSelectionAdorner _currentAdorner;
+      private bool _isMoving;
+      private double _previousY;
 
       static InteractiveRebasePanel()
       {
@@ -34,6 +42,71 @@ namespace GitWrite.Views.Controls
       {
          var panel = (InteractiveRebasePanel) d;
          panel._itemCollection = (ICollection) e.NewValue;
+      }
+
+      private async Task UpdateSelectedIndex( int index )
+      {
+         if ( _isMoving )
+         {
+            return;
+         }
+
+         _isMoving = true;
+         RemoveCurrentAdorner();
+
+         if ( _selectedObject != null )
+         {
+            int direction = index > _selectedIndex ? 1 : -1;
+            var pos = _selectedObject.TranslatePoint( new Point( 0, 0 ), _scrollViewer );
+            double offset = pos.Y;
+
+            if ( offset != _previousY )
+            {
+               _previousY = offset;
+               offset += _scrollViewer.VerticalOffset;
+
+               var margin = new Thickness( 0, offset, 0, 0 );
+               var marginAfter = new Thickness( 0, offset + 28 * direction, 0, 0 );
+
+               var animatedRectangle = new Rectangle
+               {
+                  IsHitTestVisible = false,
+                  VerticalAlignment = VerticalAlignment.Top,
+                  Width = ActualWidth,
+                  Margin = margin,
+                  Height = 28,
+                  Fill = (Brush) Application.Current.Resources["HighlightColor"]
+               };
+
+               _layoutGrid.Children.Add( animatedRectangle );
+
+               var thicknessAnimation = new ThicknessAnimation( margin, marginAfter, new Duration( TimeSpan.FromMilliseconds( 70 ) ) )
+               {
+                  EasingFunction = new CircleEase
+                  {
+                     EasingMode = EasingMode.EaseOut
+                  }
+               };
+
+               var storyboard = new Storyboard();
+
+               Storyboard.SetTarget( thicknessAnimation, animatedRectangle );
+               Storyboard.SetTargetProperty( thicknessAnimation, new PropertyPath( MarginProperty ) );
+
+               var tcs = new TaskCompletionSource<bool>();
+
+               storyboard.Children.Add( thicknessAnimation );
+               storyboard.Completed += ( sender, args ) => tcs.SetResult( true );
+               storyboard.Begin();
+
+               await tcs.Task;
+
+               _layoutGrid.Children.Remove( animatedRectangle );
+            }
+         }
+
+         SetAdorner( index );
+         _isMoving = false;
       }
 
       private void RemoveCurrentAdorner()
