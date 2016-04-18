@@ -314,6 +314,22 @@ namespace GitWrite.Views.Controls
                await UpdateSelectedIndex( _selectedIndex - 1 );
             }
          }
+         else if ( e.Key == Key.Left )
+         {
+            var container = (ContentPresenter) ItemContainerGenerator.ContainerFromIndex( _selectedIndex );
+            
+            var currentItem = (RebaseItem) container.Content;
+
+            await ChangeActionAsync( currentItem.Action.PreviousValue(), HorizontalMovementDirection.Left );
+         }
+         else if ( e.Key == Key.Right )
+         {
+            var container = (ContentPresenter) ItemContainerGenerator.ContainerFromIndex( _selectedIndex );
+
+            var currentItem = (RebaseItem) container.Content;
+
+            await ChangeActionAsync( currentItem.Action.NextValue(), HorizontalMovementDirection.Right );
+         }
       }
    }
 }
