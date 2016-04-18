@@ -220,7 +220,14 @@ namespace GitWrite.Views.Controls
                return;
             }
 
-            await UpdateSelectedIndex( _selectedIndex + 1 );
+            if ( Keyboard.Modifiers == ModifierKeys.Control )
+            {
+               await SwapItemsAsync( _selectedIndex, _selectedIndex + 1 );
+            }
+            else
+            {
+               await UpdateSelectedIndex( _selectedIndex + 1 );
+            }
          }
          else if ( e.Key == Key.Up )
          {
@@ -229,7 +236,14 @@ namespace GitWrite.Views.Controls
                return;
             }
 
-            await UpdateSelectedIndex( _selectedIndex - 1 );
+            if ( Keyboard.Modifiers == ModifierKeys.Control )
+            {
+               await SwapItemsAsync( _selectedIndex - 1, _selectedIndex );
+            }
+            else
+            {
+               await UpdateSelectedIndex( _selectedIndex - 1 );
+            }
          }
       }
    }
