@@ -10,7 +10,7 @@
    AllowsTransparency="True"
    Background="Transparent"
    Title="CommitWindow"
-   Width="1036"
+   Width="1082"
    Height="500"
    ResizeMode="NoResize"
    WindowStyle="None"
