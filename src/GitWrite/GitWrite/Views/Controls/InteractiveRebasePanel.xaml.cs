@@ -20,6 +20,12 @@ namespace GitWrite.Views.Controls
          Down = 1
       }
 
+      private enum HorizontalMovementDirection
+      {
+         Left = -1,
+         Right = 1
+      }
+
       private ScrollViewer _scrollViewer;
       private Grid _layoutGrid;
       private ICollection _itemCollection;
