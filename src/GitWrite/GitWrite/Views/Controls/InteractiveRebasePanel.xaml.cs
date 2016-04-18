@@ -88,7 +88,19 @@ namespace GitWrite.Views.Controls
          var moveUpTask = MoveItemAsync( moveUpIndex, MovementDirection.Up );
 
          var pos = _selectedObject.TranslatePoint( new Point( 0, 0 ), _scrollViewer );
-         var moveHighlightTask = AnimateHighlight( pos.Y, pos.Y + 28, TimeSpan.FromMilliseconds( 70 ) );
+         Task moveHighlightTask;
+         int nextIndex;
+
+         if ( moveDownIndex == _selectedIndex )
+         {
+            nextIndex = _selectedIndex + 1;
+            moveHighlightTask = AnimateHighlight( pos.Y, pos.Y + 28, TimeSpan.FromMilliseconds( 70 ) );
+         }
+         else
+         {
+            nextIndex = _selectedIndex - 1;
+            moveHighlightTask = AnimateHighlight( pos.Y, pos.Y - 28, TimeSpan.FromMilliseconds( 70 ) );
+         }
 
          RemoveCurrentAdorner();
 
@@ -97,7 +109,7 @@ namespace GitWrite.Views.Controls
          var viewModel = (InteractiveRebaseViewModel) DataContext;
          viewModel.SwapItems( moveDownIndex, moveUpIndex );
 
-         SetAdorner( moveUpIndex );
+         SetAdorner( nextIndex );
       }
 
       private Task AnimateHighlight( double from, double to, TimeSpan duration )
