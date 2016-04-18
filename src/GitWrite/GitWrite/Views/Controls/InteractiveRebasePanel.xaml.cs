@@ -330,6 +330,30 @@ namespace GitWrite.Views.Controls
 
             await ChangeActionAsync( currentItem.Action.NextValue(), HorizontalMovementDirection.Right );
          }
+         else if ( e.Key == Key.P )
+         {
+            await ChangeActionAsync( RebaseItemAction.Pick, HorizontalMovementDirection.Right );
+         }
+         else if ( e.Key == Key.S )
+         {
+            await ChangeActionAsync( RebaseItemAction.Squash, HorizontalMovementDirection.Right );
+         }
+         else if ( e.Key == Key.R )
+         {
+            await ChangeActionAsync( RebaseItemAction.Reword, HorizontalMovementDirection.Right );
+         }
+         else if ( e.Key == Key.F )
+         {
+            await ChangeActionAsync( RebaseItemAction.Fixup, HorizontalMovementDirection.Right );
+         }
+         else if ( e.Key == Key.E )
+         {
+            await ChangeActionAsync( RebaseItemAction.Edit, HorizontalMovementDirection.Right );
+         }
+         else if ( e.Key == Key.X )
+         {
+            await ChangeActionAsync( RebaseItemAction.Exec, HorizontalMovementDirection.Right );
+         }
       }
    }
 }
