@@ -217,6 +217,43 @@ namespace GitWrite.Views.Controls
          _selectedObject.BringIntoView();
       }
 
+      private async Task ChangeActionAsync( RebaseItemAction itemAction, HorizontalMovementDirection direction )
+      {
+         const double duration = 120;
+         int directionMultiplier = (int) direction;
+
+         var container = (ContentPresenter) ItemContainerGenerator.ContainerFromIndex( _selectedIndex );
+         var itemTemplateRoot = (Grid) container.ContentTemplate.FindName( "ItemTemplateRoot", container );
+         var actionTextBlock = (TextBlock) container.ContentTemplate.FindName( "ActionTextBlock", container );
+
+         var translateTask = TranslateHorizontalAsync( actionTextBlock, 0, 16 * directionMultiplier, TimeSpan.FromMilliseconds( duration ) );
+         var fadeTask = FadeAsync( actionTextBlock, 1, 0, TimeSpan.FromMilliseconds( duration ) );
+
+         var fadeInTextBlock = new TextBlock
+         {
+            FontSize = actionTextBlock.FontSize,
+            Margin = actionTextBlock.Margin,
+            Opacity = 0,
+            Text = itemAction.ToString(),
+            VerticalAlignment = actionTextBlock.VerticalAlignment
+         };
+
+         itemTemplateRoot.Children.Add( fadeInTextBlock );
+
+         var translateTask2 = TranslateHorizontalAsync( fadeInTextBlock, -16 * directionMultiplier, 0, TimeSpan.FromMilliseconds( duration ) );
+         var fadeTask2 = FadeAsync( fadeInTextBlock, 0, 1, TimeSpan.FromMilliseconds( duration ) );
+
+         await Task.WhenAll( translateTask, fadeTask, translateTask2, fadeTask2 );
+
+         actionTextBlock.SetCurrentValue( OpacityProperty, 1.0 );
+         actionTextBlock.SetCurrentValue( RenderTransformProperty, null );
+
+         itemTemplateRoot.Children.Remove( fadeInTextBlock );
+
+         var rebaseItem = (RebaseItem) container.Content;
+         rebaseItem.Action = itemAction;
+      }
+
       private Task FadeAsync( UIElement element, double from, double to, TimeSpan duration )
       {
          var taskCompletionSource = new TaskCompletionSource<bool>();
