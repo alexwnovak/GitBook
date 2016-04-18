@@ -217,6 +217,18 @@ namespace GitWrite.Views.Controls
          _selectedObject.BringIntoView();
       }
 
+      private Task FadeAsync( UIElement element, double from, double to, TimeSpan duration )
+      {
+         var taskCompletionSource = new TaskCompletionSource<bool>();
+
+         var opacityAnimation = new DoubleAnimation( from, to, new Duration( duration ) );
+         opacityAnimation.Completed += ( sender, e ) => taskCompletionSource.SetResult( true );
+
+         element.BeginAnimation( OpacityProperty, opacityAnimation );
+
+         return taskCompletionSource.Task;
+      }
+
       private Task TranslateHorizontalAsync( UIElement element, double from, double to, TimeSpan duration )
       {
          var taskCompletionSource = new TaskCompletionSource<bool>();
