@@ -8,11 +8,24 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using GitWrite.ViewModels;
 
 namespace GitWrite.Views.Controls
 {
    public partial class InteractiveRebasePanel : ItemsControl
    {
+      private enum VerticalMovementDirection
+      {
+         Up = -1,
+         Down = 1
+      }
+
+      private enum HorizontalMovementDirection
+      {
+         Left = -1,
+         Right = 1
+      }
+
       private ScrollViewer _scrollViewer;
       private Grid _layoutGrid;
       private ICollection _itemCollection;
@@ -46,6 +59,108 @@ namespace GitWrite.Views.Controls
          panel._itemCollection = (ICollection) e.NewValue;
       }
 
+      private DoubleAnimation GetDoubleAnimation( double from, double to, TimeSpan duration )
+          => new DoubleAnimation( from, to, new Duration( duration ) )
+          {
+             EasingFunction = new QuarticEase()
+          };
+
+      private Task MoveItemAsync( int index, VerticalMovementDirection direction )
+      {
+         var taskCompletionSource = new TaskCompletionSource<bool>();
+
+         var container = (ContentPresenter) ItemContainerGenerator.ContainerFromIndex( index );
+         var child = (FrameworkElement) VisualTreeHelper.GetChild( container, 0 );
+
+         var doubleAnimation = GetDoubleAnimation( 0, container.ActualHeight * (int) direction, TimeSpan.FromMilliseconds( 70 ) );
+
+         doubleAnimation.Completed += ( sender, e ) =>
+         {
+            child.RenderTransform = null;
+            taskCompletionSource.SetResult( true );
+         };
+
+         var translateTransform = new TranslateTransform();
+
+         child.RenderTransform = translateTransform;
+         translateTransform.BeginAnimation( TranslateTransform.YProperty, doubleAnimation );
+
+         return taskCompletionSource.Task;
+      }
+
+      private async Task SwapItemsAsync( int moveDownIndex, int moveUpIndex )
+      {
+         var moveDownTask = MoveItemAsync( moveDownIndex, VerticalMovementDirection.Down );
+         var moveUpTask = MoveItemAsync( moveUpIndex, VerticalMovementDirection.Up );
+
+         var pos = _selectedObject.TranslatePoint( new Point( 0, 0 ), _scrollViewer );
+         Task moveHighlightTask;
+         int nextIndex;
+
+         if ( moveDownIndex == _selectedIndex )
+         {
+            nextIndex = _selectedIndex + 1;
+            moveHighlightTask = AnimateHighlight( pos.Y, pos.Y + 28, TimeSpan.FromMilliseconds( 70 ) );
+         }
+         else
+         {
+            nextIndex = _selectedIndex - 1;
+            moveHighlightTask = AnimateHighlight( pos.Y, pos.Y - 28, TimeSpan.FromMilliseconds( 70 ) );
+         }
+
+         RemoveCurrentAdorner();
+
+         await Task.WhenAll( moveDownTask, moveUpTask, moveHighlightTask );
+ 
+         var viewModel = (InteractiveRebaseViewModel) DataContext;
+         viewModel.SwapItems( moveDownIndex, moveUpIndex );
+
+         SetAdorner( nextIndex );
+      }
+
+      private Task AnimateHighlight( double from, double to, TimeSpan duration )
+      {
+         var margin = new Thickness( 0, from, 0, 0 );
+         var marginAfter = new Thickness( 0, to, 0, 0 );
+
+         var animatedRectangle = new Rectangle
+         {
+            IsHitTestVisible = false,
+            VerticalAlignment = VerticalAlignment.Top,
+            Width = ActualWidth,
+            Margin = margin,
+            Height = 28,
+            Fill = (Brush) Application.Current.Resources["HighlightColor"]
+         };
+
+         _layoutGrid.Children.Add( animatedRectangle );
+
+         var thicknessAnimation = new ThicknessAnimation( margin, marginAfter, new Duration( duration ) )
+         {
+            EasingFunction = new CircleEase
+            {
+               EasingMode = EasingMode.EaseOut
+            }
+         };
+
+         var storyboard = new Storyboard();
+
+         Storyboard.SetTarget( thicknessAnimation, animatedRectangle );
+         Storyboard.SetTargetProperty( thicknessAnimation, new PropertyPath( MarginProperty ) );
+
+         var tcs = new TaskCompletionSource<bool>();
+
+         storyboard.Children.Add( thicknessAnimation );
+         storyboard.Completed += ( sender, args ) =>
+         {
+            _layoutGrid.Children.Remove( animatedRectangle );
+            tcs.SetResult( true );
+         };
+         storyboard.Begin();
+
+         return tcs.Task;
+      }
+
       private async Task UpdateSelectedIndex( int index )
       {
          if ( _isMoving )
@@ -67,43 +182,7 @@ namespace GitWrite.Views.Controls
                _previousY = offset;
                offset += _scrollViewer.VerticalOffset;
 
-               var margin = new Thickness( 0, offset, 0, 0 );
-               var marginAfter = new Thickness( 0, offset + 28 * direction, 0, 0 );
-
-               var animatedRectangle = new Rectangle
-               {
-                  IsHitTestVisible = false,
-                  VerticalAlignment = VerticalAlignment.Top,
-                  Width = ActualWidth,
-                  Margin = margin,
-                  Height = 28,
-                  Fill = (Brush) Application.Current.Resources["HighlightColor"]
-               };
-
-               _layoutGrid.Children.Add( animatedRectangle );
-
-               var thicknessAnimation = new ThicknessAnimation( margin, marginAfter, new Duration( TimeSpan.FromMilliseconds( 70 ) ) )
-               {
-                  EasingFunction = new CircleEase
-                  {
-                     EasingMode = EasingMode.EaseOut
-                  }
-               };
-
-               var storyboard = new Storyboard();
-
-               Storyboard.SetTarget( thicknessAnimation, animatedRectangle );
-               Storyboard.SetTargetProperty( thicknessAnimation, new PropertyPath( MarginProperty ) );
-
-               var tcs = new TaskCompletionSource<bool>();
-
-               storyboard.Children.Add( thicknessAnimation );
-               storyboard.Completed += ( sender, args ) => tcs.SetResult( true );
-               storyboard.Begin();
-
-               await tcs.Task;
-
-               _layoutGrid.Children.Remove( animatedRectangle );
+               await AnimateHighlight( offset, offset + 28 * direction, TimeSpan.FromMilliseconds( 200 ) );
             }
          }
 
@@ -138,6 +217,69 @@ namespace GitWrite.Views.Controls
          _selectedObject.BringIntoView();
       }
 
+      private async Task ChangeActionAsync( RebaseItemAction itemAction, HorizontalMovementDirection direction )
+      {
+         const double duration = 120;
+         int directionMultiplier = (int) direction;
+
+         var container = (ContentPresenter) ItemContainerGenerator.ContainerFromIndex( _selectedIndex );
+         var itemTemplateRoot = (Grid) container.ContentTemplate.FindName( "ItemTemplateRoot", container );
+         var actionTextBlock = (TextBlock) container.ContentTemplate.FindName( "ActionTextBlock", container );
+
+         var translateTask = TranslateHorizontalAsync( actionTextBlock, 0, 16 * directionMultiplier, TimeSpan.FromMilliseconds( duration ) );
+         var fadeTask = FadeAsync( actionTextBlock, 1, 0, TimeSpan.FromMilliseconds( duration ) );
+
+         var fadeInTextBlock = new TextBlock
+         {
+            FontSize = actionTextBlock.FontSize,
+            Margin = actionTextBlock.Margin,
+            Opacity = 0,
+            Text = itemAction.ToString(),
+            VerticalAlignment = actionTextBlock.VerticalAlignment
+         };
+
+         itemTemplateRoot.Children.Add( fadeInTextBlock );
+
+         var translateTask2 = TranslateHorizontalAsync( fadeInTextBlock, -16 * directionMultiplier, 0, TimeSpan.FromMilliseconds( duration ) );
+         var fadeTask2 = FadeAsync( fadeInTextBlock, 0, 1, TimeSpan.FromMilliseconds( duration ) );
+
+         await Task.WhenAll( translateTask, fadeTask, translateTask2, fadeTask2 );
+
+         actionTextBlock.SetCurrentValue( OpacityProperty, 1.0 );
+         actionTextBlock.SetCurrentValue( RenderTransformProperty, null );
+
+         itemTemplateRoot.Children.Remove( fadeInTextBlock );
+
+         var rebaseItem = (RebaseItem) container.Content;
+         rebaseItem.Action = itemAction;
+      }
+
+      private Task FadeAsync( UIElement element, double from, double to, TimeSpan duration )
+      {
+         var taskCompletionSource = new TaskCompletionSource<bool>();
+
+         var opacityAnimation = new DoubleAnimation( from, to, new Duration( duration ) );
+         opacityAnimation.Completed += ( sender, e ) => taskCompletionSource.SetResult( true );
+
+         element.BeginAnimation( OpacityProperty, opacityAnimation );
+
+         return taskCompletionSource.Task;
+      }
+
+      private Task TranslateHorizontalAsync( UIElement element, double from, double to, TimeSpan duration )
+      {
+         var taskCompletionSource = new TaskCompletionSource<bool>();
+         var translateTransform = new TranslateTransform();
+
+         var doubleAnimation = new DoubleAnimation( from, to, new Duration( duration ) );
+         doubleAnimation.Completed += ( sender, e ) => taskCompletionSource.SetResult( true );
+
+         element.RenderTransform = translateTransform;
+         translateTransform.BeginAnimation( TranslateTransform.XProperty, doubleAnimation );
+
+         return taskCompletionSource.Task;
+      }
+
       private async void InteractiveRebasePanel_OnKeyDown( object sender, KeyEventArgs e )
       {
          if ( e.Key == Key.Down )
@@ -147,7 +289,14 @@ namespace GitWrite.Views.Controls
                return;
             }
 
-            await UpdateSelectedIndex( _selectedIndex + 1 );
+            if ( Keyboard.Modifiers == ModifierKeys.Control )
+            {
+               await SwapItemsAsync( _selectedIndex, _selectedIndex + 1 );
+            }
+            else
+            {
+               await UpdateSelectedIndex( _selectedIndex + 1 );
+            }
          }
          else if ( e.Key == Key.Up )
          {
@@ -156,7 +305,30 @@ namespace GitWrite.Views.Controls
                return;
             }
 
-            await UpdateSelectedIndex( _selectedIndex - 1 );
+            if ( Keyboard.Modifiers == ModifierKeys.Control )
+            {
+               await SwapItemsAsync( _selectedIndex - 1, _selectedIndex );
+            }
+            else
+            {
+               await UpdateSelectedIndex( _selectedIndex - 1 );
+            }
+         }
+         else if ( e.Key == Key.Left )
+         {
+            var container = (ContentPresenter) ItemContainerGenerator.ContainerFromIndex( _selectedIndex );
+            
+            var currentItem = (RebaseItem) container.Content;
+
+            await ChangeActionAsync( currentItem.Action.PreviousValue(), HorizontalMovementDirection.Left );
+         }
+         else if ( e.Key == Key.Right )
+         {
+            var container = (ContentPresenter) ItemContainerGenerator.ContainerFromIndex( _selectedIndex );
+
+            var currentItem = (RebaseItem) container.Content;
+
+            await ChangeActionAsync( currentItem.Action.NextValue(), HorizontalMovementDirection.Right );
          }
       }
    }
