@@ -217,6 +217,20 @@ namespace GitWrite.Views.Controls
          _selectedObject.BringIntoView();
       }
 
+      private Task TranslateHorizontalAsync( UIElement element, double from, double to, TimeSpan duration )
+      {
+         var taskCompletionSource = new TaskCompletionSource<bool>();
+         var translateTransform = new TranslateTransform();
+
+         var doubleAnimation = new DoubleAnimation( from, to, new Duration( duration ) );
+         doubleAnimation.Completed += ( sender, e ) => taskCompletionSource.SetResult( true );
+
+         element.RenderTransform = translateTransform;
+         translateTransform.BeginAnimation( TranslateTransform.XProperty, doubleAnimation );
+
+         return taskCompletionSource.Task;
+      }
+
       private async void InteractiveRebasePanel_OnKeyDown( object sender, KeyEventArgs e )
       {
          if ( e.Key == Key.Down )
