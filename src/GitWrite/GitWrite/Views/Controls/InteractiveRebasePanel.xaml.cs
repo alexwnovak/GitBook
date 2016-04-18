@@ -14,7 +14,7 @@ namespace GitWrite.Views.Controls
 {
    public partial class InteractiveRebasePanel : ItemsControl
    {
-      private enum MovementDirection
+      private enum VerticalMovementDirection
       {
          Up = -1,
          Down = 1
@@ -59,7 +59,7 @@ namespace GitWrite.Views.Controls
              EasingFunction = new QuarticEase()
           };
 
-      private Task MoveItemAsync( int index, MovementDirection direction )
+      private Task MoveItemAsync( int index, VerticalMovementDirection direction )
       {
          var taskCompletionSource = new TaskCompletionSource<bool>();
 
@@ -84,8 +84,8 @@ namespace GitWrite.Views.Controls
 
       private async Task SwapItemsAsync( int moveDownIndex, int moveUpIndex )
       {
-         var moveDownTask = MoveItemAsync( moveDownIndex, MovementDirection.Down );
-         var moveUpTask = MoveItemAsync( moveUpIndex, MovementDirection.Up );
+         var moveDownTask = MoveItemAsync( moveDownIndex, VerticalMovementDirection.Down );
+         var moveUpTask = MoveItemAsync( moveUpIndex, VerticalMovementDirection.Up );
 
          var pos = _selectedObject.TranslatePoint( new Point( 0, 0 ), _scrollViewer );
          Task moveHighlightTask;
