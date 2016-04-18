@@ -72,7 +72,7 @@ namespace GitWrite.Views.Controls
          var container = (ContentPresenter) ItemContainerGenerator.ContainerFromIndex( index );
          var child = (FrameworkElement) VisualTreeHelper.GetChild( container, 0 );
 
-         var doubleAnimation = GetDoubleAnimation( 0, container.ActualHeight * (int) direction, TimeSpan.FromMilliseconds( 200 ) );
+         var doubleAnimation = GetDoubleAnimation( 0, container.ActualHeight * (int) direction, TimeSpan.FromMilliseconds( 70 ) );
 
          doubleAnimation.Completed += ( sender, e ) =>
          {
