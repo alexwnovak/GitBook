@@ -219,6 +219,13 @@ namespace GitWrite.Views.Controls
 
       private async Task ChangeActionAsync( RebaseItemAction itemAction, HorizontalMovementDirection direction )
       {
+         if ( _isMoving )
+         {
+            return;
+         }
+
+         _isMoving = true;
+
          const double duration = 120;
          int directionMultiplier = (int) direction;
 
@@ -252,6 +259,8 @@ namespace GitWrite.Views.Controls
 
          var rebaseItem = (RebaseItem) container.Content;
          rebaseItem.Action = itemAction;
+
+         _isMoving = false;
       }
 
       private Task FadeAsync( UIElement element, double from, double to, TimeSpan duration )
