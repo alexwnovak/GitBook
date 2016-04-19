@@ -14,6 +14,8 @@ namespace GitWrite.ViewModels
          get;
       }
 
+      public string Title => "Rebasing";
+
       public InteractiveRebaseViewModel( IViewService viewService, IAppService appService, InteractiveRebaseDocument document )
          : base ( viewService, appService )
       {

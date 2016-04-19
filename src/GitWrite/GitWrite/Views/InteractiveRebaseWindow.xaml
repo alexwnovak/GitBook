@@ -9,7 +9,7 @@
    xmlns:controls="clr-namespace:GitWrite.Views.Controls"
    AllowsTransparency="True"
    Background="Transparent"
-   Title="CommitWindow"
+   Title="{Binding Title}"
    Width="1082"
    Height="500"
    ResizeMode="NoResize"
