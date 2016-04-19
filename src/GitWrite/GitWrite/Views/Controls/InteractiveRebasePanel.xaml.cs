@@ -325,7 +325,7 @@ namespace GitWrite.Views.Controls
                await UpdateSelectedIndex( _selectedIndex - 1 );
             }
          }
-         else if ( e.Key == Key.Left )
+         else if ( e.Key == Key.Left && Keyboard.Modifiers == ModifierKeys.None )
          {
             var container = (ContentPresenter) ItemContainerGenerator.ContainerFromIndex( _selectedIndex );
 
@@ -333,7 +333,7 @@ namespace GitWrite.Views.Controls
 
             await ChangeActionAsync( currentItem.Action.PreviousValue(), HorizontalMovementDirection.Left );
          }
-         else if ( e.Key == Key.Right )
+         else if ( e.Key == Key.Right && Keyboard.Modifiers == ModifierKeys.None )
          {
             var container = (ContentPresenter) ItemContainerGenerator.ContainerFromIndex( _selectedIndex );
 
