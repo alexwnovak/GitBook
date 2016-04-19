@@ -50,14 +50,16 @@ namespace GitWrite.Views.Controls
          _scrollViewer = (ScrollViewer) Template.FindName( "ScrollViewer", this );
          _layoutGrid = (Grid) Template.FindName( "LayoutGrid", this );
 
-         await UpdateSelectedIndex( 0 );
+         await UpdateSelectedIndexAsync( 0 );
       }
 
       private static void ItemsSourceChanged( DependencyObject d, DependencyPropertyChangedEventArgs e )
       {
-         var panel = (InteractiveRebasePanel) d;
-         panel._itemCollection = (ICollection) e.NewValue;
+         ( (InteractiveRebasePanel) d )._itemCollection = (ICollection) e.NewValue;
       }
+
+      private double GetContainerHeight() =>
+         ( (FrameworkElement) ItemContainerGenerator.ContainerFromIndex( _selectedIndex ) ).ActualHeight;
 
       private DoubleAnimation GetDoubleAnimation( double from, double to, TimeSpan duration )
           => new DoubleAnimation( from, to, new Duration( duration ) )
@@ -72,7 +74,7 @@ namespace GitWrite.Views.Controls
          var container = (ContentPresenter) ItemContainerGenerator.ContainerFromIndex( index );
          var child = (FrameworkElement) VisualTreeHelper.GetChild( container, 0 );
 
-         var doubleAnimation = GetDoubleAnimation( 0, container.ActualHeight * (int) direction, TimeSpan.FromMilliseconds( 70 ) );
+         var doubleAnimation = GetDoubleAnimation( 0, GetContainerHeight() * (int) direction, TimeSpan.FromMilliseconds( 70 ) );
 
          doubleAnimation.Completed += ( sender, e ) =>
          {
@@ -100,18 +102,18 @@ namespace GitWrite.Views.Controls
          if ( moveDownIndex == _selectedIndex )
          {
             nextIndex = _selectedIndex + 1;
-            moveHighlightTask = AnimateHighlight( pos.Y, pos.Y + 28, TimeSpan.FromMilliseconds( 70 ) );
+            moveHighlightTask = AnimateHighlight( pos.Y, pos.Y + GetContainerHeight(), TimeSpan.FromMilliseconds( 70 ) );
          }
          else
          {
             nextIndex = _selectedIndex - 1;
-            moveHighlightTask = AnimateHighlight( pos.Y, pos.Y - 28, TimeSpan.FromMilliseconds( 70 ) );
+            moveHighlightTask = AnimateHighlight( pos.Y, pos.Y - GetContainerHeight(), TimeSpan.FromMilliseconds( 70 ) );
          }
 
          RemoveCurrentAdorner();
 
          await Task.WhenAll( moveDownTask, moveUpTask, moveHighlightTask );
- 
+
          var viewModel = (InteractiveRebaseViewModel) DataContext;
          viewModel.SwapItems( moveDownIndex, moveUpIndex );
 
@@ -129,7 +131,7 @@ namespace GitWrite.Views.Controls
             VerticalAlignment = VerticalAlignment.Top,
             Width = ActualWidth,
             Margin = margin,
-            Height = 28,
+            Height = GetContainerHeight(),
             Fill = (Brush) Application.Current.Resources["HighlightColor"]
          };
 
@@ -161,7 +163,7 @@ namespace GitWrite.Views.Controls
          return tcs.Task;
       }
 
-      private async Task UpdateSelectedIndex( int index )
+      private async Task UpdateSelectedIndexAsync( int index, bool animate = true )
       {
          if ( _isMoving )
          {
@@ -177,12 +179,12 @@ namespace GitWrite.Views.Controls
             var pos = _selectedObject.TranslatePoint( new Point( 0, 0 ), _scrollViewer );
             double offset = pos.Y;
 
-            if ( offset != _previousY )
+            if ( offset != _previousY && animate )
             {
                _previousY = offset;
                offset += _scrollViewer.VerticalOffset;
 
-               await AnimateHighlight( offset, offset + 28 * direction, TimeSpan.FromMilliseconds( 200 ) );
+               await AnimateHighlight( offset, offset + GetContainerHeight() * direction, TimeSpan.FromMilliseconds( 70 ) );
             }
          }
 
@@ -219,10 +221,24 @@ namespace GitWrite.Views.Controls
 
       private async Task ChangeActionAsync( RebaseItemAction itemAction, HorizontalMovementDirection direction )
       {
+         if ( _isMoving )
+         {
+            return;
+         }
+
+         var container = (ContentPresenter) ItemContainerGenerator.ContainerFromIndex( _selectedIndex );
+         var rebaseItem = (RebaseItem) container.Content;
+
+         if ( rebaseItem.Action == itemAction )
+         {
+            return;
+         }
+
+         _isMoving = true;
+
          const double duration = 120;
          int directionMultiplier = (int) direction;
 
-         var container = (ContentPresenter) ItemContainerGenerator.ContainerFromIndex( _selectedIndex );
          var itemTemplateRoot = (Grid) container.ContentTemplate.FindName( "ItemTemplateRoot", container );
          var actionTextBlock = (TextBlock) container.ContentTemplate.FindName( "ActionTextBlock", container );
 
@@ -250,8 +266,9 @@ namespace GitWrite.Views.Controls
 
          itemTemplateRoot.Children.Remove( fadeInTextBlock );
 
-         var rebaseItem = (RebaseItem) container.Content;
          rebaseItem.Action = itemAction;
+
+         _isMoving = false;
       }
 
       private Task FadeAsync( UIElement element, double from, double to, TimeSpan duration )
@@ -295,7 +312,7 @@ namespace GitWrite.Views.Controls
             }
             else
             {
-               await UpdateSelectedIndex( _selectedIndex + 1 );
+               await UpdateSelectedIndexAsync( _selectedIndex + 1 );
             }
          }
          else if ( e.Key == Key.Up )
@@ -311,24 +328,56 @@ namespace GitWrite.Views.Controls
             }
             else
             {
-               await UpdateSelectedIndex( _selectedIndex - 1 );
+               await UpdateSelectedIndexAsync( _selectedIndex - 1 );
             }
          }
-         else if ( e.Key == Key.Left )
+         else if ( e.Key == Key.Left && Keyboard.Modifiers == ModifierKeys.None )
          {
             var container = (ContentPresenter) ItemContainerGenerator.ContainerFromIndex( _selectedIndex );
-            
+
             var currentItem = (RebaseItem) container.Content;
 
             await ChangeActionAsync( currentItem.Action.PreviousValue(), HorizontalMovementDirection.Left );
          }
-         else if ( e.Key == Key.Right )
+         else if ( e.Key == Key.Right && Keyboard.Modifiers == ModifierKeys.None )
          {
             var container = (ContentPresenter) ItemContainerGenerator.ContainerFromIndex( _selectedIndex );
 
             var currentItem = (RebaseItem) container.Content;
 
             await ChangeActionAsync( currentItem.Action.NextValue(), HorizontalMovementDirection.Right );
+         }
+         else if ( e.Key == Key.End && Keyboard.Modifiers == ModifierKeys.Control )
+         {
+            await UpdateSelectedIndexAsync( _itemCollection.Count - 1, false );
+         }
+         else if ( e.Key == Key.Home && Keyboard.Modifiers == ModifierKeys.Control )
+         {
+            await UpdateSelectedIndexAsync( 0, false );
+         }
+         else if ( e.Key == Key.P )
+         {
+            await ChangeActionAsync( RebaseItemAction.Pick, HorizontalMovementDirection.Right );
+         }
+         else if ( e.Key == Key.S )
+         {
+            await ChangeActionAsync( RebaseItemAction.Squash, HorizontalMovementDirection.Right );
+         }
+         else if ( e.Key == Key.R )
+         {
+            await ChangeActionAsync( RebaseItemAction.Reword, HorizontalMovementDirection.Right );
+         }
+         else if ( e.Key == Key.F )
+         {
+            await ChangeActionAsync( RebaseItemAction.Fixup, HorizontalMovementDirection.Right );
+         }
+         else if ( e.Key == Key.E )
+         {
+            await ChangeActionAsync( RebaseItemAction.Edit, HorizontalMovementDirection.Right );
+         }
+         else if ( e.Key == Key.X )
+         {
+            await ChangeActionAsync( RebaseItemAction.Exec, HorizontalMovementDirection.Right );
          }
       }
    }
