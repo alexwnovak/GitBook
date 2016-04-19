@@ -163,7 +163,7 @@ namespace GitWrite.Views.Controls
          return tcs.Task;
       }
 
-      private async Task UpdateSelectedIndexAsync( int index )
+      private async Task UpdateSelectedIndexAsync( int index, bool animate = true )
       {
          if ( _isMoving )
          {
@@ -179,7 +179,7 @@ namespace GitWrite.Views.Controls
             var pos = _selectedObject.TranslatePoint( new Point( 0, 0 ), _scrollViewer );
             double offset = pos.Y;
 
-            if ( offset != _previousY )
+            if ( offset != _previousY && animate )
             {
                _previousY = offset;
                offset += _scrollViewer.VerticalOffset;
@@ -343,11 +343,11 @@ namespace GitWrite.Views.Controls
          }
          else if ( e.Key == Key.End && Keyboard.Modifiers == ModifierKeys.Control )
          {
-            await UpdateSelectedIndexAsync( _itemCollection.Count - 1 );
+            await UpdateSelectedIndexAsync( _itemCollection.Count - 1, false );
          }
          else if ( e.Key == Key.Home && Keyboard.Modifiers == ModifierKeys.Control )
          {
-            await UpdateSelectedIndexAsync( 0 );
+            await UpdateSelectedIndexAsync( 0, false );
          }
          else if ( e.Key == Key.P )
          {
