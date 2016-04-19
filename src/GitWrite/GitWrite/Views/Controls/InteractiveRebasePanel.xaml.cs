@@ -209,7 +209,10 @@ namespace GitWrite.Views.Controls
 
          var adornerLayer = AdornerLayer.GetAdornerLayer( currentObject );
 
-         _currentAdorner = new ItemSelectionAdorner( currentObject );
+         _currentAdorner = new ItemSelectionAdorner( currentObject )
+         {
+            IsHitTestVisible = false
+         };
 
          adornerLayer.Add( _currentAdorner );
 
