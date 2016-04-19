@@ -226,12 +226,19 @@ namespace GitWrite.Views.Controls
             return;
          }
 
+         var container = (ContentPresenter) ItemContainerGenerator.ContainerFromIndex( _selectedIndex );
+         var rebaseItem = (RebaseItem) container.Content;
+
+         if ( rebaseItem.Action == itemAction )
+         {
+            return;
+         }
+
          _isMoving = true;
 
          const double duration = 120;
          int directionMultiplier = (int) direction;
 
-         var container = (ContentPresenter) ItemContainerGenerator.ContainerFromIndex( _selectedIndex );
          var itemTemplateRoot = (Grid) container.ContentTemplate.FindName( "ItemTemplateRoot", container );
          var actionTextBlock = (TextBlock) container.ContentTemplate.FindName( "ActionTextBlock", container );
 
@@ -259,7 +266,6 @@ namespace GitWrite.Views.Controls
 
          itemTemplateRoot.Children.Remove( fadeInTextBlock );
 
-         var rebaseItem = (RebaseItem) container.Content;
          rebaseItem.Action = itemAction;
 
          _isMoving = false;
