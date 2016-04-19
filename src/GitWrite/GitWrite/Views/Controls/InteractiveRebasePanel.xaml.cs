@@ -58,6 +58,9 @@ namespace GitWrite.Views.Controls
          ( (InteractiveRebasePanel) d )._itemCollection = (ICollection) e.NewValue;
       }
 
+      private double GetContainerHeight() =>
+         ( (FrameworkElement) ItemContainerGenerator.ContainerFromIndex( _selectedIndex ) ).ActualHeight;
+
       private DoubleAnimation GetDoubleAnimation( double from, double to, TimeSpan duration )
           => new DoubleAnimation( from, to, new Duration( duration ) )
           {
@@ -71,7 +74,7 @@ namespace GitWrite.Views.Controls
          var container = (ContentPresenter) ItemContainerGenerator.ContainerFromIndex( index );
          var child = (FrameworkElement) VisualTreeHelper.GetChild( container, 0 );
 
-         var doubleAnimation = GetDoubleAnimation( 0, container.ActualHeight * (int) direction, TimeSpan.FromMilliseconds( 70 ) );
+         var doubleAnimation = GetDoubleAnimation( 0, GetContainerHeight() * (int) direction, TimeSpan.FromMilliseconds( 70 ) );
 
          doubleAnimation.Completed += ( sender, e ) =>
          {
@@ -99,18 +102,18 @@ namespace GitWrite.Views.Controls
          if ( moveDownIndex == _selectedIndex )
          {
             nextIndex = _selectedIndex + 1;
-            moveHighlightTask = AnimateHighlight( pos.Y, pos.Y + 28, TimeSpan.FromMilliseconds( 70 ) );
+            moveHighlightTask = AnimateHighlight( pos.Y, pos.Y + GetContainerHeight(), TimeSpan.FromMilliseconds( 70 ) );
          }
          else
          {
             nextIndex = _selectedIndex - 1;
-            moveHighlightTask = AnimateHighlight( pos.Y, pos.Y - 28, TimeSpan.FromMilliseconds( 70 ) );
+            moveHighlightTask = AnimateHighlight( pos.Y, pos.Y - GetContainerHeight(), TimeSpan.FromMilliseconds( 70 ) );
          }
 
          RemoveCurrentAdorner();
 
          await Task.WhenAll( moveDownTask, moveUpTask, moveHighlightTask );
- 
+
          var viewModel = (InteractiveRebaseViewModel) DataContext;
          viewModel.SwapItems( moveDownIndex, moveUpIndex );
 
@@ -128,7 +131,7 @@ namespace GitWrite.Views.Controls
             VerticalAlignment = VerticalAlignment.Top,
             Width = ActualWidth,
             Margin = margin,
-            Height = 28,
+            Height = GetContainerHeight(),
             Fill = (Brush) Application.Current.Resources["HighlightColor"]
          };
 
@@ -181,7 +184,7 @@ namespace GitWrite.Views.Controls
                _previousY = offset;
                offset += _scrollViewer.VerticalOffset;
 
-               await AnimateHighlight( offset, offset + 28 * direction, TimeSpan.FromMilliseconds( 70 ) );
+               await AnimateHighlight( offset, offset + GetContainerHeight() * direction, TimeSpan.FromMilliseconds( 70 ) );
             }
          }
 
@@ -325,7 +328,7 @@ namespace GitWrite.Views.Controls
          else if ( e.Key == Key.Left )
          {
             var container = (ContentPresenter) ItemContainerGenerator.ContainerFromIndex( _selectedIndex );
-            
+
             var currentItem = (RebaseItem) container.Content;
 
             await ChangeActionAsync( currentItem.Action.PreviousValue(), HorizontalMovementDirection.Left );
