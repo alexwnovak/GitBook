@@ -341,6 +341,14 @@ namespace GitWrite.Views.Controls
 
             await ChangeActionAsync( currentItem.Action.NextValue(), HorizontalMovementDirection.Right );
          }
+         else if ( e.Key == Key.End && Keyboard.Modifiers == ModifierKeys.Control )
+         {
+            await UpdateSelectedIndex( _itemCollection.Count - 1 );
+         }
+         else if ( e.Key == Key.Home && Keyboard.Modifiers == ModifierKeys.Control )
+         {
+            await UpdateSelectedIndex( 0 );
+         }
          else if ( e.Key == Key.P )
          {
             await ChangeActionAsync( RebaseItemAction.Pick, HorizontalMovementDirection.Right );
