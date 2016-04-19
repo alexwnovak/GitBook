@@ -55,8 +55,7 @@ namespace GitWrite.Views.Controls
 
       private static void ItemsSourceChanged( DependencyObject d, DependencyPropertyChangedEventArgs e )
       {
-         var panel = (InteractiveRebasePanel) d;
-         panel._itemCollection = (ICollection) e.NewValue;
+         ( (InteractiveRebasePanel) d )._itemCollection = (ICollection) e.NewValue;
       }
 
       private DoubleAnimation GetDoubleAnimation( double from, double to, TimeSpan duration )
