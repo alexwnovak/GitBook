@@ -50,7 +50,7 @@ namespace GitWrite.Views.Controls
          _scrollViewer = (ScrollViewer) Template.FindName( "ScrollViewer", this );
          _layoutGrid = (Grid) Template.FindName( "LayoutGrid", this );
 
-         await UpdateSelectedIndex( 0 );
+         await UpdateSelectedIndexAsync( 0 );
       }
 
       private static void ItemsSourceChanged( DependencyObject d, DependencyPropertyChangedEventArgs e )
@@ -163,7 +163,7 @@ namespace GitWrite.Views.Controls
          return tcs.Task;
       }
 
-      private async Task UpdateSelectedIndex( int index )
+      private async Task UpdateSelectedIndexAsync( int index )
       {
          if ( _isMoving )
          {
@@ -306,7 +306,7 @@ namespace GitWrite.Views.Controls
             }
             else
             {
-               await UpdateSelectedIndex( _selectedIndex + 1 );
+               await UpdateSelectedIndexAsync( _selectedIndex + 1 );
             }
          }
          else if ( e.Key == Key.Up )
@@ -322,7 +322,7 @@ namespace GitWrite.Views.Controls
             }
             else
             {
-               await UpdateSelectedIndex( _selectedIndex - 1 );
+               await UpdateSelectedIndexAsync( _selectedIndex - 1 );
             }
          }
          else if ( e.Key == Key.Left && Keyboard.Modifiers == ModifierKeys.None )
@@ -343,11 +343,11 @@ namespace GitWrite.Views.Controls
          }
          else if ( e.Key == Key.End && Keyboard.Modifiers == ModifierKeys.Control )
          {
-            await UpdateSelectedIndex( _itemCollection.Count - 1 );
+            await UpdateSelectedIndexAsync( _itemCollection.Count - 1 );
          }
          else if ( e.Key == Key.Home && Keyboard.Modifiers == ModifierKeys.Control )
          {
-            await UpdateSelectedIndex( 0 );
+            await UpdateSelectedIndexAsync( 0 );
          }
          else if ( e.Key == Key.P )
          {
