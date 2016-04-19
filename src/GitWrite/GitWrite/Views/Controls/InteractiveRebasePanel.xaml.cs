@@ -182,7 +182,7 @@ namespace GitWrite.Views.Controls
                _previousY = offset;
                offset += _scrollViewer.VerticalOffset;
 
-               await AnimateHighlight( offset, offset + 28 * direction, TimeSpan.FromMilliseconds( 200 ) );
+               await AnimateHighlight( offset, offset + 28 * direction, TimeSpan.FromMilliseconds( 70 ) );
             }
          }
 
