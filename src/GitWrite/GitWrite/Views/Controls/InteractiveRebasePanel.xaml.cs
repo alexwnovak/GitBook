@@ -31,9 +31,27 @@ namespace GitWrite.Views.Controls
       private ICollection _itemCollection;
       private int _selectedIndex;
       private FrameworkElement _selectedObject;
-      private ItemSelectionAdorner _currentAdorner;
+      private Adorner _currentAdorner;
       private bool _isMoving;
+      private bool _isRewording;
       private double _previousY;
+
+      //public static DependencyProperty IsEditingProperty = DependencyProperty.Register( "IsEditing",
+      //   typeof( bool ),
+      //   typeof( InteractiveRebasePanel ),
+      //   new FrameworkPropertyMetadata( false ) );
+
+      //public bool IsEditing
+      //{
+      //   get
+      //   {
+      //      return (bool) GetValue( IsEditingProperty );
+      //   }
+      //   set
+      //   {
+      //      SetValue( IsEditingProperty, value );
+      //   }
+      //}
 
       static InteractiveRebasePanel()
       {
@@ -300,7 +318,40 @@ namespace GitWrite.Views.Controls
          return taskCompletionSource.Task;
       }
 
+
       private async void InteractiveRebasePanel_OnKeyDown( object sender, KeyEventArgs e )
+      {
+         if ( _isRewording )
+         {
+            await RewordKeyDown( e );
+         }
+         else
+         {
+            await DefaultFocusKeyDown( e );
+         }
+      }
+
+      private async Task RewordKeyDown( KeyEventArgs e )
+      {
+         if ( e.Key == Key.Down )
+         {
+            _isRewording = false;
+
+            var container = (ContentPresenter) ItemContainerGenerator.ContainerFromIndex( _selectedIndex );
+            var currentItem = (RebaseItem) container.Content;
+            currentItem.IsEditing = false;
+
+            var adornerLayer = AdornerLayer.GetAdornerLayer( _selectedObject );
+            adornerLayer.Remove( _currentAdorner );
+
+            _currentAdorner = new ItemSelectionAdorner( _selectedObject );
+            adornerLayer.Add( _currentAdorner );
+
+            await DefaultFocusKeyDown( e );
+         }
+      }
+
+      private async Task DefaultFocusKeyDown( KeyEventArgs e )
       {
          if ( e.Key == Key.Down )
          {
@@ -381,6 +432,29 @@ namespace GitWrite.Views.Controls
          else if ( e.Key == Key.X )
          {
             await ChangeActionAsync( RebaseItemAction.Exec, HorizontalMovementDirection.Right );
+         }
+         else if ( e.Key == Key.Tab )
+         {
+            e.Handled = true;
+            _isRewording = true;
+
+            var changeTask = ChangeActionAsync( RebaseItemAction.Reword, HorizontalMovementDirection.Right );
+
+            var container = (ContentPresenter) ItemContainerGenerator.ContainerFromIndex( _selectedIndex );
+            var currentItem = (RebaseItem) container.Content;
+            currentItem.IsEditing = true;
+
+            var commitTextBox = (TextBox) container.ContentTemplate.FindName( "CommitTextBox", container );
+            commitTextBox.Focus();
+            commitTextBox.SelectionStart = commitTextBox.Text.Length;
+
+            var adornerLayer = AdornerLayer.GetAdornerLayer( _selectedObject );
+            adornerLayer.Remove( _currentAdorner );
+
+            _currentAdorner = new ItemTextEditAdorner( _selectedObject );
+            adornerLayer.Add( _currentAdorner );
+
+            await changeTask;
          }
       }
    }

@@ -113,6 +113,7 @@
     <Compile Include="Views\Controls\InteractiveRebasePanel.xaml.cs">
       <DependentUpon>InteractiveRebasePanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Converters\BooleanCaseConverter.cs" />
     <Compile Include="Views\Converters\BorderToGeometryConverter.cs" />
     <Compile Include="Views\Controls\ExitPanel.xaml.cs">
       <DependentUpon>ExitPanel.xaml</DependentUpon>

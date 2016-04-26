@@ -16,6 +16,19 @@ namespace GitWrite.ViewModels
          set;
       }
 
+      private bool _isEditing;
+      public bool IsEditing
+      {
+         get
+         {
+            return _isEditing;
+         }
+         set
+         {
+            Set( () => IsEditing, ref _isEditing, value );
+         }
+      }
+
       private RebaseItemAction _action;
       public RebaseItemAction Action
       {

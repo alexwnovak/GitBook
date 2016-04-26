@@ -4,6 +4,7 @@
    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+   xmlns:c="clr-namespace:GitWrite.Views.Converters"
    mc:Ignorable="d"
    d:DesignHeight="300"
    d:DesignWidth="300"
@@ -12,8 +13,12 @@
    FocusVisualStyle="{x:Null}"
    FontSize="24"
    FontFamily="Consolas"
-   KeyDown="InteractiveRebasePanel_OnKeyDown"
+   PreviewKeyDown="InteractiveRebasePanel_OnKeyDown"
    Loaded="InteractiveRebasePanel_OnLoaded">
+   <ItemsControl.Resources>
+      <c:BoolToVisibilityConverter x:Key="BoolToVisibility" />
+      <c:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisibility" />
+   </ItemsControl.Resources>
    <ItemsControl.Template>
       <ControlTemplate>
          <ScrollViewer x:Name="ScrollViewer"
@@ -45,7 +50,17 @@
 
             <TextBlock Grid.Column="2"
                Margin="20,0,0,0"
-               Text="{Binding Text}" />
+               Text="{Binding Text, Mode=TwoWay}"
+               Visibility="{Binding IsEditing, Converter={StaticResource InverseBoolToVisibility}}" />
+
+            <TextBox x:Name="CommitTextBox"
+               Grid.Column="2"
+               Foreground="{StaticResource HighlightColor}"
+               CaretBrush="White"
+               Margin="18,0,0,0"
+               MaxLength="72"
+               Text="{Binding Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+               Visibility="{Binding IsEditing, Converter={StaticResource BoolToVisibility}}" />
          </Grid>
       </DataTemplate>
    </ItemsControl.ItemTemplate>

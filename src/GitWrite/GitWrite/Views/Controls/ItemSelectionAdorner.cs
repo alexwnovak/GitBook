@@ -20,4 +20,21 @@ namespace GitWrite.Views.Controls
          drawingContext.DrawRectangle( brush, null, rect );
       }
    }
+
+   public class ItemTextEditAdorner : Adorner
+   {
+      public ItemTextEditAdorner( UIElement adornedElement )
+         : base( adornedElement )
+      {
+      }
+
+      protected override void OnRender( DrawingContext drawingContext )
+      {
+         var size = AdornedElement.DesiredSize;
+         var rect = new Rect( new Point( 0, 0 ), new Point( 80, size.Height ) );
+
+         var brush = (Brush) Application.Current.Resources["HighlightColor"];
+         drawingContext.DrawRectangle( brush, null, rect );
+      }
+   }
 }
