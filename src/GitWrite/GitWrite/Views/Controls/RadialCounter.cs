@@ -89,5 +89,22 @@ namespace GitWrite.Views.Controls
             SetValue( MaximumProperty, value );
          }
       }
+
+      public static DependencyProperty ValueProperty = DependencyProperty.Register( nameof( Value ),
+         typeof( int ),
+         typeof( RadialCounter ),
+         new FrameworkPropertyMetadata( 0, FrameworkPropertyMetadataOptions.AffectsRender ) );
+
+      public int Value
+      {
+         get
+         {
+            return (int) GetValue( ValueProperty );
+         }
+         set
+         {
+            SetValue( ValueProperty, value );
+         }
+      }
    }
 }
