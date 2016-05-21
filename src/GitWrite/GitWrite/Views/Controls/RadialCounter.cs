@@ -1,10 +1,15 @@
-﻿using System.Windows;
+﻿using System.Globalization;
+using System.Windows;
 using System.Windows.Media;
 
 namespace GitWrite.Views.Controls
 {
    public class RadialCounter : FrameworkElement
    {
+      private readonly Brush _backgroundBrush;
+      private readonly Brush _borderBrush;
+      private readonly Brush _errorBrush;
+
       public static DependencyProperty FontSizeProperty = DependencyProperty.Register( nameof( FontSize ),
          typeof( double ),
          typeof( RadialCounter ),
@@ -158,6 +163,40 @@ namespace GitWrite.Views.Controls
          }
 
          return newValue;
+      }
+
+      public RadialCounter()
+      {
+         _backgroundBrush = (Brush) Application.Current.Resources["WindowBackgroundColor"];
+         _borderBrush = (Brush) Application.Current.Resources["WindowBorderColor"];
+         _errorBrush = (Brush) Application.Current.Resources["AbortCommitGlyphBackgroundColor"];
+      }
+
+      protected override void OnRender( DrawingContext dc )
+      {
+         base.OnRender( dc );
+
+         var center = new Point( ActualWidth / 2, ActualHeight / 2 );
+         dc.DrawEllipse( _backgroundBrush, new Pen( _borderBrush, 2 ), center, ActualWidth / 2, ActualHeight / 2 );
+
+         var percentage = 1 - (double) Value / Maximum;
+         const double inset = 4;
+
+         if ( percentage >= 1 )
+         {
+            double radius = ( ActualWidth / 2 ) - inset;
+            dc.DrawEllipse( null, new Pen( _errorBrush, 1 ), center, radius, radius );
+         }
+         else
+         {
+            var innerRect = new Rect( inset, inset, ActualWidth - inset * 2, ActualHeight - inset * 2 );
+            dc.DrawArc( new Pen( _borderBrush, 1 ), null, innerRect, -90, 360 * percentage );
+         }
+
+         var formattedText = new FormattedText( Value.ToString(), CultureInfo.InvariantCulture, FlowDirection.LeftToRight, new Typeface( FontFamily ), FontSize, new SolidColorBrush( TextColor ) );
+
+         var textCenter = new Point( ( ActualWidth - formattedText.Width ) / 2, ( ActualHeight - formattedText.Height ) / 2 - 1 );
+         dc.DrawText( formattedText, textCenter );
       }
    }
 }
