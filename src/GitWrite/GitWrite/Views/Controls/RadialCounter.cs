@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Media;
 
 namespace GitWrite.Views.Controls
 {
@@ -35,6 +36,23 @@ namespace GitWrite.Views.Controls
          set
          {
             SetValue( FontFamilyProperty, value );
+         }
+      }
+
+      public static DependencyProperty TextColorProperty = DependencyProperty.Register( nameof( TextColor ),
+         typeof( Color ),
+         typeof( RadialCounter ),
+         new FrameworkPropertyMetadata( Colors.White, FrameworkPropertyMetadataOptions.AffectsRender ) );
+
+      public Color TextColor
+      {
+         get
+         {
+            return (Color) GetValue( TextColorProperty );
+         }
+         set
+         {
+            SetValue( TextColorProperty, value );
          }
       }
 
