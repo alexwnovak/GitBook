@@ -9,7 +9,7 @@
    AllowsTransparency="True"
    Background="Transparent"
    Title="{Binding Title}"
-   Width="1036"
+   Width="1054"
    Height="{x:Static views:WindowValues.NonExpandedHeight}"
    ResizeMode="NoResize"
    WindowStyle="None"
@@ -62,6 +62,7 @@
 
       <Border x:Name="OuterBorder"
          CornerRadius="14"
+         Height="56"
          Background="{DynamicResource WindowBackgroundColor}"
          BorderThickness="2"
          BorderBrush="{DynamicResource WindowBorderColor}">
@@ -72,7 +73,7 @@
 
             <Border x:Name="InnerBorder"
                CornerRadius="8"
-               Padding="16"
+               Padding="11"
                VerticalAlignment="Stretch">
                <Grid VerticalAlignment="Stretch">
                   <Grid.RowDefinitions>
