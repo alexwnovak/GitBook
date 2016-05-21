@@ -93,7 +93,7 @@ namespace GitWrite.Views.Controls
       public static DependencyProperty ValueProperty = DependencyProperty.Register( nameof( Value ),
          typeof( int ),
          typeof( RadialCounter ),
-         new FrameworkPropertyMetadata( 0, FrameworkPropertyMetadataOptions.AffectsRender ) );
+         new FrameworkPropertyMetadata( 0, FrameworkPropertyMetadataOptions.AffectsRender, ( _, __ ) => { }, CoerceValue ) );
 
       public int Value
       {
@@ -105,6 +105,23 @@ namespace GitWrite.Views.Controls
          {
             SetValue( ValueProperty, value );
          }
+      }
+
+      private static object CoerceValue( DependencyObject obj, object baseValue )
+      {
+         var radialCounter = (RadialCounter) obj;
+         int newValue = (int) baseValue;
+
+         if ( newValue > radialCounter.Maximum )
+         {
+            return radialCounter.Maximum;
+         }
+         if ( newValue < radialCounter.Minimum )
+         {
+            return radialCounter.Minimum;
+         }
+
+         return newValue;
       }
    }
 }
