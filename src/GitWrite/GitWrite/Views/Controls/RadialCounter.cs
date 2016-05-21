@@ -59,7 +59,7 @@ namespace GitWrite.Views.Controls
       public static DependencyProperty MinimumProperty = DependencyProperty.Register( nameof( Minimum ),
          typeof( int ),
          typeof( RadialCounter ),
-         new FrameworkPropertyMetadata( 0, FrameworkPropertyMetadataOptions.AffectsRender ) );
+         new FrameworkPropertyMetadata( 0, FrameworkPropertyMetadataOptions.AffectsRender, MinimumChanged, CoerceMinimum ) );
 
       public int Minimum
       {
@@ -73,10 +73,28 @@ namespace GitWrite.Views.Controls
          }
       }
 
+      private static void MinimumChanged( DependencyObject obj, DependencyPropertyChangedEventArgs e )
+      {
+         obj.CoerceValue( ValueProperty );
+      }
+
+      private static object CoerceMinimum( DependencyObject obj, object baseValue )
+      {
+         var radialCounter = (RadialCounter) obj;
+         int newMinimum = (int) baseValue;
+
+         if ( newMinimum > radialCounter.Maximum )
+         {
+            return radialCounter.Maximum;
+         }
+
+         return newMinimum;
+      }
+
       public static DependencyProperty MaximumProperty = DependencyProperty.Register( nameof( Maximum ),
          typeof( int ),
          typeof( RadialCounter ),
-         new FrameworkPropertyMetadata( 100, FrameworkPropertyMetadataOptions.AffectsRender ) );
+         new FrameworkPropertyMetadata( 100, FrameworkPropertyMetadataOptions.AffectsRender, MaximumChanged, CoerceMaximum ) );
 
       public int Maximum
       {
@@ -88,6 +106,24 @@ namespace GitWrite.Views.Controls
          {
             SetValue( MaximumProperty, value );
          }
+      }
+
+      private static void MaximumChanged( DependencyObject obj, DependencyPropertyChangedEventArgs e )
+      {
+         obj.CoerceValue( ValueProperty );
+      }
+
+      private static object CoerceMaximum( DependencyObject obj, object baseValue )
+      {
+         var radialCounter = (RadialCounter) obj;
+         int newMaximum = (int) baseValue;
+
+         if ( newMaximum < radialCounter.Minimum )
+         {
+            return radialCounter.Minimum;
+         }
+
+         return newMaximum;
       }
 
       public static DependencyProperty ValueProperty = DependencyProperty.Register( nameof( Value ),

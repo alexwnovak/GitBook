@@ -44,5 +44,35 @@ namespace GitWrite.UnitTests.Views.Controls
 
          radialCounter.Value.Should().Be( 66 );
       }
+
+      [StaFact]
+      public void Value_MinimumBecomesGreaterThanCurrentValue_CurrentValueBecomesTheMinimum()
+      {
+         var radialCounter = new RadialCounter
+         {
+            Minimum = 0,
+            Maximum = 100,
+            Value = 25
+         };
+
+         radialCounter.Minimum = 50;
+
+         radialCounter.Value.Should().Be( radialCounter.Minimum );
+      }
+
+      [StaFact]
+      public void Value_MaximumBecomesLessThanCurrentValue_CurrentValueBecomesTheMaximum()
+      {
+         var radialCounter = new RadialCounter
+         {
+            Minimum = 0,
+            Maximum = 100,
+            Value = 75
+         };
+
+         radialCounter.Maximum = 50;
+
+         radialCounter.Value.Should().Be( radialCounter.Maximum );
+      }
    }
 }
