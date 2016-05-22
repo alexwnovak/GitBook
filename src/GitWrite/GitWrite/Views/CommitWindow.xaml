@@ -5,6 +5,7 @@
    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
    xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WPF45"
    xmlns:views="clr-namespace:GitWrite.Views"
+   xmlns:c="clr-namespace:GitWrite.Views.Controls"
    xmlns:behaviors="clr-namespace:GitWrite.Behaviors"
    AllowsTransparency="True"
    Background="Transparent"
@@ -99,13 +100,6 @@
                            </i:EventTrigger>
                         </i:Interaction.Triggers>
                      </TextBox>
-
-                     <TextBlock HorizontalAlignment="Right"
-                        VerticalAlignment="Center"
-                        Margin="0,0,4,0"
-                        Foreground="{DynamicResource TextColor}"
-                        FontStyle="Italic"
-                        Text="{Binding Text.Length, ElementName=CommitText, Converter={StaticResource TextLengthInversionConverter}}" />
                   </Grid>
 
                   <Rectangle Grid.Row="1"
@@ -135,5 +129,20 @@
             </Border>
          </Grid>
       </Border>
+
+      <c:RadialCounter HorizontalAlignment="Right"
+         Margin="0,0,2,0"
+         Width="80"
+         Height="80"
+         Minimum="0"
+         Maximum="72"
+         FontSize="24"
+         Value="{Binding Text.Length, ElementName=CommitText, Converter={StaticResource TextLengthInversionConverter}}">
+         <c:RadialCounter.Effect>
+            <DropShadowEffect BlurRadius="16"
+               ShadowDepth="1"
+               Direction="270" />
+         </c:RadialCounter.Effect>
+      </c:RadialCounter>
    </Grid>
 </views:WindowBase>
