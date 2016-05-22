@@ -1,14 +1,16 @@
 ﻿using System.Globalization;
 using System.Windows;
 using System.Windows.Media;
+using GitWrite.Services;
 
 namespace GitWrite.Views.Controls
 {
    public class RadialCounter : FrameworkElement
    {
-      private readonly Brush _backgroundBrush;
-      private readonly Brush _borderBrush;
-      private readonly Brush _errorBrush;
+      private readonly IResourceLocator _resourceLocator;
+      private Brush _backgroundBrush;
+      private Brush _borderBrush;
+      private Brush _errorBrush;
 
       public static DependencyProperty FontSizeProperty = DependencyProperty.Register( nameof( FontSize ),
          typeof( double ),
@@ -167,9 +169,21 @@ namespace GitWrite.Views.Controls
 
       public RadialCounter()
       {
-         _backgroundBrush = (Brush) Application.Current.Resources["WindowBackgroundColor"];
-         _borderBrush = (Brush) Application.Current.Resources["WindowBorderColor"];
-         _errorBrush = (Brush) Application.Current.Resources["AbortCommitGlyphBackgroundColor"];
+         _resourceLocator = new ResourceLocator();
+         InitializeBrushes();
+      }
+
+      public RadialCounter( IResourceLocator resourceLocator )
+      {
+         _resourceLocator = resourceLocator;
+         InitializeBrushes();
+      }
+
+      private void InitializeBrushes()
+      {
+         _backgroundBrush = (Brush) _resourceLocator.FromCurrentApplication( "WindowBackgroundColor" );
+         _borderBrush = (Brush) _resourceLocator.FromCurrentApplication( "WindowBorderColor" );
+         _errorBrush = (Brush) _resourceLocator.FromCurrentApplication( "AbortCommitGlyphBackgroundColor" );
       }
 
       protected override void OnRender( DrawingContext dc )
