@@ -10,7 +10,7 @@
    AllowsTransparency="True"
    Background="Transparent"
    Title="{Binding Title}"
-   Width="1054"
+   Width="1080"
    Height="{x:Static views:WindowValues.NonExpandedHeight}"
    ResizeMode="NoResize"
    WindowStyle="None"
@@ -61,77 +61,87 @@
          </VisualStateGroup>
       </VisualStateManager.VisualStateGroups>
 
-      <Border x:Name="OuterBorder"
-         CornerRadius="14"
-         Width="1080"
-         Height="56"
-         Background="{DynamicResource WindowBackgroundColor}"
-         BorderThickness="2"
-         BorderBrush="{DynamicResource WindowBorderColor}"
-         Clip="M 0,0 H 983 A 56,56 45 0 0 983,56 H -983">
-         <Grid>
-            <Grid.RenderTransform>
-               <TranslateTransform x:Name="OuterBorderTranslateTransform" />
-            </Grid.RenderTransform>
+      <Border Height="80">
+         <Border.Effect>
+            <DropShadowEffect BlurRadius="16"
+               ShadowDepth="1"
+               Direction="270" />
+         </Border.Effect>
 
-            <Border x:Name="InnerBorder"
-               CornerRadius="8"
-               Padding="11"
-               VerticalAlignment="Stretch">
-               <Grid VerticalAlignment="Stretch">
-                  <Grid.RowDefinitions>
-                     <RowDefinition Height="30" />
-                     <RowDefinition Height="30" />
-                     <RowDefinition Height="*" />
-                  </Grid.RowDefinitions>
+         <Border x:Name="OuterBorder"
+            CornerRadius="14"
+            Margin="12,0,0,0"
+            Width="1090"
+            Height="56"
+            BorderThickness="2"
+            BorderBrush="{DynamicResource WindowBorderColor}"
+            Background="{DynamicResource WindowBackgroundColor}"
+            Clip="M 0,0 H 983 A 44,44 45 0 0 983,56 H -983">
 
-                  <Grid x:Name="PrimaryCommitNotesGrid" Grid.Row="0">
-                     <TextBox x:Name="CommitText"  
-                        Background="Transparent"
-                        Foreground="{DynamicResource TextColor}"
-                        FontFamily="Consolas"
-                        FontSize="24"
-                        MaxLength="72"
-                        Text="{Binding ShortMessage, UpdateSourceTrigger=PropertyChanged}">
-                        <i:Interaction.Triggers>
-                           <i:EventTrigger EventName="GotFocus">
-                              <cmd:EventToCommand Command="{Binding PrimaryMessageGotFocusCommand, Mode=OneTime}"
-                                 MustToggleIsEnabledValue="True" />
-                           </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                     </TextBox>
+            <Grid>
+               <Grid.RenderTransform>
+                  <TranslateTransform x:Name="OuterBorderTranslateTransform" />
+               </Grid.RenderTransform>
+
+               <Border x:Name="InnerBorder"
+                  CornerRadius="8"
+                  Padding="11"
+                  VerticalAlignment="Stretch">
+                  <Grid VerticalAlignment="Stretch">
+                     <Grid.RowDefinitions>
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
+                     </Grid.RowDefinitions>
+
+                     <Grid x:Name="PrimaryCommitNotesGrid" Grid.Row="0">
+                        <TextBox x:Name="CommitText"  
+                           Background="Transparent"
+                           Foreground="{DynamicResource TextColor}"
+                           FontFamily="Consolas"
+                           FontSize="24"
+                           MaxLength="72"
+                           Text="{Binding ShortMessage, UpdateSourceTrigger=PropertyChanged}">
+                           <i:Interaction.Triggers>
+                              <i:EventTrigger EventName="GotFocus">
+                                 <cmd:EventToCommand Command="{Binding PrimaryMessageGotFocusCommand, Mode=OneTime}"
+                                    MustToggleIsEnabledValue="True" />
+                              </i:EventTrigger>
+                           </i:Interaction.Triggers>
+                        </TextBox>
+                     </Grid>
+
+                     <Rectangle Grid.Row="1"
+                        Height="1"
+                        Fill="{DynamicResource SeparatorColor}" />
+
+                     <Grid x:Name="SecondaryCommitGrid"
+                        Grid.Row="2"
+                        VerticalAlignment="Stretch">
+                        <TextBox x:Name="SecondaryCommitText"
+                           Foreground="{DynamicResource TextColor}"
+                           Background="Transparent"
+                           FontFamily="Consolas"
+                           FontSize="24"
+                           AcceptsReturn="True"
+                           TextWrapping="Wrap"
+                           Text="{Binding ExtraCommitText, UpdateSourceTrigger=PropertyChanged}">
+                           <i:Interaction.Triggers>
+                              <i:EventTrigger EventName="GotFocus">
+                                 <cmd:EventToCommand Command="{Binding SecondaryNotesGotFocusCommand, Mode=OneTime}"
+                                    MustToggleIsEnabledValue="True" />
+                              </i:EventTrigger>
+                           </i:Interaction.Triggers>
+                        </TextBox>
+                     </Grid>
                   </Grid>
-
-                  <Rectangle Grid.Row="1"
-                     Height="1"
-                     Fill="{DynamicResource SeparatorColor}" />
-
-                  <Grid x:Name="SecondaryCommitGrid"
-                     Grid.Row="2"
-                     VerticalAlignment="Stretch">
-                     <TextBox x:Name="SecondaryCommitText"
-                        Foreground="{DynamicResource TextColor}"
-                        Background="Transparent"
-                        FontFamily="Consolas"
-                        FontSize="24"
-                        AcceptsReturn="True"
-                        TextWrapping="Wrap"
-                        Text="{Binding ExtraCommitText, UpdateSourceTrigger=PropertyChanged}">
-                        <i:Interaction.Triggers>
-                           <i:EventTrigger EventName="GotFocus">
-                              <cmd:EventToCommand Command="{Binding SecondaryNotesGotFocusCommand, Mode=OneTime}"
-                                 MustToggleIsEnabledValue="True" />
-                           </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                     </TextBox>
-                  </Grid>
-               </Grid>
-            </Border>
-         </Grid>
+               </Border>
+            </Grid>
+         </Border>
       </Border>
 
       <c:RadialCounter HorizontalAlignment="Right"
-         Margin="0,0,2,0"
+         Margin="0,0,16,0"
          Width="80"
          Height="80"
          Minimum="0"
