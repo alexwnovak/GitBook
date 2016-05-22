@@ -62,10 +62,12 @@
 
       <Border x:Name="OuterBorder"
          CornerRadius="14"
+         Width="1080"
          Height="56"
          Background="{DynamicResource WindowBackgroundColor}"
          BorderThickness="2"
-         BorderBrush="{DynamicResource WindowBorderColor}">
+         BorderBrush="{DynamicResource WindowBorderColor}"
+         Clip="M 0,0 H 983 A 56,56 45 0 0 983,56 H -983">
          <Grid>
             <Grid.RenderTransform>
                <TranslateTransform x:Name="OuterBorderTranslateTransform" />
