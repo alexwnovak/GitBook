@@ -69,8 +69,8 @@
          <Border CornerRadius="0,0,14,14"
             Margin="30,78,56,0"
             BorderThickness="2"
-            BorderBrush="{DynamicResource WindowBorderColor}"
-            Background="{DynamicResource WindowBackgroundColor}"
+            BorderBrush="{DynamicResource WindowSecondaryBorderColor}"
+            Background="{DynamicResource WindowSecondaryBackgroundColor}"
             Clip="M 0,0 H 964 A 50,50 45 0 0 996,14 H 1020 V 400 H -900">
             <Border.Effect>
                <DropShadowEffect BlurRadius="16"
