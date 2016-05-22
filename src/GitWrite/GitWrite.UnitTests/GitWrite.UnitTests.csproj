@@ -126,6 +126,7 @@
     <Compile Include="ViewModels\GitWriteViewModelBaseTests.cs" />
     <Compile Include="Views\Controls\RadialCounterTests.cs" />
     <Compile Include="Views\Converters\TextLengthInversionConverterTests.cs" />
+    <Compile Include="Views\Converters\TextLengthToColorConverterTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GitWrite\GitWrite.csproj">
