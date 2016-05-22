@@ -2,5 +2,6 @@
 {
    public interface IResourceLocator
    {
+      object FromCurrentApplication( string key );
    }
 }
