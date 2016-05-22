@@ -1,5 +1,7 @@
 ﻿using FluentAssertions;
+using GitWrite.Services;
 using GitWrite.Views.Controls;
+using Moq;
 using Xunit;
 
 namespace GitWrite.UnitTests.Views.Controls
@@ -9,7 +11,9 @@ namespace GitWrite.UnitTests.Views.Controls
       [StaFact]
       public void Value_SetsValueLessThanMaximum_ValueSnapsToMinimum()
       {
-         var radialCounter = new RadialCounter
+         var resourceLocatorMock = new Mock<IResourceLocator>();
+
+         var radialCounter = new RadialCounter( resourceLocatorMock.Object )
          {
             Minimum = 0,
             Maximum = 100,
@@ -22,7 +26,9 @@ namespace GitWrite.UnitTests.Views.Controls
       [StaFact]
       public void Value_SetsValueGreaterThanMaximum_ValueSnapsToMaximum()
       {
-         var radialCounter = new RadialCounter
+         var resourceLocatorMock = new Mock<IResourceLocator>();
+
+         var radialCounter = new RadialCounter( resourceLocatorMock.Object )
          {
             Minimum = 0,
             Maximum = 100,
@@ -35,7 +41,9 @@ namespace GitWrite.UnitTests.Views.Controls
       [StaFact]
       public void Value_SetsValueBetweenMinimumAndMaximum_ValueIsSet()
       {
-         var radialCounter = new RadialCounter
+         var resourceLocatorMock = new Mock<IResourceLocator>();
+
+         var radialCounter = new RadialCounter( resourceLocatorMock.Object )
          {
             Minimum = 0,
             Maximum = 100,
@@ -48,7 +56,9 @@ namespace GitWrite.UnitTests.Views.Controls
       [StaFact]
       public void Value_MinimumBecomesGreaterThanCurrentValue_CurrentValueBecomesTheMinimum()
       {
-         var radialCounter = new RadialCounter
+         var resourceLocatorMock = new Mock<IResourceLocator>();
+
+         var radialCounter = new RadialCounter( resourceLocatorMock.Object )
          {
             Minimum = 0,
             Maximum = 100,
@@ -63,7 +73,9 @@ namespace GitWrite.UnitTests.Views.Controls
       [StaFact]
       public void Value_MaximumBecomesLessThanCurrentValue_CurrentValueBecomesTheMaximum()
       {
-         var radialCounter = new RadialCounter
+         var resourceLocatorMock = new Mock<IResourceLocator>();
+
+         var radialCounter = new RadialCounter( resourceLocatorMock.Object )
          {
             Minimum = 0,
             Maximum = 100,
@@ -78,7 +90,9 @@ namespace GitWrite.UnitTests.Views.Controls
       [StaFact]
       public void Minimum_MinimumIsSetGreaterThanMaximum_MinimumIsClampedEqualToMaximum()
       {
-         var radialCounter = new RadialCounter
+         var resourceLocatorMock = new Mock<IResourceLocator>();
+
+         var radialCounter = new RadialCounter( resourceLocatorMock.Object )
          {
             Minimum = 0,
             Maximum = 100
@@ -92,7 +106,9 @@ namespace GitWrite.UnitTests.Views.Controls
       [StaFact]
       public void Maximum_MaximumIsSetLessThanMinimum_MaximumIsClampedEqualToMinimum()
       {
-         var radialCounter = new RadialCounter
+         var resourceLocatorMock = new Mock<IResourceLocator>();
+
+         var radialCounter = new RadialCounter( resourceLocatorMock.Object )
          {
             Minimum = 25,
             Maximum = 100
