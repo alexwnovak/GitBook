@@ -97,7 +97,9 @@
     <Compile Include="Services\IClipboardService.cs" />
     <Compile Include="Services\IGitService.cs" />
     <Compile Include="Services\IRegistryService.cs" />
+    <Compile Include="Services\IResourceLocator.cs" />
     <Compile Include="Services\RegistryService.cs" />
+    <Compile Include="Services\ResourceLocator.cs" />
     <Compile Include="ViewModels\GitWriteViewModelBase.cs" />
     <Compile Include="ViewModels\InteractiveRebaseViewModel.cs" />
     <Compile Include="ViewModels\RebaseItem.cs" />
@@ -109,10 +111,12 @@
     <Compile Include="Views\Controls\ConfirmPanel.xaml.cs">
       <DependentUpon>ConfirmPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Controls\DrawingContextExtensions.cs" />
     <Compile Include="Views\Controls\ItemSelectionAdorner.cs" />
     <Compile Include="Views\Controls\InteractiveRebasePanel.xaml.cs">
       <DependentUpon>InteractiveRebasePanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Controls\RadialCounter.cs" />
     <Compile Include="Views\Converters\BorderToGeometryConverter.cs" />
     <Compile Include="Views\Controls\ExitPanel.xaml.cs">
       <DependentUpon>ExitPanel.xaml</DependentUpon>
@@ -122,6 +126,7 @@
     <Compile Include="Views\Converters\ExitReasonToBackgroundConverter.cs" />
     <Compile Include="Views\Converters\ExitReasonToGlyphConverter.cs" />
     <Compile Include="Views\Converters\ExitReasonToGlyphBackgroundConverter.cs" />
+    <Compile Include="Views\Converters\TextLengthToColorConverter.cs" />
     <Compile Include="Views\Dwm\AccentPolicy.cs" />
     <Compile Include="Views\Dwm\AccentState.cs" />
     <Compile Include="Views\Dwm\WindowCompositionAttribute.cs" />

@@ -10,7 +10,6 @@ using GitWrite.Behaviors;
 using GitWrite.Services;
 using GitWrite.ViewModels;
 using GitWrite.Views.Controls;
-using GitWrite.Views.Dwm;
 
 namespace GitWrite.Views
 {
@@ -35,8 +34,6 @@ namespace GitWrite.Views
       {
          _viewModel = (GitWriteViewModelBase) DataContext;
          _viewModel.ShutdownRequested += OnShutdownRequested;
-
-         WindowCompositionManager.EnableWindowBlur( this );
       }
 
       private void OnClosing( object sender, CancelEventArgs e )
