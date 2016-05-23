@@ -32,6 +32,7 @@ namespace GitWrite.Views
 
          _viewModel = (CommitViewModel) DataContext;
          _viewModel.ExpansionRequested += OnExpansionRequested;
+         _viewModel.CollapseRequested += OnCollapseRequested;
          _viewModel.HelpRequested += OnHelpRequested;
          _viewModel.CollapseHelpRequested += OnCollapseHelpRequested;
       }
@@ -48,6 +49,9 @@ namespace GitWrite.Views
 
       private void OnExpansionRequested( object sender, EventArgs eventArgs )
          => VisualStateManager.GoToElementState( MainGrid, "Expanded", true );
+
+      private void OnCollapseRequested( object sender, EventArgs eventArgs )
+         => VisualStateManager.GoToElementState( MainGrid, "Collapsed", false );
 
       private void CommitWindow_OnPreviewCanExecute( object sender, CanExecuteRoutedEventArgs e )
       {
