@@ -166,6 +166,12 @@ namespace GitWrite.ViewModels
          return Task.FromResult( true );
       }
 
+      protected override Task OnDiscardAsync()
+      {
+         CollapseUI();
+         return Task.FromResult( true );
+      }
+
       public bool DismissHelpIfActive()
       {
          if ( IsHelpStateActive )
