@@ -41,23 +41,29 @@
    <Grid x:Name="MainGrid">
       <VisualStateManager.VisualStateGroups>
          <VisualStateGroup x:Name="ExpansionStates">
-            <VisualStateGroup.Transitions>
-               <VisualTransition GeneratedDuration="0:0:0.5" To="Expanded">
-                  <VisualTransition.GeneratedEasingFunction>
-                     <CircleEase EasingMode="EaseOut" />
-                  </VisualTransition.GeneratedEasingFunction>
-               </VisualTransition>
-            </VisualStateGroup.Transitions>
+            <VisualState x:Name="Collapsed">
+               <Storyboard>
+                  <DoubleAnimation Storyboard.TargetName="SecondaryBorder"
+                     Storyboard.TargetProperty="Height"
+                     To="0"
+                     Duration="0:0:0.2" />
+                  <DoubleAnimation Storyboard.TargetName="PageRoot"
+                     Storyboard.TargetProperty="Height"
+                     To="100"
+                     Duration="0:0:0.2" />
+               </Storyboard>
+            </VisualState>
 
-            <VisualState x:Name="Collapsed" />
             <VisualState x:Name="Expanded">
                <Storyboard>
                   <DoubleAnimation Storyboard.TargetName="SecondaryBorder"
                      Storyboard.TargetProperty="Height"
-                     To="388" />
+                     To="388"
+                     Duration="0:0:0.2" />
                   <DoubleAnimation Storyboard.TargetName="PageRoot"
                      Storyboard.TargetProperty="Height"
-                     To="400" />
+                     To="400"
+                     Duration="0:0:0.2" />
                </Storyboard>
             </VisualState>
          </VisualStateGroup>
