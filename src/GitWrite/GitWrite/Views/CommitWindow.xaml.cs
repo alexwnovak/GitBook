@@ -48,7 +48,7 @@ namespace GitWrite.Views
          => this.PlayStoryboard( "CollapseHelpStoryboard" );
 
       private void OnExpansionRequested( object sender, EventArgs eventArgs )
-         => VisualStateManager.GoToElementState( MainGrid, "Expanded", true );
+         => VisualStateManager.GoToElementState( MainGrid, "Expanded", false );
 
       private void OnCollapseRequested( object sender, EventArgs eventArgs )
          => VisualStateManager.GoToElementState( MainGrid, "Collapsed", false );
