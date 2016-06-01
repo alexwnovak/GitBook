@@ -138,8 +138,7 @@
                      </Grid.RowDefinitions>
 
                      <Grid x:Name="PrimaryCommitNotesGrid" Grid.Row="0">
-                        <TextBox x:Name="CommitText"  
-                           Background="Transparent"
+                        <TextBox x:Name="CommitText"
                            Foreground="{DynamicResource TextColor}"
                            FontFamily="Consolas"
                            FontSize="24"
