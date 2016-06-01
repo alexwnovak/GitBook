@@ -95,7 +95,7 @@
                <i:Interaction.Triggers>
                   <i:EventTrigger EventName="GotFocus">
                      <cmd:EventToCommand Command="{Binding SecondaryNotesGotFocusCommand, Mode=OneTime}"
-                         MustToggleIsEnabledValue="True" />
+                        MustToggleIsEnabledValue="True" />
                   </i:EventTrigger>
                </i:Interaction.Triggers>
             </TextBox>
