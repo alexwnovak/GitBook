@@ -239,5 +239,22 @@
          Width="80"
          Height="80">
       </c:Pie>
+
+      <TextBlock x:Name="ExitGlyph"
+         Grid.Column="1"
+         Margin="0,12,16,0"
+         Foreground="#0F0"
+         HorizontalAlignment="Center"
+         VerticalAlignment="Center"
+         FontFamily="Segoe MDL2 Assets"
+         FontSize="1"
+         FontWeight="ExtraBold"
+         Text="&#xE10B;">
+         <TextBlock.Effect>
+            <DropShadowEffect BlurRadius="8"
+               ShadowDepth="1"
+               Direction="270" />
+         </TextBlock.Effect>
+      </TextBlock>
    </Grid>
 </views:WindowBase>
