@@ -157,6 +157,12 @@
                            MaxLength="72"
                            HorizontalAlignment="Stretch"
                            Text="{Binding ShortMessage, UpdateSourceTrigger=PropertyChanged}">
+                           <TextBox.Clip>
+                              <MultiBinding Converter="{StaticResource LeftClipConverter}">
+                                 <Binding Path="ActualWidth" ElementName="GreenGrid" />
+                                 <Binding Path="ActualWidth" ElementName="CommitText" />
+                              </MultiBinding>
+                           </TextBox.Clip>
                            <i:Interaction.Triggers>
                               <i:EventTrigger EventName="GotFocus">
                                  <cmd:EventToCommand Command="{Binding PrimaryMessageGotFocusCommand, Mode=OneTime}"
