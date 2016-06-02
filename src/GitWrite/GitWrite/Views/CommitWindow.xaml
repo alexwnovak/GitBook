@@ -179,10 +179,6 @@
                            </i:Interaction.Triggers>
                         </TextBox>
                      </Grid>
-
-                     <Rectangle Grid.Row="1"
-                        Height="1"
-                        Fill="{DynamicResource SeparatorColor}" />
                   </Grid>
                </Border>
             </Grid>
