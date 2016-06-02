@@ -7,6 +7,23 @@ namespace GitWrite.Views.Controls
 {
    public class Pie : Shape
    {
+      public static DependencyProperty AngleProperty = DependencyProperty.Register( nameof( Angle ),
+         typeof( double ),
+         typeof( Pie ),
+         new FrameworkPropertyMetadata( 0.0, FrameworkPropertyMetadataOptions.AffectsRender ) );
+
+      public double Angle
+      {
+         get
+         {
+            return (double) GetValue( AngleProperty );
+         }
+         set
+         {
+            SetValue( AngleProperty, value );
+         }
+      }
+
       public Pie()
       {
          Clip = new RectangleGeometry( Rect.Empty );
