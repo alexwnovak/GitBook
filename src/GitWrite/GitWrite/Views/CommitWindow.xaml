@@ -6,6 +6,7 @@
    xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WPF45"
    xmlns:views="clr-namespace:GitWrite.Views"
    xmlns:c="clr-namespace:GitWrite.Views.Controls"
+   xmlns:converters="clr-namespace:GitWrite.Views.Converters"
    xmlns:behaviors="clr-namespace:GitWrite.Behaviors"
    AllowsTransparency="True"
    Background="Transparent"
@@ -24,6 +25,9 @@
             <ResourceDictionary Source="..\Styles\TextBoxStyle.xaml" />
             <ResourceDictionary Source="..\Styles\ButtonStyle.xaml" />
             <ResourceDictionary Source="CommitWindowResources.xaml" />
+            <ResourceDictionary>
+               <converters:LeftClipConverter x:Key="LeftClipConverter" />
+            </ResourceDictionary>
          </ResourceDictionary.MergedDictionaries>
       </ResourceDictionary>
    </Window.Resources>
