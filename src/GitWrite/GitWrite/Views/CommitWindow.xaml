@@ -37,7 +37,17 @@
                      Storyboard.TargetProperty="Angle"
                      From="0"
                      To="360"
-                     Duration="0:0:1">
+                     Duration="0:0:0.8">
+                  </DoubleAnimation>
+                  <DoubleAnimation Storyboard.TargetName="ExitGlyph"
+                     Storyboard.TargetProperty="FontSize"
+                     From="0"
+                     To="32"
+                     BeginTime="0:0:1"
+                     Duration="0:0:0.3">
+                     <DoubleAnimation.EasingFunction>
+                        <BackEase EasingMode="EaseOut" />
+                     </DoubleAnimation.EasingFunction>
                   </DoubleAnimation>
                </Storyboard>
                <converters:LeftClipConverter x:Key="LeftClipConverter" />
