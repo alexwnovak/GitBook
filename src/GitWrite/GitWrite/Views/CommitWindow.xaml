@@ -39,6 +39,11 @@
    </i:Interaction.Triggers>
 
    <Grid x:Name="MainGrid">
+      <Grid.ColumnDefinitions>
+         <ColumnDefinition />
+         <ColumnDefinition Width="100" />
+      </Grid.ColumnDefinitions>
+
       <VisualStateManager.VisualStateGroups>
          <VisualStateGroup x:Name="ExpansionStates">
             <VisualState x:Name="Collapsed">
@@ -70,6 +75,7 @@
       </VisualStateManager.VisualStateGroups>
 
       <Border x:Name="SecondaryBorder"
+         Grid.ColumnSpan="2"
          Height="0"
          VerticalAlignment="Top">
          <Border CornerRadius="0,0,14,14"
@@ -102,14 +108,16 @@
          </Border>
       </Border>
 
-      <Border Margin="0,12,0,0"
+      <Grid Grid.Column="0"
+         Grid.ColumnSpan="2"
+         Margin="0,12,0,0"
          Height="80"
          VerticalAlignment="Top">
-         <Border.Effect>
+         <Grid.Effect>
             <DropShadowEffect BlurRadius="16"
                ShadowDepth="1"
                Direction="270" />
-         </Border.Effect>
+         </Grid.Effect>
 
          <Border x:Name="OuterBorder"
             CornerRadius="14"
@@ -143,6 +151,7 @@
                            FontFamily="Consolas"
                            FontSize="24"
                            MaxLength="72"
+                           HorizontalAlignment="Stretch"
                            Text="{Binding ShortMessage, UpdateSourceTrigger=PropertyChanged}">
                            <i:Interaction.Triggers>
                               <i:EventTrigger EventName="GotFocus">
@@ -160,9 +169,10 @@
                </Border>
             </Grid>
          </Border>
-      </Border>
+      </Grid>
 
-      <c:RadialCounter HorizontalAlignment="Right"
+      <c:RadialCounter Grid.Column="1"
+         HorizontalAlignment="Right"
          VerticalAlignment="Top"
          Margin="0,12,16,0"
          Width="80"
