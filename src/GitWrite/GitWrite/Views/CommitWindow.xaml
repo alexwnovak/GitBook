@@ -31,7 +31,13 @@
                      Storyboard.TargetProperty="Width"
                      From="0"
                      To="1080"
-                     Duration="0:0:0.5">
+                     Duration="0:0:1">
+                  </DoubleAnimation>
+                  <DoubleAnimation Storyboard.TargetName="GreenPie"
+                     Storyboard.TargetProperty="Angle"
+                     From="0"
+                     To="360"
+                     Duration="0:0:1">
                   </DoubleAnimation>
                </Storyboard>
                <converters:LeftClipConverter x:Key="LeftClipConverter" />
