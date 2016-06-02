@@ -26,6 +26,14 @@
             <ResourceDictionary Source="..\Styles\ButtonStyle.xaml" />
             <ResourceDictionary Source="CommitWindowResources.xaml" />
             <ResourceDictionary>
+               <Storyboard x:Key="ExitStoryboard">
+                  <DoubleAnimation Storyboard.TargetName="GreenGrid"
+                     Storyboard.TargetProperty="Width"
+                     From="0"
+                     To="1080"
+                     Duration="0:0:0.5">
+                  </DoubleAnimation>
+               </Storyboard>
                <converters:LeftClipConverter x:Key="LeftClipConverter" />
             </ResourceDictionary>
          </ResourceDictionary.MergedDictionaries>
