@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interactivity;
+using System.Windows.Media.Animation;
 using GalaSoft.MvvmLight.Ioc;
 using GitWrite.Behaviors;
 using GitWrite.Services;
@@ -47,18 +48,19 @@ namespace GitWrite.Views
          await PlayExitAnimationAsync( e.ExitReason );
       }
 
-      private async Task PlayExitAnimationAsync( ExitReason exitReason )
+      private Task PlayExitAnimationAsync( ExitReason exitReason )
       {
-         var exitPanel = new ExitPanel
+         var taskCompletionSource = new TaskCompletionSource<bool>();
+         var storyboard = (Storyboard) Resources["ExitStoryboard"];
+
+         storyboard.Completed += async ( sender, e ) =>
          {
-            ExitReason = exitReason,
-            VerticalAlignment = VerticalAlignment.Stretch
+            await Task.Delay( 500 );
+            taskCompletionSource.SetResult( true );
          };
+         storyboard.Begin();
 
-         var layoutRoot = (Panel) Content;
-         layoutRoot.Children.Add( exitPanel );
-
-         await exitPanel.ShowAsync();
+         return taskCompletionSource.Task;
       }
 
       public async Task<ConfirmationResult> ConfirmExitAsync()
