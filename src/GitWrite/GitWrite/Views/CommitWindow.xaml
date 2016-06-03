@@ -157,47 +157,41 @@
             Background="{DynamicResource WindowBackgroundColor}"
             Clip="M 0,0 H 983 A 44,44 45 0 0 983,56 H -983">
 
-            <Grid>
-               <Grid.RenderTransform>
-                  <TranslateTransform x:Name="OuterBorderTranslateTransform" />
-               </Grid.RenderTransform>
+            <Border x:Name="InnerBorder"
+               CornerRadius="8"
+               Padding="11"
+               VerticalAlignment="Stretch">
+               <Grid VerticalAlignment="Stretch" Background="Pink">
+                  <Grid.RowDefinitions>
+                     <RowDefinition Height="30" />
+                     <RowDefinition Height="30" />
+                     <RowDefinition Height="*" />
+                  </Grid.RowDefinitions>
 
-               <Border x:Name="InnerBorder"
-                  CornerRadius="8"
-                  Padding="11"
-                  VerticalAlignment="Stretch">
-                  <Grid VerticalAlignment="Stretch">
-                     <Grid.RowDefinitions>
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="*" />
-                     </Grid.RowDefinitions>
-
-                     <Grid x:Name="PrimaryCommitNotesGrid" Grid.Row="0">
-                        <TextBox x:Name="CommitText"
-                           Foreground="{DynamicResource TextColor}"
-                           FontFamily="Consolas"
-                           FontSize="24"
-                           MaxLength="72"
-                           HorizontalAlignment="Stretch"
-                           Text="{Binding ShortMessage, UpdateSourceTrigger=PropertyChanged}">
-                           <TextBox.Clip>
-                              <MultiBinding Converter="{StaticResource LeftClipConverter}">
-                                 <Binding Path="ActualWidth" ElementName="GreenGrid" />
-                                 <Binding Path="ActualWidth" ElementName="CommitText" />
-                              </MultiBinding>
-                           </TextBox.Clip>
-                           <i:Interaction.Triggers>
-                              <i:EventTrigger EventName="GotFocus">
-                                 <cmd:EventToCommand Command="{Binding PrimaryMessageGotFocusCommand, Mode=OneTime}"
-                                    MustToggleIsEnabledValue="True" />
-                              </i:EventTrigger>
-                           </i:Interaction.Triggers>
-                        </TextBox>
-                     </Grid>
+                  <Grid x:Name="PrimaryCommitNotesGrid" Grid.Row="0">
+                     <TextBox x:Name="CommitText"
+                        Foreground="{DynamicResource TextColor}"
+                        FontFamily="Consolas"
+                        FontSize="24"
+                        MaxLength="72"
+                        HorizontalAlignment="Stretch"
+                        Text="{Binding ShortMessage, UpdateSourceTrigger=PropertyChanged}">
+                        <TextBox.Clip>
+                           <MultiBinding Converter="{StaticResource LeftClipConverter}">
+                              <Binding Path="ActualWidth" ElementName="GreenGrid" />
+                              <Binding Path="ActualWidth" ElementName="CommitText" />
+                           </MultiBinding>
+                        </TextBox.Clip>
+                        <i:Interaction.Triggers>
+                           <i:EventTrigger EventName="GotFocus">
+                              <cmd:EventToCommand Command="{Binding PrimaryMessageGotFocusCommand, Mode=OneTime}"
+                                 MustToggleIsEnabledValue="True" />
+                           </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                     </TextBox>
                   </Grid>
-               </Border>
-            </Grid>
+               </Grid>
+            </Border>
          </Border>
       </Grid>
 
