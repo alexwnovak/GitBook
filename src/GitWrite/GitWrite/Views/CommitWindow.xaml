@@ -176,29 +176,25 @@
                </i:Interaction.Triggers>
             </TextBox>
          </Border>
-      </Grid>
 
-      <Border x:Name="GreenGrid"
-         Grid.Column="0"
-         Grid.ColumnSpan="2"
-         Width="0"
-         HorizontalAlignment="Left"
-         Background="#8040B030"
-         Clip="M 28,24 H 994 A 41,41 45 0 0 994,80 H 28 A 15,15 45 0 1 12,64 V 38 A 15,15 45 0 1 28,24">
-         <Border.Effect>
-            <BlurEffect Radius="15" KernelType="Gaussian" />
-         </Border.Effect>
-
-         <TextBox Margin="24,0,0,0"
-            Foreground="{DynamicResource TextColor}"
-            FontFamily="Consolas"
-            FontSize="24"
+         <Border x:Name="GreenGrid"
+            Width="0"
+            Margin="12"
+            Padding="12"
             HorizontalAlignment="Left"
-            VerticalAlignment="Center"
-            MaxLength="72"
-            IsTabStop="False"
-            Text="{Binding ShortMessage, UpdateSourceTrigger=PropertyChanged}" />
-      </Border>
+            Background="#8040B030">
+            <Border.Effect>
+               <BlurEffect Radius="15" KernelType="Gaussian" />
+            </Border.Effect>
+
+            <TextBox Foreground="{DynamicResource TextColor}"
+               FontFamily="Consolas"
+               FontSize="24"
+               MaxLength="72"
+               IsTabStop="False"
+               Text="{Binding ShortMessage, UpdateSourceTrigger=PropertyChanged}" />
+         </Border>
+      </Grid>
 
       <c:RadialCounter Grid.Column="1"
          HorizontalAlignment="Right"
