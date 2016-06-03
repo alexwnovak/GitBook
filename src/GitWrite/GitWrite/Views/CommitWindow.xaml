@@ -161,28 +161,26 @@
                CornerRadius="8"
                Padding="11"
                VerticalAlignment="Stretch">
-               <Grid x:Name="PrimaryCommitNotesGrid">
-                  <TextBox x:Name="CommitText"
-                     Foreground="{DynamicResource TextColor}"
-                     FontFamily="Consolas"
-                     FontSize="24"
-                     MaxLength="72"
-                     HorizontalAlignment="Stretch"
-                     Text="{Binding ShortMessage, UpdateSourceTrigger=PropertyChanged}">
-                     <TextBox.Clip>
-                        <MultiBinding Converter="{StaticResource LeftClipConverter}">
-                           <Binding Path="ActualWidth" ElementName="GreenGrid" />
-                           <Binding Path="ActualWidth" ElementName="CommitText" />
-                        </MultiBinding>
-                     </TextBox.Clip>
-                     <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="GotFocus">
-                           <cmd:EventToCommand Command="{Binding PrimaryMessageGotFocusCommand, Mode=OneTime}"
-                              MustToggleIsEnabledValue="True" />
-                        </i:EventTrigger>
-                     </i:Interaction.Triggers>
-                  </TextBox>
-               </Grid>
+               <TextBox x:Name="CommitText"
+                  Foreground="{DynamicResource TextColor}"
+                  FontFamily="Consolas"
+                  FontSize="24"
+                  MaxLength="72"
+                  HorizontalAlignment="Stretch"
+                  Text="{Binding ShortMessage, UpdateSourceTrigger=PropertyChanged}">
+                  <TextBox.Clip>
+                     <MultiBinding Converter="{StaticResource LeftClipConverter}">
+                        <Binding Path="ActualWidth" ElementName="GreenGrid" />
+                        <Binding Path="ActualWidth" ElementName="CommitText" />
+                     </MultiBinding>
+                  </TextBox.Clip>
+                  <i:Interaction.Triggers>
+                     <i:EventTrigger EventName="GotFocus">
+                        <cmd:EventToCommand Command="{Binding PrimaryMessageGotFocusCommand, Mode=OneTime}"
+                           MustToggleIsEnabledValue="True" />
+                     </i:EventTrigger>
+                  </i:Interaction.Triggers>
+               </TextBox>
             </Border>
          </Border>
       </Grid>
