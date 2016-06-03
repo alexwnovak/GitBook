@@ -149,36 +149,32 @@
 
          <Border CornerRadius="14"
             Margin="12"
+            Padding="12"
             BorderThickness="2"
             BorderBrush="{DynamicResource WindowBorderColor}"
             Background="{DynamicResource WindowBackgroundColor}"
             Clip="M 0,0 H 983 A 44,44 45 0 0 983,56 H -983">
 
-            <Border x:Name="InnerBorder"
-               CornerRadius="8"
-               Padding="11"
-               VerticalAlignment="Stretch">
-               <TextBox x:Name="CommitText"
-                  Foreground="{DynamicResource TextColor}"
-                  FontFamily="Consolas"
-                  FontSize="24"
-                  MaxLength="72"
-                  HorizontalAlignment="Stretch"
-                  Text="{Binding ShortMessage, UpdateSourceTrigger=PropertyChanged}">
-                  <TextBox.Clip>
-                     <MultiBinding Converter="{StaticResource LeftClipConverter}">
-                        <Binding Path="ActualWidth" ElementName="GreenGrid" />
-                        <Binding Path="ActualWidth" ElementName="CommitText" />
-                     </MultiBinding>
-                  </TextBox.Clip>
-                  <i:Interaction.Triggers>
-                     <i:EventTrigger EventName="GotFocus">
-                        <cmd:EventToCommand Command="{Binding PrimaryMessageGotFocusCommand, Mode=OneTime}"
-                           MustToggleIsEnabledValue="True" />
-                     </i:EventTrigger>
-                  </i:Interaction.Triggers>
-               </TextBox>
-            </Border>
+            <TextBox x:Name="CommitText"
+               Foreground="{DynamicResource TextColor}"
+               FontFamily="Consolas"
+               FontSize="24"
+               MaxLength="72"
+               HorizontalAlignment="Stretch"
+               Text="{Binding ShortMessage, UpdateSourceTrigger=PropertyChanged}">
+               <TextBox.Clip>
+                  <MultiBinding Converter="{StaticResource LeftClipConverter}">
+                     <Binding Path="ActualWidth" ElementName="GreenGrid" />
+                     <Binding Path="ActualWidth" ElementName="CommitText" />
+                  </MultiBinding>
+               </TextBox.Clip>
+               <i:Interaction.Triggers>
+                  <i:EventTrigger EventName="GotFocus">
+                     <cmd:EventToCommand Command="{Binding PrimaryMessageGotFocusCommand, Mode=OneTime}"
+                        MustToggleIsEnabledValue="True" />
+                  </i:EventTrigger>
+               </i:Interaction.Triggers>
+            </TextBox>
          </Border>
       </Grid>
 
