@@ -137,9 +137,8 @@
 
       <Grid Grid.Column="0"
          Grid.ColumnSpan="2"
-         Margin="0,12,0,0"
          Height="80"
-         VerticalAlignment="Top">
+         VerticalAlignment="Center">
          <Grid.Effect>
             <DropShadowEffect BlurRadius="16"
                ShadowDepth="1"
