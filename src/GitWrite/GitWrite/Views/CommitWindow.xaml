@@ -42,7 +42,7 @@
                   <DoubleAnimation Storyboard.TargetName="ExitGlyph"
                      Storyboard.TargetProperty="FontSize"
                      From="0"
-                     To="32"
+                     To="44"
                      BeginTime="0:0:1"
                      Duration="0:0:0.3">
                      <DoubleAnimation.EasingFunction>
