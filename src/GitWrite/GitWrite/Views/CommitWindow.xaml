@@ -152,7 +152,7 @@
             BorderThickness="2"
             BorderBrush="{DynamicResource WindowBorderColor}"
             Background="{DynamicResource WindowBackgroundColor}"
-            Clip="M 0,0 H 983 A 44,44 45 0 0 983,56 H -983">
+            Clip="M 0,0 H 988 A 44,44 45 0 0 988,56 H -988">
 
             <TextBox x:Name="CommitText"
                Foreground="{DynamicResource TextColor}"
