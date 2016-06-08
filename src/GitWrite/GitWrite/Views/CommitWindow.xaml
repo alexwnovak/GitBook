@@ -79,11 +79,22 @@
                         <CircleEase EasingMode="EaseOut" />
                      </DoubleAnimation.EasingFunction>   
                   </DoubleAnimation>
+                  <DoubleAnimation Storyboard.TargetName="SecondaryBorder"
+                     Storyboard.TargetProperty="Opacity"
+                     From="1"
+                     To="0"
+                     Duration="0:0:0.1"
+                     BeginTime="0:0:0.18" />
                </Storyboard>
             </VisualState>
 
             <VisualState x:Name="Expanded">
                <Storyboard>
+                  <DoubleAnimation Storyboard.TargetName="SecondaryBorder"
+                     Storyboard.TargetProperty="Opacity"
+                     From="0"
+                     To="1"
+                     Duration="0:0:0.1" />
                   <DoubleAnimation Storyboard.TargetName="PageRoot"
                      Storyboard.TargetProperty="Height"
                      To="400"
@@ -207,9 +218,11 @@
          </TextBlock>
       </Grid>
 
-      <Grid Grid.Row="1"
-         ZIndex="-1">
-         <Border x:Name="SecondaryBorder"
+      <Grid x:Name="SecondaryBorder"
+         Grid.Row="1"
+         ZIndex="-1"
+         Opacity="0">
+         <Border
             Margin="26,-24,26,12">
             <Border CornerRadius="0,0,14,14"
                BorderThickness="2"
