@@ -107,6 +107,9 @@
     <Compile Include="ViewModels\RebaseItemAction.cs" />
     <Compile Include="ViewModels\ShutdownEventArgs.cs" />
     <Compile Include="Views\CommitInputState.cs" />
+    <Compile Include="Views\ConfirmationDialog.xaml.cs">
+      <DependentUpon>ConfirmationDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Controls\ConfirmationResult.cs" />
     <Compile Include="Views\Controls\ConfirmPanel.xaml.cs">
       <DependentUpon>ConfirmPanel.xaml</DependentUpon>
@@ -192,6 +195,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\CommitWindowResources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ConfirmationDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
