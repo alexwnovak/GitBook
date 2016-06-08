@@ -71,10 +71,6 @@
          <VisualStateGroup x:Name="ExpansionStates">
             <VisualState x:Name="Collapsed">
                <Storyboard>
-                  <DoubleAnimation Storyboard.TargetName="SecondaryBorder"
-                     Storyboard.TargetProperty="Height"
-                     To="0"
-                     Duration="0:0:0.2" />
                   <DoubleAnimation Storyboard.TargetName="PageRoot"
                      Storyboard.TargetProperty="Height"
                      To="100"
@@ -84,10 +80,6 @@
 
             <VisualState x:Name="Expanded">
                <Storyboard>
-                  <DoubleAnimation Storyboard.TargetName="SecondaryBorder"
-                     Storyboard.TargetProperty="Height"
-                     To="388"
-                     Duration="0:0:0.2" />
                   <DoubleAnimation Storyboard.TargetName="PageRoot"
                      Storyboard.TargetProperty="Height"
                      To="400"
