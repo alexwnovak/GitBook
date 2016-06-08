@@ -29,7 +29,8 @@
         <PropertyValue name="BringUpOnOverride">1</PropertyValue>
         <PropertyValue name="BringUpOnPartial">1</PropertyValue>
         <PropertyValue name="BringUpOnSpace">1</PropertyValue>
-        <PropertyValue name="ClosedFileDiagnostics">1</PropertyValue>
+        <PropertyValue name="CSharpClosedFileDiagnostics">-1</PropertyValue>
+        <PropertyValue name="ClosedFileDiagnostics">-1</PropertyValue>
         <PropertyValue name="CodeDefinitionWindow_DocumentationComment_IndentBase">1</PropertyValue>
         <PropertyValue name="CodeDefinitionWindow_DocumentationComment_IndentOffset">2</PropertyValue>
         <PropertyValue name="CodeDefinitionWindow_DocumentationComment_WrapLength">80</PropertyValue>
