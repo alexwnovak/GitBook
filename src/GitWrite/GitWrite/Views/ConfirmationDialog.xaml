@@ -5,9 +5,10 @@
    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
    xmlns:local="clr-namespace:GitWrite.Views"
    mc:Ignorable="d"
-   Title="ConfirmationDialog"
-   Height="300"
-   Width="300">
+   Title="Confirm Commit"
+   Height="250"
+   Width="500"
+   WindowStartupLocation="CenterScreen">
    <Grid>
        
    </Grid>
