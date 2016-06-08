@@ -74,7 +74,11 @@
                   <DoubleAnimation Storyboard.TargetName="PageRoot"
                      Storyboard.TargetProperty="Height"
                      To="100"
-                     Duration="0:0:0.2" />
+                     Duration="0:0:0.2">
+                     <DoubleAnimation.EasingFunction>
+                        <CircleEase EasingMode="EaseOut" />
+                     </DoubleAnimation.EasingFunction>   
+                  </DoubleAnimation>
                </Storyboard>
             </VisualState>
 
@@ -83,7 +87,11 @@
                   <DoubleAnimation Storyboard.TargetName="PageRoot"
                      Storyboard.TargetProperty="Height"
                      To="400"
-                     Duration="0:0:0.2" />
+                     Duration="0:0:1">
+                     <DoubleAnimation.EasingFunction>
+                        <CircleEase EasingMode="EaseOut" />
+                     </DoubleAnimation.EasingFunction>
+                  </DoubleAnimation>
                </Storyboard>
             </VisualState>
          </VisualStateGroup>
