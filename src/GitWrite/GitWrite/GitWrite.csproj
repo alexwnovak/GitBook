@@ -116,6 +116,7 @@
     <Compile Include="Views\Controls\InteractiveRebasePanel.xaml.cs">
       <DependentUpon>InteractiveRebasePanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Controls\Pie.cs" />
     <Compile Include="Views\Controls\RadialCounter.cs" />
     <Compile Include="Views\Converters\BorderToGeometryConverter.cs" />
     <Compile Include="Views\Controls\ExitPanel.xaml.cs">
@@ -126,6 +127,7 @@
     <Compile Include="Views\Converters\ExitReasonToBackgroundConverter.cs" />
     <Compile Include="Views\Converters\ExitReasonToGlyphConverter.cs" />
     <Compile Include="Views\Converters\ExitReasonToGlyphBackgroundConverter.cs" />
+    <Compile Include="Views\Converters\LeftClipConverter.cs" />
     <Compile Include="Views\Converters\TextLengthToColorConverter.cs" />
     <Compile Include="Views\Dwm\AccentPolicy.cs" />
     <Compile Include="Views\Dwm\AccentState.cs" />

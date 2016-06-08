@@ -6,6 +6,7 @@
    xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WPF45"
    xmlns:views="clr-namespace:GitWrite.Views"
    xmlns:c="clr-namespace:GitWrite.Views.Controls"
+   xmlns:converters="clr-namespace:GitWrite.Views.Converters"
    xmlns:behaviors="clr-namespace:GitWrite.Behaviors"
    AllowsTransparency="True"
    Background="Transparent"
@@ -24,6 +25,33 @@
             <ResourceDictionary Source="..\Styles\TextBoxStyle.xaml" />
             <ResourceDictionary Source="..\Styles\ButtonStyle.xaml" />
             <ResourceDictionary Source="CommitWindowResources.xaml" />
+            <ResourceDictionary>
+               <Storyboard x:Key="ExitStoryboard">
+                  <DoubleAnimation Storyboard.TargetName="GreenGrid"
+                     Storyboard.TargetProperty="Width"
+                     From="0"
+                     To="1080"
+                     Duration="0:0:1">
+                  </DoubleAnimation>
+                  <DoubleAnimation Storyboard.TargetName="GreenPie"
+                     Storyboard.TargetProperty="Angle"
+                     From="0"
+                     To="360"
+                     Duration="0:0:0.8">
+                  </DoubleAnimation>
+                  <DoubleAnimation Storyboard.TargetName="ExitGlyph"
+                     Storyboard.TargetProperty="FontSize"
+                     From="0"
+                     To="44"
+                     BeginTime="0:0:1"
+                     Duration="0:0:0.3">
+                     <DoubleAnimation.EasingFunction>
+                        <BackEase EasingMode="EaseOut" />
+                     </DoubleAnimation.EasingFunction>
+                  </DoubleAnimation>
+               </Storyboard>
+               <converters:LeftClipConverter x:Key="LeftClipConverter" />
+            </ResourceDictionary>
          </ResourceDictionary.MergedDictionaries>
       </ResourceDictionary>
    </Window.Resources>
@@ -41,136 +69,188 @@
    <Grid x:Name="MainGrid">
       <VisualStateManager.VisualStateGroups>
          <VisualStateGroup x:Name="ExpansionStates">
-            <VisualStateGroup.Transitions>
-               <VisualTransition GeneratedDuration="0:0:0.5" To="Expanded">
-                  <VisualTransition.GeneratedEasingFunction>
-                     <CircleEase EasingMode="EaseOut" />
-                  </VisualTransition.GeneratedEasingFunction>
-               </VisualTransition>
-            </VisualStateGroup.Transitions>
+            <VisualState x:Name="Collapsed">
+               <Storyboard>
+                  <DoubleAnimation Storyboard.TargetName="PageRoot"
+                     Storyboard.TargetProperty="Height"
+                     To="100"
+                     Duration="0:0:0.2">
+                     <DoubleAnimation.EasingFunction>
+                        <CircleEase EasingMode="EaseOut" />
+                     </DoubleAnimation.EasingFunction>   
+                  </DoubleAnimation>
+                  <DoubleAnimation Storyboard.TargetName="SecondaryBorder"
+                     Storyboard.TargetProperty="Opacity"
+                     From="1"
+                     To="0"
+                     Duration="0:0:0.1"
+                     BeginTime="0:0:0.18" />
+               </Storyboard>
+            </VisualState>
 
-            <VisualState x:Name="Collapsed" />
             <VisualState x:Name="Expanded">
                <Storyboard>
                   <DoubleAnimation Storyboard.TargetName="SecondaryBorder"
-                     Storyboard.TargetProperty="Height"
-                     To="388" />
+                     Storyboard.TargetProperty="Opacity"
+                     From="0"
+                     To="1"
+                     Duration="0:0:0.1" />
                   <DoubleAnimation Storyboard.TargetName="PageRoot"
                      Storyboard.TargetProperty="Height"
-                     To="400" />
+                     To="400"
+                     Duration="0:0:1">
+                     <DoubleAnimation.EasingFunction>
+                        <CircleEase EasingMode="EaseOut" />
+                     </DoubleAnimation.EasingFunction>
+                  </DoubleAnimation>
                </Storyboard>
             </VisualState>
          </VisualStateGroup>
       </VisualStateManager.VisualStateGroups>
 
-      <Border x:Name="SecondaryBorder"
-         Height="0"
-         VerticalAlignment="Top">
-         <Border CornerRadius="0,0,14,14"
-            Margin="30,78,56,0"
-            BorderThickness="2"
-            BorderBrush="{DynamicResource WindowSecondaryBorderColor}"
-            Background="{DynamicResource WindowSecondaryBackgroundColor}"
-            Clip="M 0,0 H 964 A 50,50 45 0 0 996,14 H 1020 V 400 H -900">
-            <Border.Effect>
+      <Grid.RowDefinitions>
+         <RowDefinition Height="100" />
+         <RowDefinition Height="*" />
+      </Grid.RowDefinitions>
+
+      <Grid Background="Transparent">
+         <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="100" />
+         </Grid.ColumnDefinitions>
+
+         <Grid Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Height="80"
+            VerticalAlignment="Center">
+            <Grid.Effect>
                <DropShadowEffect BlurRadius="16"
                   ShadowDepth="1"
                   Direction="270" />
-            </Border.Effect>
+            </Grid.Effect>
 
-            <TextBox Foreground="{DynamicResource TextColor}"
+            <Border CornerRadius="14"
+               Margin="12"
                Padding="12"
-               Background="Transparent"
-               FontFamily="Consolas"
-               FontSize="24"
-               AcceptsReturn="True"
-               TextWrapping="Wrap"
-               Text="{Binding ExtraCommitText, UpdateSourceTrigger=PropertyChanged}">
-               <i:Interaction.Triggers>
-                  <i:EventTrigger EventName="GotFocus">
-                     <cmd:EventToCommand Command="{Binding SecondaryNotesGotFocusCommand, Mode=OneTime}"
-                         MustToggleIsEnabledValue="True" />
-                  </i:EventTrigger>
-               </i:Interaction.Triggers>
-            </TextBox>
+               BorderThickness="2"
+               BorderBrush="{DynamicResource WindowBorderColor}"
+               Background="{DynamicResource WindowBackgroundColor}"
+               Clip="M 0,0 H 988 A 44,44 45 0 0 988,56 H -988">
+
+               <TextBox x:Name="CommitText"
+                  Foreground="{DynamicResource TextColor}"
+                  FontFamily="Consolas"
+                  FontSize="24"
+                  MaxLength="72"
+                  HorizontalAlignment="Stretch"
+                  Text="{Binding ShortMessage, UpdateSourceTrigger=PropertyChanged}">
+                  <TextBox.Clip>
+                     <MultiBinding Converter="{StaticResource LeftClipConverter}">
+                        <Binding Path="ActualWidth" ElementName="GreenGrid" />
+                        <Binding Path="ActualWidth" ElementName="CommitText" />
+                     </MultiBinding>
+                  </TextBox.Clip>
+                  <i:Interaction.Triggers>
+                     <i:EventTrigger EventName="GotFocus">
+                        <cmd:EventToCommand Command="{Binding PrimaryMessageGotFocusCommand, Mode=OneTime}"
+                           MustToggleIsEnabledValue="True" />
+                     </i:EventTrigger>
+                  </i:Interaction.Triggers>
+               </TextBox>
+            </Border>
+
+            <Border x:Name="GreenGrid"
+               Width="0"
+               Margin="12"
+               Padding="12"
+               HorizontalAlignment="Left"
+               Background="#8040B030">
+               <Border.Effect>
+                  <BlurEffect Radius="15" KernelType="Gaussian" />
+               </Border.Effect>
+
+               <TextBox Foreground="{DynamicResource TextColor}"
+                  FontFamily="Consolas"
+                  FontSize="24"
+                  MaxLength="72"
+                  IsTabStop="False"
+                  Text="{Binding ShortMessage, UpdateSourceTrigger=PropertyChanged}" />
+            </Border>
+         </Grid>
+
+         <c:RadialCounter Grid.Column="1"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Minimum="0"
+            Maximum="72"
+            FontSize="24"
+            Value="{Binding Text.Length, ElementName=CommitText, Converter={StaticResource TextLengthInversionConverter}}">
+            <c:RadialCounter.Effect>
+               <DropShadowEffect BlurRadius="16"
+                  ShadowDepth="1"
+                  Direction="270" />
+            </c:RadialCounter.Effect>
+         </c:RadialCounter>
+
+         <c:Pie x:Name="GreenPie"
+            Fill="#8040B030"
+            Grid.Column="1"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Width="82"
+            Height="82">
+         </c:Pie>
+
+         <TextBlock x:Name="ExitGlyph"
+            Grid.Column="1"
+            Foreground="#0F0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            FontFamily="Segoe MDL2 Assets"
+            FontSize="0.01"
+            FontWeight="ExtraBold"
+            Text="&#xE10B;">
+            <TextBlock.Effect>
+               <DropShadowEffect BlurRadius="8"
+                  ShadowDepth="1"
+                  Direction="270" />
+            </TextBlock.Effect>
+         </TextBlock>
+      </Grid>
+
+      <Grid x:Name="SecondaryBorder"
+         Grid.Row="1"
+         ZIndex="-1"
+         Opacity="0">
+         <Border
+            Margin="26,-24,26,12">
+            <Border CornerRadius="0,0,14,14"
+               BorderThickness="2"
+               BorderBrush="{DynamicResource WindowSecondaryBorderColor}"
+               Background="{DynamicResource WindowSecondaryBackgroundColor}">
+               <Border.Effect>
+                  <DropShadowEffect BlurRadius="16"
+                     ShadowDepth="1"
+                     Direction="270" />
+               </Border.Effect>
+
+               <TextBox Foreground="{DynamicResource TextColor}"
+                  Padding="12"
+                  Background="Transparent"
+                  FontFamily="Consolas"
+                  FontSize="24"
+                  AcceptsReturn="True"
+                  TextWrapping="Wrap"
+                  Text="{Binding ExtraCommitText, UpdateSourceTrigger=PropertyChanged}">
+                  <i:Interaction.Triggers>
+                     <i:EventTrigger EventName="GotFocus">
+                        <cmd:EventToCommand Command="{Binding SecondaryNotesGotFocusCommand, Mode=OneTime}"
+                           MustToggleIsEnabledValue="True" />
+                     </i:EventTrigger>
+                  </i:Interaction.Triggers>
+               </TextBox>
+            </Border>
          </Border>
-      </Border>
-
-      <Border Margin="0,12,0,0"
-         Height="80"
-         VerticalAlignment="Top">
-         <Border.Effect>
-            <DropShadowEffect BlurRadius="16"
-               ShadowDepth="1"
-               Direction="270" />
-         </Border.Effect>
-
-         <Border x:Name="OuterBorder"
-            CornerRadius="14"
-            Margin="12,0,0,0"
-            Width="1090"
-            Height="56"
-            BorderThickness="2"
-            BorderBrush="{DynamicResource WindowBorderColor}"
-            Background="{DynamicResource WindowBackgroundColor}"
-            Clip="M 0,0 H 983 A 44,44 45 0 0 983,56 H -983">
-
-            <Grid>
-               <Grid.RenderTransform>
-                  <TranslateTransform x:Name="OuterBorderTranslateTransform" />
-               </Grid.RenderTransform>
-
-               <Border x:Name="InnerBorder"
-                  CornerRadius="8"
-                  Padding="11"
-                  VerticalAlignment="Stretch">
-                  <Grid VerticalAlignment="Stretch">
-                     <Grid.RowDefinitions>
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="*" />
-                     </Grid.RowDefinitions>
-
-                     <Grid x:Name="PrimaryCommitNotesGrid" Grid.Row="0">
-                        <TextBox x:Name="CommitText"  
-                           Background="Transparent"
-                           Foreground="{DynamicResource TextColor}"
-                           FontFamily="Consolas"
-                           FontSize="24"
-                           MaxLength="72"
-                           Text="{Binding ShortMessage, UpdateSourceTrigger=PropertyChanged}">
-                           <i:Interaction.Triggers>
-                              <i:EventTrigger EventName="GotFocus">
-                                 <cmd:EventToCommand Command="{Binding PrimaryMessageGotFocusCommand, Mode=OneTime}"
-                                    MustToggleIsEnabledValue="True" />
-                              </i:EventTrigger>
-                           </i:Interaction.Triggers>
-                        </TextBox>
-                     </Grid>
-
-                     <Rectangle Grid.Row="1"
-                        Height="1"
-                        Fill="{DynamicResource SeparatorColor}" />
-                  </Grid>
-               </Border>
-            </Grid>
-         </Border>
-      </Border>
-
-      <c:RadialCounter HorizontalAlignment="Right"
-         VerticalAlignment="Top"
-         Margin="0,12,16,0"
-         Width="80"
-         Height="80"
-         Minimum="0"
-         Maximum="72"
-         FontSize="24"
-         Value="{Binding Text.Length, ElementName=CommitText, Converter={StaticResource TextLengthInversionConverter}}">
-         <c:RadialCounter.Effect>
-            <DropShadowEffect BlurRadius="16"
-               ShadowDepth="1"
-               Direction="270" />
-         </c:RadialCounter.Effect>
-      </c:RadialCounter>
+      </Grid>
    </Grid>
 </views:WindowBase>
