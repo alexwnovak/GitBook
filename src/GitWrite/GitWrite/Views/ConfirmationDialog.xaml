@@ -55,27 +55,24 @@
 
                <StackPanel Orientation="Horizontal"
                   HorizontalAlignment="Right">
-                  <StackPanel.Resources>
-                     <Style TargetType="{x:Type Button}">
-                        <Setter Property="Margin" Value="0,0,4,0" />
-                     </Style>
-                  </StackPanel.Resources>
 
+                  <Button Margin="0,0,6,0"
+                     Width="80"
+                     Height="30"
+                     VerticalAlignment="Bottom"
+                     HorizontalAlignment="Right"
+                     Content="_Save" />
+                  <Button Margin="0,0,6,0"
+                     Width="80"
+                     Height="30"
+                     VerticalAlignment="Bottom"
+                     HorizontalAlignment="Right"
+                     Content="_Discard" />
                   <Button Width="80"
                      Height="30"
                      VerticalAlignment="Bottom"
                      HorizontalAlignment="Right"
-                     Content="Save" />
-                  <Button Width="80"
-                     Height="30"
-                     VerticalAlignment="Bottom"
-                     HorizontalAlignment="Right"
-                     Content="Discard" />
-                  <Button Width="80"
-                     Height="30"
-                     VerticalAlignment="Bottom"
-                     HorizontalAlignment="Right"
-                     Content="Cancel" />
+                     Content="_Cancel" />
                </StackPanel>
             </Grid>
          </Border>
