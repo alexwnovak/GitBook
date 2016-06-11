@@ -62,18 +62,21 @@
                      Height="30"
                      VerticalAlignment="Bottom"
                      HorizontalAlignment="Right"
-                     Content="_Save" />
+                     Content="_Save"
+                     Command="{Binding SaveCommand, Mode=OneTime}" />
                   <Button Margin="0,0,6,0"
                      Width="80"
                      Height="30"
                      VerticalAlignment="Bottom"
                      HorizontalAlignment="Right"
-                     Content="_Discard" />
+                     Content="_Discard"
+                     Command="{Binding DiscardCommand, Mode=OneTime}" />
                   <Button Width="80"
                      Height="30"
                      VerticalAlignment="Bottom"
                      HorizontalAlignment="Right"
-                     Content="_Cancel" />
+                     Content="_Cancel"
+                     Command="{Binding CancelCommand, Mode=OneTime}" />
                </StackPanel>
             </Grid>
          </Border>
