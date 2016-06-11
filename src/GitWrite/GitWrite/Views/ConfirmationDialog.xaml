@@ -8,6 +8,12 @@
    Title="Confirm Commit"
    Height="250"
    Width="500"
+   AllowsTransparency="True"
+   Background="Transparent"
+   Foreground="{DynamicResource TextColor}"
+   ResizeMode="NoResize"
+   FontSize="14"
+   WindowStyle="None"
    WindowStartupLocation="CenterScreen">
    <Grid>
        
