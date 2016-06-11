@@ -87,6 +87,7 @@ namespace GitWrite
       {
          ServiceLocator.SetLocatorProvider( () => SimpleIoc.Default );
 
+         SimpleIoc.Default.Register( () => new ConfirmationViewModel() );
          SimpleIoc.Default.Register<IApplicationSettings>( () => new ApplicationSettings( new RegistryService() ) );
          SimpleIoc.Default.Register<ICommitFileReader>( () => new CommitFileReader( new FileAdapter() ) );
          SimpleIoc.Default.Register<IStoryboardHelper, StoryboardHelper>();
