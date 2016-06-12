@@ -203,7 +203,7 @@
 
          <TextBlock x:Name="ExitGlyph"
             Grid.Column="1"
-            Foreground="{Binding ExitReason, Converter={StaticResource ExitReasonToGlyphBackgroundConverter}}"
+            Foreground="{Binding ExitReason, Converter={StaticResource ExitReasonToGlyphColorConverter}}"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             FontFamily="Segoe MDL2 Assets"

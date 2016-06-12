@@ -3,7 +3,7 @@ using System.Windows;
 
 namespace GitWrite.Views.Converters
 {
-   public class ExitReasonToGlyphBackgroundConverter : ExitReasonBaseConverter
+   public class ExitReasonToGlyphColorConverter : ExitReasonBaseConverter
    {
       protected override object OnConvert( ExitReason exitReason )
       {

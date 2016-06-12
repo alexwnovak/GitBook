@@ -125,7 +125,7 @@
     <Compile Include="Views\Converters\ExitReasonBaseConverter.cs" />
     <Compile Include="Views\Converters\ExitReasonToBackgroundConverter.cs" />
     <Compile Include="Views\Converters\ExitReasonToGlyphConverter.cs" />
-    <Compile Include="Views\Converters\ExitReasonToGlyphBackgroundConverter.cs" />
+    <Compile Include="Views\Converters\ExitReasonToGlyphColorConverter.cs" />
     <Compile Include="Views\Converters\LeftClipConverter.cs" />
     <Compile Include="Views\Converters\TextLengthToColorConverter.cs" />
     <Compile Include="Views\Dwm\AccentPolicy.cs" />
