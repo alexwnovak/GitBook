@@ -37,6 +37,19 @@ namespace GitWrite.ViewModels
          set;
       }
 
+      private ExitReason _exitReason;
+      public ExitReason ExitReason
+      {
+         get
+         {
+            return _exitReason;
+         }
+         set
+         {
+            Set( () => ExitReason, ref _exitReason, value );
+         }
+      }
+
       public RelayCommand AbortCommand
       {
          get;
@@ -83,6 +96,7 @@ namespace GitWrite.ViewModels
             return;
          }
 
+         ExitReason = ExitReason.Abort;
          ExitReason exitReason = ExitReason.Abort;
 
          if ( IsDirty )
@@ -122,6 +136,7 @@ namespace GitWrite.ViewModels
 
       private async void OnSave()
       {
+         ExitReason = ExitReason.Accept;
          await OnSaveAsync();
 
          IsExiting = true;

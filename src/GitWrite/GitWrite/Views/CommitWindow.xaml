@@ -164,7 +164,7 @@
                Margin="12"
                Padding="12"
                HorizontalAlignment="Left"
-               Background="#8040B030">
+               Background="{Binding ExitReason, Converter={StaticResource ExitReasonToBackgroundConverter}}">
                <Border.Effect>
                   <BlurEffect Radius="15" KernelType="Gaussian" />
                </Border.Effect>
@@ -193,7 +193,7 @@
          </c:RadialCounter>
 
          <c:Pie x:Name="GreenPie"
-            Fill="#8040B030"
+            Fill="{Binding ExitReason, Converter={StaticResource ExitReasonToBackgroundConverter}}"
             Grid.Column="1"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
