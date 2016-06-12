@@ -61,14 +61,15 @@
                      </VisualStateGroup>
                   </VisualStateManager.VisualStateGroups>
                   <Border x:Name="Background"
-                     CornerRadius="12,0,12,0"
-                     BorderBrush="{TemplateBinding BorderBrush}"
+                     BorderBrush="{DynamicResource WindowBorderColor}"
+                     BorderThickness="1"
                      Background="#002080A0">
+                     <Label Content="{TemplateBinding Content}"
+                        ContentTemplate="{TemplateBinding ContentTemplate}"
+                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        TextBlock.Foreground="{DynamicResource TextColor}" />
                   </Border>
-                  <ContentPresenter Content="{TemplateBinding Content}"
-                     ContentTemplate="{TemplateBinding ContentTemplate}"
-                     VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                     HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" />
                </Grid>
             </ControlTemplate>
          </Setter.Value>

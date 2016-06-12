@@ -100,6 +100,8 @@
     <Compile Include="Services\IResourceLocator.cs" />
     <Compile Include="Services\RegistryService.cs" />
     <Compile Include="Services\ResourceLocator.cs" />
+    <Compile Include="ViewModels\CloseRequestedEventArgs.cs" />
+    <Compile Include="ViewModels\ConfirmationViewModel.cs" />
     <Compile Include="ViewModels\GitWriteViewModelBase.cs" />
     <Compile Include="ViewModels\InteractiveRebaseViewModel.cs" />
     <Compile Include="ViewModels\RebaseItem.cs" />
@@ -107,10 +109,10 @@
     <Compile Include="ViewModels\RebaseItemAction.cs" />
     <Compile Include="ViewModels\ShutdownEventArgs.cs" />
     <Compile Include="Views\CommitInputState.cs" />
-    <Compile Include="Views\Controls\ConfirmationResult.cs" />
-    <Compile Include="Views\Controls\ConfirmPanel.xaml.cs">
-      <DependentUpon>ConfirmPanel.xaml</DependentUpon>
+    <Compile Include="Views\ConfirmationDialog.xaml.cs">
+      <DependentUpon>ConfirmationDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Controls\ConfirmationResult.cs" />
     <Compile Include="Views\Controls\DrawingContextExtensions.cs" />
     <Compile Include="Views\Controls\ItemSelectionAdorner.cs" />
     <Compile Include="Views\Controls\InteractiveRebasePanel.xaml.cs">
@@ -119,9 +121,6 @@
     <Compile Include="Views\Controls\Pie.cs" />
     <Compile Include="Views\Controls\RadialCounter.cs" />
     <Compile Include="Views\Converters\BorderToGeometryConverter.cs" />
-    <Compile Include="Views\Controls\ExitPanel.xaml.cs">
-      <DependentUpon>ExitPanel.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Converters\BoolToCaretBrushConverter.cs" />
     <Compile Include="Views\Converters\ExitReasonBaseConverter.cs" />
     <Compile Include="Views\Converters\ExitReasonToBackgroundConverter.cs" />
@@ -195,11 +194,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Controls\ConfirmPanel.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Controls\ExitPanel.xaml">
+    <Page Include="Views\ConfirmationDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

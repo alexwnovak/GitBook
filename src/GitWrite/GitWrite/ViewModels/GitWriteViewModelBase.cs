@@ -89,7 +89,7 @@ namespace GitWrite.ViewModels
          {
             IsConfirming = true;
 
-            var confirmationResult = await ViewService.ConfirmExitAsync();
+            var confirmationResult = ViewService.ConfirmExit();
 
             if ( confirmationResult == ConfirmationResult.Cancel )
             {
