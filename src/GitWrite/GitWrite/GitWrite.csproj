@@ -113,9 +113,6 @@
       <DependentUpon>ConfirmationDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Controls\ConfirmationResult.cs" />
-    <Compile Include="Views\Controls\ConfirmPanel.xaml.cs">
-      <DependentUpon>ConfirmPanel.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Controls\DrawingContextExtensions.cs" />
     <Compile Include="Views\Controls\ItemSelectionAdorner.cs" />
     <Compile Include="Views\Controls\InteractiveRebasePanel.xaml.cs">
@@ -124,9 +121,6 @@
     <Compile Include="Views\Controls\Pie.cs" />
     <Compile Include="Views\Controls\RadialCounter.cs" />
     <Compile Include="Views\Converters\BorderToGeometryConverter.cs" />
-    <Compile Include="Views\Controls\ExitPanel.xaml.cs">
-      <DependentUpon>ExitPanel.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Converters\BoolToCaretBrushConverter.cs" />
     <Compile Include="Views\Converters\ExitReasonBaseConverter.cs" />
     <Compile Include="Views\Converters\ExitReasonToBackgroundConverter.cs" />
@@ -201,14 +195,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ConfirmationDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Controls\ConfirmPanel.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Controls\ExitPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
