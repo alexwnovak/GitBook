@@ -209,7 +209,7 @@
             FontFamily="Segoe MDL2 Assets"
             FontSize="0.01"
             FontWeight="ExtraBold"
-            Text="&#xE10B;">
+            Text="{Binding ExitReason, Converter={StaticResource ExitReasonToGlyphConverter}}">
             <TextBlock.Effect>
                <DropShadowEffect BlurRadius="8"
                   ShadowDepth="1"
