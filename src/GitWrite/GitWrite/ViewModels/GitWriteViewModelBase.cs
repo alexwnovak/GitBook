@@ -2,8 +2,6 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GitWrite.Services;
-using GitWrite.Views;
-using GitWrite.Views.Controls;
 
 namespace GitWrite.ViewModels
 {
