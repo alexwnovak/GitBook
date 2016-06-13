@@ -143,6 +143,7 @@
                   FontSize="24"
                   MaxLength="72"
                   HorizontalAlignment="Stretch"
+                  IsReadOnly="{Binding IsExiting, Mode=OneWay}"
                   Text="{Binding ShortMessage, UpdateSourceTrigger=PropertyChanged}">
                   <TextBox.Clip>
                      <MultiBinding Converter="{StaticResource LeftClipConverter}">

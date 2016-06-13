@@ -23,10 +23,17 @@ namespace GitWrite.ViewModels
          set;
       }
 
+      private bool _isExiting;
       public bool IsExiting
       {
-         get;
-         set;
+         get
+         {
+            return _isExiting;
+         }
+         set
+         {
+            Set( () => IsExiting, ref _isExiting, value );
+         }
       }
 
       public bool IsConfirming
