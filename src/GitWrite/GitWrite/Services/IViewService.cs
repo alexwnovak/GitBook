@@ -4,6 +4,6 @@ namespace GitWrite.Services
 {
    public interface IViewService
    {
-      ConfirmationResult ConfirmExit();
+      ExitReason ConfirmExit();
    }
 }

@@ -7,7 +7,7 @@ namespace GitWrite.Views
    public partial class ConfirmationDialog : Window
    {
       private readonly ConfirmationViewModel _viewModel;
-      private ConfirmationResult _confirmationResult;
+      private ExitReason _confirmationResult;
 
       public ConfirmationDialog()
       {
@@ -17,7 +17,7 @@ namespace GitWrite.Views
          _viewModel.CloseRequested += OnCloseRequested;
       }
 
-      public new ConfirmationResult ShowDialog()
+      public new ExitReason ShowDialog()
       {
          base.ShowDialog();
 

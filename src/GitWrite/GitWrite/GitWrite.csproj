@@ -112,7 +112,7 @@
     <Compile Include="Views\ConfirmationDialog.xaml.cs">
       <DependentUpon>ConfirmationDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\ConfirmationResult.cs" />
+    <Compile Include="ViewModels\ExitReason.cs" />
     <Compile Include="Views\Controls\DrawingContextExtensions.cs" />
     <Compile Include="Views\Controls\ItemSelectionAdorner.cs" />
     <Compile Include="Views\Controls\InteractiveRebasePanel.xaml.cs">
@@ -133,7 +133,6 @@
     <Compile Include="Views\Dwm\WindowCompositionAttribute.cs" />
     <Compile Include="Views\Dwm\WindowCompositionManager.cs" />
     <Compile Include="Views\Dwm\WindowsCompositionAttributeData.cs" />
-    <Compile Include="Views\ExitReason.cs" />
     <Compile Include="Views\CommitControlState.cs" />
     <Compile Include="EnvironmentAdapter.cs" />
     <Compile Include="FileAdapter.cs" />

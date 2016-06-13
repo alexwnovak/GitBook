@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using GitWrite.ViewModels;
 
 namespace GitWrite.Views.Converters
 {
@@ -9,9 +10,9 @@ namespace GitWrite.Views.Converters
       {
          switch ( exitReason )
          {
-            case ExitReason.Accept:
+            case ExitReason.Save:
                return Application.Current.Resources["AcceptCommitGlyphBackgroundColor"];
-            case ExitReason.Abort:
+            case ExitReason.Discard:
                return Application.Current.Resources["AbortCommitGlyphBackgroundColor"];
          }
 

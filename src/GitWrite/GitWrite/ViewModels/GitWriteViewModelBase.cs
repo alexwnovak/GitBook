@@ -96,8 +96,8 @@ namespace GitWrite.ViewModels
             return;
          }
 
-         ExitReason = ExitReason.Abort;
-         ExitReason exitReason = ExitReason.Abort;
+         ExitReason = ExitReason.Discard;
+         ExitReason exitReason = ExitReason.Discard;
 
          if ( IsDirty )
          {
@@ -105,26 +105,26 @@ namespace GitWrite.ViewModels
 
             var confirmationResult = ViewService.ConfirmExit();
 
-            if ( confirmationResult == ConfirmationResult.Cancel )
+            if ( confirmationResult == ExitReason.Cancel )
             {
                IsConfirming = false;
                return;
             }
 
-            if ( confirmationResult == ConfirmationResult.Save )
+            if ( confirmationResult == ExitReason.Save )
             {
-               ExitReason = ExitReason.Accept;
+               ExitReason = ExitReason.Save;
                await OnSaveAsync();
-               exitReason = ExitReason.Accept;
+               exitReason = ExitReason.Save;
             }
             else
             {
                await OnDiscardAsync();
-               exitReason = ExitReason.Abort;
+               exitReason = ExitReason.Discard;
             }
          }
 
-         if ( exitReason == ExitReason.Abort )
+         if ( exitReason == ExitReason.Discard )
          {
             await OnDiscardAsync();
          }
@@ -137,11 +137,11 @@ namespace GitWrite.ViewModels
 
       private async void OnSave()
       {
-         ExitReason = ExitReason.Accept;
+         ExitReason = ExitReason.Save;
          await OnSaveAsync();
 
          IsExiting = true;
-         await OnShutdownRequested( this, new ShutdownEventArgs( ExitReason.Accept ) );
+         await OnShutdownRequested( this, new ShutdownEventArgs( ExitReason.Save ) );
 
          AppService.Shutdown();
       }

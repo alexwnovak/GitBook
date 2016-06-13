@@ -5,12 +5,12 @@ namespace GitWrite.ViewModels
 {
    public class CloseRequestedEventArgs : EventArgs
    {
-      public ConfirmationResult ConfirmationResult
+      public ExitReason ConfirmationResult
       {
          get;
       }
 
-      public CloseRequestedEventArgs( ConfirmationResult confirmationResult )
+      public CloseRequestedEventArgs( ExitReason confirmationResult )
       {
          ConfirmationResult = confirmationResult;
       }

@@ -10,40 +10,40 @@ namespace GitWrite.UnitTests.ViewModels
       [Fact]
       public void CloseRequested_RaisedFromSaveCommand_PassesSaveConfirmationResult()
       {
-         ConfirmationResult actualResult = (ConfirmationResult) (-1);
+         ExitReason actualResult = (ExitReason) (-1);
 
          var confirmationViewModel = new ConfirmationViewModel();
          confirmationViewModel.CloseRequested += ( o, args ) => actualResult = args.ConfirmationResult;
 
          confirmationViewModel.SaveCommand.Execute( null );
 
-         actualResult.Should().Be( ConfirmationResult.Save );
+         actualResult.Should().Be( ExitReason.Save );
       }
 
       [Fact]
       public void CloseRequested_RaisedFromDiscardCommand_PassesDiscardConfirmationResult()
       {
-         ConfirmationResult actualResult = (ConfirmationResult) ( -1 );
+         ExitReason actualResult = (ExitReason) ( -1 );
 
          var confirmationViewModel = new ConfirmationViewModel();
          confirmationViewModel.CloseRequested += ( o, args ) => actualResult = args.ConfirmationResult;
 
          confirmationViewModel.DiscardCommand.Execute( null );
 
-         actualResult.Should().Be( ConfirmationResult.Discard );
+         actualResult.Should().Be( ExitReason.Discard );
       }
 
       [Fact]
       public void CloseRequested_RaisedFromCancelCommand_PassesCancelConfirmationResult()
       {
-         ConfirmationResult actualResult = (ConfirmationResult) ( -1 );
+         ExitReason actualResult = (ExitReason) ( -1 );
 
          var confirmationViewModel = new ConfirmationViewModel();
          confirmationViewModel.CloseRequested += ( o, args ) => actualResult = args.ConfirmationResult;
 
          confirmationViewModel.CancelCommand.Execute( null );
 
-         actualResult.Should().Be( ConfirmationResult.Cancel );
+         actualResult.Should().Be( ExitReason.Cancel );
       }
    }
 }

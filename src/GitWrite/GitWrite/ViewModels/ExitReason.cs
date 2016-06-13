@@ -1,6 +1,6 @@
 ﻿namespace GitWrite.ViewModels
 {
-   public enum ConfirmationResult
+   public enum ExitReason
    {
       Save,
       Discard,

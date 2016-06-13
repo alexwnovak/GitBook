@@ -63,7 +63,7 @@ namespace GitWrite.Views
          return taskCompletionSource.Task;
       }
 
-      public ConfirmationResult ConfirmExit()
+      public ExitReason ConfirmExit()
       {
          var confirmationDialog = new ConfirmationDialog();
          return confirmationDialog.ShowDialog();   
