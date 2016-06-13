@@ -1,4 +1,4 @@
-using GitWrite.Views.Controls;
+using GitWrite.ViewModels;
 
 namespace GitWrite.Services
 {
