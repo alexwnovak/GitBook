@@ -36,12 +36,6 @@ namespace GitWrite.ViewModels
          }
       }
 
-      public bool IsConfirming
-      {
-         get;
-         set;
-      }
-
       private ExitReason _exitReason;
       public ExitReason ExitReason
       {
@@ -96,7 +90,7 @@ namespace GitWrite.ViewModels
 
       private async void OnAbort()
       {
-         if ( IsExiting || IsConfirming )
+         if ( IsExiting )
          {
             return;
          }
@@ -106,13 +100,10 @@ namespace GitWrite.ViewModels
 
          if ( IsDirty )
          {
-            IsConfirming = true;
-
             var confirmationResult = ViewService.ConfirmExit();
 
             if ( confirmationResult == ExitReason.Cancel )
             {
-               IsConfirming = false;
                return;
             }
 
