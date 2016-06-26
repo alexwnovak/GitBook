@@ -50,7 +50,7 @@ namespace GitWrite.ViewModels
          set;
       }
 
-      public string Title => null;// $"Commiting to {_gitService.GetCurrentBranchName()}";
+      public string Title => $"Commiting to {_gitService.GetCurrentBranchName()}";
 
       private string _shortMessage;
       public string ShortMessage
