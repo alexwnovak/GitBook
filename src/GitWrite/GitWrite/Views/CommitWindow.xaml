@@ -44,7 +44,7 @@
                      From="0"
                      To="44"
                      BeginTime="0:0:1"
-                     Duration="0:0:0.3">
+                     Duration="0:0:0.25">
                      <DoubleAnimation.EasingFunction>
                         <BackEase EasingMode="EaseOut" />
                      </DoubleAnimation.EasingFunction>
@@ -143,6 +143,7 @@
                   FontSize="24"
                   MaxLength="72"
                   HorizontalAlignment="Stretch"
+                  IsReadOnly="{Binding IsExiting, Mode=OneWay}"
                   Text="{Binding ShortMessage, UpdateSourceTrigger=PropertyChanged}">
                   <TextBox.Clip>
                      <MultiBinding Converter="{StaticResource LeftClipConverter}">
@@ -164,7 +165,7 @@
                Margin="12"
                Padding="12"
                HorizontalAlignment="Left"
-               Background="#8040B030">
+               Background="{Binding ExitReason, Converter={StaticResource ExitReasonToBackgroundConverter}}">
                <Border.Effect>
                   <BlurEffect Radius="15" KernelType="Gaussian" />
                </Border.Effect>
@@ -193,7 +194,7 @@
          </c:RadialCounter>
 
          <c:Pie x:Name="GreenPie"
-            Fill="#8040B030"
+            Fill="{Binding ExitReason, Converter={StaticResource ExitReasonToBackgroundConverter}}"
             Grid.Column="1"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
@@ -203,13 +204,13 @@
 
          <TextBlock x:Name="ExitGlyph"
             Grid.Column="1"
-            Foreground="#0F0"
+            Foreground="{Binding ExitReason, Converter={StaticResource ExitReasonToGlyphColorConverter}}"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             FontFamily="Segoe MDL2 Assets"
             FontSize="0.01"
             FontWeight="ExtraBold"
-            Text="&#xE10B;">
+            Text="{Binding ExitReason, Converter={StaticResource ExitReasonToGlyphConverter}}">
             <TextBlock.Effect>
                <DropShadowEffect BlurRadius="8"
                   ShadowDepth="1"

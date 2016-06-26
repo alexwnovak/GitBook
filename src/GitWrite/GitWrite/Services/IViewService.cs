@@ -1,9 +1,9 @@
-using GitWrite.Views.Controls;
+using GitWrite.ViewModels;
 
 namespace GitWrite.Services
 {
    public interface IViewService
    {
-      ConfirmationResult ConfirmExit();
+      ExitReason ConfirmExit();
    }
 }

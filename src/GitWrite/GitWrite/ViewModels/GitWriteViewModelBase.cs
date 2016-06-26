@@ -2,8 +2,6 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GitWrite.Services;
-using GitWrite.Views;
-using GitWrite.Views.Controls;
 
 namespace GitWrite.ViewModels
 {
@@ -25,16 +23,30 @@ namespace GitWrite.ViewModels
          set;
       }
 
+      private bool _isExiting;
       public bool IsExiting
       {
-         get;
-         set;
+         get
+         {
+            return _isExiting;
+         }
+         set
+         {
+            Set( () => IsExiting, ref _isExiting, value );
+         }
       }
 
-      public bool IsConfirming
+      private ExitReason _exitReason;
+      public ExitReason ExitReason
       {
-         get;
-         set;
+         get
+         {
+            return _exitReason;
+         }
+         set
+         {
+            Set( () => ExitReason, ref _exitReason, value );
+         }
       }
 
       public RelayCommand AbortCommand
@@ -78,38 +90,37 @@ namespace GitWrite.ViewModels
 
       private async void OnAbort()
       {
-         if ( IsExiting || IsConfirming )
+         if ( IsExiting )
          {
             return;
          }
 
-         ExitReason exitReason = ExitReason.Abort;
+         ExitReason = ExitReason.Discard;
+         ExitReason exitReason = ExitReason.Discard;
 
          if ( IsDirty )
          {
-            IsConfirming = true;
-
             var confirmationResult = ViewService.ConfirmExit();
 
-            if ( confirmationResult == ConfirmationResult.Cancel )
+            if ( confirmationResult == ExitReason.Cancel )
             {
-               IsConfirming = false;
                return;
             }
 
-            if ( confirmationResult == ConfirmationResult.Save )
+            if ( confirmationResult == ExitReason.Save )
             {
+               ExitReason = ExitReason.Save;
                await OnSaveAsync();
-               exitReason = ExitReason.Accept;
+               exitReason = ExitReason.Save;
             }
             else
             {
                await OnDiscardAsync();
-               exitReason = ExitReason.Abort;
+               exitReason = ExitReason.Discard;
             }
          }
 
-         if ( exitReason == ExitReason.Abort )
+         if ( exitReason == ExitReason.Discard )
          {
             await OnDiscardAsync();
          }
@@ -122,10 +133,11 @@ namespace GitWrite.ViewModels
 
       private async void OnSave()
       {
+         ExitReason = ExitReason.Save;
          await OnSaveAsync();
 
          IsExiting = true;
-         await OnShutdownRequested( this, new ShutdownEventArgs( ExitReason.Accept ) );
+         await OnShutdownRequested( this, new ShutdownEventArgs( ExitReason.Save ) );
 
          AppService.Shutdown();
       }

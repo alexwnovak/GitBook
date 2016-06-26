@@ -112,7 +112,7 @@
     <Compile Include="Views\ConfirmationDialog.xaml.cs">
       <DependentUpon>ConfirmationDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Controls\ConfirmationResult.cs" />
+    <Compile Include="ViewModels\ExitReason.cs" />
     <Compile Include="Views\Controls\DrawingContextExtensions.cs" />
     <Compile Include="Views\Controls\ItemSelectionAdorner.cs" />
     <Compile Include="Views\Controls\InteractiveRebasePanel.xaml.cs">
@@ -125,7 +125,7 @@
     <Compile Include="Views\Converters\ExitReasonBaseConverter.cs" />
     <Compile Include="Views\Converters\ExitReasonToBackgroundConverter.cs" />
     <Compile Include="Views\Converters\ExitReasonToGlyphConverter.cs" />
-    <Compile Include="Views\Converters\ExitReasonToGlyphBackgroundConverter.cs" />
+    <Compile Include="Views\Converters\ExitReasonToGlyphColorConverter.cs" />
     <Compile Include="Views\Converters\LeftClipConverter.cs" />
     <Compile Include="Views\Converters\TextLengthToColorConverter.cs" />
     <Compile Include="Views\Dwm\AccentPolicy.cs" />
@@ -133,7 +133,6 @@
     <Compile Include="Views\Dwm\WindowCompositionAttribute.cs" />
     <Compile Include="Views\Dwm\WindowCompositionManager.cs" />
     <Compile Include="Views\Dwm\WindowsCompositionAttributeData.cs" />
-    <Compile Include="Views\ExitReason.cs" />
     <Compile Include="Views\CommitControlState.cs" />
     <Compile Include="EnvironmentAdapter.cs" />
     <Compile Include="FileAdapter.cs" />

@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Windows;
+using GitWrite.ViewModels;
 
 namespace GitWrite.Views.Converters
 {
-   public class ExitReasonToGlyphBackgroundConverter : ExitReasonBaseConverter
+   public class ExitReasonToGlyphColorConverter : ExitReasonBaseConverter
    {
       protected override object OnConvert( ExitReason exitReason )
       {
          switch ( exitReason )
          {
-            case ExitReason.Accept:
+            case ExitReason.Save:
                return Application.Current.Resources["AcceptCommitGlyphBackgroundColor"];
-            case ExitReason.Abort:
+            case ExitReason.Discard:
                return Application.Current.Resources["AbortCommitGlyphBackgroundColor"];
          }
 

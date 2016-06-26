@@ -2,15 +2,12 @@
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Interactivity;
 using System.Windows.Media.Animation;
 using GalaSoft.MvvmLight.Ioc;
 using GitWrite.Behaviors;
 using GitWrite.Services;
 using GitWrite.ViewModels;
-using GitWrite.Views.Controls;
 
 namespace GitWrite.Views
 {
@@ -63,7 +60,7 @@ namespace GitWrite.Views
          return taskCompletionSource.Task;
       }
 
-      public ConfirmationResult ConfirmExit()
+      public ExitReason ConfirmExit()
       {
          var confirmationDialog = new ConfirmationDialog();
          return confirmationDialog.ShowDialog();   
