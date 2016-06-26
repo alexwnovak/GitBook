@@ -55,11 +55,11 @@ namespace GitWrite.Views
 
       private void CommitWindow_OnPreviewCanExecute( object sender, CanExecuteRoutedEventArgs e )
       {
-         if ( e.Command == ApplicationCommands.Paste )
-         {
-            e.CanExecute = false;
-            e.Handled = true;
-         }
+         //if ( e.Command == ApplicationCommands.Paste )
+         //{
+         //   e.CanExecute = false;
+         //   e.Handled = true;
+         //}
       }
    }
 }

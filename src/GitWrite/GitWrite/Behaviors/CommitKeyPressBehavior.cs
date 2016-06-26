@@ -47,11 +47,11 @@ namespace GitWrite.Behaviors
 
       private void PreviewKeyDown( object sender, KeyEventArgs e )
       {
-         if ( e.Key == Key.V && Keyboard.Modifiers == ModifierKeys.Control )
-         {
-            _viewModel.PasteCommand.Execute( null );
-         }
-         else if ( e.Key == Key.T && Keyboard.Modifiers == ModifierKeys.Control )
+         //if ( e.Key == Key.V && Keyboard.Modifiers == ModifierKeys.Control )
+         //{
+         //   _viewModel.PasteCommand.Execute( null );
+         //}
+         if ( e.Key == Key.T && Keyboard.Modifiers == ModifierKeys.Control )
          {
             ThemeSwitcher.SwitchToNext();
 
