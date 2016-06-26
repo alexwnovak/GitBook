@@ -134,7 +134,12 @@ namespace GitWrite.ViewModels
       private async void OnSave()
       {
          ExitReason = ExitReason.Save;
-         await OnSaveAsync();
+         bool shouldContinue = await OnSaveAsync();
+
+         if ( !shouldContinue )
+         {
+            return;
+         }
 
          IsExiting = true;
          await OnShutdownRequested( this, new ShutdownEventArgs( ExitReason.Save ) );
@@ -142,7 +147,7 @@ namespace GitWrite.ViewModels
          AppService.Shutdown();
       }
 
-      protected virtual Task OnSaveAsync()
+      protected virtual Task<bool> OnSaveAsync()
       {
          return Task.FromResult( true );
       }
