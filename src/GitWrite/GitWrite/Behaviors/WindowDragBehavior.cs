@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interactivity;
 using GalaSoft.MvvmLight.Ioc;
@@ -35,6 +36,11 @@ namespace GitWrite.Behaviors
 
       private void OnMouseDoubleClick( object sender, MouseButtonEventArgs e )
       {
+         if ( Mouse.DirectlyOver is TextBox )
+         {
+            return;
+         }
+
          AssociatedObject.Left = ( SystemParameters.FullPrimaryScreenWidth - AssociatedObject.Width ) / 2;
          AssociatedObject.Top = 0.7 * ( SystemParameters.FullPrimaryScreenHeight - 30 ) / 2;
       }
