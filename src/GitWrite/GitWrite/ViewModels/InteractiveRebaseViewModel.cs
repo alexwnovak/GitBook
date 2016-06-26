@@ -31,7 +31,7 @@ namespace GitWrite.ViewModels
          Items.Insert( indexTwo, tempItem );
       }
 
-      protected override Task OnSaveAsync()
+      protected override Task<bool> OnSaveAsync()
       {
          _document.RebaseItems = Items.ToArray();
          _document.Save();

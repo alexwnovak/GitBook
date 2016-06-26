@@ -50,7 +50,7 @@ namespace GitWrite.ViewModels
          set;
       }
 
-      public string Title => $"Commiting to {_gitService.GetCurrentBranchName()}";
+      public string Title => null;// $"Commiting to {_gitService.GetCurrentBranchName()}";
 
       private string _shortMessage;
       public string ShortMessage
@@ -152,11 +152,11 @@ namespace GitWrite.ViewModels
 
       protected virtual Task OnExitRequestedAsync( object sender, EventArgs e ) => AsyncExitRequested?.Invoke( sender, e );
 
-      protected override Task OnSaveAsync()
+      protected override Task<bool> OnSaveAsync()
       {
          if ( string.IsNullOrWhiteSpace( ShortMessage ) || IsExiting )
          {
-            return Task.FromResult( true );
+            return Task.FromResult( false );
          }
 
          _commitDocument.ShortMessage = ShortMessage;
