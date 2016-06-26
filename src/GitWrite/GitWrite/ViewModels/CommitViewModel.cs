@@ -159,6 +159,8 @@ namespace GitWrite.ViewModels
             return Task.FromResult( false );
          }
 
+         CollapseUI();
+
          _commitDocument.ShortMessage = ShortMessage;
          _commitDocument.LongMessage = ExtraCommitText;
          _commitDocument.Save();
