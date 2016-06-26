@@ -169,6 +169,11 @@ namespace GitWrite.ViewModels
       protected override Task OnDiscardAsync()
       {
          CollapseUI();
+
+         _commitDocument.ShortMessage = null;
+         _commitDocument.LongMessage = null;
+         _commitDocument.Save();
+
          return Task.FromResult( true );
       }
 
