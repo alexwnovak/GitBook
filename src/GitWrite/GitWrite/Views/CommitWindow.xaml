@@ -179,18 +179,21 @@
             </Border>
          </Grid>
 
-         <!--<c:RadialCounter Grid.Column="1"
+         <c:RadialCounter Grid.Column="1"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            Minimum="0"
-            Maximum="72"
             FontSize="24"
-            Value="{Binding Text.Length, ElementName=CommitText, Converter={StaticResource TextLengthInversionConverter}}">
+            Width="80"
+            Height="80"
+            BorderBrush="{DynamicResource WindowBorderColor}"
+            Background="{DynamicResource WindowBackgroundColor}"
+            Value="{Binding Text.Length, ElementName=CommitText, Converter={StaticResource TextLengthInversionConverter}}"
+            Foreground="{DynamicResource TextColor}">
             <c:RadialCounter.Effect>
                <DropShadowEffect BlurRadius="16"
                   ShadowDepth="1"
                   Direction="270" />
-            </c:RadialCounter.Effect>-->
+            </c:RadialCounter.Effect>
          </c:RadialCounter>
 
          <c:Pie x:Name="GreenPie"
