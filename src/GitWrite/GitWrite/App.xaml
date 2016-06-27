@@ -18,6 +18,7 @@
       <converters:ExitReasonToBackgroundConverter x:Key="ExitReasonToBackgroundConverter" />
       <converters:ExitReasonToGlyphConverter x:Key="ExitReasonToGlyphConverter" />
       <converters:ExitReasonToGlyphColorConverter x:Key="ExitReasonToGlyphColorConverter" />
+      <converters:LengthToEllipseClipConverter x:Key="LengthToEllipseClipConverter" />
       <SolidColorBrush x:Key="AcceptCommitBackgroundColor" Color="#C281" PresentationOptions:Freeze="True"/>
       <SolidColorBrush x:Key="AcceptCommitGlyphBackgroundColor" Color="#0F0" PresentationOptions:Freeze="True"/>
       <SolidColorBrush x:Key="AbortCommitBackgroundColor" Color="#C812" PresentationOptions:Freeze="True"/>
