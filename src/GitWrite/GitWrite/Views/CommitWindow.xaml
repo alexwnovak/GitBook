@@ -179,7 +179,7 @@
             </Border>
          </Grid>
 
-         <c:RadialCounter Grid.Column="1"
+         <!--<c:RadialCounter Grid.Column="1"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             Minimum="0"
@@ -190,7 +190,7 @@
                <DropShadowEffect BlurRadius="16"
                   ShadowDepth="1"
                   Direction="270" />
-            </c:RadialCounter.Effect>
+            </c:RadialCounter.Effect>-->
          </c:RadialCounter>
 
          <c:Pie x:Name="GreenPie"
