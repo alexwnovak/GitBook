@@ -4,11 +4,22 @@
    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-   xmlns:local="clr-namespace:GitWrite.Views.Controls"
    mc:Ignorable="d" 
    d:DesignHeight="300"
    d:DesignWidth="300">
-   <Grid>
-           
-   </Grid>
+   <Border x:Name="ControlBorder"
+      BorderThickness="2"
+      BorderBrush="{Binding BorderBrush, ElementName=LayoutRoot, Mode=OneWay}"
+      CornerRadius="{Binding ActualWidth, ElementName=ControlBorder, Mode=OneWay}">
+      <Grid x:Name="DigitContainer">
+         <TextBlock x:Name="LeftDigitText"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Margin="0,0,13,0"/>
+         <TextBlock x:Name="RightDigitText"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Margin="13,0,0,0"/>
+      </Grid>
+   </Border>
 </UserControl>
