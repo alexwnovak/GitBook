@@ -29,10 +29,10 @@ namespace GitWrite
                break;
             }
             case ApplicationMode.InteractiveRebase:
-            {
-               InteractiveRebasePath( e.Args[0] );
-               break;
-            }
+            //{
+            //   InteractiveRebasePath( e.Args[0] );
+            //   break;
+            //}
             case ApplicationMode.EditPatch:
             case ApplicationMode.Unknown:
                PassThrough( e.Args );
