@@ -113,7 +113,53 @@
          <RowDefinition Height="*" />
       </Grid.RowDefinitions>
 
-      <Grid>
+      <Viewport3D x:Name="Viewport"
+         Visibility="Collapsed">
+         <Viewport3D.Camera>
+            <PerspectiveCamera x:Name="Camera"
+               Position="0,0,1"
+               FieldOfView="20" />
+         </Viewport3D.Camera>
+         <Viewport3D.Children>
+            <ModelVisual3D>
+               <ModelVisual3D.Content>
+                  <Model3DGroup>
+                     <DirectionalLight Color="#444"
+                        Direction="0,0,-1" />
+                     <AmbientLight Color="#BBB" />
+                  </Model3DGroup>
+               </ModelVisual3D.Content>
+            </ModelVisual3D>
+            <ModelVisual3D>
+               <ModelVisual3D.Content>
+                  <GeometryModel3D>
+                     <GeometryModel3D.Geometry>
+                        <MeshGeometry3D TriangleIndices="0,1,2 2,3,0"
+                           TextureCoordinates="0,1 1,1 1,0 0,0"
+                           Positions="-1,-1,0 1,-1,0 1,1,0 -1,1,0" />
+                     </GeometryModel3D.Geometry>
+                     <GeometryModel3D.Material>
+                        <DiffuseMaterial x:Name="FrontMaterial" />
+                     </GeometryModel3D.Material>
+                     <GeometryModel3D.BackMaterial>
+                        <DiffuseMaterial x:Name="BackMaterial" />
+                     </GeometryModel3D.BackMaterial>
+                     <GeometryModel3D.Transform>
+                        <RotateTransform3D>
+                           <RotateTransform3D.Rotation>
+                              <AxisAngleRotation3D x:Name="RotationTransform"
+                                 Axis="1,0,0"
+                                 Angle="0" />
+                           </RotateTransform3D.Rotation>
+                        </RotateTransform3D>
+                     </GeometryModel3D.Transform>
+                  </GeometryModel3D>
+               </ModelVisual3D.Content>
+            </ModelVisual3D>
+         </Viewport3D.Children>
+      </Viewport3D>
+
+      <Grid x:Name="MainThing" Grid.Row="0">
          <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition Width="100" />
