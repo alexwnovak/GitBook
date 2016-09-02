@@ -8,7 +8,7 @@
    d:DesignHeight="300"
    d:DesignWidth="300">
 
-   <Grid x:Name="MainThing">
+   <Grid x:Name="LayoutRoot">
       <Grid.ColumnDefinitions>
          <ColumnDefinition />
          <ColumnDefinition Width="100" />
@@ -32,14 +32,13 @@
             Background="{DynamicResource WindowBackgroundColor}"
             Clip="M 0,0 H 988 A 44,44 45 0 0 988,56 H -988">
 
-            <TextBox x:Name="CommitText"
-               Foreground="{DynamicResource TextColor}"
+            <TextBox Foreground="{DynamicResource TextColor}"
                FontFamily="Consolas"
                FontSize="24"
                MaxLength="72"
                HorizontalAlignment="Stretch"
                IsReadOnly="{Binding IsExiting, Mode=OneWay}"
-               Text="{Binding ShortMessage, UpdateSourceTrigger=PropertyChanged}">
+               Text="{Binding Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             </TextBox>
          </Border>
       </Grid>
