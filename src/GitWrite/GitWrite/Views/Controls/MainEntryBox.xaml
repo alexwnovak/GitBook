@@ -7,7 +7,55 @@
    mc:Ignorable="d"
    d:DesignHeight="300"
    d:DesignWidth="300">
-   <Grid>
 
+   <Grid x:Name="MainThing">
+      <Grid.ColumnDefinitions>
+         <ColumnDefinition />
+         <ColumnDefinition Width="100" />
+      </Grid.ColumnDefinitions>
+
+      <Grid Grid.Column="0"
+         Grid.ColumnSpan="2"
+         Height="80"
+         VerticalAlignment="Center">
+         <Grid.Effect>
+            <DropShadowEffect BlurRadius="16"
+               ShadowDepth="1"
+               Direction="270" />
+         </Grid.Effect>
+
+         <Border CornerRadius="14"
+            Margin="12"
+            Padding="12"
+            BorderThickness="2"
+            BorderBrush="{DynamicResource WindowBorderColor}"
+            Background="{DynamicResource WindowBackgroundColor}"
+            Clip="M 0,0 H 988 A 44,44 45 0 0 988,56 H -988">
+
+            <TextBox x:Name="CommitText"
+               Foreground="{DynamicResource TextColor}"
+               FontFamily="Consolas"
+               FontSize="24"
+               MaxLength="72"
+               HorizontalAlignment="Stretch"
+               IsReadOnly="{Binding IsExiting, Mode=OneWay}"
+               Text="{Binding ShortMessage, UpdateSourceTrigger=PropertyChanged}">
+            </TextBox>
+         </Border>
+      </Grid>
+
+      <local:RadialCounter Grid.Column="1"
+         HorizontalAlignment="Center"
+         VerticalAlignment="Center"
+         Minimum="0"
+         Maximum="72"
+         FontSize="24"
+         Value="{Binding Text.Length, ElementName=CommitText, Converter={StaticResource TextLengthInversionConverter}}">
+         <local:RadialCounter.Effect>
+            <DropShadowEffect BlurRadius="16"
+               ShadowDepth="1"
+               Direction="270" />
+         </local:RadialCounter.Effect>
+      </local:RadialCounter>
    </Grid>
 </UserControl>
