@@ -119,6 +119,9 @@
     <Compile Include="Views\Controls\InteractiveRebasePanel.xaml.cs">
       <DependentUpon>InteractiveRebasePanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Controls\MainEntryBox.xaml.cs">
+      <DependentUpon>MainEntryBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Controls\Pie.cs" />
     <Compile Include="Views\Controls\RadialCounter.cs" />
     <Compile Include="Views\Converters\BorderToGeometryConverter.cs" />
@@ -199,6 +202,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Controls\InteractiveRebasePanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\MainEntryBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
