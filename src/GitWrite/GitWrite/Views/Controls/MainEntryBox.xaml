@@ -7,7 +7,8 @@
    mc:Ignorable="d"
    d:DesignHeight="300"
    d:DesignWidth="300"
-   GotFocus="MainEntryBox_OnGotFocus">
+   GotFocus="MainEntryBox_OnGotFocus"
+   Loaded="MainEntryBox_OnLoaded">
 
    <UserControl.Resources>
       <ResourceDictionary Source="..\..\Styles\TextBoxStyle.xaml" />

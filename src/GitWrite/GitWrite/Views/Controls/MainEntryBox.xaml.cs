@@ -35,5 +35,8 @@ namespace GitWrite.Views.Controls
       }
 
       private void MainEntryBox_OnGotFocus( object sender, RoutedEventArgs e ) => PrimaryTextBox.Focus();
+
+      private void MainEntryBox_OnLoaded( object sender, RoutedEventArgs e )
+         => PrimaryTextBox.SelectionStart = PrimaryTextBox.Text.Length;
    }
 }
