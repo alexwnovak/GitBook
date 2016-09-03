@@ -31,33 +31,12 @@ namespace GitWrite.Views
       private void OnLoaded( object sender, EventArgs e )
       {
          _viewModel = (GitWriteViewModelBase) DataContext;
-         _viewModel.ShutdownRequested += OnShutdownRequested;
       }
 
       private void OnClosing( object sender, CancelEventArgs e )
       {
          e.Cancel = true;
          _viewModel.AbortCommand.Execute( null );
-      }
-
-      private async Task OnShutdownRequested( object sender, ShutdownEventArgs e )
-      {
-         await PlayExitAnimationAsync( e.ExitReason );
-      }
-
-      private Task PlayExitAnimationAsync( ExitReason exitReason )
-      {
-         var taskCompletionSource = new TaskCompletionSource<bool>();
-         var storyboard = (Storyboard) Resources["ExitStoryboard"];
-
-         storyboard.Completed += async ( sender, e ) =>
-         {
-            await Task.Delay( 500 );
-            taskCompletionSource.SetResult( true );
-         };
-         storyboard.Begin();
-
-         return taskCompletionSource.Task;
       }
 
       public ExitReason ConfirmExit()
