@@ -38,8 +38,7 @@
             Background="#D060C828"
             Clip="M 0,0 H 988 A 44,44 45 0 0 988,56 H -988">
 
-            <TextBlock Foreground="White"
-               FontFamily="Consolas"
+            <TextBlock FontFamily="Consolas"
                FontSize="24"
                Text="Committing!" />
          </Border>
