@@ -8,6 +8,10 @@
    d:DesignHeight="300"
    d:DesignWidth="300">
 
+   <UserControl.Resources>
+      <ResourceDictionary Source="..\..\Styles\TextBoxStyle.xaml" />
+   </UserControl.Resources>
+
    <Grid x:Name="LayoutRoot">
       <Grid.ColumnDefinitions>
          <ColumnDefinition />
