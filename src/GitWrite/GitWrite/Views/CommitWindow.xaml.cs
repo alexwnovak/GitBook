@@ -60,7 +60,7 @@ namespace GitWrite.Views
          DrawingVisual drawingVisual = new DrawingVisual();
          using ( DrawingContext context = drawingVisual.RenderOpen() )
          {
-            var backBox = new MainEntryBox
+            var backBox = new TransitionEntryBox
             {
                Width = size.Width,
                Height = size.Height,
