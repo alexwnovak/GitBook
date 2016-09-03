@@ -56,7 +56,7 @@
          Minimum="0"
          Maximum="72"
          FontSize="24"
-         Value="{Binding Text.Length, ElementName=CommitText, Converter={StaticResource TextLengthInversionConverter}}">
+         Value="{Binding Text.Length, ElementName=PrimaryTextBox, Converter={StaticResource TextLengthInversionConverter}}">
          <local:RadialCounter.Effect>
             <DropShadowEffect BlurRadius="16"
                ShadowDepth="1"
