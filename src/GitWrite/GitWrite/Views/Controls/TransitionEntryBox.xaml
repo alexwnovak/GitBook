@@ -10,10 +10,6 @@
    FontSize="24"
    Foreground="{DynamicResource TextColor}">
 
-   <UserControl.Resources>
-      <ResourceDictionary Source="..\..\Styles\TextBoxStyle.xaml" />
-   </UserControl.Resources>
-
    <Grid>
       <Grid.ColumnDefinitions>
          <ColumnDefinition />
