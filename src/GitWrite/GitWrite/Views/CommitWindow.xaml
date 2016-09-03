@@ -56,10 +56,6 @@
       </ResourceDictionary>
    </Window.Resources>
 
-   <i:Interaction.Behaviors>
-      <behaviors:CommitCaretPositionBehavior />
-   </i:Interaction.Behaviors>
-
    <i:Interaction.Triggers>
       <i:EventTrigger EventName="Loaded">
          <cmd:EventToCommand Command="{Binding LoadCommand, Mode=OneTime}" />
