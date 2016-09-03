@@ -44,7 +44,6 @@
                FontSize="24"
                MaxLength="72"
                HorizontalAlignment="Stretch"
-               IsReadOnly="{Binding IsExiting, Mode=OneWay}"
                Text="{Binding Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             </TextBox>
          </Border>
