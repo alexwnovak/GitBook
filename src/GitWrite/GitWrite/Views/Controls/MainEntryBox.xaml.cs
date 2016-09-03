@@ -33,5 +33,7 @@ namespace GitWrite.Views.Controls
          InitializeComponent();
          LayoutRoot.DataContext = this;
       }
+
+      private void MainEntryBox_OnGotFocus( object sender, RoutedEventArgs e ) => PrimaryTextBox.Focus();
    }
 }

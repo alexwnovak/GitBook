@@ -6,7 +6,8 @@
    xmlns:local="clr-namespace:GitWrite.Views.Controls"
    mc:Ignorable="d"
    d:DesignHeight="300"
-   d:DesignWidth="300">
+   d:DesignWidth="300"
+   GotFocus="MainEntryBox_OnGotFocus">
 
    <UserControl.Resources>
       <ResourceDictionary Source="..\..\Styles\TextBoxStyle.xaml" />
@@ -36,7 +37,8 @@
             Background="{DynamicResource WindowBackgroundColor}"
             Clip="M 0,0 H 988 A 44,44 45 0 0 988,56 H -988">
 
-            <TextBox Foreground="{DynamicResource TextColor}"
+            <TextBox x:Name="PrimaryTextBox"
+               Foreground="{DynamicResource TextColor}"
                FontFamily="Consolas"
                FontSize="24"
                MaxLength="72"
