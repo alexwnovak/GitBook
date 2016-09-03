@@ -152,20 +152,22 @@ namespace GitWrite.ViewModels
 
       protected virtual Task OnExitRequestedAsync( object sender, EventArgs e ) => AsyncExitRequested?.Invoke( sender, e );
 
-      protected override Task<bool> OnSaveAsync()
+      protected override async Task<bool> OnSaveAsync()
       {
          if ( string.IsNullOrWhiteSpace( ShortMessage ) || IsExiting )
          {
-            return Task.FromResult( false );
+            return false;
          }
 
          CollapseUI();
+
+         await OnExitRequestedAsync( this, EventArgs.Empty );
 
          _commitDocument.ShortMessage = ShortMessage;
          _commitDocument.LongMessage = ExtraCommitText;
          _commitDocument.Save();
 
-         return Task.FromResult( true );
+         return true;
       }
 
       protected override Task OnDiscardAsync()
