@@ -6,8 +6,63 @@
    xmlns:local="clr-namespace:GitWrite.Views.Controls"
    mc:Ignorable="d"
    d:DesignHeight="300"
-   d:DesignWidth="300">
+   d:DesignWidth="300"
+   FontSize="24"
+   Foreground="{DynamicResource TextColor}">
+
+   <UserControl.Resources>
+      <ResourceDictionary Source="..\..\Styles\TextBoxStyle.xaml" />
+   </UserControl.Resources>
 
    <Grid>
+      <Grid.ColumnDefinitions>
+         <ColumnDefinition />
+         <ColumnDefinition Width="100" />
+      </Grid.ColumnDefinitions>
+
+      <Grid Grid.Column="0"
+         Grid.ColumnSpan="2"
+         Height="80"
+         VerticalAlignment="Center">
+         <Grid.Effect>
+            <DropShadowEffect BlurRadius="16"
+               ShadowDepth="1"
+               Direction="270" />
+         </Grid.Effect>
+
+         <Border CornerRadius="14"
+            Margin="12"
+            Padding="12"
+            BorderThickness="2"
+            BorderBrush="#D0408214"
+            Background="#D060C828"
+            Clip="M 0,0 H 988 A 44,44 45 0 0 988,56 H -988">
+
+            <TextBlock Foreground="White"
+               FontFamily="Consolas"
+               FontSize="24"
+               Text="Committing!" />
+         </Border>
+      </Grid>
+
+      <Border Grid.Column="1"
+         BorderThickness="2"
+         HorizontalAlignment="Stretch"
+         VerticalAlignment="Stretch"
+         Margin="10"
+         BorderBrush="#D0408214"
+         Background="#D060C828"
+         CornerRadius="40">
+         <Border.Effect>
+            <DropShadowEffect BlurRadius="16"
+               ShadowDepth="1"
+               Direction="270" />
+         </Border.Effect>
+
+         <TextBlock HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            FontFamily="Segoe MDL2 Assets"
+            Text="{StaticResource AcceptCommitGlyph}" />
+      </Border>
    </Grid>
 </UserControl>
