@@ -15,7 +15,7 @@
    Height="{x:Static views:WindowValues.NonExpandedHeight}"
    ResizeMode="NoResize"
    WindowStyle="None"
-   FocusManager.FocusedElement="{Binding ElementName=CommitText}"
+   FocusManager.FocusedElement="{Binding ElementName=MainEntryBox}"
    CommandManager.PreviewCanExecute="CommitWindow_OnPreviewCanExecute"
    DataContext="{Binding CommitViewModel, Source={StaticResource ViewModelLocator}}">
 
