@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -104,7 +105,11 @@ namespace GitWrite.Views
             }
          };
 
-         animation.Completed += ( _, __ ) => tcs.SetResult( true );
+         animation.Completed += ( _, __ ) =>
+         {
+            Thread.Sleep( 500 );
+            tcs.SetResult( true );
+         };
 
          RotationTransform.BeginAnimation( AxisAngleRotation3D.AngleProperty, animation );
 
