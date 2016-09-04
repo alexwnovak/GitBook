@@ -150,7 +150,7 @@ namespace GitWrite.ViewModels
 
       protected virtual void OnCollapseHelpRequested( object sender, EventArgs e ) => CollapseHelpRequested?.Invoke( sender, e );
 
-      protected virtual Task OnExitRequestedAsync( object sender, EventArgs e ) => AsyncExitRequested?.Invoke( sender, e );
+      protected virtual async Task OnExitRequestedAsync( object sender, EventArgs e ) => await AsyncExitRequested?.Invoke( sender, e );
 
       protected override async Task<bool> OnSaveAsync()
       {
@@ -170,15 +170,17 @@ namespace GitWrite.ViewModels
          return true;
       }
 
-      protected override Task OnDiscardAsync()
+      protected override async Task<bool> OnDiscardAsync()
       {
          CollapseUI();
+
+         await OnExitRequestedAsync( this, EventArgs.Empty );
 
          _commitDocument.ShortMessage = null;
          _commitDocument.LongMessage = null;
          _commitDocument.Save();
 
-         return Task.FromResult( true );
+         return true;
       }
 
       public bool DismissHelpIfActive()
