@@ -26,7 +26,8 @@
                Direction="270" />
          </Grid.Effect>
 
-         <Border CornerRadius="14"
+         <Border x:Name="MainBorder"
+            CornerRadius="14"
             Margin="12"
             Padding="12"
             BorderThickness="2"
@@ -40,7 +41,8 @@
          </Border>
       </Grid>
 
-      <Border Grid.Column="1"
+      <Border x:Name="CircleBorder"
+         Grid.Column="1"
          BorderThickness="2"
          HorizontalAlignment="Stretch"
          VerticalAlignment="Stretch"
