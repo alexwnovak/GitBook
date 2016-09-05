@@ -134,8 +134,42 @@ namespace GitWrite.Views
       private void OnExpansionRequested( object sender, EventArgs eventArgs )
          => VisualStateManager.GoToElementState( MainGrid, "Expanded", false );
 
-      private void OnCollapseRequested( object sender, EventArgs eventArgs )
-         => VisualStateManager.GoToElementState( MainGrid, "Collapsed", false );
+      private Task OnCollapseRequested( object sender, EventArgs eventArgs )
+      {
+         var tcs = new TaskCompletionSource<bool>();
+
+         var heightAnimation = new DoubleAnimation
+         {
+            To = 100,
+            Duration = new Duration( TimeSpan.FromMilliseconds( 100 ) ),
+            EasingFunction = new CircleEase
+            {
+               EasingMode = EasingMode.EaseOut
+            }
+         };
+
+         var opacityAnimation = new DoubleAnimation
+         {
+            To = 0,
+            Duration = new Duration( TimeSpan.FromMilliseconds( 100 ) )
+         };
+
+         Storyboard.SetTarget( heightAnimation, PageRoot );
+         Storyboard.SetTargetProperty( heightAnimation, new PropertyPath( nameof( Height ) ) );
+
+         Storyboard.SetTarget( opacityAnimation, SecondaryBorder );
+         Storyboard.SetTargetProperty( opacityAnimation, new PropertyPath( nameof( Opacity ) ) );
+
+         var storyboard = new Storyboard();
+         storyboard.Children.Add( heightAnimation );
+         storyboard.Children.Add( opacityAnimation );
+         storyboard.Completed += ( _, __ ) => tcs.SetResult( true );
+
+         Storyboard.SetTarget( storyboard, this );
+         storyboard.Begin();
+
+         return tcs.Task;
+      }
 
       private void CommitWindow_OnPreviewCanExecute( object sender, CanExecuteRoutedEventArgs e )
       {

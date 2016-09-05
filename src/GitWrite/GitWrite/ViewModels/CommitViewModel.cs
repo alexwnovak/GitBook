@@ -109,7 +109,7 @@ namespace GitWrite.ViewModels
       }
 
       public event EventHandler ExpansionRequested;
-      public event EventHandler CollapseRequested;
+      public event AsyncEventHandler CollapseRequested;
       public event AsyncEventHandler<ShutdownEventArgs> AsyncExitRequested;
       public event EventHandler HelpRequested;
       public event EventHandler CollapseHelpRequested;
@@ -144,7 +144,7 @@ namespace GitWrite.ViewModels
 
       protected virtual void OnExpansionRequested( object sender, EventArgs e ) => ExpansionRequested?.Invoke( sender, e );
 
-      protected virtual void OnCollapseRequested( object sender, EventArgs e ) => CollapseRequested?.Invoke( sender, e );
+      protected virtual async Task OnCollapseRequestedAsync( object sender, EventArgs e ) => await CollapseRequested?.Invoke( sender, e );
 
       protected virtual void OnHelpRequested( object sender, EventArgs e ) => HelpRequested?.Invoke( sender, e );
 
@@ -159,7 +159,7 @@ namespace GitWrite.ViewModels
             return false;
          }
 
-         CollapseUI();
+         await CollapseUIAsync();
 
          await OnExitRequestedAsync( this, new ShutdownEventArgs( ExitReason.Save ) );
 
@@ -172,7 +172,7 @@ namespace GitWrite.ViewModels
 
       protected override async Task<bool> OnDiscardAsync()
       {
-         CollapseUI();
+         await CollapseUIAsync();
 
          await OnExitRequestedAsync( this, new ShutdownEventArgs( ExitReason.Discard ) );
 
@@ -205,12 +205,12 @@ namespace GitWrite.ViewModels
          }
       }
 
-      private void CollapseUI()
+      private async Task CollapseUIAsync()
       {
          if ( IsExpanded )
          {
             IsExpanded = false;
-            OnCollapseRequested( this, EventArgs.Empty );
+            await OnCollapseRequestedAsync( this, EventArgs.Empty );
          }
       }
 
