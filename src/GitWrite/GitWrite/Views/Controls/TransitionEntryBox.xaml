@@ -31,8 +31,6 @@
             Margin="12"
             Padding="12"
             BorderThickness="2"
-            BorderBrush="#D0408214"
-            Background="#D060C828"
             Clip="M 0,0 H 988 A 44,44 45 0 0 988,56 H -988">
 
             <TextBlock x:Name="TextBlock"
@@ -47,8 +45,6 @@
          HorizontalAlignment="Stretch"
          VerticalAlignment="Stretch"
          Margin="10"
-         BorderBrush="#D0408214"
-         Background="#D060C828"
          CornerRadius="40">
          <Border.Effect>
             <DropShadowEffect BlurRadius="16"
