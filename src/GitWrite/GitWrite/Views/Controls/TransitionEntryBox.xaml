@@ -35,9 +35,9 @@
             Background="#D060C828"
             Clip="M 0,0 H 988 A 44,44 45 0 0 988,56 H -988">
 
-            <TextBlock FontFamily="Consolas"
-               FontSize="24"
-               Text="Committing!" />
+            <TextBlock x:Name="TextBlock"
+               FontFamily="Consolas"
+               FontSize="24" />
          </Border>
       </Grid>
 
