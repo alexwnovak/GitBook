@@ -63,47 +63,6 @@
    </i:Interaction.Triggers>
 
    <Grid x:Name="MainGrid">
-      <VisualStateManager.VisualStateGroups>
-         <VisualStateGroup x:Name="ExpansionStates">
-            <VisualState x:Name="Collapsed">
-               <Storyboard>
-                  <DoubleAnimation Storyboard.TargetName="PageRoot"
-                     Storyboard.TargetProperty="Height"
-                     To="100"
-                     Duration="0:0:0.2">
-                     <DoubleAnimation.EasingFunction>
-                        <CircleEase EasingMode="EaseOut" />
-                     </DoubleAnimation.EasingFunction>   
-                  </DoubleAnimation>
-                  <DoubleAnimation Storyboard.TargetName="SecondaryBorder"
-                     Storyboard.TargetProperty="Opacity"
-                     From="1"
-                     To="0"
-                     Duration="0:0:0.1"
-                     BeginTime="0:0:0.18" />
-               </Storyboard>
-            </VisualState>
-
-            <VisualState x:Name="Expanded">
-               <Storyboard>
-                  <DoubleAnimation Storyboard.TargetName="SecondaryBorder"
-                     Storyboard.TargetProperty="Opacity"
-                     From="0"
-                     To="1"
-                     Duration="0:0:0.1" />
-                  <DoubleAnimation Storyboard.TargetName="PageRoot"
-                     Storyboard.TargetProperty="Height"
-                     To="400"
-                     Duration="0:0:1">
-                     <DoubleAnimation.EasingFunction>
-                        <CircleEase EasingMode="EaseOut" />
-                     </DoubleAnimation.EasingFunction>
-                  </DoubleAnimation>
-               </Storyboard>
-            </VisualState>
-         </VisualStateGroup>
-      </VisualStateManager.VisualStateGroups>
-
       <Grid.RowDefinitions>
          <RowDefinition Height="100" />
          <RowDefinition Height="*" />
