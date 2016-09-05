@@ -45,7 +45,7 @@ namespace GitWrite.Views
          _viewModel.AsyncExitRequested += OnAsyncExitRequested;
       }
 
-      private Task OnAsyncExitRequested( object sender, EventArgs e )
+      private Task OnAsyncExitRequested( object sender, ShutdownEventArgs e )
       {
          var dpiScale = VisualTreeHelper.GetDpi( MainEntryBox );
          var size = new Size( MainEntryBox.ActualWidth, MainEntryBox.ActualHeight );
@@ -61,7 +61,7 @@ namespace GitWrite.Views
          DrawingVisual drawingVisual = new DrawingVisual();
          using ( DrawingContext context = drawingVisual.RenderOpen() )
          {
-            var backBox = new TransitionEntryBox( ExitReason.Save )
+            var backBox = new TransitionEntryBox( e.ExitReason )
             {
                Width = size.Width,
                Height = size.Height,

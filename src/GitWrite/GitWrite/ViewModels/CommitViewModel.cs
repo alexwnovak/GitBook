@@ -110,7 +110,7 @@ namespace GitWrite.ViewModels
 
       public event EventHandler ExpansionRequested;
       public event EventHandler CollapseRequested;
-      public event AsyncEventHandler AsyncExitRequested;
+      public event AsyncEventHandler<ShutdownEventArgs> AsyncExitRequested;
       public event EventHandler HelpRequested;
       public event EventHandler CollapseHelpRequested;
        
@@ -150,7 +150,7 @@ namespace GitWrite.ViewModels
 
       protected virtual void OnCollapseHelpRequested( object sender, EventArgs e ) => CollapseHelpRequested?.Invoke( sender, e );
 
-      protected virtual async Task OnExitRequestedAsync( object sender, EventArgs e ) => await AsyncExitRequested?.Invoke( sender, e );
+      protected virtual async Task OnExitRequestedAsync( object sender, ShutdownEventArgs e ) => await AsyncExitRequested?.Invoke( sender, e );
 
       protected override async Task<bool> OnSaveAsync()
       {
@@ -161,7 +161,7 @@ namespace GitWrite.ViewModels
 
          CollapseUI();
 
-         await OnExitRequestedAsync( this, EventArgs.Empty );
+         await OnExitRequestedAsync( this, new ShutdownEventArgs( ExitReason.Save ) );
 
          _commitDocument.ShortMessage = ShortMessage;
          _commitDocument.LongMessage = ExtraCommitText;
@@ -174,7 +174,7 @@ namespace GitWrite.ViewModels
       {
          CollapseUI();
 
-         await OnExitRequestedAsync( this, EventArgs.Empty );
+         await OnExitRequestedAsync( this, new ShutdownEventArgs( ExitReason.Discard ) );
 
          _commitDocument.ShortMessage = null;
          _commitDocument.LongMessage = null;
