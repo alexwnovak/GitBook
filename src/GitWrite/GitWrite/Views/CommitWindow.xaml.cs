@@ -105,15 +105,12 @@ namespace GitWrite.Views
             }
          };
 
-         void OnAnimationCompleted( object _, EventArgs __ )
+         animation.Completed += ( _, __ ) =>
          {
-            animation.Completed -= OnAnimationCompleted;
-
             Thread.Sleep( 500 );
             tcs.SetResult( true );
-         }
+         };
 
-         animation.Completed += OnAnimationCompleted;
          RotationTransform.BeginAnimation( AxisAngleRotation3D.AngleProperty, animation );
 
          return tcs.Task;
