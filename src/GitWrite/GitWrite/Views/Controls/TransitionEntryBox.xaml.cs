@@ -23,12 +23,14 @@ namespace GitWrite.Views.Controls
             borderBrush = (Brush) Application.Current.Resources["AcceptCommitBorderColor"];
             backgroundBrush = (Brush) Application.Current.Resources["AcceptCommitBackgroundColor"];
             TextBlock.Text = Resx.CommitingText;
+            GlyphTextBlock.Text = (string) Application.Current.Resources["AcceptCommitGlyph"];
          }
          else
          {
             borderBrush = (Brush) Application.Current.Resources["AbortCommitBorderColor"];
             backgroundBrush = (Brush) Application.Current.Resources["AbortCommitBackgroundColor"];
             TextBlock.Text = Resx.DiscardingText;
+            GlyphTextBlock.Text = (string) Application.Current.Resources["AbortCommitGlyph"];
          }
 
          MainBorder.BorderBrush = borderBrush;
