@@ -131,8 +131,42 @@ namespace GitWrite.Views
       private void OnCollapseHelpRequested( object sender, EventArgs e )
          => this.PlayStoryboard( "CollapseHelpStoryboard" );
 
-      private void OnExpansionRequested( object sender, EventArgs eventArgs )
-         => VisualStateManager.GoToElementState( MainGrid, "Expanded", false );
+      private Task OnExpansionRequested( object sender, EventArgs eventArgs )
+      {
+         var tcs = new TaskCompletionSource<bool>();
+
+         var heightAnimation = new DoubleAnimation
+         {
+            To = 400,
+            Duration = new Duration( TimeSpan.FromMilliseconds( 100 ) ),
+            EasingFunction = new CircleEase
+            {
+               EasingMode = EasingMode.EaseOut
+            }
+         };
+
+         var opacityAnimation = new DoubleAnimation
+         {
+            To = 1,
+            Duration = new Duration( TimeSpan.FromMilliseconds( 100 ) )
+         };
+
+         Storyboard.SetTarget( heightAnimation, PageRoot );
+         Storyboard.SetTargetProperty( heightAnimation, new PropertyPath( nameof( Height ) ) );
+
+         Storyboard.SetTarget( opacityAnimation, SecondaryBorder );
+         Storyboard.SetTargetProperty( opacityAnimation, new PropertyPath( nameof( Opacity ) ) );
+
+         var storyboard = new Storyboard();
+         storyboard.Children.Add( heightAnimation );
+         storyboard.Children.Add( opacityAnimation );
+         storyboard.Completed += ( _, __ ) => tcs.SetResult( true );
+
+         Storyboard.SetTarget( storyboard, this );
+         storyboard.Begin();
+
+         return tcs.Task;
+      }
 
       private Task OnCollapseRequested( object sender, EventArgs eventArgs )
       {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
 using Xunit;
@@ -15,7 +16,11 @@ namespace GitWrite.UnitTests.ViewModels
          bool expanded = false;
 
          var commitViewModel = new CommitViewModel( null, null, null, null, null );
-         commitViewModel.ExpansionRequested += ( sender, e ) => expanded = true;
+         commitViewModel.ExpansionRequested += ( sender, e ) =>
+         {
+            expanded = true;
+            return Task.CompletedTask;
+         };
 
          commitViewModel.ViewLoaded();
 
@@ -66,7 +71,11 @@ namespace GitWrite.UnitTests.ViewModels
             ExtraCommitText = "Extra notes"
          };
 
-         commitViewModel.ExpansionRequested += ( sender, e ) => expanded = true;
+         commitViewModel.ExpansionRequested += ( sender, e ) =>
+         {
+            expanded = true;
+            return Task.CompletedTask;
+         };
          commitViewModel.ViewLoaded();
 
          expanded.Should().BeTrue();
@@ -279,7 +288,11 @@ namespace GitWrite.UnitTests.ViewModels
             IsExpanded = false
          };
 
-         commitViewModel.ExpansionRequested += ( sender, e ) => expansionEventRaised = true;
+         commitViewModel.ExpansionRequested += ( sender, e ) =>
+         {
+            expansionEventRaised = true;
+            return Task.CompletedTask;
+         };
 
          commitViewModel.ExpandCommand.Execute( null );
 
@@ -309,7 +322,11 @@ namespace GitWrite.UnitTests.ViewModels
             IsExpanded = true
          };
 
-         commitViewModel.ExpansionRequested += ( sender, e ) => expansionEventRaised = true;
+         commitViewModel.ExpansionRequested += ( sender, e ) =>
+         {
+            expansionEventRaised = true;
+            return Task.CompletedTask;
+         };
 
          commitViewModel.ExpandCommand.Execute( null );
 
@@ -341,7 +358,11 @@ namespace GitWrite.UnitTests.ViewModels
             IsExpanded = true
          };
 
-         commitViewModel.ExpansionRequested += ( sender, e ) => expansionEventRaised = true;
+         commitViewModel.ExpansionRequested += ( sender, e ) =>
+         {
+            expansionEventRaised = true;
+            return Task.CompletedTask;
+         };
 
          commitViewModel.ExpandCommand.Execute( null );
 

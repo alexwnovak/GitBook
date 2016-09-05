@@ -108,7 +108,7 @@ namespace GitWrite.ViewModels
          set;
       }
 
-      public event EventHandler ExpansionRequested;
+      public event AsyncEventHandler ExpansionRequested;
       public event AsyncEventHandler CollapseRequested;
       public event AsyncEventHandler<ShutdownEventArgs> AsyncExitRequested;
       public event EventHandler HelpRequested;
@@ -142,7 +142,7 @@ namespace GitWrite.ViewModels
          }
       }
 
-      protected virtual void OnExpansionRequested( object sender, EventArgs e ) => ExpansionRequested?.Invoke( sender, e );
+      protected virtual async Task OnExpansionRequestedAsync( object sender, EventArgs e ) => await ExpansionRequested?.Invoke( sender, e );
 
       protected virtual async Task OnCollapseRequestedAsync( object sender, EventArgs e ) => await CollapseRequested?.Invoke( sender, e );
 
@@ -196,12 +196,12 @@ namespace GitWrite.ViewModels
          return false;
       }
 
-      private void ExpandUI()
+      private async void ExpandUI()
       {
          if ( !IsExpanded && !IsExiting )
          {
             IsExpanded = true;
-            OnExpansionRequested( this, EventArgs.Empty );
+            await OnExpansionRequestedAsync( this, EventArgs.Empty );
          }
       }
 
