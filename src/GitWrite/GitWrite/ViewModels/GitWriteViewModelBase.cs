@@ -117,6 +117,7 @@ namespace GitWrite.ViewModels
             {
                await OnDiscardAsync();
                exitReason = ExitReason.Discard;
+               IsExiting = true;
             }
          }
 

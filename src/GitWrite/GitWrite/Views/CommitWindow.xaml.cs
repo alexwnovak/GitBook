@@ -47,6 +47,11 @@ namespace GitWrite.Views
 
       private Task OnAsyncExitRequested( object sender, ShutdownEventArgs e )
       {
+         if ( _viewModel.IsExiting )
+         {
+            return Task.CompletedTask;
+         }
+
          var dpiScale = VisualTreeHelper.GetDpi( MainEntryBox );
          var size = new Size( MainEntryBox.ActualWidth, MainEntryBox.ActualHeight );
 
