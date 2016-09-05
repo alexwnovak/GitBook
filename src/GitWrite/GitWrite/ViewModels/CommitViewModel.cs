@@ -122,11 +122,11 @@ namespace GitWrite.ViewModels
          _gitService = gitService;
 
          PrimaryMessageGotFocusCommand = new RelayCommand( () => ControlState = CommitControlState.EditingPrimaryMessage );
-         SecondaryNotesGotFocusCommand = new RelayCommand( ExpandUI );
-         ExpandCommand = new RelayCommand( ExpandUI );
+         SecondaryNotesGotFocusCommand = new RelayCommand( async () => await ExpandUI() );
+         ExpandCommand = new RelayCommand( async () => await ExpandUI() );
          HelpCommand = new RelayCommand( ActivateHelp );
          LoadCommand = new RelayCommand( ViewLoaded );
-         PasteCommand = new RelayCommand( PasteFromClipboard );
+         PasteCommand = new RelayCommand( async () => await PasteFromClipboard() );
 
          ShortMessage = _commitDocument?.ShortMessage;
          ExtraCommitText = _commitDocument?.LongMessage;
@@ -134,11 +134,11 @@ namespace GitWrite.ViewModels
          IsDirty = false;
       }
 
-      public void ViewLoaded()
+      public async void ViewLoaded()
       {
          if ( !string.IsNullOrEmpty( ExtraCommitText ) )
          {
-            ExpandUI();
+            await ExpandUI();
          }
       }
 
@@ -196,7 +196,7 @@ namespace GitWrite.ViewModels
          return false;
       }
 
-      private async void ExpandUI()
+      private async Task ExpandUI()
       {
          if ( !IsExpanded && !IsExiting )
          {
@@ -223,7 +223,7 @@ namespace GitWrite.ViewModels
          }
       }
 
-      private void PasteFromClipboard()
+      private async Task PasteFromClipboard()
       {
          string clipboardText = _clipboardService.GetText();
 
@@ -234,7 +234,7 @@ namespace GitWrite.ViewModels
 
             if ( lineBreakIndex != -1 )
             {
-               ExpandUI();
+               await ExpandUI();
 
                ShortMessage = clipboardText.Substring( 0, lineBreakIndex );
 
