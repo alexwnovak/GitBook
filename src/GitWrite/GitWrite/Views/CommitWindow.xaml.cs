@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -52,7 +53,21 @@ namespace GitWrite.Views
          }
 
          var frontMaterial = (ImageSource) Resources["FrontMaterial"];
-         FrontMaterial.Brush = new ImageBrush( frontMaterial )
+
+         var drawingVisual = new DrawingVisual();
+         var dpiScale = VisualTreeHelper.GetDpi( drawingVisual );
+
+         using ( var drawingContext = drawingVisual.RenderOpen() )
+         {
+            var foregroundBrush = (Brush) Application.Current.Resources["TextColor"];
+            drawingContext.DrawImage( frontMaterial, new Rect( 0, 0, frontMaterial.Width, frontMaterial.Height) );
+
+            var formattedText = new FormattedText( _viewModel.ShortMessage, CultureInfo.InvariantCulture, FlowDirection.LeftToRight, new Typeface( "Consolas" ), 24, foregroundBrush, dpiScale.DpiScaleX );
+            drawingContext.DrawText( formattedText, new Point( 28, 36 ) );
+         }
+
+         var image = new DrawingImage( drawingVisual.Drawing );
+         FrontMaterial.Brush = new ImageBrush( image )
          {
             Stretch = Stretch.Uniform
          };
