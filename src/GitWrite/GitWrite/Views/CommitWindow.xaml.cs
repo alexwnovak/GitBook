@@ -52,42 +52,24 @@ namespace GitWrite.Views
             return Task.CompletedTask;
          }
 
-         var dpiScale = VisualTreeHelper.GetDpi( MainEntryBox );
-         var size = new Size( MainEntryBox.ActualWidth, MainEntryBox.ActualHeight );
-
-         var frontBitmap = new RenderTargetBitmap( (int) size.Width * (int) dpiScale.DpiScaleX, (int) size.Height * (int) dpiScale.DpiScaleY, dpiScale.PixelsPerInchX, dpiScale.PixelsPerInchY, PixelFormats.Pbgra32 );
-         var backBitmap = new RenderTargetBitmap( (int) size.Width * (int) dpiScale.DpiScaleX, (int) size.Height * (int) dpiScale.DpiScaleY, dpiScale.PixelsPerInchX, dpiScale.PixelsPerInchY, PixelFormats.Pbgra32 );
-
-         MainEntryBox.Measure( size );
-         MainEntryBox.Arrange( new Rect( size ) );
-
-         frontBitmap.Render( MainEntryBox );
-
-         DrawingVisual drawingVisual = new DrawingVisual();
-         using ( DrawingContext context = drawingVisual.RenderOpen() )
-         {
-            var backBox = new TransitionEntryBox( e.ExitReason )
-            {
-               Width = size.Width,
-               Height = size.Height,
-               RenderTransform = new ScaleTransform( 1, -1 )
-            };
-
-            backBox.Measure( size );
-            backBox.Arrange( new Rect( size ) );
-
-            VisualBrush visualBrush = new VisualBrush( backBox );
-            context.DrawRectangle( visualBrush, null, new Rect( size ) );
-         }
-
-         backBitmap.Render( drawingVisual );
-
-         FrontMaterial.Brush = new ImageBrush( frontBitmap )
+         var frontMaterial = (ImageSource) Resources["FrontMaterial"];
+         FrontMaterial.Brush = new ImageBrush( frontMaterial )
          {
             Stretch = Stretch.Uniform
          };
 
-         BackMaterial.Brush = new ImageBrush( backBitmap )
+         ImageSource backMaterial;
+
+         if ( e.ExitReason == ExitReason.Save )
+         {
+            backMaterial = (ImageSource) Resources["SaveBackMaterial"];
+         }
+         else
+         {
+            backMaterial = (ImageSource) Resources["DiscardBackMaterial"];
+         }
+
+         BackMaterial.Brush = new ImageBrush( backMaterial )
          {
             Stretch = Stretch.Uniform
          };

@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
@@ -22,14 +23,16 @@ namespace GitWrite.Views
       }
 
       public Task GenerateAsync()
-         => Task.Factory.StartNew( GenerateInternal, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.FromCurrentSynchronizationContext() );
-     
-      private void GenerateInternal()
       {
-         GenerateFrontMaterial();
-         GenerateSaveMaterial();
-         GenerateDiscardMaterial();
+         var t1 = StartNewStaTask( GenerateFrontMaterial  );
+         var t2 = StartNewStaTask( GenerateSaveMaterial );
+         var t3 = StartNewStaTask( GenerateDiscardMaterial );
+
+         return Task.WhenAll( t1, t2, t3 );
       }
+
+      private Task StartNewStaTask( Action action )
+         => Task.Factory.StartNew( action, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.FromCurrentSynchronizationContext() );
 
       private void GenerateFrontMaterial()
       {

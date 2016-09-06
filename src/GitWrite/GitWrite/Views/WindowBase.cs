@@ -1,9 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interactivity;
-using System.Windows.Media.Animation;
 using GalaSoft.MvvmLight.Ioc;
 using GitWrite.Behaviors;
 using GitWrite.Services;
@@ -28,9 +26,12 @@ namespace GitWrite.Views
          Closing += OnClosing;
       }
 
-      private void OnLoaded( object sender, EventArgs e )
+      private async void OnLoaded( object sender, EventArgs e )
       {
          _viewModel = (GitWriteViewModelBase) DataContext;
+
+         var materialGenerator = new MaterialGenerator( this );
+         await materialGenerator.GenerateAsync();
       }
 
       private void OnClosing( object sender, CancelEventArgs e )
