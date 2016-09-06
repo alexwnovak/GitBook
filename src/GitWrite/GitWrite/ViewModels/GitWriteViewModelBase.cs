@@ -117,6 +117,7 @@ namespace GitWrite.ViewModels
             {
                await OnDiscardAsync();
                exitReason = ExitReason.Discard;
+               IsExiting = true;
             }
          }
 
@@ -152,7 +153,7 @@ namespace GitWrite.ViewModels
          return Task.FromResult( true );
       }
 
-      protected virtual Task OnDiscardAsync()
+      protected virtual Task<bool> OnDiscardAsync()
       {
          return Task.FromResult( true );
       }

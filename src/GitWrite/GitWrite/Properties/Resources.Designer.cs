@@ -59,5 +59,23 @@ namespace GitWrite.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Committing....
+        /// </summary>
+        internal static string CommitingText {
+            get {
+                return ResourceManager.GetString("CommitingText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Discarding....
+        /// </summary>
+        internal static string DiscardingText {
+            get {
+                return ResourceManager.GetString("DiscardingText", resourceCulture);
+            }
+        }
     }
 }

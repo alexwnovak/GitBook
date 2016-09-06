@@ -108,9 +108,9 @@ namespace GitWrite.ViewModels
          set;
       }
 
-      public event EventHandler ExpansionRequested;
-      public event EventHandler CollapseRequested;
-      public event AsyncEventHandler AsyncExitRequested;
+      public event AsyncEventHandler ExpansionRequested;
+      public event AsyncEventHandler CollapseRequested;
+      public event AsyncEventHandler<ShutdownEventArgs> AsyncExitRequested;
       public event EventHandler HelpRequested;
       public event EventHandler CollapseHelpRequested;
        
@@ -122,11 +122,11 @@ namespace GitWrite.ViewModels
          _gitService = gitService;
 
          PrimaryMessageGotFocusCommand = new RelayCommand( () => ControlState = CommitControlState.EditingPrimaryMessage );
-         SecondaryNotesGotFocusCommand = new RelayCommand( ExpandUI );
-         ExpandCommand = new RelayCommand( ExpandUI );
+         SecondaryNotesGotFocusCommand = new RelayCommand( async () => await ExpandUI() );
+         ExpandCommand = new RelayCommand( async () => await ExpandUI() );
          HelpCommand = new RelayCommand( ActivateHelp );
          LoadCommand = new RelayCommand( ViewLoaded );
-         PasteCommand = new RelayCommand( PasteFromClipboard );
+         PasteCommand = new RelayCommand( async () => await PasteFromClipboard() );
 
          ShortMessage = _commitDocument?.ShortMessage;
          ExtraCommitText = _commitDocument?.LongMessage;
@@ -134,49 +134,53 @@ namespace GitWrite.ViewModels
          IsDirty = false;
       }
 
-      public void ViewLoaded()
+      public async void ViewLoaded()
       {
          if ( !string.IsNullOrEmpty( ExtraCommitText ) )
          {
-            ExpandUI();
+            await ExpandUI();
          }
       }
 
-      protected virtual void OnExpansionRequested( object sender, EventArgs e ) => ExpansionRequested?.Invoke( sender, e );
+      protected virtual async Task OnExpansionRequestedAsync( object sender, EventArgs e ) => await ExpansionRequested?.Invoke( sender, e );
 
-      protected virtual void OnCollapseRequested( object sender, EventArgs e ) => CollapseRequested?.Invoke( sender, e );
+      protected virtual async Task OnCollapseRequestedAsync( object sender, EventArgs e ) => await CollapseRequested?.Invoke( sender, e );
 
       protected virtual void OnHelpRequested( object sender, EventArgs e ) => HelpRequested?.Invoke( sender, e );
 
       protected virtual void OnCollapseHelpRequested( object sender, EventArgs e ) => CollapseHelpRequested?.Invoke( sender, e );
 
-      protected virtual Task OnExitRequestedAsync( object sender, EventArgs e ) => AsyncExitRequested?.Invoke( sender, e );
+      protected virtual async Task OnExitRequestedAsync( object sender, ShutdownEventArgs e ) => await AsyncExitRequested?.Invoke( sender, e );
 
-      protected override Task<bool> OnSaveAsync()
+      protected override async Task<bool> OnSaveAsync()
       {
          if ( string.IsNullOrWhiteSpace( ShortMessage ) || IsExiting )
          {
-            return Task.FromResult( false );
+            return false;
          }
 
-         CollapseUI();
+         await CollapseUIAsync();
+
+         await OnExitRequestedAsync( this, new ShutdownEventArgs( ExitReason.Save ) );
 
          _commitDocument.ShortMessage = ShortMessage;
          _commitDocument.LongMessage = ExtraCommitText;
          _commitDocument.Save();
 
-         return Task.FromResult( true );
+         return true;
       }
 
-      protected override Task OnDiscardAsync()
+      protected override async Task<bool> OnDiscardAsync()
       {
-         CollapseUI();
+         await CollapseUIAsync();
+
+         await OnExitRequestedAsync( this, new ShutdownEventArgs( ExitReason.Discard ) );
 
          _commitDocument.ShortMessage = null;
          _commitDocument.LongMessage = null;
          _commitDocument.Save();
 
-         return Task.FromResult( true );
+         return true;
       }
 
       public bool DismissHelpIfActive()
@@ -192,21 +196,21 @@ namespace GitWrite.ViewModels
          return false;
       }
 
-      private void ExpandUI()
+      private async Task ExpandUI()
       {
          if ( !IsExpanded && !IsExiting )
          {
             IsExpanded = true;
-            OnExpansionRequested( this, EventArgs.Empty );
+            await OnExpansionRequestedAsync( this, EventArgs.Empty );
          }
       }
 
-      private void CollapseUI()
+      private async Task CollapseUIAsync()
       {
          if ( IsExpanded )
          {
             IsExpanded = false;
-            OnCollapseRequested( this, EventArgs.Empty );
+            await OnCollapseRequestedAsync( this, EventArgs.Empty );
          }
       }
 
@@ -219,7 +223,7 @@ namespace GitWrite.ViewModels
          }
       }
 
-      private void PasteFromClipboard()
+      private async Task PasteFromClipboard()
       {
          string clipboardText = _clipboardService.GetText();
 
@@ -230,7 +234,7 @@ namespace GitWrite.ViewModels
 
             if ( lineBreakIndex != -1 )
             {
-               ExpandUI();
+               await ExpandUI();
 
                ShortMessage = clipboardText.Substring( 0, lineBreakIndex );
 

@@ -10,13 +10,14 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>GitWrite</RootNamespace>
     <AssemblyName>GitWrite</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -78,7 +79,6 @@
     <Compile Include="ApplicationMode.cs" />
     <Compile Include="ApplicationModeInterpreter.cs" />
     <Compile Include="AsyncEventHandler.cs" />
-    <Compile Include="Behaviors\CommitCaretPositionBehavior.cs" />
     <Compile Include="Behaviors\CommitKeyPressBehavior.cs" />
     <Compile Include="Behaviors\WindowDragBehavior.cs" />
     <Compile Include="Behaviors\WindowPlacementBehavior.cs" />
@@ -118,14 +118,17 @@
     <Compile Include="Views\Controls\InteractiveRebasePanel.xaml.cs">
       <DependentUpon>InteractiveRebasePanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Controls\MainEntryBox.xaml.cs">
+      <DependentUpon>MainEntryBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Controls\Pie.cs" />
     <Compile Include="Views\Controls\RadialCounter.cs" />
+    <Compile Include="Views\Controls\TransitionEntryBox.xaml.cs">
+      <DependentUpon>TransitionEntryBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Converters\BorderToGeometryConverter.cs" />
     <Compile Include="Views\Converters\BoolToCaretBrushConverter.cs" />
     <Compile Include="Views\Converters\ExitReasonBaseConverter.cs" />
-    <Compile Include="Views\Converters\ExitReasonToBackgroundConverter.cs" />
-    <Compile Include="Views\Converters\ExitReasonToGlyphConverter.cs" />
-    <Compile Include="Views\Converters\ExitReasonToGlyphColorConverter.cs" />
     <Compile Include="Views\Converters\LeftClipConverter.cs" />
     <Compile Include="Views\Converters\TextLengthToColorConverter.cs" />
     <Compile Include="Views\Dwm\AccentPolicy.cs" />
@@ -198,6 +201,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Controls\InteractiveRebasePanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\MainEntryBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\TransitionEntryBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

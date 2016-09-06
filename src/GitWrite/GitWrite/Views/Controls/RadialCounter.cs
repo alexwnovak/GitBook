@@ -212,7 +212,8 @@ namespace GitWrite.Views.Controls
             dc.DrawArc( new Pen( _borderBrush, 1 ), null, innerRect, -90, 360 * percentage );
          }
 
-         var formattedText = new FormattedText( Value.ToString(), CultureInfo.InvariantCulture, FlowDirection.LeftToRight, new Typeface( FontFamily ), FontSize, new SolidColorBrush( TextColor ) );
+         var dpiScale = VisualTreeHelper.GetDpi( this );
+         var formattedText = new FormattedText( Value.ToString(), CultureInfo.InvariantCulture, FlowDirection.LeftToRight, new Typeface( FontFamily ), FontSize, new SolidColorBrush( TextColor ), dpiScale.DpiScaleX );
 
          var textCenter = new Point( ( ActualWidth - formattedText.Width ) / 2, ( ActualHeight - formattedText.Height ) / 2 - 1 );
          dc.DrawText( formattedText, textCenter );

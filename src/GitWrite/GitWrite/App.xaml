@@ -15,13 +15,12 @@
       <converters:TextLengthInversionConverter x:Key="TextLengthInversionConverter" />
       <converters:BoolToCaretBrushConverter x:Key="BoolToCaretBrushConverter" />
       <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-      <converters:ExitReasonToBackgroundConverter x:Key="ExitReasonToBackgroundConverter" />
-      <converters:ExitReasonToGlyphConverter x:Key="ExitReasonToGlyphConverter" />
-      <converters:ExitReasonToGlyphColorConverter x:Key="ExitReasonToGlyphColorConverter" />
-      <SolidColorBrush x:Key="AcceptCommitBackgroundColor" Color="#C281" PresentationOptions:Freeze="True"/>
-      <SolidColorBrush x:Key="AcceptCommitGlyphBackgroundColor" Color="#0F0" PresentationOptions:Freeze="True"/>
-      <SolidColorBrush x:Key="AbortCommitBackgroundColor" Color="#C812" PresentationOptions:Freeze="True"/>
-      <SolidColorBrush x:Key="AbortCommitGlyphBackgroundColor" Color="#F00" PresentationOptions:Freeze="True"/>
+      <SolidColorBrush x:Key="AcceptCommitBorderColor" Color="#A0228822" PresentationOptions:Freeze="True"/>
+      <SolidColorBrush x:Key="AcceptCommitBackgroundColor" Color="#B055BB55" PresentationOptions:Freeze="True"/>
+      <SolidColorBrush x:Key="AcceptCommitForegroundColor" Color="#FF99FF99" PresentationOptions:Freeze="True" />
+      <SolidColorBrush x:Key="AbortCommitBorderColor" Color="#A0882222" PresentationOptions:Freeze="True"/>
+      <SolidColorBrush x:Key="AbortCommitBackgroundColor" Color="#B0BB5555" PresentationOptions:Freeze="True"/>
+      <SolidColorBrush x:Key="AbortCommitForegroundColor" Color="#FFFF9999" PresentationOptions:Freeze="True" />
       <SolidColorBrush x:Key="HiddenCaretColor" Color="#0000" PresentationOptions:Freeze="True" />
       <SolidColorBrush x:Key="HighlightColor" Color="#80D2F560" PresentationOptions:Freeze="True" />
       <clr:String x:Key="AcceptCommitGlyph">&#xE10B;</clr:String>
