@@ -8,7 +8,6 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
 using GitWrite.ViewModels;
-using GitWrite.Views.Controls;
 
 namespace GitWrite.Views
 {
