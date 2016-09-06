@@ -17,8 +17,10 @@
       <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
       <SolidColorBrush x:Key="AcceptCommitBorderColor" Color="#A0228822" PresentationOptions:Freeze="True"/>
       <SolidColorBrush x:Key="AcceptCommitBackgroundColor" Color="#B055BB55" PresentationOptions:Freeze="True"/>
+      <SolidColorBrush x:Key="AcceptCommitForegroundColor" Color="#FF99FF99" PresentationOptions:Freeze="True" />
       <SolidColorBrush x:Key="AbortCommitBorderColor" Color="#A0882222" PresentationOptions:Freeze="True"/>
       <SolidColorBrush x:Key="AbortCommitBackgroundColor" Color="#B0BB5555" PresentationOptions:Freeze="True"/>
+      <SolidColorBrush x:Key="AbortCommitForegroundColor" Color="#FFFF9999" PresentationOptions:Freeze="True" />
       <SolidColorBrush x:Key="HiddenCaretColor" Color="#0000" PresentationOptions:Freeze="True" />
       <SolidColorBrush x:Key="HighlightColor" Color="#80D2F560" PresentationOptions:Freeze="True" />
       <clr:String x:Key="AcceptCommitGlyph">&#xE10B;</clr:String>
