@@ -12,7 +12,7 @@
    Background="Transparent"
    Title="{Binding Title}"
    Width="1080"
-   Height="{x:Static views:WindowValues.NonExpandedHeight}"
+   Height="{x:Static views:WindowValues.ExpandedHeight}"
    ResizeMode="NoResize"
    WindowStyle="None"
    FocusManager.FocusedElement="{Binding ElementName=MainEntryBox}"
@@ -118,13 +118,14 @@
          Grid.Row="0"
          Text="{Binding ShortMessage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-      <Grid x:Name="SecondaryBorder"
-         Grid.Row="1"
+      <Grid Grid.Row="1"
          ZIndex="-1"
-         Opacity="0">
-         <Border CornerRadius="0,0,14,14"
+         VerticalAlignment="Top">
+         <Border x:Name="SecondaryBorder"
+            CornerRadius="0,0,14,14"
             Margin="26,-24,26,12"
             BorderThickness="2"
+            Height="0"
             BorderBrush="{DynamicResource WindowSecondaryBorderColor}"
             Background="{DynamicResource WindowSecondaryBackgroundColor}">
             <Border.Effect>

@@ -133,32 +133,23 @@ namespace GitWrite.Views
       private Task OnExpansionRequested( object sender, EventArgs eventArgs )
       {
          var tcs = new TaskCompletionSource<bool>();
+         const double duration = 200;
 
          var heightAnimation = new DoubleAnimation
          {
-            To = 400,
-            Duration = new Duration( TimeSpan.FromMilliseconds( 100 ) ),
+            To = 300,
+            Duration = new Duration( TimeSpan.FromMilliseconds( duration ) ),
             EasingFunction = new CircleEase
             {
-               EasingMode = EasingMode.EaseOut
+               EasingMode = EasingMode.EaseOut,
             }
          };
 
-         var opacityAnimation = new DoubleAnimation
-         {
-            To = 1,
-            Duration = new Duration( TimeSpan.FromMilliseconds( 100 ) )
-         };
-
-         Storyboard.SetTarget( heightAnimation, PageRoot );
+         Storyboard.SetTarget( heightAnimation, SecondaryBorder );
          Storyboard.SetTargetProperty( heightAnimation, new PropertyPath( nameof( Height ) ) );
-
-         Storyboard.SetTarget( opacityAnimation, SecondaryBorder );
-         Storyboard.SetTargetProperty( opacityAnimation, new PropertyPath( nameof( Opacity ) ) );
 
          var storyboard = new Storyboard();
          storyboard.Children.Add( heightAnimation );
-         storyboard.Children.Add( opacityAnimation );
          storyboard.Completed += ( _, __ ) => tcs.SetResult( true );
 
          Storyboard.SetTarget( storyboard, this );
@@ -170,32 +161,23 @@ namespace GitWrite.Views
       private Task OnCollapseRequested( object sender, EventArgs eventArgs )
       {
          var tcs = new TaskCompletionSource<bool>();
+         const double duration = 200;
 
          var heightAnimation = new DoubleAnimation
          {
-            To = 100,
-            Duration = new Duration( TimeSpan.FromMilliseconds( 100 ) ),
+            To = 0,
+            Duration = new Duration( TimeSpan.FromMilliseconds( duration ) ),
             EasingFunction = new CircleEase
             {
                EasingMode = EasingMode.EaseOut
             }
          };
 
-         var opacityAnimation = new DoubleAnimation
-         {
-            To = 0,
-            Duration = new Duration( TimeSpan.FromMilliseconds( 100 ) )
-         };
-
-         Storyboard.SetTarget( heightAnimation, PageRoot );
+         Storyboard.SetTarget( heightAnimation, SecondaryBorder );
          Storyboard.SetTargetProperty( heightAnimation, new PropertyPath( nameof( Height ) ) );
-
-         Storyboard.SetTarget( opacityAnimation, SecondaryBorder );
-         Storyboard.SetTargetProperty( opacityAnimation, new PropertyPath( nameof( Opacity ) ) );
 
          var storyboard = new Storyboard();
          storyboard.Children.Add( heightAnimation );
-         storyboard.Children.Add( opacityAnimation );
          storyboard.Completed += ( _, __ ) => tcs.SetResult( true );
 
          Storyboard.SetTarget( storyboard, this );

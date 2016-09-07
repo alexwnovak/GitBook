@@ -19,7 +19,7 @@ namespace GitWrite.Views
       {
          _host = host;
          _dpiScale = VisualTreeHelper.GetDpi( host );
-         _size = new Size( host.ActualWidth, host.ActualHeight );
+         _size = new Size( host.ActualWidth, WindowValues.NonExpandedHeight );
       }
 
       public Task GenerateAsync()
