@@ -62,8 +62,11 @@ namespace GitWrite.Views
             var foregroundBrush = (Brush) Application.Current.Resources["TextColor"];
             drawingContext.DrawImage( frontMaterial, new Rect( 0, 0, frontMaterial.Width, frontMaterial.Height) );
 
-            var formattedText = new FormattedText( _viewModel.ShortMessage, CultureInfo.InvariantCulture, FlowDirection.LeftToRight, new Typeface( "Consolas" ), 24, foregroundBrush, dpiScale.DpiScaleX );
-            drawingContext.DrawText( formattedText, new Point( 28, 36 ) );
+            if ( !string.IsNullOrWhiteSpace( _viewModel.ShortMessage ) )
+            {
+               var formattedText = new FormattedText( _viewModel.ShortMessage, CultureInfo.InvariantCulture, FlowDirection.LeftToRight, new Typeface( "Consolas" ), 24, foregroundBrush, dpiScale.DpiScaleX );
+               drawingContext.DrawText( formattedText, new Point( 28, 36 ) );
+            }
          }
 
          var image = new DrawingImage( drawingVisual.Drawing );
