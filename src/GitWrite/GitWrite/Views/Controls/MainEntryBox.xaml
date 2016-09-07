@@ -49,7 +49,8 @@
          </Border>
       </Grid>
 
-      <local:RadialCounter Grid.Column="1"
+      <local:RadialCounter x:Name="RadialCounter"
+         Grid.Column="1"
          HorizontalAlignment="Center"
          VerticalAlignment="Center"
          Minimum="0"
