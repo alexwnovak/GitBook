@@ -25,6 +25,24 @@ namespace GitWrite.Views
          _viewModel.AsyncExitRequested += OnAsyncExitRequested;
       }
 
+      private void CommitWindow_OnLoaded( object sender, RoutedEventArgs e )
+      {
+         Opacity = 0;
+
+         const double duration = 100;
+
+         var storyboard = new Storyboard();
+
+         var opacityAnimation = new DoubleAnimation( 0, 1, new Duration( TimeSpan.FromMilliseconds( duration ) ) );
+
+         storyboard.Children.Add( opacityAnimation );
+
+         Storyboard.SetTargetProperty( opacityAnimation, new PropertyPath( nameof( Opacity ) ) );
+         Storyboard.SetTarget( opacityAnimation, this );
+
+         storyboard.Begin();
+      }
+
       private Task OnAsyncExitRequested( object sender, ShutdownEventArgs e )
       {
          if ( _viewModel.IsExiting )

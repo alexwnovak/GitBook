@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interactivity;
 using GalaSoft.MvvmLight.Ioc;
@@ -29,6 +30,8 @@ namespace GitWrite.Views
       private async void OnLoaded( object sender, EventArgs e )
       {
          _viewModel = (GitWriteViewModelBase) DataContext;
+
+         await Task.Delay( 200 );
 
          var materialGenerator = new MaterialGenerator( this );
          await materialGenerator.GenerateAsync();
