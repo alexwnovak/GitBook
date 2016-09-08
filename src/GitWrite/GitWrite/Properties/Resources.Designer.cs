@@ -61,6 +61,15 @@ namespace GitWrite.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to _Cancel.
+        /// </summary>
+        public static string CancelText {
+            get {
+                return ResourceManager.GetString("CancelText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Committing....
         /// </summary>
         public static string CommitingText {
@@ -79,6 +88,15 @@ namespace GitWrite.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to _Discard.
+        /// </summary>
+        public static string DiscardText {
+            get {
+                return ResourceManager.GetString("DiscardText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You have unsaved changes to this commit message. Do you want to save your changes?.
         /// </summary>
         public static string ExitConfirmationBodyText {
@@ -93,6 +111,15 @@ namespace GitWrite.Properties {
         public static string ExitConfirmationHeaderText {
             get {
                 return ResourceManager.GetString("ExitConfirmationHeaderText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Save.
+        /// </summary>
+        public static string SaveText {
+            get {
+                return ResourceManager.GetString("SaveText", resourceCulture);
             }
         }
     }

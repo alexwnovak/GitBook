@@ -117,16 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CancelText" xml:space="preserve">
+    <value>_Cancel</value>
+  </data>
   <data name="CommitingText" xml:space="preserve">
     <value>Committing...</value>
   </data>
   <data name="DiscardingText" xml:space="preserve">
     <value>Discarding...</value>
   </data>
+  <data name="DiscardText" xml:space="preserve">
+    <value>_Discard</value>
+  </data>
   <data name="ExitConfirmationBodyText" xml:space="preserve">
     <value>You have unsaved changes to this commit message. Do you want to save your changes?</value>
   </data>
   <data name="ExitConfirmationHeaderText" xml:space="preserve">
     <value>Confirm Exit</value>
+  </data>
+  <data name="SaveText" xml:space="preserve">
+    <value>_Save</value>
   </data>
 </root>
