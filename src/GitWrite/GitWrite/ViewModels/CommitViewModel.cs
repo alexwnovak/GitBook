@@ -13,11 +13,6 @@ namespace GitWrite.ViewModels
       private readonly ICommitDocument _commitDocument;
       private readonly IGitService _gitService;
 
-      public RelayCommand PrimaryMessageGotFocusCommand
-      {
-         get;
-      }
-
       public RelayCommand SecondaryNotesGotFocusCommand
       {
          get;
@@ -28,12 +23,6 @@ namespace GitWrite.ViewModels
          get;
       }
 
-      public RelayCommand HelpCommand
-      {
-         get;
-         protected internal set;
-      }
-
       public RelayCommand<CancelEventArgs> CloseCommand
       {
          get;
@@ -42,12 +31,6 @@ namespace GitWrite.ViewModels
       public RelayCommand LoadCommand
       {
          get;
-      }
-
-      public CommitInputState InputState
-      {
-         get;
-         set;
       }
 
       public string Title => $"Commiting to {_gitService.GetCurrentBranchName()}";
@@ -80,28 +63,6 @@ namespace GitWrite.ViewModels
          }
       }
 
-      public string HelpText => HelpTextProvider.GetTextForCommitState( ControlState );
-
-      private CommitControlState _commitControlState;
-      public CommitControlState ControlState
-      {
-         get
-         {
-            return _commitControlState;
-         }
-         set
-         {
-            Set( () => ControlState, ref _commitControlState, value );
-            RaisePropertyChanged( () => HelpText );
-         }
-      }
-
-      public bool IsHelpStateActive
-      {
-         get;
-         set;
-      }
-
       public bool IsExpanded
       {
          get;
@@ -111,8 +72,6 @@ namespace GitWrite.ViewModels
       public event AsyncEventHandler ExpansionRequested;
       public event AsyncEventHandler CollapseRequested;
       public event AsyncEventHandler<ShutdownEventArgs> AsyncExitRequested;
-      public event EventHandler HelpRequested;
-      public event EventHandler CollapseHelpRequested;
        
       public CommitViewModel( IViewService viewService, IAppService appService, IClipboardService clipboardService, ICommitDocument commitDocument, IGitService gitService )
          : base( viewService, appService )
@@ -121,10 +80,8 @@ namespace GitWrite.ViewModels
          _commitDocument = commitDocument;
          _gitService = gitService;
 
-         PrimaryMessageGotFocusCommand = new RelayCommand( () => ControlState = CommitControlState.EditingPrimaryMessage );
          SecondaryNotesGotFocusCommand = new RelayCommand( async () => await ExpandUI() );
          ExpandCommand = new RelayCommand( async () => await ExpandUI() );
-         HelpCommand = new RelayCommand( ActivateHelp );
          LoadCommand = new RelayCommand( ViewLoaded );
          PasteCommand = new RelayCommand( async () => await PasteFromClipboard() );
 
@@ -145,10 +102,6 @@ namespace GitWrite.ViewModels
       protected virtual async Task OnExpansionRequestedAsync( object sender, EventArgs e ) => await ExpansionRequested?.Invoke( sender, e );
 
       protected virtual async Task OnCollapseRequestedAsync( object sender, EventArgs e ) => await CollapseRequested?.Invoke( sender, e );
-
-      protected virtual void OnHelpRequested( object sender, EventArgs e ) => HelpRequested?.Invoke( sender, e );
-
-      protected virtual void OnCollapseHelpRequested( object sender, EventArgs e ) => CollapseHelpRequested?.Invoke( sender, e );
 
       protected virtual async Task OnExitRequestedAsync( object sender, ShutdownEventArgs e ) => await AsyncExitRequested?.Invoke( sender, e );
 
@@ -183,19 +136,6 @@ namespace GitWrite.ViewModels
          return true;
       }
 
-      public bool DismissHelpIfActive()
-      {
-         if ( IsHelpStateActive )
-         {
-            OnCollapseHelpRequested( this, EventArgs.Empty );
-            IsHelpStateActive = false;
-
-            return true;
-         }
-
-         return false;
-      }
-
       private async Task ExpandUI()
       {
          if ( !IsExpanded && !IsExiting )
@@ -211,15 +151,6 @@ namespace GitWrite.ViewModels
          {
             IsExpanded = false;
             await OnCollapseRequestedAsync( this, EventArgs.Empty );
-         }
-      }
-
-      private void ActivateHelp()
-      {
-         if ( !IsHelpStateActive )
-         {
-            IsHelpStateActive = true;
-            OnHelpRequested( this, EventArgs.Empty );
          }
       }
 

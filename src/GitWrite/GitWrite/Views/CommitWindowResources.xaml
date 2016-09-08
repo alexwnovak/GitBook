@@ -37,25 +37,4 @@
          </DoubleAnimation.EasingFunction>
       </DoubleAnimation>
    </Storyboard>
-   <Storyboard x:Key="ActivateHelpStoryboard">
-      <DoubleAnimation Storyboard.TargetName="OuterBorderTranslateTransform"
-         Storyboard.TargetProperty="Y"
-         From="0"
-         To="{Binding HelpScrollDistance, ElementName=PageRoot, Mode=OneWay}"
-         Duration="0:0:0.4">
-         <DoubleAnimation.EasingFunction>
-            <CircleEase EasingMode="EaseOut" />
-         </DoubleAnimation.EasingFunction>
-      </DoubleAnimation>
-   </Storyboard>
-   <Storyboard x:Key="CollapseHelpStoryboard">
-      <DoubleAnimation Storyboard.TargetName="OuterBorderTranslateTransform"
-         Storyboard.TargetProperty="Y"
-         To="0"
-         Duration="0:0:0.4">
-         <DoubleAnimation.EasingFunction>
-            <CircleEase EasingMode="EaseOut" />
-         </DoubleAnimation.EasingFunction>
-      </DoubleAnimation>
-   </Storyboard>
 </ResourceDictionary>

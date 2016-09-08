@@ -6,7 +6,6 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
 using GitWrite.ViewModels;
 
@@ -16,23 +15,6 @@ namespace GitWrite.Views
    {
       private readonly CommitViewModel _viewModel;
 
-      public double HelpScrollDistance
-      {
-         get
-         {
-            return (double) GetValue( HelpScrollDistanceProperty );
-         }
-         set
-         {
-            SetValue( HelpScrollDistanceProperty, value );
-         }
-      }
-
-      public static readonly DependencyProperty HelpScrollDistanceProperty = DependencyProperty.Register( nameof( HelpScrollDistance ),
-         typeof( double ),
-         typeof( CommitWindow ),
-         new PropertyMetadata( 0.0 ) );
-
       public CommitWindow()
       {
          InitializeComponent();
@@ -40,8 +22,6 @@ namespace GitWrite.Views
          _viewModel = (CommitViewModel) DataContext;
          _viewModel.ExpansionRequested += OnExpansionRequested;
          _viewModel.CollapseRequested += OnCollapseRequested;
-         _viewModel.HelpRequested += OnHelpRequested;
-         _viewModel.CollapseHelpRequested += OnCollapseHelpRequested;
          _viewModel.AsyncExitRequested += OnAsyncExitRequested;
       }
 
@@ -119,16 +99,6 @@ namespace GitWrite.Views
 
          return tcs.Task;
       }
-
-      private void OnHelpRequested( object sender, EventArgs e )
-      {
-         HelpScrollDistance = -ActualHeight;
-
-         this.PlayStoryboard( "ActivateHelpStoryboard" );
-      }
-
-      private void OnCollapseHelpRequested( object sender, EventArgs e )
-         => this.PlayStoryboard( "CollapseHelpStoryboard" );
 
       private Task OnExpansionRequested( object sender, EventArgs eventArgs )
       {
