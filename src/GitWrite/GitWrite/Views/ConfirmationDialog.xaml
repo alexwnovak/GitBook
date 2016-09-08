@@ -96,20 +96,20 @@
                      Height="30"
                      VerticalAlignment="Bottom"
                      HorizontalAlignment="Right"
-                     Content="_Save"
+                     Content="{x:Static res:Resources.SaveText}"
                      Command="{Binding SaveCommand, Mode=OneTime}" />
                   <Button Margin="0,0,6,0"
                      Width="80"
                      Height="30"
                      VerticalAlignment="Bottom"
                      HorizontalAlignment="Right"
-                     Content="_Discard"
+                     Content="{x:Static res:Resources.DiscardText}"
                      Command="{Binding DiscardCommand, Mode=OneTime}" />
                   <Button Width="80"
                      Height="30"
                      VerticalAlignment="Bottom"
                      HorizontalAlignment="Right"
-                     Content="_Cancel"
+                     Content="{x:Static res:Resources.CancelText}"
                      Command="{Binding CancelCommand, Mode=OneTime}" />
                </StackPanel>
             </Grid>
