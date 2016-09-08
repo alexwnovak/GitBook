@@ -116,7 +116,6 @@
     <Compile Include="CommitDocumentTests.cs" />
     <Compile Include="CommitFileReaderTests.cs" />
     <Compile Include="Helpers\TestHelper.cs" />
-    <Compile Include="HelpTextProviderTests.cs" />
     <Compile Include="InteractiveRebaseDocumentTests.cs" />
     <Compile Include="InteractiveRebaseFileReaderTests.cs" />
     <Compile Include="RebaseItemHelper.cs" />

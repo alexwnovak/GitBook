@@ -108,7 +108,6 @@
     <Compile Include="Themes\ThemeSwitcher.cs" />
     <Compile Include="ViewModels\RebaseItemAction.cs" />
     <Compile Include="ViewModels\ShutdownEventArgs.cs" />
-    <Compile Include="Views\CommitInputState.cs" />
     <Compile Include="Views\ConfirmationDialog.xaml.cs">
       <DependentUpon>ConfirmationDialog.xaml</DependentUpon>
     </Compile>
@@ -141,7 +140,6 @@
     <Compile Include="FileAdapter.cs" />
     <Compile Include="GitFileLoadException.cs" />
     <Compile Include="GitFileNames.cs" />
-    <Compile Include="HelpTextProvider.cs" />
     <Compile Include="ICommitDocument.cs" />
     <Compile Include="ICommitFileReader.cs" />
     <Compile Include="IEnvironmentAdapter.cs" />
