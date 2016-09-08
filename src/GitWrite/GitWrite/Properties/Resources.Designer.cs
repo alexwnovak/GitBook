@@ -77,5 +77,14 @@ namespace GitWrite.Properties {
                 return ResourceManager.GetString("DiscardingText", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have unsaved changes to this commit message. Do you want to save your changes?.
+        /// </summary>
+        public static string ExitConfirmationBodyText {
+            get {
+                return ResourceManager.GetString("ExitConfirmationBodyText", resourceCulture);
+            }
+        }
     }
 }

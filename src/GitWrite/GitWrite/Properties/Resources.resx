@@ -123,4 +123,7 @@
   <data name="DiscardingText" xml:space="preserve">
     <value>Discarding...</value>
   </data>
+  <data name="ExitConfirmationBodyText" xml:space="preserve">
+    <value>You have unsaved changes to this commit message. Do you want to save your changes?</value>
+  </data>
 </root>
