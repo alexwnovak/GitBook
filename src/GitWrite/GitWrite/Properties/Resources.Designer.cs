@@ -86,5 +86,14 @@ namespace GitWrite.Properties {
                 return ResourceManager.GetString("ExitConfirmationBodyText", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm Exit.
+        /// </summary>
+        public static string ExitConfirmationHeaderText {
+            get {
+                return ResourceManager.GetString("ExitConfirmationHeaderText", resourceCulture);
+            }
+        }
     }
 }
