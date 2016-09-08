@@ -157,6 +157,7 @@
     </Compile>
     <Compile Include="Views\IStoryboardHelper.cs" />
     <Compile Include="Services\IViewService.cs" />
+    <Compile Include="Views\MaterialGenerator.cs" />
     <Compile Include="Views\StoryboardHelper.cs" />
     <Compile Include="Views\WindowBase.cs" />
     <Compile Include="Views\WindowValues.cs" />

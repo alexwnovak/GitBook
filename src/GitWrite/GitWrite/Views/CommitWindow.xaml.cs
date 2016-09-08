@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -8,7 +9,6 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
 using GitWrite.ViewModels;
-using GitWrite.Views.Controls;
 
 namespace GitWrite.Views
 {
@@ -52,42 +52,41 @@ namespace GitWrite.Views
             return Task.CompletedTask;
          }
 
-         var dpiScale = VisualTreeHelper.GetDpi( MainEntryBox );
-         var size = new Size( MainEntryBox.ActualWidth, MainEntryBox.ActualHeight );
+         var frontMaterial = (ImageSource) Resources["FrontMaterial"];
 
-         var frontBitmap = new RenderTargetBitmap( (int) size.Width * (int) dpiScale.DpiScaleX, (int) size.Height * (int) dpiScale.DpiScaleY, dpiScale.PixelsPerInchX, dpiScale.PixelsPerInchY, PixelFormats.Pbgra32 );
-         var backBitmap = new RenderTargetBitmap( (int) size.Width * (int) dpiScale.DpiScaleX, (int) size.Height * (int) dpiScale.DpiScaleY, dpiScale.PixelsPerInchX, dpiScale.PixelsPerInchY, PixelFormats.Pbgra32 );
+         var drawingVisual = new DrawingVisual();
+         var dpiScale = VisualTreeHelper.GetDpi( drawingVisual );
 
-         MainEntryBox.Measure( size );
-         MainEntryBox.Arrange( new Rect( size ) );
-
-         frontBitmap.Render( MainEntryBox );
-
-         DrawingVisual drawingVisual = new DrawingVisual();
-         using ( DrawingContext context = drawingVisual.RenderOpen() )
+         using ( var drawingContext = drawingVisual.RenderOpen() )
          {
-            var backBox = new TransitionEntryBox( e.ExitReason )
+            var foregroundBrush = (Brush) Application.Current.Resources["TextColor"];
+            drawingContext.DrawImage( frontMaterial, new Rect( 0, 0, frontMaterial.Width, frontMaterial.Height) );
+
+            if ( !string.IsNullOrWhiteSpace( _viewModel.ShortMessage ) )
             {
-               Width = size.Width,
-               Height = size.Height,
-               RenderTransform = new ScaleTransform( 1, -1 )
-            };
-
-            backBox.Measure( size );
-            backBox.Arrange( new Rect( size ) );
-
-            VisualBrush visualBrush = new VisualBrush( backBox );
-            context.DrawRectangle( visualBrush, null, new Rect( size ) );
+               var formattedText = new FormattedText( _viewModel.ShortMessage, CultureInfo.InvariantCulture, FlowDirection.LeftToRight, new Typeface( "Consolas" ), 24, foregroundBrush, dpiScale.DpiScaleX );
+               drawingContext.DrawText( formattedText, new Point( 28, 36 ) );
+            }
          }
 
-         backBitmap.Render( drawingVisual );
-
-         FrontMaterial.Brush = new ImageBrush( frontBitmap )
+         var image = new DrawingImage( drawingVisual.Drawing );
+         FrontMaterial.Brush = new ImageBrush( image )
          {
             Stretch = Stretch.Uniform
          };
 
-         BackMaterial.Brush = new ImageBrush( backBitmap )
+         ImageSource backMaterial;
+
+         if ( e.ExitReason == ExitReason.Save )
+         {
+            backMaterial = (ImageSource) Resources["SaveBackMaterial"];
+         }
+         else
+         {
+            backMaterial = (ImageSource) Resources["DiscardBackMaterial"];
+         }
+
+         BackMaterial.Brush = new ImageBrush( backMaterial )
          {
             Stretch = Stretch.Uniform
          };
@@ -134,32 +133,23 @@ namespace GitWrite.Views
       private Task OnExpansionRequested( object sender, EventArgs eventArgs )
       {
          var tcs = new TaskCompletionSource<bool>();
+         const double duration = 200;
 
          var heightAnimation = new DoubleAnimation
          {
-            To = 400,
-            Duration = new Duration( TimeSpan.FromMilliseconds( 100 ) ),
+            To = 300,
+            Duration = new Duration( TimeSpan.FromMilliseconds( duration ) ),
             EasingFunction = new CircleEase
             {
-               EasingMode = EasingMode.EaseOut
+               EasingMode = EasingMode.EaseOut,
             }
          };
 
-         var opacityAnimation = new DoubleAnimation
-         {
-            To = 1,
-            Duration = new Duration( TimeSpan.FromMilliseconds( 100 ) )
-         };
-
-         Storyboard.SetTarget( heightAnimation, PageRoot );
+         Storyboard.SetTarget( heightAnimation, SecondaryBorder );
          Storyboard.SetTargetProperty( heightAnimation, new PropertyPath( nameof( Height ) ) );
-
-         Storyboard.SetTarget( opacityAnimation, SecondaryBorder );
-         Storyboard.SetTargetProperty( opacityAnimation, new PropertyPath( nameof( Opacity ) ) );
 
          var storyboard = new Storyboard();
          storyboard.Children.Add( heightAnimation );
-         storyboard.Children.Add( opacityAnimation );
          storyboard.Completed += ( _, __ ) => tcs.SetResult( true );
 
          Storyboard.SetTarget( storyboard, this );
@@ -171,32 +161,23 @@ namespace GitWrite.Views
       private Task OnCollapseRequested( object sender, EventArgs eventArgs )
       {
          var tcs = new TaskCompletionSource<bool>();
+         const double duration = 200;
 
          var heightAnimation = new DoubleAnimation
          {
-            To = 100,
-            Duration = new Duration( TimeSpan.FromMilliseconds( 100 ) ),
+            To = 0,
+            Duration = new Duration( TimeSpan.FromMilliseconds( duration ) ),
             EasingFunction = new CircleEase
             {
                EasingMode = EasingMode.EaseOut
             }
          };
 
-         var opacityAnimation = new DoubleAnimation
-         {
-            To = 0,
-            Duration = new Duration( TimeSpan.FromMilliseconds( 100 ) )
-         };
-
-         Storyboard.SetTarget( heightAnimation, PageRoot );
+         Storyboard.SetTarget( heightAnimation, SecondaryBorder );
          Storyboard.SetTargetProperty( heightAnimation, new PropertyPath( nameof( Height ) ) );
-
-         Storyboard.SetTarget( opacityAnimation, SecondaryBorder );
-         Storyboard.SetTargetProperty( opacityAnimation, new PropertyPath( nameof( Opacity ) ) );
 
          var storyboard = new Storyboard();
          storyboard.Children.Add( heightAnimation );
-         storyboard.Children.Add( opacityAnimation );
          storyboard.Completed += ( _, __ ) => tcs.SetResult( true );
 
          Storyboard.SetTarget( storyboard, this );

@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Media;
 
 namespace GitWrite.Views.Controls
 {
@@ -33,6 +34,10 @@ namespace GitWrite.Views.Controls
          InitializeComponent();
          LayoutRoot.DataContext = this;
       }
+
+      public void HideRadialText() => RadialCounter.TextColor = Colors.Transparent;
+
+      public void ShowRadialText() => RadialCounter.ClearValue( RadialCounter.TextColorProperty );
 
       private void MainEntryBox_OnGotFocus( object sender, RoutedEventArgs e ) => PrimaryTextBox.Focus();
 
