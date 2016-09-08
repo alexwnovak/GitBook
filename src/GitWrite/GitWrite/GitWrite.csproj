@@ -141,7 +141,6 @@
     <Compile Include="FileAdapter.cs" />
     <Compile Include="GitFileLoadException.cs" />
     <Compile Include="GitFileNames.cs" />
-    <Compile Include="HelpTextProvider.cs" />
     <Compile Include="ICommitDocument.cs" />
     <Compile Include="ICommitFileReader.cs" />
     <Compile Include="IEnvironmentAdapter.cs" />
