@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Input;
 using GitWrite.ViewModels;
 using GitWrite.Views.Controls;
 
@@ -29,6 +30,14 @@ namespace GitWrite.Views
          _confirmationResult = e.ConfirmationResult;
 
          Close();
+      }
+
+      private void DialogHeader_OnMouseDown( object sender, MouseButtonEventArgs e )
+      {
+         if ( e.LeftButton == MouseButtonState.Pressed )
+         {
+            DragMove();
+         }
       }
    }
 }

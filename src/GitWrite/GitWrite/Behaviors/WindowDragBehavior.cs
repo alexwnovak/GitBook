@@ -15,6 +15,7 @@ namespace GitWrite.Behaviors
          AssociatedObject.MouseDown += OnMouseDown;
          AssociatedObject.MouseDoubleClick += OnMouseDoubleClick;
       }
+
       protected override void OnDetaching()
       {
          AssociatedObject.MouseDown -= OnMouseDown;
