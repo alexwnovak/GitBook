@@ -22,7 +22,7 @@ namespace GitWrite.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace GitWrite.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("GitWrite.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace GitWrite.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,9 +61,18 @@ namespace GitWrite.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to _Cancel.
+        /// </summary>
+        public static string CancelText {
+            get {
+                return ResourceManager.GetString("CancelText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Committing....
         /// </summary>
-        internal static string CommitingText {
+        public static string CommitingText {
             get {
                 return ResourceManager.GetString("CommitingText", resourceCulture);
             }
@@ -72,9 +81,45 @@ namespace GitWrite.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Discarding....
         /// </summary>
-        internal static string DiscardingText {
+        public static string DiscardingText {
             get {
                 return ResourceManager.GetString("DiscardingText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Discard.
+        /// </summary>
+        public static string DiscardText {
+            get {
+                return ResourceManager.GetString("DiscardText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have unsaved changes to this commit message. Do you want to save your changes?.
+        /// </summary>
+        public static string ExitConfirmationBodyText {
+            get {
+                return ResourceManager.GetString("ExitConfirmationBodyText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm Exit.
+        /// </summary>
+        public static string ExitConfirmationHeaderText {
+            get {
+                return ResourceManager.GetString("ExitConfirmationHeaderText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Save.
+        /// </summary>
+        public static string SaveText {
+            get {
+                return ResourceManager.GetString("SaveText", resourceCulture);
             }
         }
     }
