@@ -71,7 +71,8 @@
          <RowDefinition Height="*" />
       </Grid.RowDefinitions>
 
-      <Grid Background="#222">
+      <Grid Background="#222"
+         MouseDown="DialogHeader_OnMouseDown">
          <TextBlock Margin="8,0,0,0"
             VerticalAlignment="Center"
             Text="{Binding Title, ElementName=PageRoot, Mode=OneTime}" />
