@@ -27,6 +27,9 @@ namespace GitWrite.Views
 
       private void CommitWindow_OnLoaded( object sender, RoutedEventArgs e )
       {
+         MainEntryBox.HideCaret();
+         MainEntryBox.MoveCaretToEnd();
+
          Opacity = 0;
 
          const double duration = 100;
@@ -36,6 +39,7 @@ namespace GitWrite.Views
          var opacityAnimation = new DoubleAnimation( 0, 1, new Duration( TimeSpan.FromMilliseconds( duration ) ) );
 
          storyboard.Children.Add( opacityAnimation );
+         storyboard.Completed += ( _, __ ) => MainEntryBox.ShowCaret();
 
          Storyboard.SetTargetProperty( opacityAnimation, new PropertyPath( nameof( Opacity ) ) );
          Storyboard.SetTarget( opacityAnimation, this );
