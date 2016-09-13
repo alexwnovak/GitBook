@@ -100,7 +100,7 @@ namespace GitWrite.Views
 
          var tcs = new TaskCompletionSource<bool>();
 
-         var animation = new DoubleAnimation( 0, 180, new Duration( TimeSpan.FromMilliseconds( 600 ) ) )
+         var rotationAnimation = new DoubleAnimation( 0, 180, new Duration( TimeSpan.FromMilliseconds( 600 ) ) )
          {
             AccelerationRatio = 0.7,
             DecelerationRatio = 0.3,
@@ -111,13 +111,27 @@ namespace GitWrite.Views
             }
          };
 
-         animation.Completed += ( _, __ ) =>
+         var opacityAnimation = new DoubleAnimation( 1, 0, new Duration( TimeSpan.FromMilliseconds( 200 ) ) )
          {
-            Thread.Sleep( 500 );
+            BeginTime = TimeSpan.FromMilliseconds( 900 )
+         };
+
+         var storyboard = new Storyboard();
+         Storyboard.SetTargetName( rotationAnimation, "RotationTransform" );
+         Storyboard.SetTargetProperty( rotationAnimation, new PropertyPath( AxisAngleRotation3D.AngleProperty ) );
+
+         Storyboard.SetTarget( opacityAnimation, MainGrid );
+         Storyboard.SetTargetProperty( opacityAnimation, new PropertyPath( OpacityProperty ) );
+
+         storyboard.Children.Add( rotationAnimation );
+         storyboard.Children.Add( opacityAnimation );
+
+         storyboard.Completed += ( _, __ ) =>
+         {
             tcs.SetResult( true );
          };
 
-         RotationTransform.BeginAnimation( AxisAngleRotation3D.AngleProperty, animation );
+         storyboard.Begin( this );
 
          return tcs.Task;
       }
