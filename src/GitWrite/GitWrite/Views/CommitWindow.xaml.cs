@@ -111,13 +111,17 @@ namespace GitWrite.Views
             }
          };
 
-         animation.Completed += ( _, __ ) =>
+         var storyboard = new Storyboard();
+         Storyboard.SetTargetName( animation, "RotationTransform" );
+         Storyboard.SetTargetProperty( animation, new PropertyPath( AxisAngleRotation3D.AngleProperty ) );
+         storyboard.Children.Add( animation );
+
+         storyboard.Completed += ( _, __ ) =>
          {
-            Thread.Sleep( 500 );
             tcs.SetResult( true );
          };
 
-         RotationTransform.BeginAnimation( AxisAngleRotation3D.AngleProperty, animation );
+         storyboard.Begin( this );
 
          return tcs.Task;
       }
