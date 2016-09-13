@@ -100,7 +100,7 @@ namespace GitWrite.Views
 
          var tcs = new TaskCompletionSource<bool>();
 
-         var animation = new DoubleAnimation( 0, 180, new Duration( TimeSpan.FromMilliseconds( 600 ) ) )
+         var rotationAnimation = new DoubleAnimation( 0, 180, new Duration( TimeSpan.FromMilliseconds( 600 ) ) )
          {
             AccelerationRatio = 0.7,
             DecelerationRatio = 0.3,
@@ -112,9 +112,9 @@ namespace GitWrite.Views
          };
 
          var storyboard = new Storyboard();
-         Storyboard.SetTargetName( animation, "RotationTransform" );
-         Storyboard.SetTargetProperty( animation, new PropertyPath( AxisAngleRotation3D.AngleProperty ) );
-         storyboard.Children.Add( animation );
+         Storyboard.SetTargetName( rotationAnimation, "RotationTransform" );
+         Storyboard.SetTargetProperty( rotationAnimation, new PropertyPath( AxisAngleRotation3D.AngleProperty ) );
+         storyboard.Children.Add( rotationAnimation );
 
          storyboard.Completed += ( _, __ ) =>
          {
