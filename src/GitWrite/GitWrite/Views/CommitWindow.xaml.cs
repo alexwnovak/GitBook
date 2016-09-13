@@ -111,10 +111,20 @@ namespace GitWrite.Views
             }
          };
 
+         var opacityAnimation = new DoubleAnimation( 1, 0, new Duration( TimeSpan.FromMilliseconds( 200 ) ) )
+         {
+            BeginTime = TimeSpan.FromMilliseconds( 900 )
+         };
+
          var storyboard = new Storyboard();
          Storyboard.SetTargetName( rotationAnimation, "RotationTransform" );
          Storyboard.SetTargetProperty( rotationAnimation, new PropertyPath( AxisAngleRotation3D.AngleProperty ) );
+
+         Storyboard.SetTarget( opacityAnimation, MainGrid );
+         Storyboard.SetTargetProperty( opacityAnimation, new PropertyPath( OpacityProperty ) );
+
          storyboard.Children.Add( rotationAnimation );
+         storyboard.Children.Add( opacityAnimation );
 
          storyboard.Completed += ( _, __ ) =>
          {
