@@ -3,7 +3,6 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight.Command;
 using GitWrite.Services;
-using GitWrite.Views;
 
 namespace GitWrite.ViewModels
 {
