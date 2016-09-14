@@ -79,6 +79,24 @@ namespace GitWrite.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Committing.
+        /// </summary>
+        public static string CommittingHeaderText {
+            get {
+                return ResourceManager.GetString("CommittingHeaderText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Committing to {0}.
+        /// </summary>
+        public static string CommittingToBranchText {
+            get {
+                return ResourceManager.GetString("CommittingToBranchText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Discarding....
         /// </summary>
         public static string DiscardingText {

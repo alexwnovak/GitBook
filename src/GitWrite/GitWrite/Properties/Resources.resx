@@ -138,4 +138,10 @@
   <data name="SaveText" xml:space="preserve">
     <value>_Save</value>
   </data>
+  <data name="CommittingHeaderText" xml:space="preserve">
+    <value>Committing</value>
+  </data>
+  <data name="CommittingToBranchText" xml:space="preserve">
+    <value>Committing to {0}</value>
+  </data>
 </root>
