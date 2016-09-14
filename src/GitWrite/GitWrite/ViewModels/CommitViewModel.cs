@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight.Command;
 using GitWrite.Services;
-using GitWrite.Views;
+using Resx = GitWrite.Properties.Resources;
 
 namespace GitWrite.ViewModels
 {
@@ -33,7 +33,20 @@ namespace GitWrite.ViewModels
          get;
       }
 
-      public string Title => $"Commiting to {_gitService.GetCurrentBranchName()}";
+      public string Title
+      {
+         get
+         {
+            string branchName = _gitService.GetCurrentBranchName();
+
+            if ( string.IsNullOrEmpty( branchName ) )
+            {
+               return Resx.CommittingHeaderText;
+            }
+
+            return string.Format( Resx.CommittingToBranchText, branchName );
+         }
+      } 
 
       private string _shortMessage;
       public string ShortMessage

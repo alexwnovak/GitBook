@@ -13,6 +13,11 @@ namespace GitWrite.Services
 
       public string GetCurrentBranchName()
       {
+         if ( string.IsNullOrWhiteSpace( _repositoryPath ) )
+         {
+            return string.Empty;
+         }
+
          using ( var repo = new Repository( _repositoryPath ) )
          {
             return repo.Head.FriendlyName;
