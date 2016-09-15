@@ -17,6 +17,7 @@
    FontSize="14"
    WindowStyle="None"
    WindowStartupLocation="CenterScreen"
+   ShowInTaskbar="False"
    DataContext="{Binding ConfirmationViewModel, Source={StaticResource ViewModelLocator}, Mode=OneTime}">
    <Window.Resources>
       <ResourceDictionary>
