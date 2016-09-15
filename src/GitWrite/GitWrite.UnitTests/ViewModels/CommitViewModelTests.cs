@@ -81,6 +81,33 @@ namespace GitWrite.UnitTests.ViewModels
          expanded.Should().BeTrue();
       }
 
+      [Fact]
+      public void SaveCommand_ShortMessageIsBlank_RaisesShakeRequested()
+      {
+         bool shakeRequestedRaised = false;
+
+         // Arrange
+
+         var commitDocumentMock = new Mock<ICommitDocument>();
+         commitDocumentMock.SetupGet( cd => cd.ShortMessage ).Returns( string.Empty );
+
+         // Act
+
+         var commitViewModel = new CommitViewModel( null, null, null, commitDocumentMock.Object, null );
+
+         commitViewModel.ShakeRequested += ( _, __ ) =>
+         {
+            shakeRequestedRaised = true;
+            return Task.CompletedTask;
+         };
+
+         commitViewModel.SaveCommand.Execute( null );
+
+         // Assert
+
+         shakeRequestedRaised.Should().BeTrue();
+      }
+
       //[Fact]
       //public void KeyDown_PressesEnter_RunsSaveCommand()
       //{

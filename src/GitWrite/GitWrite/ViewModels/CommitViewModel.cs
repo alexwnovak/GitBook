@@ -84,6 +84,7 @@ namespace GitWrite.ViewModels
 
       public event AsyncEventHandler ExpansionRequested;
       public event AsyncEventHandler CollapseRequested;
+      public event AsyncEventHandler ShakeRequested;
       public event AsyncEventHandler<ShutdownEventArgs> AsyncExitRequested;
        
       public CommitViewModel( IViewService viewService, IAppService appService, IClipboardService clipboardService, ICommitDocument commitDocument, IGitService gitService )
@@ -116,12 +117,15 @@ namespace GitWrite.ViewModels
 
       protected virtual async Task OnCollapseRequestedAsync( object sender, EventArgs e ) => await CollapseRequested?.Invoke( sender, e );
 
+      protected virtual async Task OnShakeRequestedAsync( object sender, EventArgs e ) => await ShakeRequested?.Invoke( sender, e );
+
       protected virtual async Task OnExitRequestedAsync( object sender, ShutdownEventArgs e ) => await AsyncExitRequested?.Invoke( sender, e );
 
       protected override async Task<bool> OnSaveAsync()
       {
          if ( string.IsNullOrWhiteSpace( ShortMessage ) || IsExiting )
          {
+            await OnShakeRequestedAsync( this, EventArgs.Empty );
             return false;
          }
 
