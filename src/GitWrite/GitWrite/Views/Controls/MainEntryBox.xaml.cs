@@ -30,10 +30,73 @@ namespace GitWrite.Views.Controls
          }
       }
 
+      public static DependencyProperty IsEditableProperty = DependencyProperty.Register( nameof( IsEditable ),
+         typeof( bool ),
+         typeof( MainEntryBox ),
+         new PropertyMetadata( true, OnIsEditableChanged ) );
+
+      public bool IsEditable
+      {
+         get
+         {
+            return (bool) GetValue( IsEditableProperty );
+         }
+         set
+         {
+            SetValue( IsEditableProperty, value );
+         }
+      }
+
       public MainEntryBox()
       {
          InitializeComponent();
          LayoutRoot.DataContext = this;
+      }
+
+      private static void OnIsEditableChanged( DependencyObject d, DependencyPropertyChangedEventArgs e )
+      {
+         bool oldValue = (bool) e.OldValue;
+         bool newValue = (bool) e.NewValue;
+
+         if ( oldValue == newValue )
+         {
+            return;
+         }
+
+         var source = (MainEntryBox) d;
+         var primaryBorder = (Border) source.FindName( "PrimaryBorder" );
+         FrameworkElement newPrimaryTextBox;
+
+         if ( newValue )
+         {
+            newPrimaryTextBox = new TextBox
+            {
+               Text = "Editable"
+            };
+         }
+         else
+         {
+            newPrimaryTextBox = new TextBlock
+            {
+               FontFamily = new FontFamily( "Consolas" ),
+               FontSize = 24,
+               HorizontalAlignment = HorizontalAlignment.Stretch,
+               Text = "Not editable"
+            };
+
+            newPrimaryTextBox.SetResourceReference( TextBlock.ForegroundProperty, "TextColor" );
+
+            var binding = new Binding( "Text" )
+            {
+               Source = source,
+               Mode = BindingMode.OneWay,
+            };
+
+            BindingOperations.SetBinding( newPrimaryTextBox, TextBlock.TextProperty, binding );
+         }
+
+         primaryBorder.Child = newPrimaryTextBox;
+         primaryBorder.InvalidateVisual();
       }
 
       public void HideCaret() => PrimaryTextBox.CaretBrush = new SolidColorBrush( Colors.Transparent );
