@@ -10,9 +10,10 @@ namespace GitWrite.Views
       private readonly ConfirmationViewModel _viewModel;
       private ExitReason _confirmationResult;
 
-      public ConfirmationDialog()
+      public ConfirmationDialog( Window owner )
       {
          InitializeComponent();
+         Owner = owner;
 
          _viewModel = (ConfirmationViewModel) DataContext;
          _viewModel.CloseRequested += OnCloseRequested;
