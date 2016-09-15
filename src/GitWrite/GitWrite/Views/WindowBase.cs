@@ -45,7 +45,7 @@ namespace GitWrite.Views
 
       public ExitReason ConfirmExit()
       {
-         var confirmationDialog = new ConfirmationDialog();
+         var confirmationDialog = new ConfirmationDialog( this );
          return confirmationDialog.ShowDialog();   
       }
    }

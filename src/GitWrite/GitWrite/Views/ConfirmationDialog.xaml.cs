@@ -1,7 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 using GitWrite.ViewModels;
-using GitWrite.Views.Controls;
 
 namespace GitWrite.Views
 {
@@ -10,9 +9,10 @@ namespace GitWrite.Views
       private readonly ConfirmationViewModel _viewModel;
       private ExitReason _confirmationResult;
 
-      public ConfirmationDialog()
+      public ConfirmationDialog( Window owner )
       {
          InitializeComponent();
+         Owner = owner;
 
          _viewModel = (ConfirmationViewModel) DataContext;
          _viewModel.CloseRequested += OnCloseRequested;
@@ -37,6 +37,14 @@ namespace GitWrite.Views
          if ( e.LeftButton == MouseButtonState.Pressed )
          {
             DragMove();
+         }
+      }
+
+      private void ConfirmationDialog_OnKeyDown( object sender, KeyEventArgs e )
+      {
+         if ( e.Key == Key.Escape )
+         {
+            OnCloseRequested( this, new CloseRequestedEventArgs( ExitReason.Cancel ) );
          }
       }
    }
