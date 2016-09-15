@@ -22,6 +22,7 @@ namespace GitWrite.Views
          _viewModel = (CommitViewModel) DataContext;
          _viewModel.ExpansionRequested += OnExpansionRequested;
          _viewModel.CollapseRequested += OnCollapseRequested;
+         _viewModel.ShakeRequested += OnShakeRequested;
          _viewModel.AsyncExitRequested += OnAsyncExitRequested;
       }
 
@@ -188,6 +189,40 @@ namespace GitWrite.Views
 
          Storyboard.SetTarget( storyboard, this );
          storyboard.Begin();
+
+         return tcs.Task;
+      }
+
+      private Task OnShakeRequested( object sender, EventArgs e )
+      {
+         var subject = MainEntryBox;
+         var savedTransform = subject.RenderTransform;
+         var translateTransform = new TranslateTransform();
+
+         var shakeAnimation = new DoubleAnimation
+         {
+            From = 8,
+            To = 0,
+            Duration = new Duration( TimeSpan.FromMilliseconds( 600 ) ),
+            EasingFunction = new ElasticEase
+            {
+               EasingMode = EasingMode.EaseOut,
+               Oscillations = 3,
+               Springiness = 1
+            }
+         };
+
+         subject.RenderTransform = translateTransform;
+
+         var tcs = new TaskCompletionSource<bool>();
+
+         shakeAnimation.Completed += ( _, __ ) =>
+         {
+            subject.RenderTransform = savedTransform;
+            tcs.SetResult( true );
+         };
+
+         translateTransform.BeginAnimation( TranslateTransform.XProperty, shakeAnimation );
 
          return tcs.Task;
       }
