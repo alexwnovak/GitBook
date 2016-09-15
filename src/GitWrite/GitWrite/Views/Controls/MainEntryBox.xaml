@@ -30,7 +30,8 @@
                Direction="270" />
          </Grid.Effect>
 
-         <Border CornerRadius="14"
+         <Border x:Name="PrimaryBorder"
+            CornerRadius="14"
             Margin="12"
             Padding="12"
             BorderThickness="2"

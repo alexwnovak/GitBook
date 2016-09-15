@@ -144,4 +144,7 @@
   <data name="CommittingToBranchText" xml:space="preserve">
     <value>Committing to {0}</value>
   </data>
+  <data name="RebasingText" xml:space="preserve">
+    <value>Rebasing...</value>
+  </data>
 </root>

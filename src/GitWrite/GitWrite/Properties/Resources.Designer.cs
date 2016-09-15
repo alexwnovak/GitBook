@@ -133,6 +133,15 @@ namespace GitWrite.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Rebasing....
+        /// </summary>
+        public static string RebasingText {
+            get {
+                return ResourceManager.GetString("RebasingText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to _Save.
         /// </summary>
         public static string SaveText {
