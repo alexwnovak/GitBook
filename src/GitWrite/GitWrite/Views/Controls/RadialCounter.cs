@@ -183,7 +183,7 @@ namespace GitWrite.Views.Controls
       {
          _backgroundBrush = (Brush) _resourceLocator.FromCurrentApplication( "WindowBackgroundColor" );
          _borderBrush = (Brush) _resourceLocator.FromCurrentApplication( "WindowBorderColor" );
-         _errorBrush = (Brush) _resourceLocator.FromCurrentApplication( "AbortCommitGlyphBackgroundColor" );
+         _errorBrush = (Brush) _resourceLocator.FromCurrentApplication( "MessageLengthReachedColor" );
       }
 
       protected override Size MeasureOverride( Size availableSize )
