@@ -110,7 +110,14 @@ namespace GitWrite.ViewModels
             if ( confirmationResult == ExitReason.Save )
             {
                ExitReason = ExitReason.Save;
-               await OnSaveAsync();
+
+               bool shouldReallyExit = await OnSaveAsync();
+
+               if ( !shouldReallyExit )
+               {
+                  return;
+               }
+
                exitReason = ExitReason.Save;
             }
             else
