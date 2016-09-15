@@ -18,7 +18,8 @@
    WindowStyle="None"
    WindowStartupLocation="CenterScreen"
    ShowInTaskbar="False"
-   DataContext="{Binding ConfirmationViewModel, Source={StaticResource ViewModelLocator}, Mode=OneTime}">
+   DataContext="{Binding ConfirmationViewModel, Source={StaticResource ViewModelLocator}, Mode=OneTime}"
+   KeyDown="ConfirmationDialog_OnKeyDown">
    <Window.Resources>
       <ResourceDictionary>
          <ResourceDictionary.MergedDictionaries>

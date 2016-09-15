@@ -39,5 +39,13 @@ namespace GitWrite.Views
             DragMove();
          }
       }
+
+      private void ConfirmationDialog_OnKeyDown( object sender, KeyEventArgs e )
+      {
+         if ( e.Key == Key.Escape )
+         {
+            OnCloseRequested( this, new CloseRequestedEventArgs( ExitReason.Cancel ) );
+         }
+      }
    }
 }
