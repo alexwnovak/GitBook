@@ -8,6 +8,11 @@ namespace GitWrite.Views.Converters
    {
       public object Convert( object value, Type targetType, object parameter, CultureInfo culture )
       {
+         if ( value == null )
+         {
+            return 0.0;
+         }
+
          throw new NotImplementedException();
       }
 
