@@ -36,6 +36,23 @@ namespace GitWrite.Views.Controls
          }
       }
 
+      public static DependencyProperty ProgressProperty = DependencyProperty.Register( nameof( Progress ),
+         typeof( double ),
+         typeof( RadialTextBlock ),
+         new PropertyMetadata( 0.0 ) );
+
+      public double Progress
+      {
+         get
+         {
+            return (double) GetValue( ProgressProperty );
+         }
+         set
+         {
+            SetValue( ProgressProperty, value );
+         }
+      }
+
       public RadialTextBlock()
       {
          InitializeComponent();
