@@ -13,6 +13,13 @@ namespace GitWrite.Views.Converters
             return 0.0;
          }
 
+         double doubleValue;
+
+         if ( !double.TryParse( value.ToString(), out doubleValue ) )
+         {
+            return 0.0;
+         }
+
          throw new NotImplementedException();
       }
 

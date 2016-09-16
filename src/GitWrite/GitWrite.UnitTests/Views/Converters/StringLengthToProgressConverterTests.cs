@@ -25,5 +25,15 @@ namespace GitWrite.UnitTests.Views.Converters
 
          progress.Should().Be( 0.0 );
       }
+
+      [Fact]
+      public void Convert_PassesUnparsableString_ReturnsZero()
+      {
+         var converter = new StringLengthToProgressConverter();
+
+         double progress = (double) converter.Convert( "NotAnInteger", null, null, null );
+
+         progress.Should().Be( 0.0 );
+      }
    }
 }
