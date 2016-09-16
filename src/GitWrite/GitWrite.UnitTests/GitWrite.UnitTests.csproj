@@ -126,6 +126,7 @@
     <Compile Include="ViewModels\ConfirmationViewModelTests.cs" />
     <Compile Include="ViewModels\GitWriteViewModelBaseTests.cs" />
     <Compile Include="Views\Controls\RadialCounterTests.cs" />
+    <Compile Include="Views\Converters\StringLengthToProgressConverterTests.cs" />
     <Compile Include="Views\Converters\TextLengthInversionConverterTests.cs" />
     <Compile Include="Views\Converters\TextLengthToColorConverterTests.cs" />
   </ItemGroup>
