@@ -133,6 +133,7 @@
     <Compile Include="Views\Converters\ExitReasonBaseConverter.cs" />
     <Compile Include="Views\Converters\LeftClipConverter.cs" />
     <Compile Include="Views\Converters\RadialClipConverter.cs" />
+    <Compile Include="Views\Converters\StringLengthToProgressConverter.cs" />
     <Compile Include="Views\Converters\TextLengthToColorConverter.cs" />
     <Compile Include="Views\Dwm\AccentPolicy.cs" />
     <Compile Include="Views\Dwm\AccentState.cs" />
