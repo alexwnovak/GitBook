@@ -19,6 +19,23 @@ namespace GitWrite.Views.Controls
          }
       }
 
+      public static DependencyProperty IsProgressRingVisibleProperty = DependencyProperty.Register( nameof( IsProgressRingVisible ),
+         typeof( bool ),
+         typeof( RadialTextBlock ),
+         new PropertyMetadata( true ) );
+
+      public bool IsProgressRingVisible
+      {
+         get
+         {
+            return (bool) GetValue( IsProgressRingVisibleProperty );
+         }
+         set
+         {
+            SetValue( IsProgressRingVisibleProperty, value );
+         }
+      }
+
       public RadialTextBlock()
       {
          InitializeComponent();
