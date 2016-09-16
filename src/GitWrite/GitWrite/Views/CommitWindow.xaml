@@ -149,6 +149,7 @@
 
       <c:MainEntryBox x:Name="MainEntryBox"
          Grid.Row="0"
-         Text="{Binding ShortMessage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+         Text="{Binding ShortMessage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+         RadialText="{Binding ShortMessage.Length, Mode=OneWay, Converter={StaticResource TextLengthInversionConverter}}" />
    </Grid>
 </views:WindowBase>
