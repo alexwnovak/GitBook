@@ -30,6 +30,23 @@ namespace GitWrite.Views.Controls
          }
       }
 
+      public static DependencyProperty RadialTextProperty = DependencyProperty.Register( nameof( RadialText ),
+         typeof( string ),
+         typeof( MainEntryBox ),
+         new PropertyMetadata( string.Empty ) );
+
+      public string RadialText
+      {
+         get
+         {
+            return (string) GetValue( RadialTextProperty );
+         }
+         set
+         {
+            SetValue( RadialTextProperty, value );
+         }
+      }
+
       public static DependencyProperty IsEditableProperty = DependencyProperty.Register( nameof( IsEditable ),
          typeof( bool ),
          typeof( MainEntryBox ),
