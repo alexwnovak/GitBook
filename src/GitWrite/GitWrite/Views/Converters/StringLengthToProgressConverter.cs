@@ -20,7 +20,7 @@ namespace GitWrite.Views.Converters
             return 0.0;
          }
 
-         return doubleValue;
+         return doubleValue / 72;
       }
 
       public object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture )

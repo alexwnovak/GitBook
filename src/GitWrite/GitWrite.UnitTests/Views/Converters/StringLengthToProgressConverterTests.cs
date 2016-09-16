@@ -45,5 +45,15 @@ namespace GitWrite.UnitTests.Views.Converters
 
          progress.Should().Be( 0.0 );
       }
+
+      [Fact]
+      public void Convert_PassesStringWith72Integer_ReturnsProgressValue()
+      {
+         var converter = new StringLengthToProgressConverter();
+
+         double progress = (double) converter.Convert( "72", null, null, null );
+
+         progress.Should().Be( 1.0 );
+      }
    }
 }
