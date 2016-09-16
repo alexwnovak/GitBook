@@ -35,5 +35,15 @@ namespace GitWrite.UnitTests.Views.Converters
 
          progress.Should().Be( 0.0 );
       }
+
+      [Fact]
+      public void Convert_PassesStringWithZeroInteger_ReturnsProgressValue()
+      {
+         var converter = new StringLengthToProgressConverter();
+
+         double progress = (double) converter.Convert( "0", null, null, null );
+
+         progress.Should().Be( 0.0 );
+      }
    }
 }

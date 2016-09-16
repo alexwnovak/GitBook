@@ -20,7 +20,7 @@ namespace GitWrite.Views.Converters
             return 0.0;
          }
 
-         throw new NotImplementedException();
+         return doubleValue;
       }
 
       public object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture )
