@@ -48,13 +48,8 @@ namespace GitWrite.Views
          storyboard.Begin();
       }
 
-      private Task OnAsyncExitRequested( object sender, ShutdownEventArgs e )
+      private DrawingImage GetFrontMaterialImage()
       {
-         if ( _viewModel.IsExiting )
-         {
-            return Task.CompletedTask;
-         }
-
          var frontMaterial = (ImageSource) Resources["FrontMaterial"];
 
          var drawingVisual = new DrawingVisual();
@@ -63,7 +58,7 @@ namespace GitWrite.Views
          using ( var drawingContext = drawingVisual.RenderOpen() )
          {
             var foregroundBrush = (Brush) Application.Current.Resources["TextColor"];
-            drawingContext.DrawImage( frontMaterial, new Rect( 0, 0, frontMaterial.Width, frontMaterial.Height) );
+            drawingContext.DrawImage( frontMaterial, new Rect( 0, 0, frontMaterial.Width, frontMaterial.Height ) );
 
             if ( !string.IsNullOrWhiteSpace( _viewModel.ShortMessage ) )
             {
@@ -72,8 +67,19 @@ namespace GitWrite.Views
             }
          }
 
-         var image = new DrawingImage( drawingVisual.Drawing );
-         FrontMaterial.Brush = new ImageBrush( image )
+         return new DrawingImage( drawingVisual.Drawing );
+      }
+
+      private Task OnAsyncExitRequested( object sender, ShutdownEventArgs e )
+      {
+         if ( _viewModel.IsExiting )
+         {
+            return Task.CompletedTask;
+         }
+
+         var frontMaterialImage = GetFrontMaterialImage();
+
+         FrontMaterial.Brush = new ImageBrush( frontMaterialImage )
          {
             Stretch = Stretch.Uniform
          };
