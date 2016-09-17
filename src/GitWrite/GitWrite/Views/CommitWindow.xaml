@@ -43,10 +43,12 @@
       </Grid.RowDefinitions>
 
       <Viewport3D x:Name="Viewport"
-         Visibility="Collapsed">
+         Visibility="Collapsed"
+         RenderTransformOrigin="0.5,0.5">
          <Viewport3D.RenderTransform>
             <TransformGroup>
                <TranslateTransform x:Name="ViewportTranslateTransform" />
+               <ScaleTransform x:Name="ViewportScaleTransform" />
             </TransformGroup>
          </Viewport3D.RenderTransform>
          <Viewport3D.Camera>

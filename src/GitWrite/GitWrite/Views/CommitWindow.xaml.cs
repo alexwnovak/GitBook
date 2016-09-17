@@ -144,7 +144,17 @@ namespace GitWrite.Views
             }
          };
 
-         var translateAnimation = new DoubleAnimation( 0, 20, opacityAnimation.Duration )
+         var translateAnimation = new DoubleAnimation( 0, 25, opacityAnimation.Duration )
+         {
+            BeginTime = opacityAnimation.BeginTime
+         };
+
+         var scaleXAnimation = new DoubleAnimation( 1, 0.97, opacityAnimation.Duration )
+         {
+            BeginTime = opacityAnimation.BeginTime
+         };
+
+         var scaleYAnimation = new DoubleAnimation( 1, 0.97, opacityAnimation.Duration )
          {
             BeginTime = opacityAnimation.BeginTime
          };
@@ -162,10 +172,18 @@ namespace GitWrite.Views
          Storyboard.SetTargetName( translateAnimation, "ViewportTranslateTransform" );
          Storyboard.SetTargetProperty( translateAnimation, new PropertyPath( TranslateTransform.YProperty ) );
 
+         Storyboard.SetTargetName( scaleXAnimation, "ViewportScaleTransform" );
+         Storyboard.SetTargetProperty( scaleXAnimation, new PropertyPath( ScaleTransform.ScaleXProperty ) );
+
+         Storyboard.SetTargetName( scaleYAnimation, "ViewportScaleTransform" );
+         Storyboard.SetTargetProperty( scaleYAnimation, new PropertyPath( ScaleTransform.ScaleYProperty ) );
+
          storyboard.Children.Add( rotationAnimation );
          storyboard.Children.Add( opacityAnimation );
          storyboard.Children.Add( blurRadiusAnimation );
          storyboard.Children.Add( translateAnimation );
+         storyboard.Children.Add( scaleXAnimation );
+         storyboard.Children.Add( scaleYAnimation );
 
          storyboard.Completed += ( _, __ ) =>
          {
