@@ -19,7 +19,8 @@
    WindowStartupLocation="CenterScreen"
    ShowInTaskbar="False"
    DataContext="{Binding ConfirmationViewModel, Source={StaticResource ViewModelLocator}, Mode=OneTime}"
-   KeyDown="ConfirmationDialog_OnKeyDown">
+   KeyDown="ConfirmationDialog_OnKeyDown"
+   Closing="ConfirmationDialog_OnClosing">
    <Window.Resources>
       <ResourceDictionary>
          <ResourceDictionary.MergedDictionaries>
@@ -43,6 +44,29 @@
                      Duration="0:0:0.25">
                      <DoubleAnimation.EasingFunction>
                         <BackEase EasingMode="EaseOut" />
+                     </DoubleAnimation.EasingFunction>
+                  </DoubleAnimation>
+               </Storyboard>
+               <Storyboard x:Key="ExitStoryboard">
+                  <DoubleAnimation Storyboard.TargetName="ScaleTransform"
+                     Storyboard.TargetProperty="ScaleX"
+                     From="1"
+                     To="0.95"
+                     Duration="0:0:0.25">
+                  </DoubleAnimation>
+                  <DoubleAnimation Storyboard.TargetName="ScaleTransform"
+                     Storyboard.TargetProperty="ScaleY"
+                     From="1"
+                     To="0.95"
+                     Duration="0:0:0.25">
+                  </DoubleAnimation>
+                  <DoubleAnimation Storyboard.TargetName="PageRoot"
+                     Storyboard.TargetProperty="Opacity"
+                     From="1"
+                     To="0"
+                     Duration="0:0:0.25">
+                     <DoubleAnimation.EasingFunction>
+                        <CircleEase EasingMode="EaseOut" />
                      </DoubleAnimation.EasingFunction>
                   </DoubleAnimation>
                </Storyboard>
