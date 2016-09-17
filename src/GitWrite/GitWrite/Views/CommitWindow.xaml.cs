@@ -7,6 +7,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Effects;
 using System.Windows.Media.Media3D;
+using GitWrite.Services;
 using GitWrite.ViewModels;
 using Resx = GitWrite.Properties.Resources;
 
@@ -15,6 +16,7 @@ namespace GitWrite.Views
    public partial class CommitWindow : WindowBase
    {
       private readonly CommitViewModel _viewModel;
+      private readonly ISoundService _soundService = new SoundService();
 
       public CommitWindow()
       {
@@ -47,6 +49,8 @@ namespace GitWrite.Views
          Storyboard.SetTarget( opacityAnimation, this );
 
          storyboard.Begin();
+
+         _soundService.PlayPopSound();
       }
 
       private DrawingImage GetFrontMaterialImage()
