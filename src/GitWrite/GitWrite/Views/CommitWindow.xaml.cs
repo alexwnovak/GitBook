@@ -9,7 +9,6 @@ using System.Windows.Media.Effects;
 using System.Windows.Media.Media3D;
 using GitWrite.Services;
 using GitWrite.ViewModels;
-using Resx = GitWrite.Properties.Resources;
 
 namespace GitWrite.Views
 {
@@ -29,26 +28,53 @@ namespace GitWrite.Views
          _viewModel.AsyncExitRequested += OnAsyncExitRequested;
       }
 
-      private void CommitWindow_OnLoaded( object sender, RoutedEventArgs e )
+      private async void CommitWindow_OnLoaded( object sender, RoutedEventArgs e )
       {
          MainEntryBox.HideCaret();
          MainEntryBox.MoveCaretToEnd();
 
          Opacity = 0;
 
-         const double duration = 100;
+         await Task.Delay( 200 );
+
+         const double duration = 200;
 
          var storyboard = new Storyboard();
 
          var opacityAnimation = new DoubleAnimation( 0, 1, new Duration( TimeSpan.FromMilliseconds( duration ) ) );
+         var scaleXAnimation = new DoubleAnimation( 0.95, 1, opacityAnimation.Duration )
+         {
+            EasingFunction = new BackEase
+            {
+               EasingMode = EasingMode.EaseOut,
+               Amplitude = 1
+            }
+         };
+         var scaleYAnimation = new DoubleAnimation( 0.96, 1, opacityAnimation.Duration )
+         {
+            EasingFunction = new BackEase
+            {
+               EasingMode = EasingMode.EaseOut,
+               Amplitude = 0.9
+            }
+         };
 
          storyboard.Children.Add( opacityAnimation );
+         storyboard.Children.Add( scaleXAnimation );
+         storyboard.Children.Add( scaleYAnimation );
+
          storyboard.Completed += ( _, __ ) => MainEntryBox.ShowCaret();
 
          Storyboard.SetTargetProperty( opacityAnimation, new PropertyPath( nameof( Opacity ) ) );
          Storyboard.SetTarget( opacityAnimation, this );
 
-         storyboard.Begin();
+         Storyboard.SetTargetName( scaleXAnimation, nameof( ScaleTransform ) );
+         Storyboard.SetTargetProperty( scaleXAnimation, new PropertyPath( ScaleTransform.ScaleXProperty ) );
+
+         Storyboard.SetTargetName( scaleYAnimation, nameof( ScaleTransform ) );
+         Storyboard.SetTargetProperty( scaleYAnimation, new PropertyPath( ScaleTransform.ScaleYProperty ) );
+
+         storyboard.Begin( this );
 
          _soundService.PlayPopSound();
       }
