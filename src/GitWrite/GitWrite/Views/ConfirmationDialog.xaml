@@ -25,34 +25,35 @@
          <ResourceDictionary.MergedDictionaries>
             <ResourceDictionary Source="..\Styles\TextBoxStyle.xaml" />
             <ResourceDictionary Source="..\Styles\ButtonStyle.xaml" />
+            <ResourceDictionary>
+               <Storyboard x:Key="EntranceStoryboard">
+                  <DoubleAnimation Storyboard.TargetName="ScaleTransform"
+                     Storyboard.TargetProperty="ScaleX"
+                     From="0.95"
+                     To="1"
+                     Duration="0:0:0.25">
+                     <DoubleAnimation.EasingFunction>
+                        <BackEase EasingMode="EaseOut" />
+                     </DoubleAnimation.EasingFunction>
+                  </DoubleAnimation>
+                  <DoubleAnimation Storyboard.TargetName="ScaleTransform"
+                     Storyboard.TargetProperty="ScaleY"
+                     From="0.95"
+                     To="1"
+                     Duration="0:0:0.25">
+                     <DoubleAnimation.EasingFunction>
+                        <BackEase EasingMode="EaseOut" />
+                     </DoubleAnimation.EasingFunction>
+                  </DoubleAnimation>
+               </Storyboard>
+            </ResourceDictionary>
          </ResourceDictionary.MergedDictionaries>
       </ResourceDictionary>
    </Window.Resources>
 
    <Window.Triggers>
       <EventTrigger RoutedEvent="Window.Loaded">
-         <BeginStoryboard>
-            <Storyboard>
-               <DoubleAnimation Storyboard.TargetName="ScaleTransform"
-                  Storyboard.TargetProperty="ScaleX"
-                  From="0.95"
-                  To="1"
-                  Duration="0:0:0.25">
-                  <DoubleAnimation.EasingFunction>
-                     <BackEase EasingMode="EaseOut" />
-                  </DoubleAnimation.EasingFunction>
-               </DoubleAnimation>
-               <DoubleAnimation Storyboard.TargetName="ScaleTransform"
-                  Storyboard.TargetProperty="ScaleY"
-                  From="0.95"
-                  To="1"
-                  Duration="0:0:0.25">
-                  <DoubleAnimation.EasingFunction>
-                     <BackEase EasingMode="EaseOut" />
-                  </DoubleAnimation.EasingFunction>
-               </DoubleAnimation>
-            </Storyboard>
-         </BeginStoryboard>
+         <BeginStoryboard Storyboard="{StaticResource EntranceStoryboard}" />
       </EventTrigger>
    </Window.Triggers>
 
