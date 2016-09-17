@@ -7,6 +7,7 @@ using GalaSoft.MvvmLight.Ioc;
 using GitWrite.Behaviors;
 using GitWrite.Services;
 using GitWrite.ViewModels;
+using Resx = GitWrite.Properties.Resources;
 
 namespace GitWrite.Views
 {
@@ -30,11 +31,13 @@ namespace GitWrite.Views
       private async void OnLoaded( object sender, EventArgs e )
       {
          _viewModel = (GitWriteViewModelBase) DataContext;
-
+          
          await Task.Delay( 200 );
 
+         string saveText = GetSaveText();
+
          var materialGenerator = new MaterialGenerator( this );
-         await materialGenerator.GenerateAsync();
+         await materialGenerator.GenerateAsync( saveText );
       }
 
       private void OnClosing( object sender, CancelEventArgs e )
@@ -47,6 +50,18 @@ namespace GitWrite.Views
       {
          var confirmationDialog = new ConfirmationDialog( this );
          return confirmationDialog.ShowDialog();   
+      }
+
+      private string GetSaveText()
+      {
+         var commitViewModel = _viewModel as CommitViewModel;
+
+         if ( commitViewModel != null )
+         {
+            return commitViewModel.IsAmending ? Resx.AmendingText : Resx.CommittingText;
+         }
+
+         return null;
       }
    }
 }

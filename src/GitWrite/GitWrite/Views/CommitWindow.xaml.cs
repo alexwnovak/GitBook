@@ -8,6 +8,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Media3D;
 using GitWrite.ViewModels;
+using Resx = GitWrite.Properties.Resources;
 
 namespace GitWrite.Views
 {
@@ -70,6 +71,16 @@ namespace GitWrite.Views
          return new DrawingImage( drawingVisual.Drawing );
       }
 
+      private ImageSource GetBackMaterialImage( ExitReason exitReason )
+      {
+         if ( exitReason == ExitReason.Discard )
+         {
+            return (ImageSource) Resources["DiscardBackMaterial"];
+         }
+
+         return (ImageSource) Resources["SaveBackMaterial"];
+      }
+
       private Task OnAsyncExitRequested( object sender, ShutdownEventArgs e )
       {
          if ( _viewModel.IsExiting )
@@ -84,18 +95,9 @@ namespace GitWrite.Views
             Stretch = Stretch.Uniform
          };
 
-         ImageSource backMaterial;
+         var backMaterialImage = GetBackMaterialImage( e.ExitReason );
 
-         if ( e.ExitReason == ExitReason.Save )
-         {
-            backMaterial = (ImageSource) Resources["SaveBackMaterial"];
-         }
-         else
-         {
-            backMaterial = (ImageSource) Resources["DiscardBackMaterial"];
-         }
-
-         BackMaterial.Brush = new ImageBrush( backMaterial )
+         BackMaterial.Brush = new ImageBrush( backMaterialImage )
          {
             Stretch = Stretch.Uniform
          };
