@@ -120,7 +120,6 @@
     <Compile Include="Views\Controls\MainEntryBox.xaml.cs">
       <DependentUpon>MainEntryBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Controls\Pie.cs" />
     <Compile Include="Views\Controls\RadialTextBlock.xaml.cs">
       <DependentUpon>RadialTextBlock.xaml</DependentUpon>
     </Compile>
