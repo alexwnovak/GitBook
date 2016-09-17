@@ -36,21 +36,21 @@
       </i:EventTrigger>
    </i:Interaction.Triggers>
 
-   <Grid x:Name="MainGrid">
+   <Grid x:Name="MainGrid"
+      RenderTransformOrigin="0.5,0.5">
+      <Grid.RenderTransform>
+         <TransformGroup>
+            <TranslateTransform x:Name="TranslateTransform" />
+            <ScaleTransform x:Name="ScaleTransform" />
+         </TransformGroup>
+      </Grid.RenderTransform>
       <Grid.RowDefinitions>
          <RowDefinition Height="100" />
          <RowDefinition Height="*" />
       </Grid.RowDefinitions>
 
       <Viewport3D x:Name="Viewport"
-         Visibility="Collapsed"
-         RenderTransformOrigin="0.5,0.5">
-         <Viewport3D.RenderTransform>
-            <TransformGroup>
-               <TranslateTransform x:Name="ViewportTranslateTransform" />
-               <ScaleTransform x:Name="ViewportScaleTransform" />
-            </TransformGroup>
-         </Viewport3D.RenderTransform>
+         Visibility="Collapsed">
          <Viewport3D.Effect>
             <BlurEffect x:Name="BlurEffect"
                Radius="0" />

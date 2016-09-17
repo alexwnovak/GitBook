@@ -162,13 +162,13 @@ namespace GitWrite.Views
          Storyboard.SetTargetName( blurRadiusAnimation, "BlurEffect" );
          Storyboard.SetTargetProperty( blurRadiusAnimation, new PropertyPath( BlurEffect.RadiusProperty ) );
 
-         Storyboard.SetTargetName( translateAnimation, "ViewportTranslateTransform" );
+         Storyboard.SetTargetName( translateAnimation, "TranslateTransform" );
          Storyboard.SetTargetProperty( translateAnimation, new PropertyPath( TranslateTransform.YProperty ) );
 
-         Storyboard.SetTargetName( scaleXAnimation, "ViewportScaleTransform" );
+         Storyboard.SetTargetName( scaleXAnimation, "ScaleTransform" );
          Storyboard.SetTargetProperty( scaleXAnimation, new PropertyPath( ScaleTransform.ScaleXProperty ) );
 
-         Storyboard.SetTargetName( scaleYAnimation, "ViewportScaleTransform" );
+         Storyboard.SetTargetName( scaleYAnimation, "ScaleTransform" );
          Storyboard.SetTargetProperty( scaleYAnimation, new PropertyPath( ScaleTransform.ScaleYProperty ) );
 
          storyboard.Children.Add( rotationAnimation );
