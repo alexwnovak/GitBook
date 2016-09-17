@@ -1,11 +1,13 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using GitWrite.Views.Converters;
 
 namespace GitWrite.Views.Controls
 {
    public partial class RadialTextBlock : UserControl
    {
-      public static DependencyProperty TextProperty = MainEntryBox.TextProperty.AddOwner( typeof( RadialTextBlock ) );
+      public static DependencyProperty TextProperty = MainEntryBox.TextProperty.AddOwner( typeof( RadialTextBlock ),
+         new PropertyMetadata( OnTextPropertyChanged ) );
 
       public string Text
       {
@@ -17,6 +19,14 @@ namespace GitWrite.Views.Controls
          {
             SetValue( TextProperty, value );
          }
+      }
+
+      private static void OnTextPropertyChanged( DependencyObject d, DependencyPropertyChangedEventArgs e )
+      {
+         var lengthProgressConverter = new StringLengthToProgressConverter();
+
+         var radialTextBlock = (RadialTextBlock) d;
+         radialTextBlock.Progress = 1 - (double) lengthProgressConverter.Convert( e.NewValue, null, null, null );
       }
 
       public static DependencyProperty IsProgressRingVisibleProperty = DependencyProperty.Register( nameof( IsProgressRingVisible ),
