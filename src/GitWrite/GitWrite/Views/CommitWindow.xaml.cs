@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Globalization;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -8,15 +7,15 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Effects;
 using System.Windows.Media.Media3D;
+using GitWrite.Services;
 using GitWrite.ViewModels;
-using Resx = GitWrite.Properties.Resources;
 
 namespace GitWrite.Views
 {
    public partial class CommitWindow : WindowBase
    {
       private readonly CommitViewModel _viewModel;
-      private readonly BlurEffect _blurEffect;
+      private readonly ISoundService _soundService = new SoundService();
 
       public CommitWindow()
       {
@@ -27,36 +26,57 @@ namespace GitWrite.Views
          _viewModel.CollapseRequested += OnCollapseRequested;
          _viewModel.ShakeRequested += OnShakeRequested;
          _viewModel.AsyncExitRequested += OnAsyncExitRequested;
-
-         _blurEffect = new BlurEffect
-         {
-            Radius = 0
-         };
-
-         Viewport.Effect = _blurEffect;
-         RegisterName( "BlurEffect", _blurEffect );
       }
 
-      private void CommitWindow_OnLoaded( object sender, RoutedEventArgs e )
+      private async void CommitWindow_OnLoaded( object sender, RoutedEventArgs e )
       {
          MainEntryBox.HideCaret();
          MainEntryBox.MoveCaretToEnd();
 
          Opacity = 0;
 
-         const double duration = 100;
+         await Task.Delay( 200 );
+
+         const double duration = 200;
 
          var storyboard = new Storyboard();
 
          var opacityAnimation = new DoubleAnimation( 0, 1, new Duration( TimeSpan.FromMilliseconds( duration ) ) );
+         var scaleXAnimation = new DoubleAnimation( 0.95, 1, opacityAnimation.Duration )
+         {
+            EasingFunction = new BackEase
+            {
+               EasingMode = EasingMode.EaseOut,
+               Amplitude = 1
+            }
+         };
+         var scaleYAnimation = new DoubleAnimation( 0.96, 1, opacityAnimation.Duration )
+         {
+            EasingFunction = new BackEase
+            {
+               EasingMode = EasingMode.EaseOut,
+               Amplitude = 0.9
+            }
+         };
 
          storyboard.Children.Add( opacityAnimation );
+         storyboard.Children.Add( scaleXAnimation );
+         storyboard.Children.Add( scaleYAnimation );
+
          storyboard.Completed += ( _, __ ) => MainEntryBox.ShowCaret();
 
          Storyboard.SetTargetProperty( opacityAnimation, new PropertyPath( nameof( Opacity ) ) );
          Storyboard.SetTarget( opacityAnimation, this );
 
-         storyboard.Begin();
+         Storyboard.SetTargetName( scaleXAnimation, nameof( ScaleTransform ) );
+         Storyboard.SetTargetProperty( scaleXAnimation, new PropertyPath( ScaleTransform.ScaleXProperty ) );
+
+         Storyboard.SetTargetName( scaleYAnimation, nameof( ScaleTransform ) );
+         Storyboard.SetTargetProperty( scaleYAnimation, new PropertyPath( ScaleTransform.ScaleYProperty ) );
+
+         storyboard.Begin( this );
+
+         _soundService.PlayPopSound();
       }
 
       private DrawingImage GetFrontMaterialImage()
@@ -169,13 +189,13 @@ namespace GitWrite.Views
          Storyboard.SetTargetName( blurRadiusAnimation, "BlurEffect" );
          Storyboard.SetTargetProperty( blurRadiusAnimation, new PropertyPath( BlurEffect.RadiusProperty ) );
 
-         Storyboard.SetTargetName( translateAnimation, "ViewportTranslateTransform" );
+         Storyboard.SetTargetName( translateAnimation, "TranslateTransform" );
          Storyboard.SetTargetProperty( translateAnimation, new PropertyPath( TranslateTransform.YProperty ) );
 
-         Storyboard.SetTargetName( scaleXAnimation, "ViewportScaleTransform" );
+         Storyboard.SetTargetName( scaleXAnimation, "ScaleTransform" );
          Storyboard.SetTargetProperty( scaleXAnimation, new PropertyPath( ScaleTransform.ScaleXProperty ) );
 
-         Storyboard.SetTargetName( scaleYAnimation, "ViewportScaleTransform" );
+         Storyboard.SetTargetName( scaleYAnimation, "ScaleTransform" );
          Storyboard.SetTargetProperty( scaleYAnimation, new PropertyPath( ScaleTransform.ScaleYProperty ) );
 
          storyboard.Children.Add( rotationAnimation );
