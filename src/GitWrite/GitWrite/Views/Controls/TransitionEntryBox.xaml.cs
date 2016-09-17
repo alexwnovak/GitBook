@@ -22,7 +22,7 @@ namespace GitWrite.Views.Controls
          {
             borderBrush = (Brush) Application.Current.Resources["AcceptCommitBorderColor"];
             backgroundBrush = (Brush) Application.Current.Resources["AcceptCommitBackgroundColor"];
-            TextBlock.Text = Resx.CommitingText;
+            TextBlock.Text = Resx.CommittingText;
             TextBlock.Foreground = (Brush) Application.Current.Resources["AcceptCommitForegroundColor"];
             GlyphTextBlock.Text = (string) Application.Current.Resources["AcceptCommitGlyph"];
             GlyphTextBlock.Foreground = (Brush) Application.Current.Resources["AcceptCommitForegroundColor"];
