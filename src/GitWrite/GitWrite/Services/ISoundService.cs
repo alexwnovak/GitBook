@@ -2,5 +2,6 @@
 {
    public interface ISoundService
    {
+      void PlayPopSound();
    }
 }
