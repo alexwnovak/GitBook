@@ -1,5 +1,5 @@
+## GitWrite
+
 [![Build status](https://ci.appveyor.com/api/projects/status/wilnax44yhyrsfhf?svg=true)](https://ci.appveyor.com/project/alexwnovak/gitwrite)
 
-# GitWrite
-
-A lightweight text editor specifically designed for Git commit notes.
+GitWrite is a lightweight editor designed for a dope Git experience. No need to confuse all your Notepad windows anymore!
