@@ -44,8 +44,6 @@ namespace GitWrite.Views
             Height = _size.Height,
          };
 
-         frontBox.HideRadialText();
-
          frontBox.Measure( _size );
          frontBox.Arrange( new Rect( _size ) );
 

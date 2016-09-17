@@ -120,10 +120,6 @@ namespace GitWrite.Views.Controls
       public void ShowCaret() => PrimaryTextBox.ClearValue( TextBoxBase.CaretBrushProperty );
       public void MoveCaretToEnd() => PrimaryTextBox.SelectionStart = PrimaryTextBox.Text.Length;
 
-      public void HideRadialText() => RadialCounter.TextColor = Colors.Transparent;
-
-      public void ShowRadialText() => RadialCounter.ClearValue( RadialCounter.TextColorProperty );
-
       private void MainEntryBox_OnGotFocus( object sender, RoutedEventArgs e ) => PrimaryTextBox.Focus();
 
       private void MainEntryBox_OnLoaded( object sender, RoutedEventArgs e )
