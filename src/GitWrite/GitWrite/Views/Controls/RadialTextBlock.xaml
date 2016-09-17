@@ -28,7 +28,6 @@
 
          <Ellipse x:Name="ProgressRing"
             Margin="4"
-            Stroke="{DynamicResource WindowBorderColor}"
             Visibility="{Binding IsProgressRingVisible, ElementName=LayoutRoot, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Ellipse.Clip>
                <MultiBinding Converter="{StaticResource RadialClipConverter}">

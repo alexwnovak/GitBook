@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using GitWrite.Views.Converters;
 
 namespace GitWrite.Views.Controls
@@ -27,6 +28,15 @@ namespace GitWrite.Views.Controls
 
          var radialTextBlock = (RadialTextBlock) d;
          radialTextBlock.Progress = 1 - (double) lengthProgressConverter.Convert( e.NewValue, null, null, null );
+
+         if ( radialTextBlock.Progress >= 1.0 )
+         {
+            radialTextBlock.ProgressRing.Stroke = (Brush) Application.Current.Resources["MessageLengthReachedColor"];
+         }
+         else
+         {
+            radialTextBlock.ProgressRing.Stroke = (Brush) Application.Current.Resources["WindowBorderColor"];
+         }
       }
 
       public static DependencyProperty IsProgressRingVisibleProperty = DependencyProperty.Register( nameof( IsProgressRingVisible ),
