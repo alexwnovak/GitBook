@@ -82,6 +82,12 @@ namespace GitWrite.ViewModels
          set;
       }
 
+      public bool IsAmending
+      {
+         get;
+         set;
+      }
+
       public event AsyncEventHandler ExpansionRequested;
       public event AsyncEventHandler CollapseRequested;
       public event AsyncEventHandler ShakeRequested;
@@ -103,6 +109,7 @@ namespace GitWrite.ViewModels
          ExtraCommitText = _commitDocument?.LongMessage;
 
          IsDirty = false;
+         IsAmending = !string.IsNullOrEmpty( ShortMessage );
       }
 
       public async void ViewLoaded()
