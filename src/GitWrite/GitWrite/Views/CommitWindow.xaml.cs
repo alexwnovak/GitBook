@@ -16,7 +16,6 @@ namespace GitWrite.Views
    public partial class CommitWindow : WindowBase
    {
       private readonly CommitViewModel _viewModel;
-      private readonly BlurEffect _blurEffect;
 
       public CommitWindow()
       {
@@ -28,13 +27,7 @@ namespace GitWrite.Views
          _viewModel.ShakeRequested += OnShakeRequested;
          _viewModel.AsyncExitRequested += OnAsyncExitRequested;
 
-         _blurEffect = new BlurEffect
-         {
-            Radius = 0
-         };
 
-         Viewport.Effect = _blurEffect;
-         RegisterName( "BlurEffect", _blurEffect );
       }
 
       private void CommitWindow_OnLoaded( object sender, RoutedEventArgs e )

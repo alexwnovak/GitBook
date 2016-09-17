@@ -51,6 +51,10 @@
                <ScaleTransform x:Name="ViewportScaleTransform" />
             </TransformGroup>
          </Viewport3D.RenderTransform>
+         <Viewport3D.Effect>
+            <BlurEffect x:Name="BlurEffect"
+               Radius="0" />
+         </Viewport3D.Effect>
          <Viewport3D.Camera>
             <PerspectiveCamera x:Name="Camera"
                Position="0,0,1"
