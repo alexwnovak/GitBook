@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Globalization;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -26,8 +25,6 @@ namespace GitWrite.Views
          _viewModel.CollapseRequested += OnCollapseRequested;
          _viewModel.ShakeRequested += OnShakeRequested;
          _viewModel.AsyncExitRequested += OnAsyncExitRequested;
-
-
       }
 
       private void CommitWindow_OnLoaded( object sender, RoutedEventArgs e )
