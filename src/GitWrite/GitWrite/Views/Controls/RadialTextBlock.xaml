@@ -1,0 +1,44 @@
+﻿<UserControl x:Name="LayoutRoot"
+   x:Class="GitWrite.Views.Controls.RadialTextBlock"
+   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+   xmlns:local="clr-namespace:GitWrite.Views.Controls"
+   xmlns:cnv="clr-namespace:GitWrite.Views.Converters"
+   mc:Ignorable="d"
+   d:DesignHeight="80"
+   d:DesignWidth="80">
+
+   <UserControl.Resources>
+      <cnv:RadialClipConverter x:Key="RadialClipConverter" />
+   </UserControl.Resources>
+
+   <Border Background="{DynamicResource WindowBackgroundColor}"
+      BorderBrush="{DynamicResource WindowBorderColor}"
+      BorderThickness="2"
+      CornerRadius="1000">
+
+      <Grid>
+         <TextBlock Foreground="{DynamicResource TextColor}"
+            FontSize="24"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Text="{Binding Text, ElementName=LayoutRoot}" />
+
+         <Ellipse x:Name="ProgressRing"
+            Margin="4"
+            Visibility="{Binding IsProgressRingVisible, ElementName=LayoutRoot, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Ellipse.Clip>
+               <MultiBinding Converter="{StaticResource RadialClipConverter}">
+                  <Binding Path="ActualWidth"
+                     ElementName="ProgressRing" />
+                  <Binding Path="Progress"
+                     Mode="TwoWay"
+                     ElementName="LayoutRoot" />
+               </MultiBinding>
+            </Ellipse.Clip>
+         </Ellipse>
+      </Grid>
+   </Border>
+</UserControl>

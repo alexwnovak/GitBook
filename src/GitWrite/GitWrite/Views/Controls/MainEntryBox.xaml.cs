@@ -30,6 +30,23 @@ namespace GitWrite.Views.Controls
          }
       }
 
+      public static DependencyProperty RadialTextProperty = DependencyProperty.Register( nameof( RadialText ),
+         typeof( string ),
+         typeof( MainEntryBox ),
+         new PropertyMetadata( string.Empty ) );
+
+      public string RadialText
+      {
+         get
+         {
+            return (string) GetValue( RadialTextProperty );
+         }
+         set
+         {
+            SetValue( RadialTextProperty, value );
+         }
+      }
+
       public static DependencyProperty IsEditableProperty = DependencyProperty.Register( nameof( IsEditable ),
          typeof( bool ),
          typeof( MainEntryBox ),
@@ -102,10 +119,6 @@ namespace GitWrite.Views.Controls
       public void HideCaret() => PrimaryTextBox.CaretBrush = new SolidColorBrush( Colors.Transparent );
       public void ShowCaret() => PrimaryTextBox.ClearValue( TextBoxBase.CaretBrushProperty );
       public void MoveCaretToEnd() => PrimaryTextBox.SelectionStart = PrimaryTextBox.Text.Length;
-
-      public void HideRadialText() => RadialCounter.TextColor = Colors.Transparent;
-
-      public void ShowRadialText() => RadialCounter.ClearValue( RadialCounter.TextColorProperty );
 
       private void MainEntryBox_OnGotFocus( object sender, RoutedEventArgs e ) => PrimaryTextBox.Focus();
 

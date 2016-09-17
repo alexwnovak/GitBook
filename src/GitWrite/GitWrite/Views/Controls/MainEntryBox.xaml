@@ -50,19 +50,16 @@
          </Border>
       </Grid>
 
-      <local:RadialCounter x:Name="RadialCounter"
-         Grid.Column="1"
-         HorizontalAlignment="Center"
-         VerticalAlignment="Center"
-         Minimum="0"
-         Maximum="72"
-         FontSize="24"
-         Value="{Binding Text.Length, ElementName=PrimaryTextBox, Converter={StaticResource TextLengthInversionConverter}}">
-         <local:RadialCounter.Effect>
+      <local:RadialTextBlock Grid.Column="1"
+         Width="80"
+         Height="80"
+         Text="{Binding RadialText, Mode=OneWay}"
+         Progress="0.5">
+         <local:RadialTextBlock.Effect>
             <DropShadowEffect BlurRadius="16"
                ShadowDepth="1"
                Direction="270" />
-         </local:RadialCounter.Effect>
-      </local:RadialCounter>
+         </local:RadialTextBlock.Effect>
+      </local:RadialTextBlock>
    </Grid>
 </UserControl>
