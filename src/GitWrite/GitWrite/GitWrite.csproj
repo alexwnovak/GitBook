@@ -84,6 +84,7 @@
     <Compile Include="Behaviors\WindowPlacementBehavior.cs" />
     <Compile Include="CommitDocument.cs" />
     <Compile Include="CommitFileReader.cs" />
+    <Compile Include="Effects\TextureFadeEffect.cs" />
     <Compile Include="FrameworkElementExtensions.cs" />
     <Compile Include="GitFileAttribute.cs" />
     <Compile Include="InteractiveRebaseDocument.cs" />
@@ -101,6 +102,7 @@
     <Compile Include="Services\RegistryService.cs" />
     <Compile Include="Services\ResourceLocator.cs" />
     <Compile Include="Effects\EffectHelper.cs" />
+    <Content Include="Shaders\CloudReveal.fx" />
     <Compile Include="ViewModels\CloseRequestedEventArgs.cs" />
     <Compile Include="ViewModels\ConfirmationViewModel.cs" />
     <Compile Include="ViewModels\GitWriteViewModelBase.cs" />

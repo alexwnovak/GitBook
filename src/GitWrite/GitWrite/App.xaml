@@ -6,6 +6,7 @@
    xmlns:viewModels="clr-namespace:GitWrite.ViewModels"
    xmlns:gitWrite="clr-namespace:GitWrite"
    xmlns:converters="clr-namespace:GitWrite.Views.Converters"
+   xmlns:fx="clr-namespace:GitWrite.Effects"
    xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
    xmlns:clr="clr-namespace:System;assembly=mscorlib"
    d1p1:Ignorable="d"
@@ -26,5 +27,6 @@
       <SolidColorBrush x:Key="HighlightColor" Color="#80D2F560" PresentationOptions:Freeze="True" />
       <clr:String x:Key="AcceptCommitGlyph">&#xE10B;</clr:String>
       <clr:String x:Key="AbortCommitGlyph">&#xE10A;</clr:String>
+      <fx:TextureFadeEffect x:Key="TextureFadeEffect" />
    </Application.Resources>
 </Application>

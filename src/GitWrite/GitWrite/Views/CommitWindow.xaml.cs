@@ -6,7 +6,9 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Media.Effects;
 using System.Windows.Media.Media3D;
+using GitWrite.Effects;
 using GitWrite.ViewModels;
 using Resx = GitWrite.Properties.Resources;
 
@@ -15,6 +17,8 @@ namespace GitWrite.Views
    public partial class CommitWindow : WindowBase
    {
       private readonly CommitViewModel _viewModel;
+      private readonly TextureFadeEffect _fadeEffect;
+      private readonly BlurEffect _blurEffect;
 
       public CommitWindow()
       {
@@ -25,6 +29,31 @@ namespace GitWrite.Views
          _viewModel.CollapseRequested += OnCollapseRequested;
          _viewModel.ShakeRequested += OnShakeRequested;
          _viewModel.AsyncExitRequested += OnAsyncExitRequested;
+
+         //var fade = (TextureFadeEffect) Application.Current.Resources["TextureFadeEffect"];
+         //_fadeEffect = new TextureFadeEffect
+         //{
+         //   BlendAmount = 1
+         //};
+         //Viewport.Effect = _fadeEffect;
+
+         _blurEffect = new BlurEffect
+         {
+            Radius = 0,
+         };
+
+         Viewport.Effect = _blurEffect;
+         RegisterName( "BlurEffect", _blurEffect );
+
+
+         //Loaded += async ( _, __ ) =>
+         //{
+         //   for ( int index = 0; index < 100; index++ )
+         //   {
+         //      await Task.Delay( 20 );
+         //      _fadeEffect.BlendAmount = (double) index / 100;
+         //   }
+         //};
       }
 
       private void CommitWindow_OnLoaded( object sender, RoutedEventArgs e )
@@ -122,7 +151,21 @@ namespace GitWrite.Views
 
          var opacityAnimation = new DoubleAnimation( 1, 0, new Duration( TimeSpan.FromMilliseconds( 200 ) ) )
          {
-            BeginTime = TimeSpan.FromMilliseconds( 900 )
+            BeginTime = TimeSpan.FromMilliseconds( 700 )
+         };
+
+         var blendAmountAnimation = new DoubleAnimation( 1, 0, opacityAnimation.Duration )
+         {
+            BeginTime = opacityAnimation.BeginTime
+         };
+
+         var blurRadiusAnimation = new DoubleAnimation( 0, 6, opacityAnimation.Duration )
+         {
+            BeginTime = opacityAnimation.BeginTime,
+            EasingFunction = new CircleEase
+            {
+               EasingMode = EasingMode.EaseOut
+            }
          };
 
          var storyboard = new Storyboard();
@@ -131,9 +174,13 @@ namespace GitWrite.Views
 
          Storyboard.SetTarget( opacityAnimation, MainGrid );
          Storyboard.SetTargetProperty( opacityAnimation, new PropertyPath( OpacityProperty ) );
+         
+         Storyboard.SetTargetName( blurRadiusAnimation, "BlurEffect" );
+         Storyboard.SetTargetProperty( blurRadiusAnimation, new PropertyPath( BlurEffect.RadiusProperty ) );
 
          storyboard.Children.Add( rotationAnimation );
          storyboard.Children.Add( opacityAnimation );
+         storyboard.Children.Add( blurRadiusAnimation );
 
          storyboard.Completed += ( _, __ ) =>
          {
