@@ -99,7 +99,7 @@ namespace GitWrite.ViewModels
          LoadCommand = new RelayCommand( ViewLoaded );
          PasteCommand = new RelayCommand( async () => await PasteFromClipboard() );
 
-         ShortMessage = _commitDocument?.ShortMessage;
+         ShortMessage = _commitDocument?.ShortMessage ?? string.Empty;
          ExtraCommitText = _commitDocument?.LongMessage;
 
          IsDirty = false;

@@ -11,6 +11,23 @@ namespace GitWrite.UnitTests.ViewModels
    public class CommitViewModelTests
    {
       [Fact]
+      public void Constructor_IncomingShortMessageIsNull_ViewModelShortMessageIsEmptyString()
+      {
+         // Arrange
+
+         var commitDocumentMock = new Mock<ICommitDocument>();
+         commitDocumentMock.SetupGet( cd => cd.ShortMessage ).Returns( (string) null );
+
+         // Act
+
+         var commitViewModel = new CommitViewModel( null, null, null, commitDocumentMock.Object, null );
+
+         // Assert
+
+         commitViewModel.ShortMessage.Should().BeEmpty();
+      }
+
+      [Fact]
       public void ViewLoaded_DoesNotHaveExtraNotes_DoesNotRaiseExpansionEvent()
       {
          bool expanded = false;
