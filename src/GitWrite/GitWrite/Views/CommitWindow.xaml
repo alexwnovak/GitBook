@@ -44,6 +44,11 @@
 
       <Viewport3D x:Name="Viewport"
          Visibility="Collapsed">
+         <Viewport3D.RenderTransform>
+            <TransformGroup>
+               <TranslateTransform x:Name="ViewportTranslateTransform" />
+            </TransformGroup>
+         </Viewport3D.RenderTransform>
          <Viewport3D.Camera>
             <PerspectiveCamera x:Name="Camera"
                Position="0,0,1"

@@ -144,6 +144,11 @@ namespace GitWrite.Views
             }
          };
 
+         var translateAnimation = new DoubleAnimation( 0, 20, opacityAnimation.Duration )
+         {
+            BeginTime = opacityAnimation.BeginTime
+         };
+
          var storyboard = new Storyboard();
          Storyboard.SetTargetName( rotationAnimation, "RotationTransform" );
          Storyboard.SetTargetProperty( rotationAnimation, new PropertyPath( AxisAngleRotation3D.AngleProperty ) );
@@ -154,9 +159,13 @@ namespace GitWrite.Views
          Storyboard.SetTargetName( blurRadiusAnimation, "BlurEffect" );
          Storyboard.SetTargetProperty( blurRadiusAnimation, new PropertyPath( BlurEffect.RadiusProperty ) );
 
+         Storyboard.SetTargetName( translateAnimation, "ViewportTranslateTransform" );
+         Storyboard.SetTargetProperty( translateAnimation, new PropertyPath( TranslateTransform.YProperty ) );
+
          storyboard.Children.Add( rotationAnimation );
          storyboard.Children.Add( opacityAnimation );
          storyboard.Children.Add( blurRadiusAnimation );
+         storyboard.Children.Add( translateAnimation );
 
          storyboard.Completed += ( _, __ ) =>
          {
