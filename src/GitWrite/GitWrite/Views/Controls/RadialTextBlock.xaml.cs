@@ -1,6 +1,9 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
+using System.Windows.Shapes;
 using GitWrite.Views.Converters;
 
 namespace GitWrite.Views.Controls
@@ -36,7 +39,24 @@ namespace GitWrite.Views.Controls
          else
          {
             radialTextBlock.ProgressRing.Stroke = (Brush) Application.Current.Resources["WindowBorderColor"];
+            PulseRing( radialTextBlock.ProgressRing );
          }
+      }
+
+      private static void PulseRing( UIElement element )
+      {
+         var doubleAnimation = new DoubleAnimation
+         {
+            From = 3,
+            To = 1,
+            Duration = new Duration( TimeSpan.FromMilliseconds( 800 ) ),
+            EasingFunction = new CircleEase
+            {
+               EasingMode = EasingMode.EaseIn
+            }
+         };
+
+         element.BeginAnimation( Shape.StrokeThicknessProperty, doubleAnimation );
       }
 
       public static DependencyProperty IsProgressRingVisibleProperty = DependencyProperty.Register( nameof( IsProgressRingVisible ),
