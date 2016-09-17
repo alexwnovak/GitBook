@@ -81,6 +81,14 @@ namespace GitWrite.Views
          return (ImageSource) Resources["SaveBackMaterial"];
       }
 
+      private Brush GetMaterialBrush( ImageSource imageSource )
+      {
+         return new ImageBrush( imageSource )
+         {
+            Stretch = Stretch.Uniform
+         };
+      }
+
       private Task OnAsyncExitRequested( object sender, ShutdownEventArgs e )
       {
          if ( _viewModel.IsExiting )
@@ -89,18 +97,10 @@ namespace GitWrite.Views
          }
 
          var frontMaterialImage = GetFrontMaterialImage();
-
-         FrontMaterial.Brush = new ImageBrush( frontMaterialImage )
-         {
-            Stretch = Stretch.Uniform
-         };
+         FrontMaterial.Brush = GetMaterialBrush( frontMaterialImage );
 
          var backMaterialImage = GetBackMaterialImage( e.ExitReason );
-
-         BackMaterial.Brush = new ImageBrush( backMaterialImage )
-         {
-            Stretch = Stretch.Uniform
-         };
+         BackMaterial.Brush = GetMaterialBrush( backMaterialImage );
 
          Camera.Position = new Point3D( 0, 0, 5.67 );
 
