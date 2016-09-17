@@ -22,10 +22,10 @@ namespace GitWrite.Views
          _size = new Size( host.ActualWidth, WindowValues.NonExpandedHeight );
       }
 
-      public Task GenerateAsync()
+      public Task GenerateAsync( string saveText )
       {
          var t1 = StartNewStaTask( GenerateFrontMaterial  );
-         var t2 = StartNewStaTask( GenerateSaveMaterial );
+         var t2 = StartNewStaTask( () => GenerateSaveMaterial( saveText ) );
          var t3 = StartNewStaTask( GenerateDiscardMaterial );
 
          return Task.WhenAll( t1, t2, t3 );
@@ -53,21 +53,28 @@ namespace GitWrite.Views
          _host.Dispatcher.Invoke( () => _host.Resources["FrontMaterial"] = renderTargetBitmap );
       }
 
-      private void GenerateSaveMaterial() => GenerateTransitionMaterial( ExitReason.Save, "SaveBackMaterial" );
+      private void GenerateSaveMaterial( string exitText ) => GenerateTransitionMaterial( ExitReason.Save, "SaveBackMaterial", exitText );
 
       private void GenerateDiscardMaterial() => GenerateTransitionMaterial( ExitReason.Discard, "DiscardBackMaterial" );
 
-      private void GenerateTransitionMaterial( ExitReason exitReason, string resourceKey )
+      private void GenerateTransitionMaterial( ExitReason exitReason, string resourceKey, string exitText = null )
       {
          var renderTargetBitmap = new RenderTargetBitmap( (int) _size.Width * (int) _dpiScale.DpiScaleX, (int) _size.Height * (int) _dpiScale.DpiScaleY, _dpiScale.PixelsPerInchX, _dpiScale.PixelsPerInchY, PixelFormats.Pbgra32 );
+         TransitionEntryBox transitionEntryBox;
 
-         var transitionEntryBox = new TransitionEntryBox( exitReason )
+         if ( string.IsNullOrEmpty( exitText ) )
          {
-            Width = _size.Width,
-            Height = _size.Height,
-            RenderTransform = new ScaleTransform( 1, -1 ),
-            RenderTransformOrigin = new Point( 0.5, 0.5 )
-         };
+            transitionEntryBox = new TransitionEntryBox( exitReason );
+         }
+         else
+         {
+            transitionEntryBox = new TransitionEntryBox( exitReason, exitText );
+         }
+
+         transitionEntryBox.Width = _size.Width;
+         transitionEntryBox.Height = _size.Height;
+         transitionEntryBox.RenderTransform = new ScaleTransform( 1, -1 );
+         transitionEntryBox.RenderTransformOrigin = new Point( 0.5, 0.5 );
 
          transitionEntryBox.Measure( _size );
          transitionEntryBox.Arrange( new Rect( _size ) );

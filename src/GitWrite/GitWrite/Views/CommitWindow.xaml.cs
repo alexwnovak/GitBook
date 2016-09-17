@@ -8,6 +8,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Media3D;
 using GitWrite.ViewModels;
+using Resx = GitWrite.Properties.Resources;
 
 namespace GitWrite.Views
 {
@@ -48,13 +49,8 @@ namespace GitWrite.Views
          storyboard.Begin();
       }
 
-      private Task OnAsyncExitRequested( object sender, ShutdownEventArgs e )
+      private DrawingImage GetFrontMaterialImage()
       {
-         if ( _viewModel.IsExiting )
-         {
-            return Task.CompletedTask;
-         }
-
          var frontMaterial = (ImageSource) Resources["FrontMaterial"];
 
          var drawingVisual = new DrawingVisual();
@@ -63,7 +59,7 @@ namespace GitWrite.Views
          using ( var drawingContext = drawingVisual.RenderOpen() )
          {
             var foregroundBrush = (Brush) Application.Current.Resources["TextColor"];
-            drawingContext.DrawImage( frontMaterial, new Rect( 0, 0, frontMaterial.Width, frontMaterial.Height) );
+            drawingContext.DrawImage( frontMaterial, new Rect( 0, 0, frontMaterial.Width, frontMaterial.Height ) );
 
             if ( !string.IsNullOrWhiteSpace( _viewModel.ShortMessage ) )
             {
@@ -72,27 +68,39 @@ namespace GitWrite.Views
             }
          }
 
-         var image = new DrawingImage( drawingVisual.Drawing );
-         FrontMaterial.Brush = new ImageBrush( image )
+         return new DrawingImage( drawingVisual.Drawing );
+      }
+
+      private ImageSource GetBackMaterialImage( ExitReason exitReason )
+      {
+         if ( exitReason == ExitReason.Discard )
+         {
+            return (ImageSource) Resources["DiscardBackMaterial"];
+         }
+
+         return (ImageSource) Resources["SaveBackMaterial"];
+      }
+
+      private Brush GetMaterialBrush( ImageSource imageSource )
+      {
+         return new ImageBrush( imageSource )
          {
             Stretch = Stretch.Uniform
          };
+      }
 
-         ImageSource backMaterial;
-
-         if ( e.ExitReason == ExitReason.Save )
+      private Task OnAsyncExitRequested( object sender, ShutdownEventArgs e )
+      {
+         if ( _viewModel.IsExiting )
          {
-            backMaterial = (ImageSource) Resources["SaveBackMaterial"];
-         }
-         else
-         {
-            backMaterial = (ImageSource) Resources["DiscardBackMaterial"];
+            return Task.CompletedTask;
          }
 
-         BackMaterial.Brush = new ImageBrush( backMaterial )
-         {
-            Stretch = Stretch.Uniform
-         };
+         var frontMaterialImage = GetFrontMaterialImage();
+         FrontMaterial.Brush = GetMaterialBrush( frontMaterialImage );
+
+         var backMaterialImage = GetBackMaterialImage( e.ExitReason );
+         BackMaterial.Brush = GetMaterialBrush( backMaterialImage );
 
          Camera.Position = new Point3D( 0, 0, 5.67 );
 

@@ -61,6 +61,15 @@ namespace GitWrite.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Amending....
+        /// </summary>
+        public static string AmendingText {
+            get {
+                return ResourceManager.GetString("AmendingText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to _Cancel.
         /// </summary>
         public static string CancelText {
@@ -70,20 +79,20 @@ namespace GitWrite.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Committing....
-        /// </summary>
-        public static string CommitingText {
-            get {
-                return ResourceManager.GetString("CommitingText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Committing.
         /// </summary>
         public static string CommittingHeaderText {
             get {
                 return ResourceManager.GetString("CommittingHeaderText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Committing....
+        /// </summary>
+        public static string CommittingText {
+            get {
+                return ResourceManager.GetString("CommittingText", resourceCulture);
             }
         }
         

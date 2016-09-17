@@ -8,9 +8,13 @@ namespace GitWrite.Views.Controls
 {
    public partial class TransitionEntryBox : UserControl
    {
-      public TransitionEntryBox( ExitReason exitReason )
+      private readonly string _exitText;
+
+      public TransitionEntryBox( ExitReason exitReason, string exitText = null )
       {
          InitializeComponent();
+
+         _exitText = exitText;
          SetupUI( exitReason );
       }
 
@@ -22,7 +26,7 @@ namespace GitWrite.Views.Controls
          {
             borderBrush = (Brush) Application.Current.Resources["AcceptCommitBorderColor"];
             backgroundBrush = (Brush) Application.Current.Resources["AcceptCommitBackgroundColor"];
-            TextBlock.Text = Resx.CommitingText;
+            TextBlock.Text = string.IsNullOrEmpty( _exitText ) ? Resx.CommittingText : _exitText;
             TextBlock.Foreground = (Brush) Application.Current.Resources["AcceptCommitForegroundColor"];
             GlyphTextBlock.Text = (string) Application.Current.Resources["AcceptCommitGlyph"];
             GlyphTextBlock.Foreground = (Brush) Application.Current.Resources["AcceptCommitForegroundColor"];

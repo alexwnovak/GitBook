@@ -120,7 +120,7 @@
   <data name="CancelText" xml:space="preserve">
     <value>_Cancel</value>
   </data>
-  <data name="CommitingText" xml:space="preserve">
+  <data name="CommittingText" xml:space="preserve">
     <value>Committing...</value>
   </data>
   <data name="DiscardingText" xml:space="preserve">
@@ -146,5 +146,8 @@
   </data>
   <data name="RebasingText" xml:space="preserve">
     <value>Rebasing...</value>
+  </data>
+  <data name="AmendingText" xml:space="preserve">
+    <value>Amending...</value>
   </data>
 </root>
