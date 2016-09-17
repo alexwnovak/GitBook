@@ -147,4 +147,7 @@
   <data name="RebasingText" xml:space="preserve">
     <value>Rebasing...</value>
   </data>
+  <data name="AmendingText" xml:space="preserve">
+    <value>Amending...</value>
+  </data>
 </root>

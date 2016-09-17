@@ -61,6 +61,15 @@ namespace GitWrite.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Amending....
+        /// </summary>
+        public static string AmendingText {
+            get {
+                return ResourceManager.GetString("AmendingText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to _Cancel.
         /// </summary>
         public static string CancelText {
