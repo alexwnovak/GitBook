@@ -43,6 +43,18 @@ namespace GitWrite.Services
          }
       }
 
+      public bool PlaySoundOnLaunch
+      {
+         get
+         {
+            return _registryService.ReadBool( Registry.CurrentUser, _path, nameof( PlaySoundOnLaunch ) );
+         }
+         set
+         {
+            _registryService.WriteBool( Registry.CurrentUser, _path, nameof( PlaySoundOnLaunch ), value );
+         }
+      }
+
       public ApplicationSettings( IRegistryService registryService )
       {
          _registryService = registryService;

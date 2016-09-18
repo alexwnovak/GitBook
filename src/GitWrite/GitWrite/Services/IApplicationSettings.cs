@@ -19,5 +19,11 @@
          get;
          set;
       }
+
+      bool PlaySoundOnLaunch
+      {
+         get;
+         set;
+      }
    }
 }

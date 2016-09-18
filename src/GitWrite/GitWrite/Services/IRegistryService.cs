@@ -9,5 +9,8 @@ namespace GitWrite.Services
 
       int ReadInt( RegistryKey registryKey, string path, string name );
       void WriteInt( RegistryKey registryKey, string path, string name, int value );
+
+      bool ReadBool( RegistryKey registryKey, string path, string name );
+      void WriteBool( RegistryKey registryKey, string path, string name, bool value );
    }
 }

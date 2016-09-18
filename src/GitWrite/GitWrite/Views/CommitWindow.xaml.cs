@@ -16,6 +16,7 @@ namespace GitWrite.Views
    {
       private readonly CommitViewModel _viewModel;
       private readonly ISoundService _soundService = new SoundService();
+      private readonly IApplicationSettings _applicationSettings = new ApplicationSettings( new RegistryService() );
 
       public CommitWindow()
       {
@@ -76,7 +77,10 @@ namespace GitWrite.Views
 
          storyboard.Begin( this );
 
-         _soundService.PlayPopSound();
+         if ( _applicationSettings.PlaySoundOnLaunch )
+         {
+            _soundService.PlayPopSound();
+         }
       }
 
       private DrawingImage GetFrontMaterialImage()
