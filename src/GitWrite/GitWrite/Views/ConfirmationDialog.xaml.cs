@@ -1,5 +1,7 @@
-﻿using System.Windows;
+﻿using System.ComponentModel;
+using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media.Animation;
 using GitWrite.ViewModels;
 
 namespace GitWrite.Views
@@ -8,6 +10,7 @@ namespace GitWrite.Views
    {
       private readonly ConfirmationViewModel _viewModel;
       private ExitReason _confirmationResult;
+      private bool _hasPlayedExitAnimation;
 
       public ConfirmationDialog( Window owner )
       {
@@ -46,6 +49,22 @@ namespace GitWrite.Views
          {
             OnCloseRequested( this, new CloseRequestedEventArgs( ExitReason.Cancel ) );
          }
+      }
+
+      private void ConfirmationDialog_OnClosing( object sender, CancelEventArgs e )
+      {
+         if ( _hasPlayedExitAnimation )
+         {
+            return;
+         }
+
+         _hasPlayedExitAnimation = true;
+         e.Cancel = true;
+
+         var exitStoryboard = (Storyboard) Resources["ExitStoryboard"];
+
+         exitStoryboard.Completed += ( _, __ ) => Close();
+         exitStoryboard.Begin();
       }
    }
 }
