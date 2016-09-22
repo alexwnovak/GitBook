@@ -2,11 +2,14 @@
 using System.Globalization;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Effects;
 using System.Windows.Media.Media3D;
+using GalaSoft.MvvmLight.Messaging;
+using GitWrite.Messages;
 using GitWrite.Services;
 using GitWrite.ViewModels;
 
@@ -316,6 +319,11 @@ namespace GitWrite.Views
          //   e.CanExecute = false;
          //   e.Handled = true;
          //}
+      }
+
+      private void SecondaryNotes_OnTextChanged( object sender, TextChangedEventArgs e )
+      {
+         Messenger.Default.Send( new PulseRequestedMessage() );
       }
    }
 }

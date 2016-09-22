@@ -121,7 +121,8 @@
             FontSize="24"
             AcceptsReturn="True"
             TextWrapping="Wrap"
-            Text="{Binding ExtraCommitText, UpdateSourceTrigger=PropertyChanged}">
+            Text="{Binding ExtraCommitText, UpdateSourceTrigger=PropertyChanged}"
+            TextChanged="SecondaryNotes_OnTextChanged">
             <i:Interaction.Triggers>
                <i:EventTrigger EventName="GotFocus">
                   <cmd:EventToCommand Command="{Binding SecondaryNotesGotFocusCommand, Mode=OneTime}"
