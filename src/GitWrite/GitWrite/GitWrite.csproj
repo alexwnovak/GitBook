@@ -88,6 +88,7 @@
     <Compile Include="GitFileAttribute.cs" />
     <Compile Include="InteractiveRebaseDocument.cs" />
     <Compile Include="InteractiveRebaseFileReader.cs" />
+    <Compile Include="Messages\PulseRequestedMessage.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
