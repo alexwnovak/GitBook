@@ -55,6 +55,20 @@ namespace GitWrite.Services
          }
       }
 
+      public int MaxCommitLength
+      {
+         get
+         {
+            int storedValue = _registryService.ReadInt( Registry.CurrentUser, _path, nameof( MaxCommitLength ) );
+
+            return storedValue == 0 ? 72 : storedValue;
+         }
+         set
+         {
+            _registryService.WriteInt( Registry.CurrentUser, _path, nameof( MaxCommitLength ), value );
+         }
+      }
+
       public ApplicationSettings( IRegistryService registryService )
       {
          _registryService = registryService;

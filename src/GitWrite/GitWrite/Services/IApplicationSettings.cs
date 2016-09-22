@@ -25,5 +25,11 @@
          get;
          set;
       }
+
+      int MaxCommitLength
+      {
+         get;
+         set;
+      }
    }
 }
