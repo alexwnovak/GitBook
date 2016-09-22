@@ -3,6 +3,8 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Media;
+using GalaSoft.MvvmLight.Ioc;
+using GitWrite.Services;
 
 namespace GitWrite.Views.Controls
 {
@@ -27,6 +29,23 @@ namespace GitWrite.Views.Controls
          set
          {
             SetValue( TextProperty, value );
+         }
+      }
+
+      public static DependencyProperty MaxLengthProperty = DependencyProperty.Register( nameof( MaxLength ),
+         typeof( int ),
+         typeof( MainEntryBox ),
+         new PropertyMetadata( 0 ) );
+
+      public int MaxLength
+      {
+         get
+         {
+            return (int) GetValue( MaxLengthProperty );
+         }
+         set
+         {
+            SetValue( MaxLengthProperty, value );
          }
       }
 
