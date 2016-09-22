@@ -4,6 +4,8 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using GalaSoft.MvvmLight.Messaging;
+using GitWrite.Messages;
 using GitWrite.Views.Converters;
 
 namespace GitWrite.Views.Controls
@@ -97,6 +99,7 @@ namespace GitWrite.Views.Controls
       public RadialTextBlock()
       {
          InitializeComponent();
+         Messenger.Default.Register<PulseRequestedMessage>( this, m => PulseRing( ProgressRing ) );
       }
    }
 }
