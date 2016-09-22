@@ -39,8 +39,9 @@ namespace GitWrite.Views.Controls
          else
          {
             radialTextBlock.ProgressRing.Stroke = (Brush) Application.Current.Resources["WindowBorderColor"];
-            PulseRing( radialTextBlock.ProgressRing );
          }
+
+         PulseRing( radialTextBlock.ProgressRing );
       }
 
       private static void PulseRing( UIElement element )
