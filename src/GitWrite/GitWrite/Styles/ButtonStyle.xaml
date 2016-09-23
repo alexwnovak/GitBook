@@ -39,7 +39,7 @@
                      BorderBrush="{DynamicResource WindowBorderColor}"
                      BorderThickness="1"
                      Background="#002080A0">
-                     <Label Content="{TemplateBinding Content}"
+                     <ContentPresenter Content="{TemplateBinding Content}"
                         ContentTemplate="{TemplateBinding ContentTemplate}"
                         VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                         HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
