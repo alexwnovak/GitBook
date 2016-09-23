@@ -11,6 +11,7 @@
       InteractiveRebase,
 
       [GitFile( GitFileNames.EditPatchFileName )]
+      [GitFile( GitFileNames.AddEditPatchFileName )]
       EditPatch
    }
 }
