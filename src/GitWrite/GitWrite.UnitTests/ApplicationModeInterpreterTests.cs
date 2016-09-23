@@ -52,5 +52,13 @@ namespace GitWrite.UnitTests
 
          applicationMode.Should().Be( ApplicationMode.EditPatch );
       }
+
+      [Fact]
+      public void GetFromFileName_PassingAddEditPatch_ReturnsEditMode()
+      {
+         var applicationMode = ApplicationModeInterpreter.GetFromFileName( GitFileNames.AddEditPatchFileName );
+
+         applicationMode.Should().Be( ApplicationMode.EditPatch );
+      }
    }
 }
