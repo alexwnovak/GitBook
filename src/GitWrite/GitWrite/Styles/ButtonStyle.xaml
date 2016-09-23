@@ -7,48 +7,31 @@
                <Grid>
                   <VisualStateManager.VisualStateGroups>
                      <VisualStateGroup x:Name="CommonStates">
-                        <VisualStateGroup.Transitions>
-                           <VisualTransition From="Normal" To="MouseOver">
-                              <Storyboard>
-                                 <ColorAnimation Storyboard.TargetName="Background"
-                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
-                                    From="#002080A0"
-                                    To="#FF2080A0"
-                                    Duration="0:0:0.2">
-                                    <ColorAnimation.EasingFunction>
-                                       <CircleEase EasingMode="EaseOut" />
-                                    </ColorAnimation.EasingFunction>
-                                 </ColorAnimation>                              
-                              </Storyboard>
-                           </VisualTransition>
-                           <VisualTransition From="MouseOver" To="Normal">
-                              <Storyboard>
-                                 <ColorAnimation Storyboard.TargetName="Background"
-                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
-                                    From="#FF2080A0"
-                                    To="#002080A0"
-                                    Duration="0:0:0.2">
-                                    <ColorAnimation.EasingFunction>
-                                       <CircleEase EasingMode="EaseOut" />
-                                    </ColorAnimation.EasingFunction>
-                                 </ColorAnimation>                              
-                              </Storyboard>
-                           </VisualTransition>
-                        </VisualStateGroup.Transitions>
-
-                        <VisualState x:Name="Normal" />
-                        <VisualState x:Name="MouseOver">
+                        <VisualState x:Name="Normal">
                            <Storyboard>
                               <ColorAnimation Storyboard.TargetName="Background"
                                  Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
-                                 From="#002080A0"
-                                 To="#FF2080A0"
-                                 Duration="0:0:0">
+                                 From="#402080A0"
+                                 To="#002080A0"
+                                 Duration="0:0:0.1">
                                  <ColorAnimation.EasingFunction>
                                     <CircleEase EasingMode="EaseOut" />
                                  </ColorAnimation.EasingFunction>
                               </ColorAnimation>
                            </Storyboard>
+                        </VisualState>
+                        <VisualState x:Name="MouseOver">
+                           <Storyboard>
+                              <ColorAnimation Storyboard.TargetName="Background"
+                                 Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                 From="#002080A0"
+                                 To="#402080A0"
+                                 Duration="0:0:0.1">
+                                 <ColorAnimation.EasingFunction>
+                                    <CircleEase EasingMode="EaseOut" />
+                                 </ColorAnimation.EasingFunction>
+                              </ColorAnimation>                              
+                          </Storyboard>
                         </VisualState>
                         <VisualState x:Name="Pressed">
                            <Storyboard>
