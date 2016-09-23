@@ -1,7 +1,6 @@
 ﻿using System;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using GitWrite.Views.Controls;
 
 namespace GitWrite.ViewModels
 {
@@ -21,14 +20,14 @@ namespace GitWrite.ViewModels
       {
          get;
       }
-
+      
       public event EventHandler<CloseRequestedEventArgs> CloseRequested; 
 
       public ConfirmationViewModel()
       {
-         SaveCommand = new RelayCommand( () => OnCloseRequested( this, new CloseRequestedEventArgs( ExitReason.Save ) ) );;
-         DiscardCommand = new RelayCommand( () => OnCloseRequested( this, new CloseRequestedEventArgs( ExitReason.Discard ) ) );;
-         CancelCommand = new RelayCommand( () => OnCloseRequested( this, new CloseRequestedEventArgs( ExitReason.Cancel ) ) );;
+         SaveCommand = new RelayCommand( () => OnCloseRequested( this, new CloseRequestedEventArgs( ExitReason.Save ) ) );
+         DiscardCommand = new RelayCommand( () => OnCloseRequested( this, new CloseRequestedEventArgs( ExitReason.Discard ) ) );
+         CancelCommand = new RelayCommand( () => OnCloseRequested( this, new CloseRequestedEventArgs( ExitReason.Cancel ) ) );
       }
 
       protected virtual void OnCloseRequested( object sender, CloseRequestedEventArgs e )
