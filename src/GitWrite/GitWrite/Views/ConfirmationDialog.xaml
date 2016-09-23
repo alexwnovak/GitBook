@@ -124,21 +124,51 @@
                      Height="30"
                      VerticalAlignment="Bottom"
                      HorizontalAlignment="Right"
-                     Content="{x:Static res:Resources.SaveText}"
-                     Command="{Binding SaveCommand, Mode=OneTime}" />
+                     Command="{Binding SaveCommand, Mode=OneTime}"
+                     Click="Button_OnClick">
+                     <Button.Content>
+                        <Grid HorizontalAlignment="Stretch"
+                           VerticalAlignment="Stretch">
+                           <AccessText Foreground="{DynamicResource TextColor}"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                              Text="{x:Static res:Resources.SaveText}" />
+                        </Grid>
+                     </Button.Content>
+                  </Button>
                   <Button Margin="0,0,6,0"
                      Width="80"
                      Height="30"
                      VerticalAlignment="Bottom"
                      HorizontalAlignment="Right"
-                     Content="{x:Static res:Resources.DiscardText}"
-                     Command="{Binding DiscardCommand, Mode=OneTime}" />
+                     Command="{Binding DiscardCommand, Mode=OneTime}"
+                     Click="Button_OnClick">
+                     <Button.Content>
+                        <Grid HorizontalAlignment="Stretch"
+                           VerticalAlignment="Stretch">
+                           <AccessText Foreground="{DynamicResource TextColor}"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                              Text="{x:Static res:Resources.DiscardText}" />
+                        </Grid>
+                     </Button.Content>
+                  </Button>
                   <Button Width="80"
                      Height="30"
                      VerticalAlignment="Bottom"
                      HorizontalAlignment="Right"
-                     Content="{x:Static res:Resources.CancelText}"
-                     Command="{Binding CancelCommand, Mode=OneTime}" />
+                     Command="{Binding CancelCommand, Mode=OneTime}"
+                     Click="Button_OnClick">
+                     <Button.Content>
+                        <Grid HorizontalAlignment="Stretch"
+                           VerticalAlignment="Stretch">
+                           <AccessText Foreground="{DynamicResource TextColor}"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                              Text="{x:Static res:Resources.CancelText}" />
+                        </Grid>
+                     </Button.Content>
+                  </Button>
                </StackPanel>
             </Grid>
          </Border>
