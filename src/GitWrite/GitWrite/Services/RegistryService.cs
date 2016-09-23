@@ -12,7 +12,7 @@ namespace GitWrite.Services
          => OpenKey( registryKey, path, k => k.SetValue( name, value ) );
 
       public int ReadInt( RegistryKey registryKey, string path, string name )
-         => OpenKey( registryKey, path, k => (int) k.GetValue( name ) );
+         => OpenKey( registryKey, path, k => (int) k.GetValue( name, 0 ) );
 
       public void WriteInt( RegistryKey registryKey, string path, string name, int value )
          => OpenKey( registryKey, path, k => k.SetValue( name, value ) );

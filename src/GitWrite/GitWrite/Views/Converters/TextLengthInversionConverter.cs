@@ -1,21 +1,36 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Data;
+using GalaSoft.MvvmLight.Ioc;
+using GitWrite.Services;
 
 namespace GitWrite.Views.Converters
 {
    public class TextLengthInversionConverter : IValueConverter
    {
+      private readonly int _maxLength;
+
+      public TextLengthInversionConverter()
+      {
+         var appSettings = SimpleIoc.Default.GetInstance<IApplicationSettings>();
+         _maxLength = appSettings.MaxCommitLength;
+      }
+
+      public TextLengthInversionConverter( IApplicationSettings appSettings )
+      {
+         _maxLength = appSettings.MaxCommitLength;
+      }
+
       public object Convert( object value, Type targetType, object parameter, CultureInfo culture )
       {
          int textLength = (int) value;
 
-         if ( textLength < 0 || textLength > 72 )
+         if ( textLength < 0 || textLength > _maxLength )
          {
             return 0;
          }
 
-         return 72 - textLength;
+         return _maxLength - textLength;
       }
 
       public object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture )

@@ -43,7 +43,7 @@
                Foreground="{DynamicResource TextColor}"
                FontFamily="Consolas"
                FontSize="24"
-               MaxLength="72"
+               MaxLength="{Binding MaxLength, Mode=OneWay}"
                HorizontalAlignment="Stretch"
                Text="{Binding Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             </TextBox>

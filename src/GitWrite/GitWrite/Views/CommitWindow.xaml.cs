@@ -25,6 +25,8 @@ namespace GitWrite.Views
       {
          InitializeComponent();
 
+         MainEntryBox.MaxLength = _applicationSettings.MaxCommitLength;
+
          _viewModel = (CommitViewModel) DataContext;
          _viewModel.ExpansionRequested += OnExpansionRequested;
          _viewModel.CollapseRequested += OnCollapseRequested;
