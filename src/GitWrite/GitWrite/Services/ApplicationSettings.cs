@@ -11,7 +11,8 @@ namespace GitWrite.Services
       {
          get
          {
-            return _registryService.ReadString( Registry.CurrentUser, _path, nameof( Theme ) );
+            var savedTheme = _registryService.ReadString( Registry.CurrentUser, _path, nameof( Theme ) );
+            return string.IsNullOrEmpty( savedTheme ) ? "Default" : savedTheme;
          }
          set
          {
