@@ -7,8 +7,45 @@
    xmlns:res="clr-namespace:GitWrite.Properties"
    mc:Ignorable="d"
    d:DesignHeight="300"
-   d:DesignWidth="300">
+   d:DesignWidth="300"
+   Foreground="{DynamicResource TextColor}">
 
-   <Grid>
+   <Grid Margin="20"
+      RenderTransformOrigin="0.5,0.5">
+      <Grid.RenderTransform>
+         <ScaleTransform x:Name="ScaleTransform" />
+      </Grid.RenderTransform>
+
+      <Grid.Effect>
+         <DropShadowEffect BlurRadius="16"
+            ShadowDepth="1"
+            Direction="270" />
+      </Grid.Effect>
+
+      <Grid.RowDefinitions>
+         <RowDefinition Height="32" />
+         <RowDefinition Height="*" />
+      </Grid.RowDefinitions>
+
+      <Grid Background="#222">
+         <TextBlock x:Name="TitleTextBlock"
+            Margin="8,0,0,0"
+            VerticalAlignment="Center" />
+      </Grid>
+
+      <Border Grid.Row="1"
+         BorderBrush="#222"
+         BorderThickness="2">
+         <Border BorderBrush="#111"
+            BorderThickness="1"
+            Background="{DynamicResource WindowBackgroundColor}">
+
+            <Grid Margin="20,30,20,20">
+               <TextBlock x:Name="MessageTextBlock"
+                  TextWrapping="Wrap" />
+            </Grid>
+         </Border>
+      </Border>
    </Grid>
+
 </UserControl>
