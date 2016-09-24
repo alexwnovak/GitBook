@@ -65,6 +65,14 @@ namespace GitWrite.Views.Controls
          exitStoryboard.Begin();
       }
 
+      private void DialogHeader_OnMouseDown( object sender, MouseButtonEventArgs e )
+      {
+         if ( e.LeftButton == MouseButtonState.Pressed )
+         {
+            _modalWindow.DragMove();
+         }
+      }
+
       private void SetupButtons( DialogButtons buttons )
       {
          switch ( buttons )
