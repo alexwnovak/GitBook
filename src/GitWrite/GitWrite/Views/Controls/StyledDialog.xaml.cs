@@ -22,39 +22,40 @@ namespace GitWrite.Views.Controls
          {
             case DialogButtons.OK:
             {
-               CreateButton( Resx.OKText );
+               CreateButton( Resx.OKText, DialogResult.OK );
                break;
             }
             case DialogButtons.YesNo:
             {
-               CreateButton( Resx.YesText );
-               CreateButton( Resx.NoText );
+               CreateButton( Resx.YesText, DialogResult.Yes );
+               CreateButton( Resx.NoText, DialogResult.No );
                break;
             }
             case DialogButtons.YesNoCancel:
             {
-               CreateButton( Resx.YesText );
-               CreateButton( Resx.NoText );
-               CreateButton( Resx.CancelText );
+               CreateButton( Resx.YesText, DialogResult.Yes );
+               CreateButton( Resx.NoText, DialogResult.No );
+               CreateButton( Resx.CancelText, DialogResult.Cancel );
                break;
             }
             case DialogButtons.SaveDiscardCancel:
             {
-               CreateButton( Resx.SaveText );
-               CreateButton( Resx.DiscardText );
-               CreateButton( Resx.CancelText );
+               CreateButton( Resx.SaveText, DialogResult.Save );
+               CreateButton( Resx.DiscardText, DialogResult.Discard );
+               CreateButton( Resx.CancelText, DialogResult.Cancel );
                break;
             }
          }
       }
 
-      private void CreateButton( string text )
+      private void CreateButton( string text, DialogResult dialogResult )
       {
          var button = new Button
          {
             Height = 30,
             HorizontalAlignment = HorizontalAlignment.Right,
             Margin = new Thickness( 0, 0, 6, 0 ),
+            Tag = dialogResult,
             VerticalAlignment = VerticalAlignment.Bottom,
             Width = 80,
          };
