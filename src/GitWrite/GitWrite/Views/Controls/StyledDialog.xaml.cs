@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -12,6 +13,7 @@ namespace GitWrite.Views.Controls
    {
       private DialogResult _dialogResult;
       private Window _modalWindow;
+      private bool _hasPlayedExitAnimation;
 
       public StyledDialog()
       {
@@ -38,9 +40,25 @@ namespace GitWrite.Views.Controls
             WindowStyle = WindowStyle.None
          };
 
+         _modalWindow.Closing += ModalWindowClosing;
          _modalWindow.ShowDialog();
 
          return _dialogResult;
+      }
+
+      private void ModalWindowClosing( object sender, CancelEventArgs e )
+      {
+         if ( _hasPlayedExitAnimation )
+         {
+            return;
+         }
+
+         e.Cancel = true;
+         _hasPlayedExitAnimation = true;
+
+         var exitStoryboard = (Storyboard) Resources["ExitStoryboard"];
+         exitStoryboard.Completed += ( _, __ ) => _modalWindow.Close();
+         exitStoryboard.Begin();
       }
 
       private void SetupButtons( DialogButtons buttons )
