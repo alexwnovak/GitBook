@@ -154,4 +154,19 @@
   <data name="PopSound" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PopSound.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="NoText" xml:space="preserve">
+    <value>_No</value>
+  </data>
+  <data name="OKText" xml:space="preserve">
+    <value>_OK</value>
+  </data>
+  <data name="YesText" xml:space="preserve">
+    <value>_Yes</value>
+  </data>
+  <data name="FileLoadErrorMessage" xml:space="preserve">
+    <value>Unable to load file:</value>
+  </data>
+  <data name="FileLoadErrorTitle" xml:space="preserve">
+    <value>File load error</value>
+  </data>
 </root>

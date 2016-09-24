@@ -6,6 +6,8 @@ namespace GitWrite
    {
       bool Exists( string path );
 
+      long GetFileSize( string path );
+
       string[] ReadAllLines( string path );
 
       void WriteAllLines( string path, IEnumerable<string> lines );

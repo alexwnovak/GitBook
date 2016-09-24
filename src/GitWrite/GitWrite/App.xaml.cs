@@ -8,6 +8,8 @@ using GitWrite.Services;
 using GitWrite.Themes;
 using GitWrite.ViewModels;
 using GitWrite.Views;
+using GitWrite.Views.Controls;
+using Resx = GitWrite.Properties.Resources;
 
 namespace GitWrite
 {
@@ -20,6 +22,8 @@ namespace GitWrite
 
          var appController = new AppController( new EnvironmentAdapter() );
          var applicationMode = appController.Start( e.Args );
+
+         EnsureFileExists( e.Args[0] );
 
          switch ( applicationMode )
          {
@@ -43,13 +47,30 @@ namespace GitWrite
          StartupUri = GetStartupWindow( appController.ApplicationMode );
       }
 
+      private void EnsureFileExists( string fileName )
+      {
+         var fileAdapter = SimpleIoc.Default.GetInstance<IFileAdapter>();
+
+         if ( !fileAdapter.Exists( fileName ) || fileAdapter.GetFileSize( fileName ) <= 0 )
+         {
+            string title = Resx.FileLoadErrorTitle;
+            string message = $"{Resx.FileLoadErrorMessage}{Environment.NewLine}{fileName}";
+
+            var dialog = new StyledDialog();
+            dialog.ShowDialog( title, message, DialogButtons.OK );
+
+            var environmentService = new EnvironmentAdapter();
+            environmentService.Exit( 1 );
+         }
+      }
+
       private void CommitPath( string fileName )
       {
          CommitDocument commitDocument = null;
 
          try
          {
-            var commitDocumentReader = new CommitFileReader( new FileAdapter() );
+            var commitDocumentReader = SimpleIoc.Default.GetInstance<CommitFileReader>();
             commitDocument = commitDocumentReader.FromFile( fileName );
          }
          catch ( GitFileLoadException )
@@ -57,11 +78,8 @@ namespace GitWrite
             Shutdown();
          }
 
-         SimpleIoc.Default.Register( () => new CommitViewModel( SimpleIoc.Default.GetInstance<IViewService>(),
-            new AppService(),
-            new ClipboardService(),
-            commitDocument,
-            new GitService( GitRepositoryPathConverter.GetPath( commitDocument ) ) ) );
+         SimpleIoc.Default.Register<ICommitDocument>( () => commitDocument );
+         SimpleIoc.Default.Register<IGitService>( () => new GitService( null ) );
       }
 
       private void InteractiveRebasePath( string fileName )
@@ -70,7 +88,7 @@ namespace GitWrite
 
          try
          {
-            var documentReader = new InteractiveRebaseFileReader( new FileAdapter() );
+            var documentReader = SimpleIoc.Default.GetInstance<InteractiveRebaseFileReader>();
             document = documentReader.FromFile( fileName );
          }
          catch ( GitFileLoadException )
@@ -78,9 +96,7 @@ namespace GitWrite
             Shutdown();
          }
 
-         SimpleIoc.Default.Register( () => new InteractiveRebaseViewModel( SimpleIoc.Default.GetInstance<IViewService>(),
-            new AppService(),
-            document ) );
+         SimpleIoc.Default.Register( () => document );
       }
 
       private void InitializeDependencies()
@@ -91,6 +107,15 @@ namespace GitWrite
          SimpleIoc.Default.Register<IApplicationSettings>( () => new ApplicationSettings( new RegistryService() ) );
          SimpleIoc.Default.Register<ICommitFileReader>( () => new CommitFileReader( new FileAdapter() ) );
          SimpleIoc.Default.Register<IStoryboardHelper, StoryboardHelper>();
+         SimpleIoc.Default.Register<IFileAdapter, FileAdapter>();
+         SimpleIoc.Default.Register<IAppService, AppService>();
+         SimpleIoc.Default.Register<IClipboardService, ClipboardService>();
+
+         SimpleIoc.Default.Register<CommitFileReader>();
+         SimpleIoc.Default.Register<InteractiveRebaseFileReader>();
+
+         SimpleIoc.Default.Register<CommitViewModel>();
+         SimpleIoc.Default.Register<InteractiveRebaseViewModel>();
       }
 
       private void InitializeTheme()
