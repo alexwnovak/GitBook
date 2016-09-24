@@ -10,6 +10,10 @@
    d:DesignWidth="300"
    Foreground="{DynamicResource TextColor}">
 
+   <UserControl.Resources>
+      <ResourceDictionary Source="../../Styles/ButtonStyle.xaml" />
+   </UserControl.Resources>
+
    <Grid Margin="20"
       RenderTransformOrigin="0.5,0.5">
       <Grid.RenderTransform>
@@ -40,9 +44,14 @@
             BorderThickness="1"
             Background="{DynamicResource WindowBackgroundColor}">
 
-            <Grid Margin="20,30,20,20">
+            <Grid Margin="20,20,20,20">
                <TextBlock x:Name="MessageTextBlock"
                   TextWrapping="Wrap" />
+
+               <StackPanel x:Name="ButtonPanel"
+                  Orientation="Horizontal"
+                  HorizontalAlignment="Right">
+               </StackPanel>
             </Grid>
          </Border>
       </Border>
