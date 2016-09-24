@@ -14,9 +14,37 @@
       <ResourceDictionary>
          <ResourceDictionary.MergedDictionaries>
             <ResourceDictionary Source="../../Styles/ButtonStyle.xaml" />
+            <ResourceDictionary>
+               <Storyboard x:Key="EntranceStoryboard">
+                  <DoubleAnimation Storyboard.TargetName="ScaleTransform"
+                     Storyboard.TargetProperty="ScaleX"
+                     From="0.95"
+                     To="1"
+                     Duration="0:0:0.25">
+                     <DoubleAnimation.EasingFunction>
+                        <BackEase EasingMode="EaseOut" />
+                     </DoubleAnimation.EasingFunction>
+                  </DoubleAnimation>
+                  <DoubleAnimation Storyboard.TargetName="ScaleTransform"
+                     Storyboard.TargetProperty="ScaleY"
+                     From="0.95"
+                     To="1"
+                     Duration="0:0:0.25">
+                     <DoubleAnimation.EasingFunction>
+                        <BackEase EasingMode="EaseOut" />
+                     </DoubleAnimation.EasingFunction>
+                  </DoubleAnimation>
+               </Storyboard>
+            </ResourceDictionary>
          </ResourceDictionary.MergedDictionaries>
       </ResourceDictionary>
    </UserControl.Resources>
+
+   <UserControl.Triggers>
+      <EventTrigger RoutedEvent="UserControl.Loaded">
+         <BeginStoryboard Storyboard="{StaticResource EntranceStoryboard}" />
+      </EventTrigger>
+   </UserControl.Triggers>
 
    <Grid Margin="20"
       RenderTransformOrigin="0.5,0.5">
