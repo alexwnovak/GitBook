@@ -142,6 +142,24 @@ namespace GitWrite.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to load file:.
+        /// </summary>
+        public static string FileLoadErrorMessage {
+            get {
+                return ResourceManager.GetString("FileLoadErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File load error.
+        /// </summary>
+        public static string FileLoadErrorTitle {
+            get {
+                return ResourceManager.GetString("FileLoadErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to _No.
         /// </summary>
         public static string NoText {

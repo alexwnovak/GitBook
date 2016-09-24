@@ -163,4 +163,10 @@
   <data name="YesText" xml:space="preserve">
     <value>_Yes</value>
   </data>
+  <data name="FileLoadErrorMessage" xml:space="preserve">
+    <value>Unable to load file:</value>
+  </data>
+  <data name="FileLoadErrorTitle" xml:space="preserve">
+    <value>File load error</value>
+  </data>
 </root>
