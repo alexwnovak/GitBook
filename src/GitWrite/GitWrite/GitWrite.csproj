@@ -131,6 +131,9 @@
     <Compile Include="Views\Controls\RadialTextBlock.xaml.cs">
       <DependentUpon>RadialTextBlock.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Controls\StyledDialog.xaml.cs">
+      <DependentUpon>StyledDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Controls\TransitionEntryBox.xaml.cs">
       <DependentUpon>TransitionEntryBox.xaml</DependentUpon>
     </Compile>
@@ -218,6 +221,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Controls\RadialTextBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\StyledDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
