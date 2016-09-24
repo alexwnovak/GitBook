@@ -49,7 +49,7 @@ namespace GitWrite
 
          try
          {
-            var commitDocumentReader = new CommitFileReader( new FileAdapter() );
+            var commitDocumentReader = SimpleIoc.Default.GetInstance<CommitFileReader>();
             commitDocument = commitDocumentReader.FromFile( fileName );
          }
          catch ( GitFileLoadException )
@@ -70,7 +70,7 @@ namespace GitWrite
 
          try
          {
-            var documentReader = new InteractiveRebaseFileReader( new FileAdapter() );
+            var documentReader = SimpleIoc.Default.GetInstance<InteractiveRebaseFileReader>();
             document = documentReader.FromFile( fileName );
          }
          catch ( GitFileLoadException )
@@ -91,6 +91,10 @@ namespace GitWrite
          SimpleIoc.Default.Register<IApplicationSettings>( () => new ApplicationSettings( new RegistryService() ) );
          SimpleIoc.Default.Register<ICommitFileReader>( () => new CommitFileReader( new FileAdapter() ) );
          SimpleIoc.Default.Register<IStoryboardHelper, StoryboardHelper>();
+         SimpleIoc.Default.Register<IFileAdapter, FileAdapter>();
+
+         SimpleIoc.Default.Register<CommitFileReader>();
+         SimpleIoc.Default.Register<InteractiveRebaseFileReader>();
       }
 
       private void InitializeTheme()
