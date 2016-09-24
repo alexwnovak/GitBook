@@ -109,16 +109,12 @@
     <Compile Include="Services\ResourceLocator.cs" />
     <Compile Include="Services\SoundService.cs" />
     <Compile Include="ViewModels\CloseRequestedEventArgs.cs" />
-    <Compile Include="ViewModels\ConfirmationViewModel.cs" />
     <Compile Include="ViewModels\GitWriteViewModelBase.cs" />
     <Compile Include="ViewModels\InteractiveRebaseViewModel.cs" />
     <Compile Include="ViewModels\RebaseItem.cs" />
     <Compile Include="Themes\ThemeSwitcher.cs" />
     <Compile Include="ViewModels\RebaseItemAction.cs" />
     <Compile Include="ViewModels\ShutdownEventArgs.cs" />
-    <Compile Include="Views\ConfirmationDialog.xaml.cs">
-      <DependentUpon>ConfirmationDialog.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ViewModels\ExitReason.cs" />
     <Compile Include="Views\Controls\DialogButtons.cs" />
     <Compile Include="Views\Controls\DialogResult.cs" />
@@ -207,10 +203,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\CommitWindowResources.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ConfirmationDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
