@@ -7,6 +7,7 @@ using GalaSoft.MvvmLight.Ioc;
 using GitWrite.Behaviors;
 using GitWrite.Services;
 using GitWrite.ViewModels;
+using GitWrite.Views.Controls;
 using Resx = GitWrite.Properties.Resources;
 
 namespace GitWrite.Views
@@ -48,8 +49,21 @@ namespace GitWrite.Views
 
       public ExitReason ConfirmExit()
       {
-         var confirmationDialog = new ConfirmationDialog( this );
-         return confirmationDialog.ShowDialog();   
+         string title = Resx.ExitConfirmationHeaderText;
+         string message = Resx.ExitConfirmationBodyText;
+
+         var styledDialog = new StyledDialog();
+         var dialogResult = styledDialog.ShowDialog( title, message, DialogButtons.SaveDiscardCancel );
+
+         switch ( dialogResult )
+         {
+            case Controls.DialogResult.Save:
+               return ExitReason.Save;
+            case Controls.DialogResult.Discard:
+               return ExitReason.Discard;
+            default:
+               return ExitReason.Cancel;
+         }
       }
 
       private string GetSaveText()
