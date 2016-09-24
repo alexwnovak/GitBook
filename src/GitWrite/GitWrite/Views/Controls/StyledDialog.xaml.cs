@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
@@ -42,6 +43,7 @@ namespace GitWrite.Views.Controls
             WindowStyle = WindowStyle.None
          };
 
+         _modalWindow.KeyDown += ModalWindowKeyDown;
          _modalWindow.Closing += ModalWindowClosing;
          _modalWindow.ShowDialog();
 
@@ -176,6 +178,15 @@ namespace GitWrite.Views.Controls
 
          storyboard.Completed += ( _, __ ) => _modalWindow.Close();
          storyboard.Begin();
+      }
+
+      private void ModalWindowKeyDown( object sender, KeyEventArgs e )
+      {
+         if ( e.Key == Key.Escape )
+         {
+            _dialogResult = DialogResult.Cancel;
+            _modalWindow.Close();
+         }
       }
    }
 }
