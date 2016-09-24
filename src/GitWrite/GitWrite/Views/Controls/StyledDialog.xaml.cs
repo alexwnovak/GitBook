@@ -11,9 +11,37 @@ namespace GitWrite.Views.Controls
 {
    public partial class StyledDialog : UserControl
    {
+      private DialogResult _dialogResult;
+      private Window _modalWindow;
+
       public StyledDialog()
       {
          InitializeComponent();
+      }
+
+      public DialogResult ShowDialog( string title, string message, DialogButtons buttons )
+      {
+         TitleTextBlock.Text = title;
+         MessageTextBlock.Text = message;
+
+         SetupButtons( buttons );
+
+         _modalWindow = new Window
+         {
+            AllowsTransparency = true,
+            Background = Brushes.Transparent,
+            Content = this,
+            Height = 230,
+            Owner = Application.Current.MainWindow,
+            ShowInTaskbar = false,
+            Width = 400,
+            WindowStartupLocation = WindowStartupLocation.CenterScreen,
+            WindowStyle = WindowStyle.None
+         };
+
+         _modalWindow.ShowDialog();
+
+         return _dialogResult;
       }
 
       private void SetupButtons( DialogButtons buttons )
@@ -86,7 +114,14 @@ namespace GitWrite.Views.Controls
       private void Button_OnClick( object sender, EventArgs e )
       {
          var button = (Button) sender;
+         AnimateButton( button );
 
+         _dialogResult = (DialogResult) button.Tag;
+         _modalWindow.Close();
+      }
+
+      private void AnimateButton( Button button )
+      {
          var ellipse = new Ellipse
          {
             Width = 0,
