@@ -11,7 +11,11 @@
    Foreground="{DynamicResource TextColor}">
 
    <UserControl.Resources>
-      <ResourceDictionary Source="../../Styles/ButtonStyle.xaml" />
+      <ResourceDictionary>
+         <ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary Source="../../Styles/ButtonStyle.xaml" />
+         </ResourceDictionary.MergedDictionaries>
+      </ResourceDictionary>
    </UserControl.Resources>
 
    <Grid Margin="20"
