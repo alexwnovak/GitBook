@@ -1,6 +1,6 @@
 ﻿using FluentAssertions;
-using GitWrite.Services;
 using Xunit;
+using GitWrite.Services;
 
 namespace GitWrite.UnitTests.Services
 {
