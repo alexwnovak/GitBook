@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -117,7 +116,6 @@ namespace GitWrite.Views.Controls
          AnimateButton( button );
 
          _dialogResult = (DialogResult) button.Tag;
-         _modalWindow.Close();
       }
 
       private void AnimateButton( Button button )
@@ -156,6 +154,7 @@ namespace GitWrite.Views.Controls
          storyboard.Children.Add( heightAnimation );
          storyboard.Children.Add( opacityAnimation );
 
+         storyboard.Completed += ( _, __ ) => _modalWindow.Close();
          storyboard.Begin();
       }
    }
