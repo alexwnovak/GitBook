@@ -27,13 +27,15 @@ namespace GitWrite.Views.Controls
 
          SetupButtons( buttons );
 
+         var mainWindow = Application.Current.MainWindow;
+
          _modalWindow = new Window
          {
             AllowsTransparency = true,
             Background = Brushes.Transparent,
             Content = this,
             Height = 230,
-            Owner = Application.Current.MainWindow,
+            Owner = mainWindow,
             ShowInTaskbar = false,
             Width = 400,
             WindowStartupLocation = WindowStartupLocation.CenterScreen,

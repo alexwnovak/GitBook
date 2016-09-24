@@ -8,6 +8,8 @@ using GitWrite.Services;
 using GitWrite.Themes;
 using GitWrite.ViewModels;
 using GitWrite.Views;
+using GitWrite.Views.Controls;
+using Resx = GitWrite.Properties.Resources;
 
 namespace GitWrite
 {
@@ -20,6 +22,8 @@ namespace GitWrite
 
          var appController = new AppController( new EnvironmentAdapter() );
          var applicationMode = appController.Start( e.Args );
+
+         EnsureFileExists( e.Args[0] );
 
          switch ( applicationMode )
          {
@@ -41,6 +45,23 @@ namespace GitWrite
          }
 
          StartupUri = GetStartupWindow( appController.ApplicationMode );
+      }
+
+      private void EnsureFileExists( string fileName )
+      {
+         var fileAdapter = SimpleIoc.Default.GetInstance<IFileAdapter>();
+
+         if ( !fileAdapter.Exists( fileName ) || fileAdapter.GetFileSize( fileName ) <= 0 )
+         {
+            string title = Resx.FileLoadErrorTitle;
+            string message = $"{Resx.FileLoadErrorMessage}{Environment.NewLine}{fileName}";
+
+            var dialog = new StyledDialog();
+            dialog.ShowDialog( title, message, DialogButtons.OK );
+
+            var environmentService = new EnvironmentAdapter();
+            environmentService.Exit( 1 );
+         }
       }
 
       private void CommitPath( string fileName )
