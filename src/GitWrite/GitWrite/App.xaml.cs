@@ -57,11 +57,8 @@ namespace GitWrite
             Shutdown();
          }
 
-         SimpleIoc.Default.Register( () => new CommitViewModel( SimpleIoc.Default.GetInstance<IViewService>(),
-            new AppService(),
-            new ClipboardService(),
-            commitDocument,
-            new GitService( GitRepositoryPathConverter.GetPath( commitDocument ) ) ) );
+         SimpleIoc.Default.Register<ICommitDocument>( () => commitDocument );
+         SimpleIoc.Default.Register<IGitService>( () => new GitService( null ) );
       }
 
       private void InteractiveRebasePath( string fileName )
@@ -92,9 +89,13 @@ namespace GitWrite
          SimpleIoc.Default.Register<ICommitFileReader>( () => new CommitFileReader( new FileAdapter() ) );
          SimpleIoc.Default.Register<IStoryboardHelper, StoryboardHelper>();
          SimpleIoc.Default.Register<IFileAdapter, FileAdapter>();
+         SimpleIoc.Default.Register<IAppService, AppService>();
+         SimpleIoc.Default.Register<IClipboardService, ClipboardService>();
 
          SimpleIoc.Default.Register<CommitFileReader>();
          SimpleIoc.Default.Register<InteractiveRebaseFileReader>();
+
+         SimpleIoc.Default.Register<CommitViewModel>();
       }
 
       private void InitializeTheme()
