@@ -75,9 +75,7 @@ namespace GitWrite
             Shutdown();
          }
 
-         SimpleIoc.Default.Register( () => new InteractiveRebaseViewModel( SimpleIoc.Default.GetInstance<IViewService>(),
-            new AppService(),
-            document ) );
+         SimpleIoc.Default.Register( () => document );
       }
 
       private void InitializeDependencies()
@@ -96,6 +94,7 @@ namespace GitWrite
          SimpleIoc.Default.Register<InteractiveRebaseFileReader>();
 
          SimpleIoc.Default.Register<CommitViewModel>();
+         SimpleIoc.Default.Register<InteractiveRebaseViewModel>();
       }
 
       private void InitializeTheme()
