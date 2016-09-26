@@ -24,6 +24,7 @@ namespace GitWrite.Views
          behaviors.Add( new WindowDragBehavior() );
          behaviors.Add( new WindowPlacementBehavior() );
          behaviors.Add( new CommitKeyPressBehavior() );
+         behaviors.Add( new SuppressAltBehavior() );
 
          Loaded += OnLoaded;
          Closing += OnClosing;
