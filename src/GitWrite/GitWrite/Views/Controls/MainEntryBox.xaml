@@ -53,8 +53,7 @@
       <local:RadialTextBlock Grid.Column="1"
          Width="80"
          Height="80"
-         Text="{Binding RadialText, Mode=OneWay}"
-         Progress="0.5">
+         Text="{Binding RadialText, Mode=OneWay}">
          <local:RadialTextBlock.Effect>
             <DropShadowEffect BlurRadius="16"
                ShadowDepth="1"
