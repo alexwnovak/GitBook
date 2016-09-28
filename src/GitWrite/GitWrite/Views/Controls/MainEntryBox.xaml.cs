@@ -146,10 +146,12 @@ namespace GitWrite.Views.Controls
 
       public void AnimateRadialTextTo( string text )
       {
+         RadialTextBlock.AnimateTextTo( text );
       }
 
       public void RestoreCounter()
       {
+         RadialTextBlock.RestoreCounter();
       }
    }
 }

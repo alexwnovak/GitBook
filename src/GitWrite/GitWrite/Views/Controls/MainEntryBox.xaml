@@ -50,7 +50,8 @@
          </Border>
       </Grid>
 
-      <local:RadialTextBlock Grid.Column="1"
+      <local:RadialTextBlock x:Name="RadialTextBlock"
+         Grid.Column="1"
          Width="80"
          Height="80"
          Text="{Binding RadialText, Mode=OneWay}">

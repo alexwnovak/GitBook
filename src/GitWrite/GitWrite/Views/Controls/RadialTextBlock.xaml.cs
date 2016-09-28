@@ -101,5 +101,122 @@ namespace GitWrite.Views.Controls
          InitializeComponent();
          Messenger.Default.Register<PulseRequestedMessage>( this, m => PulseRing( ProgressRing ) );
       }
+
+      public void AnimateTextTo( string text )
+      {
+         const double duration = 300;
+
+         FadeOutCounter( duration );
+         FadeInSecondaryText( text, duration );
+      }
+
+      public void RestoreCounter()
+      {
+         const double duration = 300;
+
+         FadeInCounter( duration );
+         FadeOutSecondaryText( duration );
+      }
+
+      private void FadeOutCounter( double duration )
+      {
+         var translateTransform = new TranslateTransform();
+
+         TextBlock.RenderTransformOrigin = new Point( 0.5, 0.5 );
+         TextBlock.RenderTransform = translateTransform;
+
+         var offsetAnimation = new DoubleAnimation
+         {
+            To = -16,
+            Duration = new Duration( TimeSpan.FromMilliseconds( duration ) ),
+            EasingFunction = new CircleEase
+            {
+               EasingMode = EasingMode.EaseOut
+            }
+         };
+
+         var opacityAnimation = new DoubleAnimation
+         {
+            To = 0,
+            Duration = new Duration( TimeSpan.FromMilliseconds( duration ) )
+         };
+
+         translateTransform.BeginAnimation( TranslateTransform.YProperty, offsetAnimation );
+         TextBlock.BeginAnimation( OpacityProperty, opacityAnimation );
+      }
+
+      private void FadeInCounter( double duration )
+      {
+         var offsetAnimation = new DoubleAnimation
+         {
+            To = 0,
+            Duration = new Duration( TimeSpan.FromMilliseconds( duration ) ),
+            EasingFunction = new CircleEase
+            {
+               EasingMode = EasingMode.EaseOut
+            }
+         };
+
+         var opacityAnimation = new DoubleAnimation
+         {
+            To = 1,
+            Duration = new Duration( TimeSpan.FromMilliseconds( duration ) )
+         };
+
+         TextBlock.RenderTransform.BeginAnimation( TranslateTransform.YProperty, offsetAnimation );
+         TextBlock.BeginAnimation( OpacityProperty, opacityAnimation );
+      }
+
+      private void FadeInSecondaryText( string text, double duration )
+      {
+         var translateTransform = new TranslateTransform();
+
+         SecondaryTextBlock.RenderTransformOrigin = new Point( 0.5, 0.5 );
+         SecondaryTextBlock.RenderTransform = translateTransform;
+         SecondaryTextBlock.Text = text;
+
+         var offsetAnimation = new DoubleAnimation
+         {
+            From = 16,
+            To = 0,
+            Duration = new Duration( TimeSpan.FromMilliseconds( duration ) ),
+            EasingFunction = new CircleEase
+            {
+               EasingMode = EasingMode.EaseOut
+            }
+         };
+
+         var opacityAnimation = new DoubleAnimation
+         {
+            From = 0,
+            To = 1,
+            Duration = new Duration( TimeSpan.FromMilliseconds( duration ) )
+         };
+
+         translateTransform.BeginAnimation( TranslateTransform.YProperty, offsetAnimation );
+         SecondaryTextBlock.BeginAnimation( OpacityProperty, opacityAnimation );
+      }
+
+      private void FadeOutSecondaryText( double duration )
+      {
+         var offsetAnimation = new DoubleAnimation
+         {
+            To = 16,
+            Duration = new Duration( TimeSpan.FromMilliseconds( duration ) ),
+            EasingFunction = new CircleEase
+            {
+               EasingMode = EasingMode.EaseOut
+            }
+         };
+
+         var opacityAnimation = new DoubleAnimation
+         {
+            To = 0,
+            Duration = new Duration( TimeSpan.FromMilliseconds( duration ) )
+         };
+
+         SecondaryTextBlock.RenderTransform.BeginAnimation( TranslateTransform.YProperty, offsetAnimation );
+         SecondaryTextBlock.BeginAnimation( OpacityProperty, opacityAnimation );
+      }
    }
 }
