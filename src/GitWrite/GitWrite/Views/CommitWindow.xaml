@@ -18,7 +18,9 @@
    FocusManager.FocusedElement="{Binding ElementName=MainEntryBox}"
    CommandManager.PreviewCanExecute="CommitWindow_OnPreviewCanExecute"
    DataContext="{Binding CommitViewModel, Source={StaticResource ViewModelLocator}}"
-   Loaded="CommitWindow_OnLoaded">
+   Loaded="CommitWindow_OnLoaded"
+   PreviewKeyDown="CommitWindow_OnPreviewKeyDown"
+   PreviewKeyUp="CommitWindow_OnPreviewKeyUp">
 
    <Window.Resources>
       <ResourceDictionary>

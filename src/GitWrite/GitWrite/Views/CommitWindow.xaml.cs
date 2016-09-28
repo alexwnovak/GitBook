@@ -327,5 +327,13 @@ namespace GitWrite.Views
       {
          Messenger.Default.Send( new PulseRequestedMessage() );
       }
+
+      private void CommitWindow_OnPreviewKeyDown( object sender, KeyEventArgs e )
+      {
+      }
+
+      private void CommitWindow_OnPreviewKeyUp( object sender, KeyEventArgs e )
+      {
+      }
    }
 }
