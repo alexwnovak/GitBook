@@ -20,11 +20,19 @@
       CornerRadius="1000">
 
       <Grid>
-         <TextBlock Foreground="{DynamicResource TextColor}"
+         <TextBlock x:Name="TextBlock"
+            Foreground="{DynamicResource TextColor}"
             FontSize="24"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             Text="{Binding Text, ElementName=LayoutRoot}" />
+
+         <TextBlock x:Name="SecondaryTextBlock"
+            Foreground="{DynamicResource TextColor}"
+            FontSize="24"
+            FontFamily="Segoe MDL2 Assets"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center" />
 
          <Ellipse x:Name="ProgressRing"
             Margin="4"

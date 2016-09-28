@@ -143,5 +143,15 @@ namespace GitWrite.Views.Controls
 
       private void MainEntryBox_OnLoaded( object sender, RoutedEventArgs e )
          => PrimaryTextBox.SelectionStart = PrimaryTextBox.Text.Length;
+
+      public void AnimateRadialTextTo( string text )
+      {
+         RadialTextBlock.AnimateTextTo( text );
+      }
+
+      public void RestoreCounter()
+      {
+         RadialTextBlock.RestoreCounter();
+      }
    }
 }
