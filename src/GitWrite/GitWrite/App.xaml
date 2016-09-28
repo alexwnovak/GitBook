@@ -26,5 +26,6 @@
       <SolidColorBrush x:Key="HighlightColor" Color="#80D2F560" PresentationOptions:Freeze="True" />
       <clr:String x:Key="AcceptCommitGlyph">&#xE10B;</clr:String>
       <clr:String x:Key="AbortCommitGlyph">&#xE10A;</clr:String>
+      <clr:String x:Key="AcceptHintGlyph">&#xE111;</clr:String>
    </Application.Resources>
 </Application>

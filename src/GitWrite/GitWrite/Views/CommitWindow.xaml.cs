@@ -20,6 +20,7 @@ namespace GitWrite.Views
       private readonly CommitViewModel _viewModel;
       private readonly ISoundService _soundService = new SoundService();
       private readonly IApplicationSettings _applicationSettings = new ApplicationSettings( new RegistryService() );
+      private bool _isCtrlDown;
 
       public CommitWindow()
       {
@@ -330,10 +331,25 @@ namespace GitWrite.Views
 
       private void CommitWindow_OnPreviewKeyDown( object sender, KeyEventArgs e )
       {
+         if ( e.Key == Key.LeftCtrl && !_isCtrlDown )
+         {
+            _isCtrlDown = true;
+
+            string acceptGlyph = (string) Application.Current.Resources["AcceptHintGlyph"];
+            MainEntryBox.AnimateRadialTextTo( acceptGlyph );
+         }
       }
 
       private void CommitWindow_OnPreviewKeyUp( object sender, KeyEventArgs e )
       {
+         bool wasSystemKey = e.Key == Key.System && ( e.SystemKey == Key.LeftCtrl || e.SystemKey == Key.RightCtrl );
+         bool wasNormalKey = e.Key != Key.System && ( e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl );
+
+         if ( wasSystemKey || wasNormalKey )
+         {
+            MainEntryBox.RestoreCounter();
+            _isCtrlDown = false;
+         }
       }
    }
 }
