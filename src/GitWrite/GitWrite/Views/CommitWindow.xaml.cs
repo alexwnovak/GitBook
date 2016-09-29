@@ -347,8 +347,19 @@ namespace GitWrite.Views
 
          if ( wasSystemKey || wasNormalKey )
          {
+            RestoreCounter();
+         }
+      }
+
+      private void CommitWindow_OnActivated( object sender, EventArgs e ) => RestoreCounter();
+
+      private void RestoreCounter()
+      {
+         if ( _isCtrlDown )
+         {
             MainEntryBox.RestoreCounter();
             _isCtrlDown = false;
+
          }
       }
    }
