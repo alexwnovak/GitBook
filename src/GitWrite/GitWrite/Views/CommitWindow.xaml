@@ -20,7 +20,8 @@
    DataContext="{Binding CommitViewModel, Source={StaticResource ViewModelLocator}}"
    Loaded="CommitWindow_OnLoaded"
    PreviewKeyDown="CommitWindow_OnPreviewKeyDown"
-   PreviewKeyUp="CommitWindow_OnPreviewKeyUp">
+   PreviewKeyUp="CommitWindow_OnPreviewKeyUp"
+   Activated="CommitWindow_OnActivated">
 
    <Window.Resources>
       <ResourceDictionary>
