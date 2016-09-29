@@ -119,10 +119,19 @@ namespace GitWrite.Views.Controls
 
          button.Click += Button_OnClick;
 
-         var grid = new Grid
+         var canvas = new Canvas
          {
-            HorizontalAlignment = HorizontalAlignment.Stretch,
-            VerticalAlignment = VerticalAlignment.Stretch
+            Width = button.Width,
+            Height = button.Height,
+            ClipToBounds = true
+         };
+
+         var accessGrid = new Grid
+         {
+            Width = button.Width - 2,
+            Height = button.Height - 2,
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center
          };
 
          var accessText = new AccessText
@@ -130,12 +139,21 @@ namespace GitWrite.Views.Controls
             Foreground = Brushes.White,
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Center,
-            Text = text
+            Text = text,
          };
 
-         grid.Children.Add( accessText );
+         var ellipse = new Ellipse
+         {
+            Width = 0,
+            Height = 0,
+            Fill = new SolidColorBrush( Color.FromArgb( 64, 255, 255, 255 ) ),
+         };
 
-         button.Content = grid;
+         accessGrid.Children.Add( accessText );
+         canvas.Children.Add( accessGrid );
+         canvas.Children.Add( ellipse );
+
+         button.Content = canvas;
 
          ButtonPanel.Children.Add( button );
       }
@@ -143,32 +161,52 @@ namespace GitWrite.Views.Controls
       private void Button_OnClick( object sender, EventArgs e )
       {
          var button = (Button) sender;
-         AnimateButton( button );
+         Point deltaOffset;
+
+         if ( button.IsMouseOver )
+         {
+            deltaOffset = Mouse.GetPosition( button );
+         }
+         else
+         {
+            deltaOffset = new Point( button.Width / 2, button.Height / 2 );
+         }
+
+         AnimateButton( button, deltaOffset );
 
          _dialogResult = (DialogResult) button.Tag;
       }
 
-      private void AnimateButton( Button button )
+      private void AnimateButton( Button button, Point deltaOffset )
       {
-         var ellipse = new Ellipse
-         {
-            Width = 0,
-            Height = 0,
-            HorizontalAlignment = HorizontalAlignment.Center,
-            VerticalAlignment = VerticalAlignment.Center,
-            Fill = new SolidColorBrush( Color.FromArgb( 64, 255, 255, 255 ) )
-         };
 
-         var grid = (Grid) button.Content;
-         grid.Children.Add( ellipse );
+         var canvas = (Canvas) button.Content;
+         var ellipse = (Ellipse) canvas.Children[1];
+
+         Canvas.SetLeft( ellipse, deltaOffset.X );
+         Canvas.SetTop( ellipse, deltaOffset.Y );
 
          var storyboard = new Storyboard();
 
-         var widthAnimation = new DoubleAnimation( 0, button.ActualWidth * 2, new Duration( TimeSpan.FromMilliseconds( 250 ) ) );
-         var heightAnimation = new DoubleAnimation( 0, button.ActualWidth * 2, widthAnimation.Duration );
+         double finalSize = button.ActualWidth * 2;
+
+         var widthAnimation = new DoubleAnimation( 0, finalSize, new Duration( TimeSpan.FromMilliseconds( 250 ) ) );
+         var heightAnimation = new DoubleAnimation( 0, finalSize, widthAnimation.Duration );
          var opacityAnimation = new DoubleAnimation( 1, 0, new Duration( TimeSpan.FromMilliseconds( 200 ) ) )
          {
             BeginTime = TimeSpan.FromMilliseconds( 80 )
+         };
+         var leftAnimation = new DoubleAnimation
+         {
+            From = deltaOffset.X,
+            To = deltaOffset.X - finalSize / 2,
+            Duration = widthAnimation.Duration
+         };
+         var topAnimation = new DoubleAnimation
+         {
+            From = deltaOffset.Y,
+            To = deltaOffset.Y - finalSize / 2,
+            Duration = widthAnimation.Duration
          };
 
          Storyboard.SetTarget( widthAnimation, ellipse );
@@ -180,9 +218,17 @@ namespace GitWrite.Views.Controls
          Storyboard.SetTarget( opacityAnimation, ellipse );
          Storyboard.SetTargetProperty( opacityAnimation, new PropertyPath( OpacityProperty ) );
 
+         Storyboard.SetTarget( leftAnimation, ellipse );
+         Storyboard.SetTargetProperty( leftAnimation, new PropertyPath( Canvas.LeftProperty ) );
+
+         Storyboard.SetTarget( topAnimation, ellipse );
+         Storyboard.SetTargetProperty( topAnimation, new PropertyPath( Canvas.TopProperty ) );
+
          storyboard.Children.Add( widthAnimation );
          storyboard.Children.Add( heightAnimation );
          storyboard.Children.Add( opacityAnimation );
+         storyboard.Children.Add( leftAnimation );
+         storyboard.Children.Add( topAnimation );
 
          storyboard.Completed += ( _, __ ) => _modalWindow.Close();
          storyboard.Begin();
