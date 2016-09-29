@@ -3,8 +3,6 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Media;
-using GalaSoft.MvvmLight.Ioc;
-using GitWrite.Services;
 
 namespace GitWrite.Views.Controls
 {

@@ -359,7 +359,6 @@ namespace GitWrite.Views
          {
             MainEntryBox.RestoreCounter();
             _isCtrlDown = false;
-
          }
       }
    }
