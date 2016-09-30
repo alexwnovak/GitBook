@@ -12,6 +12,7 @@ using GalaSoft.MvvmLight.Messaging;
 using GitWrite.Messages;
 using GitWrite.Services;
 using GitWrite.ViewModels;
+using GitWrite.Views.Controls;
 
 namespace GitWrite.Views
 {
@@ -33,6 +34,8 @@ namespace GitWrite.Views
          _viewModel.CollapseRequested += OnCollapseRequested;
          _viewModel.ShakeRequested += OnShakeRequested;
          _viewModel.AsyncExitRequested += OnAsyncExitRequested;
+
+         AddHandler( RadialTextBlock.RadialMouseEnterEvent, new RoutedEventHandler( OnRadialMouseEnter ) );
       }
 
       private async void CommitWindow_OnLoaded( object sender, RoutedEventArgs e )
@@ -329,14 +332,17 @@ namespace GitWrite.Views
          Messenger.Default.Send( new PulseRequestedMessage() );
       }
 
+
+      private void OnRadialMouseEnter( object sender, RoutedEventArgs e )
+      {
+         HideCounter();
+      }
+
       private void CommitWindow_OnPreviewKeyDown( object sender, KeyEventArgs e )
       {
-         if ( e.Key == Key.LeftCtrl && !_isCtrlDown )
+         if ( e.Key == Key.LeftCtrl )
          {
-            _isCtrlDown = true;
-
-            string acceptGlyph = (string) Application.Current.Resources["AcceptHintGlyph"];
-            MainEntryBox.AnimateRadialTextTo( acceptGlyph );
+            HideCounter();
          }
       }
 
@@ -352,6 +358,17 @@ namespace GitWrite.Views
       }
 
       private void CommitWindow_OnActivated( object sender, EventArgs e ) => RestoreCounter();
+
+      private void HideCounter()
+      {
+         if ( !_isCtrlDown )
+         {
+            _isCtrlDown = true;
+
+            string acceptGlyph = (string) Application.Current.Resources["AcceptHintGlyph"];
+            MainEntryBox.AnimateRadialTextTo( acceptGlyph );
+         }
+      }
 
       private void RestoreCounter()
       {
