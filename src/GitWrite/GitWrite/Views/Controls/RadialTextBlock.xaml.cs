@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
@@ -14,6 +15,45 @@ namespace GitWrite.Views.Controls
    {
       public static DependencyProperty TextProperty = MainEntryBox.TextProperty.AddOwner( typeof( RadialTextBlock ),
          new PropertyMetadata( OnTextPropertyChanged ) );
+
+      public static readonly RoutedEvent RadialMouseEnterEvent = EventManager.RegisterRoutedEvent( nameof( RadialMouseEnter ),
+         RoutingStrategy.Bubble,
+         typeof( RoutedEventHandler ),
+         typeof( RadialTextBlock ) );
+
+      public event RoutedEventHandler RadialMouseEnter
+      {
+         add { AddHandler( RadialMouseEnterEvent, value ); }
+         remove { RemoveHandler( RadialMouseEnterEvent, value ); }
+      }
+
+      private void RaiseRadialMouseEnterEvent() => RaiseEvent( new RoutedEventArgs( RadialMouseEnterEvent ) );
+
+      public static readonly RoutedEvent RadialMouseLeaveEvent = EventManager.RegisterRoutedEvent( nameof( RadialMouseLeave ),
+         RoutingStrategy.Bubble,
+         typeof( RoutedEventHandler ),
+         typeof( RadialTextBlock ) );
+
+      public event RoutedEventHandler RadialMouseLeave
+      {
+         add { AddHandler( RadialMouseLeaveEvent, value ); }
+         remove { RemoveHandler( RadialMouseLeaveEvent, value ); }
+      }
+
+      private void RaiseRadialMouseLeaveEvent() => RaiseEvent( new RoutedEventArgs( RadialMouseLeaveEvent ) );
+
+      public static readonly RoutedEvent RadialClickEvent = EventManager.RegisterRoutedEvent( nameof( RadialClick ),
+         RoutingStrategy.Bubble,
+         typeof( RoutedEventHandler ),
+         typeof( RadialTextBlock ) );
+
+      public event RoutedEventHandler RadialClick
+      {
+         add { AddHandler( RadialClickEvent, value ); }
+         remove { RemoveHandler( RadialClickEvent, value ); }
+      }
+
+      private void RaiseRadialClickEvent() => RaiseEvent( new RoutedEventArgs( RadialClickEvent ) );
 
       public string Text
       {
@@ -217,6 +257,17 @@ namespace GitWrite.Views.Controls
 
          SecondaryTextBlock.RenderTransform.BeginAnimation( TranslateTransform.YProperty, offsetAnimation );
          SecondaryTextBlock.BeginAnimation( OpacityProperty, opacityAnimation );
+      }
+
+      private void OnMouseEnter( object sender, MouseEventArgs e ) => RaiseRadialMouseEnterEvent();
+      private void OnMouseLeave( object sender, MouseEventArgs e ) => RaiseRadialMouseLeaveEvent();
+
+      private void OnMouseDown( object sender, MouseEventArgs e )
+      {
+         if ( e.LeftButton == MouseButtonState.Pressed )
+         {
+            RaiseRadialClickEvent();
+         }
       }
    }
 }
