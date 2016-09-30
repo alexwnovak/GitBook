@@ -19,7 +19,8 @@
       BorderThickness="2"
       CornerRadius="1000"
       MouseEnter="OnMouseEnter"
-      MouseLeave="OnMouseLeave">
+      MouseLeave="OnMouseLeave"
+      MouseDown="OnMouseDown">
 
       <Grid>
          <TextBlock x:Name="TextBlock"

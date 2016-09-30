@@ -37,6 +37,7 @@ namespace GitWrite.Views
 
          AddHandler( RadialTextBlock.RadialMouseEnterEvent, new RoutedEventHandler( OnRadialMouseEnter ) );
          AddHandler( RadialTextBlock.RadialMouseLeaveEvent, new RoutedEventHandler( OnRadialMouseLeave ) );
+         AddHandler( RadialTextBlock.RadialClickEvent, new RoutedEventHandler( OnRadialClick ) );
       }
 
       private async void CommitWindow_OnLoaded( object sender, RoutedEventArgs e )
@@ -382,6 +383,11 @@ namespace GitWrite.Views
             MainEntryBox.RestoreCounter();
             _isCtrlDown = false;
          }
+      }
+
+      private void OnRadialClick( object sender, RoutedEventArgs e )
+      {
+         _viewModel.SaveCommand.Execute( null );
       }
    }
 }

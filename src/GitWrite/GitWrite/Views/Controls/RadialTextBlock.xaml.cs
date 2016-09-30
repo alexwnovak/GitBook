@@ -42,6 +42,19 @@ namespace GitWrite.Views.Controls
 
       private void RaiseRadialMouseLeaveEvent() => RaiseEvent( new RoutedEventArgs( RadialMouseLeaveEvent ) );
 
+      public static readonly RoutedEvent RadialClickEvent = EventManager.RegisterRoutedEvent( nameof( RadialClick ),
+         RoutingStrategy.Bubble,
+         typeof( RoutedEventHandler ),
+         typeof( RadialTextBlock ) );
+
+      public event RoutedEventHandler RadialClick
+      {
+         add { AddHandler( RadialClickEvent, value ); }
+         remove { RemoveHandler( RadialClickEvent, value ); }
+      }
+
+      private void RaiseRadialClickEvent() => RaiseEvent( new RoutedEventArgs( RadialClickEvent ) );
+
       public string Text
       {
          get
@@ -248,5 +261,13 @@ namespace GitWrite.Views.Controls
 
       private void OnMouseEnter( object sender, MouseEventArgs e ) => RaiseRadialMouseEnterEvent();
       private void OnMouseLeave( object sender, MouseEventArgs e ) => RaiseRadialMouseLeaveEvent();
+
+      private void OnMouseDown( object sender, MouseEventArgs e )
+      {
+         if ( e.LeftButton == MouseButtonState.Pressed )
+         {
+            RaiseRadialClickEvent();
+         }
+      }
    }
 }
