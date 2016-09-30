@@ -18,7 +18,8 @@
       BorderBrush="{DynamicResource WindowBorderColor}"
       BorderThickness="2"
       CornerRadius="1000"
-      MouseEnter="OnMouseEnter">
+      MouseEnter="OnMouseEnter"
+      MouseLeave="OnMouseLeave">
 
       <Grid>
          <TextBlock x:Name="TextBlock"

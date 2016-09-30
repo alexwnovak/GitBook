@@ -36,6 +36,7 @@ namespace GitWrite.Views
          _viewModel.AsyncExitRequested += OnAsyncExitRequested;
 
          AddHandler( RadialTextBlock.RadialMouseEnterEvent, new RoutedEventHandler( OnRadialMouseEnter ) );
+         AddHandler( RadialTextBlock.RadialMouseLeaveEvent, new RoutedEventHandler( OnRadialMouseLeave ) );
       }
 
       private async void CommitWindow_OnLoaded( object sender, RoutedEventArgs e )
@@ -332,10 +333,14 @@ namespace GitWrite.Views
          Messenger.Default.Send( new PulseRequestedMessage() );
       }
 
-
       private void OnRadialMouseEnter( object sender, RoutedEventArgs e )
       {
          HideCounter();
+      }
+
+      private void OnRadialMouseLeave( object sender, RoutedEventArgs e )
+      {
+         RestoreCounter();
       }
 
       private void CommitWindow_OnPreviewKeyDown( object sender, KeyEventArgs e )
