@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
@@ -14,6 +15,19 @@ namespace GitWrite.Views.Controls
    {
       public static DependencyProperty TextProperty = MainEntryBox.TextProperty.AddOwner( typeof( RadialTextBlock ),
          new PropertyMetadata( OnTextPropertyChanged ) );
+
+      public static readonly RoutedEvent RadialMouseEnterEvent = EventManager.RegisterRoutedEvent( nameof( RadialMouseEnter ),
+         RoutingStrategy.Bubble,
+         typeof( RoutedEventHandler ),
+         typeof( RadialTextBlock ) );
+
+      public event RoutedEventHandler RadialMouseEnter
+      {
+         add { AddHandler( RadialMouseEnterEvent, value ); }
+         remove { RemoveHandler( RadialMouseEnterEvent, value ); }
+      }
+
+      private void RaiseRadialMouseEnterEvent() => RaiseEvent( new RoutedEventArgs( RadialMouseEnterEvent ) );
 
       public string Text
       {
@@ -218,5 +232,7 @@ namespace GitWrite.Views.Controls
          SecondaryTextBlock.RenderTransform.BeginAnimation( TranslateTransform.YProperty, offsetAnimation );
          SecondaryTextBlock.BeginAnimation( OpacityProperty, opacityAnimation );
       }
+
+      private void OnMouseEnter( object sender, MouseEventArgs e ) => RaiseRadialMouseEnterEvent();
    }
 }
