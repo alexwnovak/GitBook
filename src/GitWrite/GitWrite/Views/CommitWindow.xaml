@@ -21,7 +21,10 @@
    Loaded="CommitWindow_OnLoaded"
    PreviewKeyDown="CommitWindow_OnPreviewKeyDown"
    PreviewKeyUp="CommitWindow_OnPreviewKeyUp"
-   Activated="CommitWindow_OnActivated">
+   Activated="CommitWindow_OnActivated"
+   c:RadialTextBlock.RadialMouseEnter="OnRadialMouseEnter"
+   c:RadialTextBlock.RadialMouseLeave="OnRadialMouseLeave"
+   c:RadialTextBlock.RadialClick="OnRadialClick">
 
    <Window.Resources>
       <ResourceDictionary>
