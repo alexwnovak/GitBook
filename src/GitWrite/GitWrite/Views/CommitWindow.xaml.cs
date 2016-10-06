@@ -8,6 +8,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Effects;
 using System.Windows.Media.Media3D;
+using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using GitWrite.Messages;
 using GitWrite.Services;
@@ -20,7 +21,7 @@ namespace GitWrite.Views
    {
       private readonly CommitViewModel _viewModel;
       private readonly ISoundService _soundService = new SoundService();
-      private readonly IApplicationSettings _applicationSettings = new ApplicationSettings( new RegistryService() );
+      private readonly IApplicationSettings _applicationSettings = SimpleIoc.Default.GetInstance<IApplicationSettings>();
       private bool _isCtrlDown;
 
       public CommitWindow()

@@ -20,7 +20,7 @@ namespace GitWrite
          InitializeDependencies();
          InitializeTheme();
 
-         var appController = new AppController( new EnvironmentAdapter() );
+         var appController = SimpleIoc.Default.GetInstance<AppController>();
          var applicationMode = appController.Start( e.Args );
 
          EnsureFileExists( e.Args[0] );
@@ -70,7 +70,7 @@ namespace GitWrite
 
          try
          {
-            var commitDocumentReader = SimpleIoc.Default.GetInstance<CommitFileReader>();
+            var commitDocumentReader = SimpleIoc.Default.GetInstance<ICommitFileReader>();
             commitDocument = commitDocumentReader.FromFile( fileName );
          }
          catch ( GitFileLoadException )
@@ -103,16 +103,18 @@ namespace GitWrite
       {
          ServiceLocator.SetLocatorProvider( () => SimpleIoc.Default );
 
-         SimpleIoc.Default.Register<IApplicationSettings>( () => new ApplicationSettings( new RegistryService() ) );
-         SimpleIoc.Default.Register<ICommitFileReader>( () => new CommitFileReader( new FileAdapter() ) );
+         SimpleIoc.Default.Register<IApplicationSettings>( () => new ApplicationSettings() );
+         SimpleIoc.Default.Register<ICommitFileReader>( () => new CommitFileReader() );
          SimpleIoc.Default.Register<IStoryboardHelper, StoryboardHelper>();
          SimpleIoc.Default.Register<IFileAdapter, FileAdapter>();
          SimpleIoc.Default.Register<IAppService, AppService>();
          SimpleIoc.Default.Register<IClipboardService, ClipboardService>();
+         SimpleIoc.Default.Register<IRegistryService, RegistryService>();
+         SimpleIoc.Default.Register<IEnvironmentAdapter, EnvironmentAdapter>();
 
-         SimpleIoc.Default.Register<CommitFileReader>();
          SimpleIoc.Default.Register<InteractiveRebaseFileReader>();
 
+         SimpleIoc.Default.Register<AppController>();
          SimpleIoc.Default.Register<CommitViewModel>();
          SimpleIoc.Default.Register<InteractiveRebaseViewModel>();
       }
