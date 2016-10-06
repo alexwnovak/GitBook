@@ -35,10 +35,6 @@ namespace GitWrite.Views
          _viewModel.CollapseRequested += OnCollapseRequested;
          _viewModel.ShakeRequested += OnShakeRequested;
          _viewModel.AsyncExitRequested += OnAsyncExitRequested;
-
-         AddHandler( RadialTextBlock.RadialMouseEnterEvent, new RoutedEventHandler( OnRadialMouseEnter ) );
-         AddHandler( RadialTextBlock.RadialMouseLeaveEvent, new RoutedEventHandler( OnRadialMouseLeave ) );
-         AddHandler( RadialTextBlock.RadialClickEvent, new RoutedEventHandler( OnRadialClick ) );
       }
 
       private async void CommitWindow_OnLoaded( object sender, RoutedEventArgs e )
