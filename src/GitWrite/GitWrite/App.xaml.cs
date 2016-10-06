@@ -20,7 +20,7 @@ namespace GitWrite
          InitializeDependencies();
          InitializeTheme();
 
-         var appController = new AppController( new EnvironmentAdapter() );
+         var appController = SimpleIoc.Default.GetInstance<AppController>();
          var applicationMode = appController.Start( e.Args );
 
          EnsureFileExists( e.Args[0] );
@@ -110,9 +110,11 @@ namespace GitWrite
          SimpleIoc.Default.Register<IAppService, AppService>();
          SimpleIoc.Default.Register<IClipboardService, ClipboardService>();
          SimpleIoc.Default.Register<IRegistryService, RegistryService>();
+         SimpleIoc.Default.Register<IEnvironmentAdapter, EnvironmentAdapter>();
 
          SimpleIoc.Default.Register<InteractiveRebaseFileReader>();
 
+         SimpleIoc.Default.Register<AppController>();
          SimpleIoc.Default.Register<CommitViewModel>();
          SimpleIoc.Default.Register<InteractiveRebaseViewModel>();
       }
