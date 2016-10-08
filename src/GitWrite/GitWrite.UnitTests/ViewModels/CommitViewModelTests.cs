@@ -67,7 +67,7 @@ namespace GitWrite.UnitTests.ViewModels
          bool expanded = false;
 
          var commitViewModel = new CommitViewModel( null, null, null, null, null );
-         commitViewModel.ExpansionRequested += ( sender, e ) =>
+         commitViewModel.AsyncExpansionRequested += ( sender, e ) =>
          {
             expanded = true;
             return Task.CompletedTask;
@@ -122,7 +122,7 @@ namespace GitWrite.UnitTests.ViewModels
             ExtraCommitText = "Extra notes"
          };
 
-         commitViewModel.ExpansionRequested += ( sender, e ) =>
+         commitViewModel.AsyncExpansionRequested += ( sender, e ) =>
          {
             expanded = true;
             return Task.CompletedTask;
@@ -146,7 +146,7 @@ namespace GitWrite.UnitTests.ViewModels
 
          var commitViewModel = new CommitViewModel( null, null, null, commitDocumentMock.Object, null );
 
-         commitViewModel.ShakeRequested += ( _, __ ) =>
+         commitViewModel.AsyncShakeRequested += ( _, __ ) =>
          {
             shakeRequestedRaised = true;
             return Task.CompletedTask;
@@ -233,7 +233,7 @@ namespace GitWrite.UnitTests.ViewModels
             IsExpanded = false
          };
 
-         commitViewModel.ExpansionRequested += ( sender, e ) =>
+         commitViewModel.AsyncExpansionRequested += ( sender, e ) =>
          {
             expansionEventRaised = true;
             return Task.CompletedTask;
@@ -267,7 +267,7 @@ namespace GitWrite.UnitTests.ViewModels
             IsExpanded = true
          };
 
-         commitViewModel.ExpansionRequested += ( sender, e ) =>
+         commitViewModel.AsyncExpansionRequested += ( sender, e ) =>
          {
             expansionEventRaised = true;
             return Task.CompletedTask;
@@ -303,7 +303,7 @@ namespace GitWrite.UnitTests.ViewModels
             IsExpanded = true
          };
 
-         commitViewModel.ExpansionRequested += ( sender, e ) =>
+         commitViewModel.AsyncExpansionRequested += ( sender, e ) =>
          {
             expansionEventRaised = true;
             return Task.CompletedTask;
@@ -763,7 +763,7 @@ namespace GitWrite.UnitTests.ViewModels
             IsExpanded = true
          };
 
-         viewModel.CollapseRequested += ( _, __ ) =>
+         viewModel.AsyncCollapseRequested += ( _, __ ) =>
          {
             wasRaised = true;
             return Task.CompletedTask;
@@ -793,7 +793,7 @@ namespace GitWrite.UnitTests.ViewModels
             IsExpanded = false
          };
 
-         viewModel.CollapseRequested += ( _, __ ) =>
+         viewModel.AsyncCollapseRequested += ( _, __ ) =>
          {
             wasRaised = true;
             return Task.CompletedTask;
@@ -824,7 +824,7 @@ namespace GitWrite.UnitTests.ViewModels
             IsExiting = false
          };
 
-         viewModel.ShakeRequested += ( _, __ ) =>
+         viewModel.AsyncShakeRequested += ( _, __ ) =>
          {
             wasRaised = true;
             return Task.CompletedTask;
