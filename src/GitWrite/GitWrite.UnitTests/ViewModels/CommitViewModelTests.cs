@@ -745,5 +745,65 @@ namespace GitWrite.UnitTests.ViewModels
 
       //   appServiceMock.Verify( @as => @as.Shutdown(), Times.Once() );
       //}
+
+      [Fact]
+      public void AbortCommand_ExpandedFlagIsSet_RaisesCollapseRequested()
+      {
+         bool wasRaised = false;
+
+         // Arrange
+
+         var appServiceMock = new Mock<IAppService>();
+         var commitDocumentMock = new Mock<ICommitDocument>();
+
+         // Act
+
+         var viewModel = new CommitViewModel( null, appServiceMock.Object, null, commitDocumentMock.Object, null )
+         {
+            IsExpanded = true
+         };
+
+         viewModel.CollapseRequested += ( _, __ ) =>
+         {
+            wasRaised = true;
+            return Task.CompletedTask;
+         };
+
+         viewModel.AbortCommand.Execute( null );
+
+         // Assert
+
+         wasRaised.Should().BeTrue();
+      }
+
+      [Fact]
+      public void AbortCommand_ExpandedFlagIsNotSet_DoesNotRaiseCollapseRequested()
+      {
+         bool wasRaised = false;
+
+         // Arrange
+
+         var appServiceMock = new Mock<IAppService>();
+         var commitDocumentMock = new Mock<ICommitDocument>();
+
+         // Act
+
+         var viewModel = new CommitViewModel( null, appServiceMock.Object, null, commitDocumentMock.Object, null )
+         {
+            IsExpanded = false
+         };
+
+         viewModel.CollapseRequested += ( _, __ ) =>
+         {
+            wasRaised = true;
+            return Task.CompletedTask;
+         };
+
+         viewModel.AbortCommand.Execute( null );
+
+         // Assert
+
+         wasRaised.Should().BeFalse();
+      }
    }
 }

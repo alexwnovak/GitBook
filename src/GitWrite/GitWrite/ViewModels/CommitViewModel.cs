@@ -123,11 +123,13 @@ namespace GitWrite.ViewModels
       protected virtual async Task OnExpansionRequestedAsync( object sender, EventArgs e )
          => await RaiseAsync( ExpansionRequested, sender, e );
 
-      protected virtual async Task OnCollapseRequestedAsync( object sender, EventArgs e ) => await CollapseRequested?.Invoke( sender, e );
+      protected virtual async Task OnCollapseRequestedAsync( object sender, EventArgs e )
+         => await RaiseAsync( CollapseRequested, sender, e );
 
       protected virtual async Task OnShakeRequestedAsync( object sender, EventArgs e ) => await ShakeRequested?.Invoke( sender, e );
 
-      protected virtual async Task OnExitRequestedAsync( object sender, ShutdownEventArgs e ) => await AsyncExitRequested?.Invoke( sender, e );
+      protected virtual async Task OnExitRequestedAsync( object sender, ShutdownEventArgs e )
+         => await RaiseAsync( AsyncExitRequested, sender, e );
 
       protected override async Task<bool> OnSaveAsync()
       {
