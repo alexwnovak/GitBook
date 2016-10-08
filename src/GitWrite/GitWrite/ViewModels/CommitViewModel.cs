@@ -88,9 +88,9 @@ namespace GitWrite.ViewModels
          set;
       }
 
-      public event AsyncEventHandler ExpansionRequested;
-      public event AsyncEventHandler CollapseRequested;
-      public event AsyncEventHandler ShakeRequested;
+      public event AsyncEventHandler AsyncExpansionRequested;
+      public event AsyncEventHandler AsyncCollapseRequested;
+      public event AsyncEventHandler AsyncShakeRequested;
       public event AsyncEventHandler<ShutdownEventArgs> AsyncExitRequested;
        
       public CommitViewModel( IViewService viewService, IAppService appService, IClipboardService clipboardService, ICommitDocument commitDocument, IGitService gitService )
@@ -120,13 +120,17 @@ namespace GitWrite.ViewModels
          }
       }
 
-      protected virtual async Task OnExpansionRequestedAsync( object sender, EventArgs e ) => await ExpansionRequested?.Invoke( sender, e );
+      protected virtual async Task OnExpansionRequestedAsync( object sender, EventArgs e )
+         => await RaiseAsync( AsyncExpansionRequested, sender, e );
 
-      protected virtual async Task OnCollapseRequestedAsync( object sender, EventArgs e ) => await CollapseRequested?.Invoke( sender, e );
+      protected virtual async Task OnCollapseRequestedAsync( object sender, EventArgs e )
+         => await RaiseAsync( AsyncCollapseRequested, sender, e );
 
-      protected virtual async Task OnShakeRequestedAsync( object sender, EventArgs e ) => await ShakeRequested?.Invoke( sender, e );
+      protected virtual async Task OnShakeRequestedAsync( object sender, EventArgs e )
+         => await RaiseAsync( AsyncShakeRequested, sender, e );
 
-      protected virtual async Task OnExitRequestedAsync( object sender, ShutdownEventArgs e ) => await AsyncExitRequested?.Invoke( sender, e );
+      protected virtual async Task OnExitRequestedAsync( object sender, ShutdownEventArgs e )
+         => await RaiseAsync( AsyncExitRequested, sender, e );
 
       protected override async Task<bool> OnSaveAsync()
       {

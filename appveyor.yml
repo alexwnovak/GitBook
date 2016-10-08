@@ -1,4 +1,5 @@
+version: 0.9.{build}
 configuration: Release
-
-before_build:
-  - nuget restore src\GitWrite\GitWrite.sln
+image: Visual Studio 2015
+build_script:
+- cmd: PowerShell -Version 2.0 .\build.ps1

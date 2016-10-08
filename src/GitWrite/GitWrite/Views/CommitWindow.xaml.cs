@@ -31,9 +31,9 @@ namespace GitWrite.Views
          MainEntryBox.MaxLength = _applicationSettings.MaxCommitLength;
 
          _viewModel = (CommitViewModel) DataContext;
-         _viewModel.ExpansionRequested += OnExpansionRequested;
-         _viewModel.CollapseRequested += OnCollapseRequested;
-         _viewModel.ShakeRequested += OnShakeRequested;
+         _viewModel.AsyncExpansionRequested += OnAsyncExpansionRequested;
+         _viewModel.AsyncCollapseRequested += OnAsyncCollapseRequested;
+         _viewModel.AsyncShakeRequested += OnAsyncShakeRequested;
          _viewModel.AsyncExitRequested += OnAsyncExitRequested;
       }
 
@@ -227,7 +227,7 @@ namespace GitWrite.Views
          return tcs.Task;
       }
 
-      private Task OnExpansionRequested( object sender, EventArgs eventArgs )
+      private Task OnAsyncExpansionRequested( object sender, EventArgs eventArgs )
       {
          var tcs = new TaskCompletionSource<bool>();
          const double duration = 200;
@@ -255,7 +255,7 @@ namespace GitWrite.Views
          return tcs.Task;
       }
 
-      private Task OnCollapseRequested( object sender, EventArgs eventArgs )
+      private Task OnAsyncCollapseRequested( object sender, EventArgs eventArgs )
       {
          var tcs = new TaskCompletionSource<bool>();
          const double duration = 200;
@@ -283,7 +283,7 @@ namespace GitWrite.Views
          return tcs.Task;
       }
 
-      private Task OnShakeRequested( object sender, EventArgs e )
+      private Task OnAsyncShakeRequested( object sender, EventArgs e )
       {
          var subject = MainEntryBox;
          var savedTransform = subject.RenderTransform;

@@ -67,7 +67,7 @@ namespace GitWrite.UnitTests.ViewModels
          bool expanded = false;
 
          var commitViewModel = new CommitViewModel( null, null, null, null, null );
-         commitViewModel.ExpansionRequested += ( sender, e ) =>
+         commitViewModel.AsyncExpansionRequested += ( sender, e ) =>
          {
             expanded = true;
             return Task.CompletedTask;
@@ -122,7 +122,7 @@ namespace GitWrite.UnitTests.ViewModels
             ExtraCommitText = "Extra notes"
          };
 
-         commitViewModel.ExpansionRequested += ( sender, e ) =>
+         commitViewModel.AsyncExpansionRequested += ( sender, e ) =>
          {
             expanded = true;
             return Task.CompletedTask;
@@ -146,7 +146,7 @@ namespace GitWrite.UnitTests.ViewModels
 
          var commitViewModel = new CommitViewModel( null, null, null, commitDocumentMock.Object, null );
 
-         commitViewModel.ShakeRequested += ( _, __ ) =>
+         commitViewModel.AsyncShakeRequested += ( _, __ ) =>
          {
             shakeRequestedRaised = true;
             return Task.CompletedTask;
@@ -211,7 +211,7 @@ namespace GitWrite.UnitTests.ViewModels
       //}
 
       [Fact]
-      public async Task ExpandCommand_IsNotExpanded_SetsExpandedFlag()
+      public void ExpandCommand_IsNotExpanded_SetsExpandedFlag()
       {
          var commitViewModel = new CommitViewModel( null, null, null, null, null )
          {
@@ -233,7 +233,7 @@ namespace GitWrite.UnitTests.ViewModels
             IsExpanded = false
          };
 
-         commitViewModel.ExpansionRequested += ( sender, e ) =>
+         commitViewModel.AsyncExpansionRequested += ( sender, e ) =>
          {
             expansionEventRaised = true;
             return Task.CompletedTask;
@@ -267,7 +267,7 @@ namespace GitWrite.UnitTests.ViewModels
             IsExpanded = true
          };
 
-         commitViewModel.ExpansionRequested += ( sender, e ) =>
+         commitViewModel.AsyncExpansionRequested += ( sender, e ) =>
          {
             expansionEventRaised = true;
             return Task.CompletedTask;
@@ -303,7 +303,7 @@ namespace GitWrite.UnitTests.ViewModels
             IsExpanded = true
          };
 
-         commitViewModel.ExpansionRequested += ( sender, e ) =>
+         commitViewModel.AsyncExpansionRequested += ( sender, e ) =>
          {
             expansionEventRaised = true;
             return Task.CompletedTask;
@@ -745,5 +745,96 @@ namespace GitWrite.UnitTests.ViewModels
 
       //   appServiceMock.Verify( @as => @as.Shutdown(), Times.Once() );
       //}
+
+      [Fact]
+      public void AbortCommand_ExpandedFlagIsSet_RaisesCollapseRequested()
+      {
+         bool wasRaised = false;
+
+         // Arrange
+
+         var appServiceMock = new Mock<IAppService>();
+         var commitDocumentMock = new Mock<ICommitDocument>();
+
+         // Act
+
+         var viewModel = new CommitViewModel( null, appServiceMock.Object, null, commitDocumentMock.Object, null )
+         {
+            IsExpanded = true
+         };
+
+         viewModel.AsyncCollapseRequested += ( _, __ ) =>
+         {
+            wasRaised = true;
+            return Task.CompletedTask;
+         };
+
+         viewModel.AbortCommand.Execute( null );
+
+         // Assert
+
+         wasRaised.Should().BeTrue();
+      }
+
+      [Fact]
+      public void AbortCommand_ExpandedFlagIsNotSet_DoesNotRaiseCollapseRequested()
+      {
+         bool wasRaised = false;
+
+         // Arrange
+
+         var appServiceMock = new Mock<IAppService>();
+         var commitDocumentMock = new Mock<ICommitDocument>();
+
+         // Act
+
+         var viewModel = new CommitViewModel( null, appServiceMock.Object, null, commitDocumentMock.Object, null )
+         {
+            IsExpanded = false
+         };
+
+         viewModel.AsyncCollapseRequested += ( _, __ ) =>
+         {
+            wasRaised = true;
+            return Task.CompletedTask;
+         };
+
+         viewModel.AbortCommand.Execute( null );
+
+         // Assert
+
+         wasRaised.Should().BeFalse();
+      }
+
+      [Fact]
+      public void SaveCommand_ShortMessageIsEmpty_RaisesShakeRequestedEvent()
+      {
+         bool wasRaised = false;
+
+         // Arrange
+
+         var appServiceMock = new Mock<IAppService>();
+         var commitDocumentMock = new Mock<ICommitDocument>();
+         commitDocumentMock.SetupGet( cd => cd.ShortMessage ).Returns( string.Empty );
+
+         // Act
+
+         var viewModel = new CommitViewModel( null, appServiceMock.Object, null, commitDocumentMock.Object, null )
+         {
+            IsExiting = false
+         };
+
+         viewModel.AsyncShakeRequested += ( _, __ ) =>
+         {
+            wasRaised = true;
+            return Task.CompletedTask;
+         };
+
+         viewModel.SaveCommand.Execute( null );
+
+         // Assert
+
+         wasRaised.Should().BeTrue();
+      }
    }
 }

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GitWrite.Services;
@@ -163,6 +164,18 @@ namespace GitWrite.ViewModels
       protected virtual Task<bool> OnDiscardAsync()
       {
          return Task.FromResult( true );
+      }
+
+      protected Task RaiseAsync( Delegate ev, object sender, EventArgs e )
+      {
+         var handler = ev as AsyncEventHandler;
+
+         if ( handler != null )
+         {
+            return handler( null, null );
+         }
+
+         return Task.CompletedTask;
       }
    }
 }
