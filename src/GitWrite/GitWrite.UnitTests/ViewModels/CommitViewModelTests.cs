@@ -211,7 +211,7 @@ namespace GitWrite.UnitTests.ViewModels
       //}
 
       [Fact]
-      public async Task ExpandCommand_IsNotExpanded_SetsExpandedFlag()
+      public void ExpandCommand_IsNotExpanded_SetsExpandedFlag()
       {
          var commitViewModel = new CommitViewModel( null, null, null, null, null )
          {

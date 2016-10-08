@@ -120,7 +120,8 @@ namespace GitWrite.ViewModels
          }
       }
 
-      protected virtual async Task OnExpansionRequestedAsync( object sender, EventArgs e ) => await ExpansionRequested?.Invoke( sender, e );
+      protected virtual async Task OnExpansionRequestedAsync( object sender, EventArgs e )
+         => await RaiseAsync( ExpansionRequested, sender, e );
 
       protected virtual async Task OnCollapseRequestedAsync( object sender, EventArgs e ) => await CollapseRequested?.Invoke( sender, e );
 
