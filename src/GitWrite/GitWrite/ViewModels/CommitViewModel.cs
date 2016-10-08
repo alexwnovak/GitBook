@@ -126,7 +126,8 @@ namespace GitWrite.ViewModels
       protected virtual async Task OnCollapseRequestedAsync( object sender, EventArgs e )
          => await RaiseAsync( CollapseRequested, sender, e );
 
-      protected virtual async Task OnShakeRequestedAsync( object sender, EventArgs e ) => await ShakeRequested?.Invoke( sender, e );
+      protected virtual async Task OnShakeRequestedAsync( object sender, EventArgs e )
+         => await RaiseAsync( ShakeRequested, sender, e );
 
       protected virtual async Task OnExitRequestedAsync( object sender, ShutdownEventArgs e )
          => await RaiseAsync( AsyncExitRequested, sender, e );
