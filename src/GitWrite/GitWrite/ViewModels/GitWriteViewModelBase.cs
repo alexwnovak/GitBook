@@ -166,13 +166,25 @@ namespace GitWrite.ViewModels
          return Task.FromResult( true );
       }
 
-      protected Task RaiseAsync( Delegate ev, object sender, EventArgs e )
+      protected Task RaiseAsync( AsyncEventHandler ev, object sender, EventArgs e )
       {
-         var handler = ev as AsyncEventHandler;
+         var handler = ev;
 
          if ( handler != null )
          {
-            return handler( null, null );
+            return handler( sender, e );
+         }
+
+         return Task.CompletedTask;
+      }
+
+      protected Task RaiseAsync<T>( AsyncEventHandler<T> ev, object sender, T e ) where T: EventArgs
+      {
+         var handler = ev;
+
+         if ( handler != null )
+         {
+            return handler( sender, e );
          }
 
          return Task.CompletedTask;
