@@ -172,7 +172,7 @@ namespace GitWrite.ViewModels
 
          if ( handler != null )
          {
-            return handler( null, null );
+            return handler( sender, e );
          }
 
          return Task.CompletedTask;
