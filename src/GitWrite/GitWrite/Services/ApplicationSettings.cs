@@ -1,5 +1,4 @@
 ﻿using Microsoft.Win32;
-using GalaSoft.MvvmLight.Ioc;
 
 namespace GitWrite.Services
 {
@@ -69,11 +68,6 @@ namespace GitWrite.Services
          {
             _registryService.WriteInt( Registry.CurrentUser, _path, nameof( MaxCommitLength ), value );
          }
-      }
-
-      public ApplicationSettings()
-      {
-         _registryService = SimpleIoc.Default.GetInstance<IRegistryService>();
       }
 
       public ApplicationSettings( IRegistryService registryService )
