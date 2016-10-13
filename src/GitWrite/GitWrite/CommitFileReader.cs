@@ -1,16 +1,10 @@
 ﻿using System;
-using GalaSoft.MvvmLight.Ioc;
 
 namespace GitWrite
 {
    public class CommitFileReader : ICommitFileReader
    {
       private readonly IFileAdapter _fileAdapter;
-
-      public CommitFileReader()
-      {
-         _fileAdapter = SimpleIoc.Default.GetInstance<IFileAdapter>();
-      }
 
       public CommitFileReader( IFileAdapter fileAdapter )
       {

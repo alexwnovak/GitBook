@@ -104,7 +104,7 @@ namespace GitWrite
          ServiceLocator.SetLocatorProvider( () => SimpleIoc.Default );
 
          SimpleIoc.Default.Register<IApplicationSettings>( () => new ApplicationSettings() );
-         SimpleIoc.Default.Register<ICommitFileReader>( () => new CommitFileReader() );
+         SimpleIoc.Default.Register<ICommitFileReader, CommitFileReader>();
          SimpleIoc.Default.Register<IStoryboardHelper, StoryboardHelper>();
          SimpleIoc.Default.Register<IFileAdapter, FileAdapter>();
          SimpleIoc.Default.Register<IAppService, AppService>();
