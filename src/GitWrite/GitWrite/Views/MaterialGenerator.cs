@@ -14,12 +14,14 @@ namespace GitWrite.Views
       private readonly FrameworkElement _host;
       private readonly DpiScale _dpiScale;
       private readonly Size _size;
-
+      private readonly Size _scaledSize;
+      
       public MaterialGenerator( FrameworkElement host )
       {
          _host = host;
          _dpiScale = VisualTreeHelper.GetDpi( host );
          _size = new Size( host.ActualWidth, WindowValues.NonExpandedHeight );
+         _scaledSize = new Size( _size.Width * _dpiScale.DpiScaleX, _size.Height * _dpiScale.DpiScaleY );
       }
 
       public Task GenerateAsync( string saveText )
@@ -36,7 +38,7 @@ namespace GitWrite.Views
 
       private void GenerateFrontMaterial()
       {
-         var renderTargetBitmap = new RenderTargetBitmap( (int) _size.Width * (int) _dpiScale.DpiScaleX, (int) _size.Height * (int) _dpiScale.DpiScaleY, _dpiScale.PixelsPerInchX, _dpiScale.PixelsPerInchY, PixelFormats.Pbgra32 );
+         var renderTargetBitmap = new RenderTargetBitmap( (int) _scaledSize.Width, (int) _scaledSize.Height, _dpiScale.PixelsPerInchX, _dpiScale.PixelsPerInchY, PixelFormats.Pbgra32 );
 
          var frontBox = new MainEntryBox
          {
@@ -59,7 +61,7 @@ namespace GitWrite.Views
 
       private void GenerateTransitionMaterial( ExitReason exitReason, string resourceKey, string exitText = null )
       {
-         var renderTargetBitmap = new RenderTargetBitmap( (int) _size.Width * (int) _dpiScale.DpiScaleX, (int) _size.Height * (int) _dpiScale.DpiScaleY, _dpiScale.PixelsPerInchX, _dpiScale.PixelsPerInchY, PixelFormats.Pbgra32 );
+         var renderTargetBitmap = new RenderTargetBitmap( (int) _scaledSize.Width, (int) _scaledSize.Height, _dpiScale.PixelsPerInchX, _dpiScale.PixelsPerInchY, PixelFormats.Pbgra32 );
          TransitionEntryBox transitionEntryBox;
 
          if ( string.IsNullOrEmpty( exitText ) )
