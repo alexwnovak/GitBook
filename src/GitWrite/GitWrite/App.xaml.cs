@@ -57,7 +57,11 @@ namespace GitWrite
             string message = $"{Resx.FileLoadErrorMessage}{Environment.NewLine}{fileName}";
 
             var dialog = new StyledDialog();
-            dialog.ShowDialog( title, message, DialogButtons.OK );
+            dialog.ShowDialog( title, message, DialogButtons.OK, w =>
+            {
+               w.ShowInTaskbar = true;
+               w.Title = Resx.ApplicationName;
+            } );
 
             var environmentService = new EnvironmentAdapter();
             environmentService.Exit( 1 );
