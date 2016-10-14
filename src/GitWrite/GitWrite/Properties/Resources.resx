@@ -169,4 +169,7 @@
   <data name="FileLoadErrorTitle" xml:space="preserve">
     <value>File load error</value>
   </data>
+  <data name="ApplicationName" xml:space="preserve">
+    <value>GitWrite</value>
+  </data>
 </root>

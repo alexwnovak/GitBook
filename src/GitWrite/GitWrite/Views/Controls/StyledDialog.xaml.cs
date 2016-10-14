@@ -22,6 +22,9 @@ namespace GitWrite.Views.Controls
       }
 
       public DialogResult ShowDialog( string title, string message, DialogButtons buttons )
+         => ShowDialog( title, message, buttons, w => { } );
+
+      public DialogResult ShowDialog( string title, string message, DialogButtons buttons, Action<Window> preShowCallback )
       {
          TitleTextBlock.Text = title;
          MessageTextBlock.Text = message;
@@ -42,6 +45,8 @@ namespace GitWrite.Views.Controls
             WindowStartupLocation = WindowStartupLocation.CenterScreen,
             WindowStyle = WindowStyle.None
          };
+
+         preShowCallback( _modalWindow );
 
          _modalWindow.KeyDown += ModalWindowKeyDown;
          _modalWindow.Closing += ModalWindowClosing;
