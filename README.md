@@ -1,6 +1,9 @@
 ![GitWrite logo](https://github.com/alexwnovak/GitWrite/raw/docs/readme/docs/logo.png)
 
-[![Build status](https://ci.appveyor.com/api/projects/status/wilnax44yhyrsfhf?svg=true)](https://ci.appveyor.com/project/alexwnovak/gitwrite)
+
+## Build Status
+
+AppVeyor: [![Build status](https://ci.appveyor.com/api/projects/status/wilnax44yhyrsfhf?svg=true)](https://ci.appveyor.com/project/alexwnovak/gitwrite)
 
 GitWrite is a lightweight editor designed for a dope Git experience. No need to confuse all your Notepad windows anymore!
 
