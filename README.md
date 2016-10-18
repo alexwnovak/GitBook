@@ -1,4 +1,4 @@
-![GitWrite logo](https://github.com/alexwnovak/GitWrite/raw/docs/readme/docs/logo.png)
+![GitWrite logo](https://raw.githubusercontent.com/alexwnovak/GitWrite/master/docs/logo.png)
 
 GitWrite is a lightweight editor designed for a dope Git experience. No need to confuse all your Notepad windows anymore!
 
