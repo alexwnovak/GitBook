@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interactivity;
+using System.Windows.Media.Imaging;
 using GalaSoft.MvvmLight.Ioc;
 using GitWrite.Behaviors;
 using GitWrite.Services;
@@ -28,6 +29,14 @@ namespace GitWrite.Views
 
          Loaded += OnLoaded;
          Closing += OnClosing;
+
+         SetIcon();
+      }
+
+      private void SetIcon()
+      {
+         Uri iconUri = new Uri( "pack://application:,,,/AppIcon.ico", UriKind.RelativeOrAbsolute );
+         Icon = BitmapFrame.Create( iconUri );
       }
 
       private async void OnLoaded( object sender, EventArgs e )
