@@ -44,7 +44,7 @@ namespace GitWrite.ViewModels
                return Resx.CommittingHeaderText;
             }
 
-            return string.Format( Resx.CommittingToBranchText, branchName );
+            return string.Format( Resx.CommittingToBranchText, branchName, Resx.ApplicationName );
          }
       } 
 
