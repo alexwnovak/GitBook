@@ -106,7 +106,7 @@ namespace GitWrite.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Committing to {0}.
+        ///   Looks up a localized string similar to Committing to {0} - {1}.
         /// </summary>
         public static string CommittingToBranchText {
             get {

@@ -142,7 +142,7 @@
     <value>Committing</value>
   </data>
   <data name="CommittingToBranchText" xml:space="preserve">
-    <value>Committing to {0}</value>
+    <value>Committing to {0} - {1}</value>
   </data>
   <data name="RebasingText" xml:space="preserve">
     <value>Rebasing...</value>
