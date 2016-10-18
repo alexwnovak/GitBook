@@ -1,4 +1,4 @@
-## GitWrite
+![GitWrite logo](https://github.com/alexwnovak/GitWrite/raw/docs/readme/docs/logo.png)
 
 [![Build status](https://ci.appveyor.com/api/projects/status/wilnax44yhyrsfhf?svg=true)](https://ci.appveyor.com/project/alexwnovak/gitwrite)
 
