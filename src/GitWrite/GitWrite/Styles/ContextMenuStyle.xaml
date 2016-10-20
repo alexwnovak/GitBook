@@ -52,6 +52,11 @@
                Property="Background"
                Value="{DynamicResource HighlightColor}" />
          </Trigger>
+         <Trigger Property="IsEnabled" Value="False">
+            <Setter TargetName="Border"
+               Property="TextBlock.Foreground"
+               Value="{StaticResource DisabledTextColor}" />
+         </Trigger>
       </ControlTemplate.Triggers>
    </ControlTemplate>
 </ResourceDictionary>
