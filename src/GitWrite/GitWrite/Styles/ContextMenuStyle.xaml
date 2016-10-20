@@ -59,4 +59,18 @@
          </Trigger>
       </ControlTemplate.Triggers>
    </ControlTemplate>
+
+   <Style x:Key="{x:Static MenuItem.SeparatorStyleKey}"
+      TargetType="Separator">
+      <Setter Property="Height" Value="1" />
+      <Setter Property="Margin" Value="0,4,0,4" />
+      <Setter Property="Template">
+         <Setter.Value>
+            <ControlTemplate TargetType="Separator">
+               <Border BorderBrush="{StaticResource DisabledTextColor}"
+                  BorderThickness="1" />
+            </ControlTemplate>
+         </Setter.Value>
+      </Setter>
+   </Style>
 </ResourceDictionary>
