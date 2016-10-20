@@ -61,6 +61,24 @@ namespace GitWrite.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ctrl+Enter.
+        /// </summary>
+        public static string AcceptShortcutText {
+            get {
+                return ResourceManager.GetString("AcceptShortcutText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Accept.
+        /// </summary>
+        public static string AcceptText {
+            get {
+                return ResourceManager.GetString("AcceptText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Amending....
         /// </summary>
         public static string AmendingText {
@@ -165,6 +183,24 @@ namespace GitWrite.Properties {
         public static string DiscardingText {
             get {
                 return ResourceManager.GetString("DiscardingText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Escape.
+        /// </summary>
+        public static string DiscardShortcutText {
+            get {
+                return ResourceManager.GetString("DiscardShortcutText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Discard.
+        /// </summary>
+        public static string DiscardText {
+            get {
+                return ResourceManager.GetString("DiscardText", resourceCulture);
             }
         }
         

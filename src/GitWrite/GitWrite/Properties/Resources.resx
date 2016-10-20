@@ -172,6 +172,12 @@
   <data name="ApplicationName" xml:space="preserve">
     <value>GitWrite</value>
   </data>
+  <data name="AcceptShortcutText" xml:space="preserve">
+    <value>Ctrl+Enter</value>
+  </data>
+  <data name="AcceptText" xml:space="preserve">
+    <value>Accept</value>
+  </data>
   <data name="CopyShortcutText" xml:space="preserve">
     <value>Ctrl+C</value>
   </data>
@@ -183,6 +189,12 @@
   </data>
   <data name="CutText" xml:space="preserve">
     <value>Cut</value>
+  </data>
+  <data name="DiscardShortcutText" xml:space="preserve">
+    <value>Escape</value>
+  </data>
+  <data name="DiscardText" xml:space="preserve">
+    <value>Discard</value>
   </data>
   <data name="PasteShortcutText" xml:space="preserve">
     <value>Ctrl+V</value>
