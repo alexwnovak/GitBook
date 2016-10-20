@@ -14,8 +14,7 @@
             <ControlTemplate TargetType="{x:Type ContextMenu}">
                <Border Background="{DynamicResource WindowSecondaryBackgroundColor}"
                        BorderThickness="1"
-                       BorderBrush="{DynamicResource WindowBorderColor}"
-                       Padding="0,3,0,3">
+                       BorderBrush="{DynamicResource WindowBorderColor}">
                   <StackPanel IsItemsHost="True"
                               KeyboardNavigation.DirectionalNavigation="Cycle" />
                </Border>
