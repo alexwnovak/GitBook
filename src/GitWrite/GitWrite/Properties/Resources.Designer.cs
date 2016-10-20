@@ -81,9 +81,9 @@ namespace GitWrite.Properties {
         /// <summary>
         ///   Looks up a localized string similar to _Cancel.
         /// </summary>
-        public static string CancelText {
+        public static string CancelAcceleratorText {
             get {
-                return ResourceManager.GetString("CancelText", resourceCulture);
+                return ResourceManager.GetString("CancelAcceleratorText", resourceCulture);
             }
         }
         
@@ -151,20 +151,20 @@ namespace GitWrite.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to _Discard.
+        /// </summary>
+        public static string DiscardAcceleratorText {
+            get {
+                return ResourceManager.GetString("DiscardAcceleratorText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Discarding....
         /// </summary>
         public static string DiscardingText {
             get {
                 return ResourceManager.GetString("DiscardingText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to _Discard.
-        /// </summary>
-        public static string DiscardText {
-            get {
-                return ResourceManager.GetString("DiscardText", resourceCulture);
             }
         }
         
@@ -207,18 +207,18 @@ namespace GitWrite.Properties {
         /// <summary>
         ///   Looks up a localized string similar to _No.
         /// </summary>
-        public static string NoText {
+        public static string NoAcceleratorText {
             get {
-                return ResourceManager.GetString("NoText", resourceCulture);
+                return ResourceManager.GetString("NoAcceleratorText", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to _OK.
         /// </summary>
-        public static string OKText {
+        public static string OKAcceleratorText {
             get {
-                return ResourceManager.GetString("OKText", resourceCulture);
+                return ResourceManager.GetString("OKAcceleratorText", resourceCulture);
             }
         }
         
@@ -261,18 +261,18 @@ namespace GitWrite.Properties {
         /// <summary>
         ///   Looks up a localized string similar to _Save.
         /// </summary>
-        public static string SaveText {
+        public static string SaveAcceleratorText {
             get {
-                return ResourceManager.GetString("SaveText", resourceCulture);
+                return ResourceManager.GetString("SaveAcceleratorText", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to _Yes.
         /// </summary>
-        public static string YesText {
+        public static string YesAcceleratorText {
             get {
-                return ResourceManager.GetString("YesText", resourceCulture);
+                return ResourceManager.GetString("YesAcceleratorText", resourceCulture);
             }
         }
     }
