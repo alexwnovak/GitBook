@@ -115,6 +115,42 @@ namespace GitWrite.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ctrl+C.
+        /// </summary>
+        public static string CopyShortcutText {
+            get {
+                return ResourceManager.GetString("CopyShortcutText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy.
+        /// </summary>
+        public static string CopyText {
+            get {
+                return ResourceManager.GetString("CopyText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ctrl+X.
+        /// </summary>
+        public static string CutShortcutText {
+            get {
+                return ResourceManager.GetString("CutShortcutText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cut.
+        /// </summary>
+        public static string CutText {
+            get {
+                return ResourceManager.GetString("CutText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Discarding....
         /// </summary>
         public static string DiscardingText {
@@ -183,6 +219,24 @@ namespace GitWrite.Properties {
         public static string OKText {
             get {
                 return ResourceManager.GetString("OKText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ctrl+V.
+        /// </summary>
+        public static string PasteShortcutText {
+            get {
+                return ResourceManager.GetString("PasteShortcutText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Paste.
+        /// </summary>
+        public static string PasteText {
+            get {
+                return ResourceManager.GetString("PasteText", resourceCulture);
             }
         }
         
