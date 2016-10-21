@@ -134,7 +134,7 @@ namespace GitWrite.Views.Controls
 
       public void HideCaret() => PrimaryTextBox.CaretBrush = new SolidColorBrush( Colors.Transparent );
       public void ShowCaret() => PrimaryTextBox.ClearValue( TextBoxBase.CaretBrushProperty );
-      public void MoveCaretToEnd() => PrimaryTextBox.SelectionStart = PrimaryTextBox.Text.Length;
+      public void MoveCaretToEnd() => PrimaryTextBox.MoveCaretToEnd();
 
       private void MainEntryBox_OnGotFocus( object sender, RoutedEventArgs e ) => PrimaryTextBox.Focus();
 
