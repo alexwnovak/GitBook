@@ -41,6 +41,7 @@ namespace GitWrite.Views
       {
          MainEntryBox.HideCaret();
          MainEntryBox.MoveCaretToEnd();
+         SecondaryTextBox.MoveCaretToEnd();
 
          Opacity = 0;
 
