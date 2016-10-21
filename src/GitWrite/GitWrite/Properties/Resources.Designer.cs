@@ -61,6 +61,24 @@ namespace GitWrite.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ctrl+Enter.
+        /// </summary>
+        public static string AcceptShortcutText {
+            get {
+                return ResourceManager.GetString("AcceptShortcutText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Accept.
+        /// </summary>
+        public static string AcceptText {
+            get {
+                return ResourceManager.GetString("AcceptText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Amending....
         /// </summary>
         public static string AmendingText {
@@ -81,9 +99,9 @@ namespace GitWrite.Properties {
         /// <summary>
         ///   Looks up a localized string similar to _Cancel.
         /// </summary>
-        public static string CancelText {
+        public static string CancelAcceleratorText {
             get {
-                return ResourceManager.GetString("CancelText", resourceCulture);
+                return ResourceManager.GetString("CancelAcceleratorText", resourceCulture);
             }
         }
         
@@ -115,6 +133,51 @@ namespace GitWrite.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ctrl+C.
+        /// </summary>
+        public static string CopyShortcutText {
+            get {
+                return ResourceManager.GetString("CopyShortcutText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy.
+        /// </summary>
+        public static string CopyText {
+            get {
+                return ResourceManager.GetString("CopyText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ctrl+X.
+        /// </summary>
+        public static string CutShortcutText {
+            get {
+                return ResourceManager.GetString("CutShortcutText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cut.
+        /// </summary>
+        public static string CutText {
+            get {
+                return ResourceManager.GetString("CutText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Discard.
+        /// </summary>
+        public static string DiscardAcceleratorText {
+            get {
+                return ResourceManager.GetString("DiscardAcceleratorText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Discarding....
         /// </summary>
         public static string DiscardingText {
@@ -124,7 +187,16 @@ namespace GitWrite.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to _Discard.
+        ///   Looks up a localized string similar to Escape.
+        /// </summary>
+        public static string DiscardShortcutText {
+            get {
+                return ResourceManager.GetString("DiscardShortcutText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Discard.
         /// </summary>
         public static string DiscardText {
             get {
@@ -171,18 +243,36 @@ namespace GitWrite.Properties {
         /// <summary>
         ///   Looks up a localized string similar to _No.
         /// </summary>
-        public static string NoText {
+        public static string NoAcceleratorText {
             get {
-                return ResourceManager.GetString("NoText", resourceCulture);
+                return ResourceManager.GetString("NoAcceleratorText", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to _OK.
         /// </summary>
-        public static string OKText {
+        public static string OKAcceleratorText {
             get {
-                return ResourceManager.GetString("OKText", resourceCulture);
+                return ResourceManager.GetString("OKAcceleratorText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ctrl+V.
+        /// </summary>
+        public static string PasteShortcutText {
+            get {
+                return ResourceManager.GetString("PasteShortcutText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Paste.
+        /// </summary>
+        public static string PasteText {
+            get {
+                return ResourceManager.GetString("PasteText", resourceCulture);
             }
         }
         
@@ -207,18 +297,18 @@ namespace GitWrite.Properties {
         /// <summary>
         ///   Looks up a localized string similar to _Save.
         /// </summary>
-        public static string SaveText {
+        public static string SaveAcceleratorText {
             get {
-                return ResourceManager.GetString("SaveText", resourceCulture);
+                return ResourceManager.GetString("SaveAcceleratorText", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to _Yes.
         /// </summary>
-        public static string YesText {
+        public static string YesAcceleratorText {
             get {
-                return ResourceManager.GetString("YesText", resourceCulture);
+                return ResourceManager.GetString("YesAcceleratorText", resourceCulture);
             }
         }
     }

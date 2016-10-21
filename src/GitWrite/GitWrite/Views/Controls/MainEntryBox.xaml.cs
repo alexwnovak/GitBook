@@ -84,7 +84,6 @@ namespace GitWrite.Views.Controls
       public MainEntryBox()
       {
          InitializeComponent();
-         LayoutRoot.DataContext = this;
       }
 
       private static void OnIsEditableChanged( DependencyObject d, DependencyPropertyChangedEventArgs e )

@@ -3,6 +3,7 @@
    xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options">
    <SolidColorBrush x:Key="WindowBackgroundColor" Color="#B0022835" PresentationOptions:Freeze="True" />
    <SolidColorBrush x:Key="WindowSecondaryBackgroundColor" Color="#B002202D" PresentationOptions:Freeze="True" />
+   <SolidColorBrush x:Key="WindowDimBackgroundColor" Color="#E002202D" PresentationOptions:Freeze="True" />
    <SolidColorBrush x:Key="WindowBorderColor" Color="#6C929F" PresentationOptions:Freeze="True" />
    <SolidColorBrush x:Key="WindowSecondaryBorderColor" Color="#B06C929F" PresentationOptions:Freeze="True" />
    <SolidColorBrush x:Key="TextSelectionColor" Color="#2080A0" PresentationOptions:Freeze="True" />

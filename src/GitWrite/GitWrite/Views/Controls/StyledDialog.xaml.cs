@@ -84,27 +84,27 @@ namespace GitWrite.Views.Controls
          {
             case DialogButtons.OK:
             {
-               CreateButton( Resx.OKText, DialogResult.OK );
+               CreateButton( Resx.OKAcceleratorText, DialogResult.OK );
                break;
             }
             case DialogButtons.YesNo:
             {
-               CreateButton( Resx.YesText, DialogResult.Yes );
-               CreateButton( Resx.NoText, DialogResult.No );
+               CreateButton( Resx.YesAcceleratorText, DialogResult.Yes );
+               CreateButton( Resx.NoAcceleratorText, DialogResult.No );
                break;
             }
             case DialogButtons.YesNoCancel:
             {
-               CreateButton( Resx.YesText, DialogResult.Yes );
-               CreateButton( Resx.NoText, DialogResult.No );
-               CreateButton( Resx.CancelText, DialogResult.Cancel );
+               CreateButton( Resx.YesAcceleratorText, DialogResult.Yes );
+               CreateButton( Resx.NoAcceleratorText, DialogResult.No );
+               CreateButton( Resx.CancelAcceleratorText, DialogResult.Cancel );
                break;
             }
             case DialogButtons.SaveDiscardCancel:
             {
-               CreateButton( Resx.SaveText, DialogResult.Save );
-               CreateButton( Resx.DiscardText, DialogResult.Discard );
-               CreateButton( Resx.CancelText, DialogResult.Cancel );
+               CreateButton( Resx.SaveAcceleratorText, DialogResult.Save );
+               CreateButton( Resx.DiscardAcceleratorText, DialogResult.Discard );
+               CreateButton( Resx.CancelAcceleratorText, DialogResult.Cancel );
                break;
             }
          }

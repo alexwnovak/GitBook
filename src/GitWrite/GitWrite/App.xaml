@@ -8,6 +8,7 @@
    xmlns:converters="clr-namespace:GitWrite.Views.Converters"
    xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
    xmlns:clr="clr-namespace:System;assembly=mscorlib"
+   xmlns:res="clr-namespace:GitWrite.Properties"
    d1p1:Ignorable="d"
    Startup="Application_OnStartup">
    <Application.Resources>
@@ -24,8 +25,27 @@
       <SolidColorBrush x:Key="MessageLengthReachedColor" Color="#FFFF0000" PresentationOptions:Freeze="True" />
       <SolidColorBrush x:Key="HiddenCaretColor" Color="#0000" PresentationOptions:Freeze="True" />
       <SolidColorBrush x:Key="HighlightColor" Color="#80D2F560" PresentationOptions:Freeze="True" />
+      <SolidColorBrush x:Key="DisabledTextColor" Color="#3FFF" />
       <clr:String x:Key="AcceptCommitGlyph">&#xE10B;</clr:String>
       <clr:String x:Key="AbortCommitGlyph">&#xE10A;</clr:String>
       <clr:String x:Key="AcceptHintGlyph">&#xE111;</clr:String>
+      <ContextMenu x:Key="TextBoxContextMenu">
+         <MenuItem Header="{x:Static res:Resources.CutText}"
+            InputGestureText="{x:Static res:Resources.CutShortcutText}"
+            Command="Cut" />
+         <MenuItem Header="{x:Static res:Resources.CopyText}"
+            InputGestureText="{x:Static res:Resources.CopyShortcutText}"
+            Command="Copy" />
+         <MenuItem Header="{x:Static res:Resources.PasteText}"
+            InputGestureText="{x:Static res:Resources.PasteShortcutText}"
+            Command="Paste" />
+         <Separator />
+         <MenuItem Header="{x:Static res:Resources.AcceptText}"
+            InputGestureText="{x:Static res:Resources.AcceptShortcutText}"
+            Command="{Binding SaveCommand, Mode=OneTime}" />
+         <MenuItem Header="{x:Static res:Resources.DiscardText}"
+            InputGestureText="{x:Static res:Resources.DiscardShortcutText}"
+            Command="{Binding AbortCommand, Mode=OneTime}" />
+      </ContextMenu>
    </Application.Resources>
 </Application>

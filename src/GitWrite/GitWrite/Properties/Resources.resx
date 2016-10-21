@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CancelText" xml:space="preserve">
+  <data name="CancelAcceleratorText" xml:space="preserve">
     <value>_Cancel</value>
   </data>
   <data name="CommittingText" xml:space="preserve">
@@ -126,7 +126,7 @@
   <data name="DiscardingText" xml:space="preserve">
     <value>Discarding...</value>
   </data>
-  <data name="DiscardText" xml:space="preserve">
+  <data name="DiscardAcceleratorText" xml:space="preserve">
     <value>_Discard</value>
   </data>
   <data name="ExitConfirmationBodyText" xml:space="preserve">
@@ -135,7 +135,7 @@
   <data name="ExitConfirmationHeaderText" xml:space="preserve">
     <value>Confirm Exit</value>
   </data>
-  <data name="SaveText" xml:space="preserve">
+  <data name="SaveAcceleratorText" xml:space="preserve">
     <value>_Save</value>
   </data>
   <data name="CommittingHeaderText" xml:space="preserve">
@@ -154,13 +154,13 @@
   <data name="PopSound" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PopSound.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="NoText" xml:space="preserve">
+  <data name="NoAcceleratorText" xml:space="preserve">
     <value>_No</value>
   </data>
-  <data name="OKText" xml:space="preserve">
+  <data name="OKAcceleratorText" xml:space="preserve">
     <value>_OK</value>
   </data>
-  <data name="YesText" xml:space="preserve">
+  <data name="YesAcceleratorText" xml:space="preserve">
     <value>_Yes</value>
   </data>
   <data name="FileLoadErrorMessage" xml:space="preserve">
@@ -171,5 +171,35 @@
   </data>
   <data name="ApplicationName" xml:space="preserve">
     <value>GitWrite</value>
+  </data>
+  <data name="AcceptShortcutText" xml:space="preserve">
+    <value>Ctrl+Enter</value>
+  </data>
+  <data name="AcceptText" xml:space="preserve">
+    <value>Accept</value>
+  </data>
+  <data name="CopyShortcutText" xml:space="preserve">
+    <value>Ctrl+C</value>
+  </data>
+  <data name="CopyText" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="CutShortcutText" xml:space="preserve">
+    <value>Ctrl+X</value>
+  </data>
+  <data name="CutText" xml:space="preserve">
+    <value>Cut</value>
+  </data>
+  <data name="DiscardShortcutText" xml:space="preserve">
+    <value>Escape</value>
+  </data>
+  <data name="DiscardText" xml:space="preserve">
+    <value>Discard</value>
+  </data>
+  <data name="PasteShortcutText" xml:space="preserve">
+    <value>Ctrl+V</value>
+  </data>
+  <data name="PasteText" xml:space="preserve">
+    <value>Paste</value>
   </data>
 </root>
