@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
@@ -26,15 +25,22 @@ namespace GitWrite.Views
 
       public Task GenerateAsync( string saveText )
       {
-         var t1 = StartNewStaTask( GenerateFrontMaterial  );
-         var t2 = StartNewStaTask( () => GenerateSaveMaterial( saveText ) );
-         var t3 = StartNewStaTask( GenerateDiscardMaterial );
+         var tcs = new TaskCompletionSource<bool>();
 
-         return Task.WhenAll( t1, t2, t3 );
+         var thread = new Thread( () =>
+         {
+            GenerateSaveMaterial( saveText );
+            GenerateDiscardMaterial();
+            tcs.SetResult( true );
+         } );
+
+         thread.SetApartmentState( ApartmentState.STA );
+         thread.Start();
+
+         GenerateFrontMaterial();
+
+         return tcs.Task;
       }
-
-      private Task StartNewStaTask( Action action )
-         => Task.Factory.StartNew( action, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.FromCurrentSynchronizationContext() );
 
       private void GenerateFrontMaterial()
       {

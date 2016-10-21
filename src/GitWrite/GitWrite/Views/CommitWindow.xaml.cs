@@ -13,6 +13,7 @@ using GalaSoft.MvvmLight.Messaging;
 using GitWrite.Messages;
 using GitWrite.Services;
 using GitWrite.ViewModels;
+using Resx = GitWrite.Properties.Resources;
 
 namespace GitWrite.Views
 {
@@ -22,6 +23,7 @@ namespace GitWrite.Views
       private readonly ISoundService _soundService = new SoundService();
       private readonly IApplicationSettings _applicationSettings = SimpleIoc.Default.GetInstance<IApplicationSettings>();
       private bool _isCtrlDown;
+      private Task _materialGenerationTask;
 
       public CommitWindow()
       {
@@ -36,15 +38,13 @@ namespace GitWrite.Views
          _viewModel.AsyncExitRequested += OnAsyncExitRequested;
       }
 
-      private async void CommitWindow_OnLoaded( object sender, RoutedEventArgs e )
+      private void CommitWindow_OnLoaded( object sender, RoutedEventArgs e )
       {
          MainEntryBox.HideCaret();
          MainEntryBox.MoveCaretToEnd();
          SecondaryTextBox.MoveCaretToEnd();
 
          Opacity = 0;
-
-         await Task.Delay( 200 );
 
          const double duration = 200;
 
@@ -72,7 +72,15 @@ namespace GitWrite.Views
          storyboard.Children.Add( scaleXAnimation );
          storyboard.Children.Add( scaleYAnimation );
 
-         storyboard.Completed += ( _, __ ) => MainEntryBox.ShowCaret();
+         storyboard.Completed += ( _, __ ) =>
+         {
+            MainEntryBox.ShowCaret();
+
+            string saveText = GetSaveText();
+
+            var materialGenerator = new MaterialGenerator( this );
+            _materialGenerationTask = materialGenerator.GenerateAsync( saveText );
+         };
 
          Storyboard.SetTargetProperty( opacityAnimation, new PropertyPath( nameof( Opacity ) ) );
          Storyboard.SetTarget( opacityAnimation, this );
@@ -90,6 +98,8 @@ namespace GitWrite.Views
             _soundService.PlayPopSound();
          }
       }
+
+      private string GetSaveText() => _viewModel.IsAmending ? Resx.AmendingText : Resx.CommittingText;
 
       private DrawingImage GetFrontMaterialImage()
       {
@@ -131,12 +141,14 @@ namespace GitWrite.Views
          };
       }
 
-      private Task OnAsyncExitRequested( object sender, ShutdownEventArgs e )
+      private async Task OnAsyncExitRequested( object sender, ShutdownEventArgs e )
       {
          if ( _viewModel.IsExiting )
          {
-            return Task.CompletedTask;
+            return;
          }
+
+         await _materialGenerationTask;
 
          var frontMaterialImage = GetFrontMaterialImage();
          FrontMaterial.Brush = GetMaterialBrush( frontMaterialImage );
@@ -224,7 +236,7 @@ namespace GitWrite.Views
 
          storyboard.Begin( this );
 
-         return tcs.Task;
+         await tcs.Task;
       }
 
       private Task OnAsyncExpansionRequested( object sender, EventArgs eventArgs )
