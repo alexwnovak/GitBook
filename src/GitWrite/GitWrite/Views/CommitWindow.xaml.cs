@@ -13,7 +13,6 @@ using GalaSoft.MvvmLight.Messaging;
 using GitWrite.Messages;
 using GitWrite.Services;
 using GitWrite.ViewModels;
-using GitWrite.Views.Controls;
 
 namespace GitWrite.Views
 {
