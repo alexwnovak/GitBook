@@ -86,6 +86,7 @@
     <Compile Include="Behaviors\CommitKeyPressBehavior.cs" />
     <Compile Include="Behaviors\SuppressAltBehavior.cs" />
     <Compile Include="Behaviors\SuppressAltLogic.cs" />
+    <Compile Include="Behaviors\TripleClickSelectionBehavior.cs" />
     <Compile Include="Behaviors\WindowDragBehavior.cs" />
     <Compile Include="Behaviors\WindowPlacementBehavior.cs" />
     <Compile Include="CommitDocument.cs" />
@@ -174,6 +175,7 @@
     <Compile Include="Services\IViewService.cs" />
     <Compile Include="Views\MaterialGenerator.cs" />
     <Compile Include="Views\StoryboardHelper.cs" />
+    <Compile Include="Views\TextBoxAttachedProperties.cs" />
     <Compile Include="Views\TextBoxExtensions.cs" />
     <Compile Include="Views\WindowBase.cs" />
     <Compile Include="Views\WindowValues.cs" />
