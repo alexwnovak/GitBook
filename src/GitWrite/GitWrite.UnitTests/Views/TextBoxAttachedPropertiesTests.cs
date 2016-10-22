@@ -5,6 +5,7 @@ using FluentAssertions;
 using Xunit;
 using GitWrite.Behaviors;
 using GitWrite.Views;
+using Moq;
 
 namespace GitWrite.UnitTests.Views
 {
@@ -90,6 +91,26 @@ namespace GitWrite.UnitTests.Views
          // Assert
 
          Interaction.GetBehaviors( textBox ).Should().BeEmpty();
+      }
+
+      [StaFact]
+      public void SetIsTripleClickEnabled_PassingTrueToATextBoxThatAlreadyHasADifferentBehavior_BehaviorIsAdded()
+      {
+         // Arrange
+
+         var textBox = new TextBox();
+         var textBoxBehaviors = Interaction.GetBehaviors( textBox );
+
+         var behavior = new Mock<Behavior<TextBox>>();
+         textBoxBehaviors.Add( behavior.Object );
+
+         // Act
+         
+         TextBoxAttachedProperties.SetIsTripleClickEnabled( textBox, true );
+
+         // Assert
+
+         Interaction.GetBehaviors( textBox ).Should().ContainSingle( b => b is TripleClickSelectionBehavior );
       }
    }
 }
