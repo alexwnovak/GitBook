@@ -33,9 +33,19 @@ namespace GitWrite.Views
 
          var textBoxBehaviors = Interaction.GetBehaviors( textBox );
 
-         if ( !textBoxBehaviors.Any( b => b is TripleClickSelectionBehavior ) )
+         bool newValue = (bool) e.NewValue;
+
+         if ( newValue )
          {
-            textBoxBehaviors.Add( new TripleClickSelectionBehavior() );
+            if ( !textBoxBehaviors.Any( b => b is TripleClickSelectionBehavior ) )
+            {
+               textBoxBehaviors.Add( new TripleClickSelectionBehavior() );
+            }
+         }
+         else
+         {
+            var behavior = textBoxBehaviors.SingleOrDefault( b => b is TripleClickSelectionBehavior );
+            textBoxBehaviors.Remove( behavior );
          }
       }
    }
