@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interactivity;
 using GitWrite.Behaviors;
@@ -31,7 +32,11 @@ namespace GitWrite.Views
          }
 
          var textBoxBehaviors = Interaction.GetBehaviors( textBox );
-         textBoxBehaviors.Add( new TripleClickSelectionBehavior() );
+
+         if ( !textBoxBehaviors.Any( b => b is TripleClickSelectionBehavior ) )
+         {
+            textBoxBehaviors.Add( new TripleClickSelectionBehavior() );
+         }
       }
    }
 }

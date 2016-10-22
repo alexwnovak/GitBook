@@ -37,5 +37,24 @@ namespace GitWrite.UnitTests.Views
 
          Interaction.GetBehaviors( button ).Should().BeEmpty();
       }
+
+      [StaFact]
+      public void SetIsTripleClickEnabled_TextBoxAlreadyHasBehavior_DoesNotAddASecondBehavior()
+      {
+         // Arrange
+
+         var textBox = new TextBox();
+         
+         var textBoxBehaviors = Interaction.GetBehaviors( textBox );
+         textBoxBehaviors.Add( new TripleClickSelectionBehavior() );
+
+         // Act
+
+         TextBoxAttachedProperties.SetIsTripleClickEnabled( textBox, true );
+
+         // Assert
+
+         Interaction.GetBehaviors( textBox ).Single().Should().BeOfType<TripleClickSelectionBehavior>();
+      }
    }
 }
