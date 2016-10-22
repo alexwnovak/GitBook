@@ -129,6 +129,7 @@
     <Compile Include="Views\Converters\TextLengthInversionConverterTests.cs" />
     <Compile Include="Views\Converters\TextLengthToColorConverterTests.cs" />
     <Compile Include="Views\TextBoxAttachedPropertiesTests.cs" />
+    <Compile Include="Views\TextBoxExtensionsTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GitWrite\GitWrite.csproj">
