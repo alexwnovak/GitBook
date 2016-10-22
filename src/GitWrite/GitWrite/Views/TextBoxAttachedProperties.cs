@@ -25,6 +25,11 @@ namespace GitWrite.Views
       {
          var textBox = obj as TextBox;
 
+         if ( textBox == null )
+         {
+            return;
+         }
+
          var textBoxBehaviors = Interaction.GetBehaviors( textBox );
          textBoxBehaviors.Add( new TripleClickSelectionBehavior() );
       }
