@@ -1,6 +1,27 @@
+﻿using System.Linq;
+using System.Windows.Controls;
+using System.Windows.Interactivity;
+using FluentAssertions;
+using Xunit;
+using GitWrite.Behaviors;
+using GitWrite.Views;
+
 namespace GitWrite.UnitTests.Views
 {
    public class TextBoxAttachedPropertiesTests
    {
+      [StaFact]
+      public void SetIsTripleClickEnabled_TextBoxHasNoBehaviors_TextBoxGetsATripleClickBehavior()
+      {
+         // Act
+
+         var textBox = new TextBox();
+
+         TextBoxAttachedProperties.SetIsTripleClickEnabled( textBox, true );
+
+         // Assert
+
+         Interaction.GetBehaviors( textBox ).Single().Should().BeOfType<TripleClickSelectionBehavior>();
+      }
    }
 }
