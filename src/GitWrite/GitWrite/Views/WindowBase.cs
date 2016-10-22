@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interactivity;
 using System.Windows.Media.Imaging;
@@ -39,16 +38,9 @@ namespace GitWrite.Views
          Icon = BitmapFrame.Create( iconUri );
       }
 
-      private async void OnLoaded( object sender, EventArgs e )
+      private void OnLoaded( object sender, EventArgs e )
       {
          _viewModel = (GitWriteViewModelBase) DataContext;
-          
-         await Task.Delay( 200 );
-
-         string saveText = GetSaveText();
-
-         var materialGenerator = new MaterialGenerator( this );
-         await materialGenerator.GenerateAsync( saveText );
       }
 
       private void OnClosing( object sender, CancelEventArgs e )
@@ -74,18 +66,6 @@ namespace GitWrite.Views
             default:
                return ExitReason.Cancel;
          }
-      }
-
-      private string GetSaveText()
-      {
-         var commitViewModel = _viewModel as CommitViewModel;
-
-         if ( commitViewModel != null )
-         {
-            return commitViewModel.IsAmending ? Resx.AmendingText : Resx.CommittingText;
-         }
-
-         return null;
       }
    }
 }
