@@ -112,5 +112,26 @@ namespace GitWrite.UnitTests.Views
 
          Interaction.GetBehaviors( textBox ).Should().ContainSingle( b => b is TripleClickSelectionBehavior );
       }
+
+      [StaFact]
+      public void SetIsTripleClickEnabled_TextBoxHasTwoBehaviorsAndRemoving_TripleClickBehaviorIsRemoved()
+      {
+         // Arrange
+
+         var textBox = new TextBox();
+         var textBoxBehaviors = Interaction.GetBehaviors( textBox );
+
+         var behavior = new Mock<Behavior<TextBox>>();
+         textBoxBehaviors.Add( behavior.Object );
+         textBoxBehaviors.Add( new TripleClickSelectionBehavior() );
+
+         // Act
+
+         TextBoxAttachedProperties.SetIsTripleClickEnabled( textBox, false );
+
+         // Assert
+
+         Interaction.GetBehaviors( textBox ).Should().ContainSingle( b => b is Behavior<TextBox> );
+      }
    }
 }
