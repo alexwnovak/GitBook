@@ -5,6 +5,7 @@
    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
    xmlns:local="clr-namespace:GitWrite.Views.Controls"
+   xmlns:views="clr-namespace:GitWrite.Views"
    mc:Ignorable="d"
    d:DesignHeight="300"
    d:DesignWidth="300"
@@ -47,7 +48,8 @@
                MaxLength="{Binding MaxLength, ElementName=PageRoot, Mode=OneWay}"
                HorizontalAlignment="Stretch"
                Margin="0,0,72,0"
-               Text="{Binding Text, ElementName=PageRoot, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+               Text="{Binding Text, ElementName=PageRoot, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+               views:TextBoxAttachedProperties.IsTripleClickEnabled="True">
             </TextBox>
          </Border>
       </Grid>
