@@ -32,7 +32,6 @@
             <ResourceDictionary Source="..\Styles\TextBoxStyle.xaml" />
             <ResourceDictionary Source="..\Styles\ButtonStyle.xaml" />
             <ResourceDictionary Source="..\Styles/ContextMenuStyle.xaml" />
-            <ResourceDictionary Source="CommitWindowResources.xaml" />
          </ResourceDictionary.MergedDictionaries>
       </ResourceDictionary>
    </Window.Resources>

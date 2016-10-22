@@ -23,7 +23,6 @@
          <ResourceDictionary.MergedDictionaries>
             <ResourceDictionary Source="..\Styles\TextBoxStyle.xaml" />
             <ResourceDictionary Source="..\Styles\ButtonStyle.xaml" />
-            <ResourceDictionary Source="CommitWindowResources.xaml" />
          </ResourceDictionary.MergedDictionaries>
       </ResourceDictionary>
    </Window.Resources>
