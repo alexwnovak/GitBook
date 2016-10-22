@@ -75,5 +75,21 @@ namespace GitWrite.UnitTests.Views
 
          Interaction.GetBehaviors( textBox ).Should().BeEmpty();
       }
+
+      [StaFact]
+      public void SetIsTripleClickEnabled_TextBoxHasNoBehaviorAndIsRemoving_Behaviors()
+      {
+         // Arrange
+
+         var textBox = new TextBox();
+
+         // Act
+
+         TextBoxAttachedProperties.SetIsTripleClickEnabled( textBox, false );
+
+         // Assert
+
+         Interaction.GetBehaviors( textBox ).Should().BeEmpty();
+      }
    }
 }
