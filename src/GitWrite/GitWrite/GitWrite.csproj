@@ -84,6 +84,7 @@
     <Compile Include="ApplicationModeInterpreter.cs" />
     <Compile Include="AsyncEventHandler.cs" />
     <Compile Include="Behaviors\CommitKeyPressBehavior.cs" />
+    <Compile Include="Behaviors\ExpansionAnimationBehavior.cs" />
     <Compile Include="Behaviors\SuppressAltBehavior.cs" />
     <Compile Include="Behaviors\SuppressAltLogic.cs" />
     <Compile Include="Behaviors\TripleClickSelectionBehavior.cs" />
