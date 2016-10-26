@@ -79,6 +79,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Animation\Property.cs" />
     <Compile Include="AppController.cs" />
     <Compile Include="ApplicationMode.cs" />
     <Compile Include="ApplicationModeInterpreter.cs" />
