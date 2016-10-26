@@ -1,9 +1,9 @@
-﻿using System;
-using System.Windows;
+﻿using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Interactivity;
-using System.Windows.Media.Animation;
+using System.Windows.Media;
 using GalaSoft.MvvmLight.Ioc;
+using GitWrite.Animation;
 using GitWrite.ViewModels;
 using GitWrite.Views;
 
@@ -24,21 +24,35 @@ namespace GitWrite.Behaviors
          };
       }
 
-      private void AnimateDrawer( double from, double to )
+      private async void AnimateDrawer( double from, double to )
       {
          if ( _viewModel.IsExpanded )
          {
             return;
          }
 
-         var animation = new DoubleAnimation
-         {
-            From = from,
-            To = to,
-            Duration = new Duration( TimeSpan.FromMilliseconds( 100 ) )
-         };
+         AssociatedObject.SecondaryBorder.Animate()
+            .Height()
+            .From( from )
+            .To( to )
+            .For( 100 )
+            .Begin();
 
-         AssociatedObject.SecondaryBorder.BeginAnimation( FrameworkElement.HeightProperty, animation );
+         await Task.Delay( 200 );
+
+         //AssociatedObject.SecondaryBorder.Animate()
+         //   .Opacity()
+         //   .From( 1 )
+         //   .To( 0 )
+         //   .For( 500 )
+         //   .Begin();
+
+         AssociatedObject.SecondaryBorder.Animate()
+            .Background()
+            .From( Colors.Black )
+            .To( Colors.White )
+            .For( 500 )
+            .Begin();
       }
 
       private void MainEntryBoxOnMouseEnter( object sender, MouseEventArgs e )
