@@ -17,6 +17,8 @@ namespace GitWrite
    {
       private void Application_OnStartup( object sender, StartupEventArgs e )
       {
+         AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
+
          InitializeDependencies();
          InitializeTheme();
 
@@ -45,6 +47,11 @@ namespace GitWrite
          }
 
          StartupUri = GetStartupWindow( appController.ApplicationMode );
+      }
+
+      private void CurrentDomainOnUnhandledException( object sender, UnhandledExceptionEventArgs e )
+      {
+         ErrorLog.Write( e.ExceptionObject.ToString() );
       }
 
       private void EnsureFileExists( string fileName )
