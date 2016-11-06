@@ -155,7 +155,6 @@
     <Compile Include="Views\Dwm\WindowCompositionAttribute.cs" />
     <Compile Include="Views\Dwm\WindowCompositionManager.cs" />
     <Compile Include="Views\Dwm\WindowsCompositionAttributeData.cs" />
-    <Compile Include="Views\CommitControlState.cs" />
     <Compile Include="EnvironmentAdapter.cs" />
     <Compile Include="FileAdapter.cs" />
     <Compile Include="GitFileLoadException.cs" />
