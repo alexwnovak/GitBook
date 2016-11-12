@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Data;
+using System.Windows.Markup;
 using GalaSoft.MvvmLight.Ioc;
 using GitWrite.Services;
 
 namespace GitWrite.Views.Converters
 {
-   public class TextLengthInversionConverter : IValueConverter
+   public class TextLengthInversionConverter : MarkupExtension, IValueConverter
    {
       private readonly int _maxLength;
 
@@ -20,6 +21,8 @@ namespace GitWrite.Views.Converters
       {
          _maxLength = appSettings.MaxCommitLength;
       }
+
+      public override object ProvideValue( IServiceProvider serviceProvider ) => this;
 
       public object Convert( object value, Type targetType, object parameter, CultureInfo culture )
       {

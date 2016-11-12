@@ -13,7 +13,6 @@
    Startup="Application_OnStartup">
    <Application.Resources>
       <viewModels:ViewModelLocator x:Key="ViewModelLocator" d:IsDataSource="True" />
-      <converters:TextLengthInversionConverter x:Key="TextLengthInversionConverter" />
       <converters:BoolToCaretBrushConverter x:Key="BoolToCaretBrushConverter" />
       <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
       <SolidColorBrush x:Key="AcceptCommitBorderColor" Color="#A0228822" PresentationOptions:Freeze="True"/>
