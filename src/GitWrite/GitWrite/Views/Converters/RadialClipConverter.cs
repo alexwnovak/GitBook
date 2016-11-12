@@ -2,12 +2,15 @@
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
+using System.Windows.Markup;
 using System.Windows.Media;
 
 namespace GitWrite.Views.Converters
 {
-   public class RadialClipConverter : IMultiValueConverter
+   public class RadialClipConverter : MarkupExtension, IMultiValueConverter
    {
+      public override object ProvideValue( IServiceProvider serviceProvider ) => this;
+
       private Geometry CreateWholeClip( double radius )
       {
          var centerPoint = new Point( radius, radius );
