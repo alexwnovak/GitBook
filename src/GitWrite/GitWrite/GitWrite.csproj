@@ -146,7 +146,6 @@
     <Compile Include="Views\Converters\BorderToGeometryConverter.cs" />
     <Compile Include="Views\Converters\BoolToCaretBrushConverter.cs" />
     <Compile Include="Views\Converters\ExitReasonBaseConverter.cs" />
-    <Compile Include="Views\Converters\LeftClipConverter.cs" />
     <Compile Include="Views\Converters\RadialClipConverter.cs" />
     <Compile Include="Views\Converters\StringLengthToProgressConverter.cs" />
     <Compile Include="Views\Converters\TextLengthToColorConverter.cs" />
