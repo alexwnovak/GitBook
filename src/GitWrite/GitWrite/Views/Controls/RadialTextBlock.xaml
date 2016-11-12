@@ -10,10 +10,6 @@
    d:DesignHeight="80"
    d:DesignWidth="80">
 
-   <UserControl.Resources>
-      <cnv:RadialClipConverter x:Key="RadialClipConverter" />
-   </UserControl.Resources>
-
    <Border Background="{DynamicResource WindowBackgroundColor}"
       BorderBrush="{DynamicResource WindowBorderColor}"
       BorderThickness="2"
@@ -41,7 +37,7 @@
             Margin="4"
             Visibility="{Binding IsProgressRingVisible, ElementName=LayoutRoot, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Ellipse.Clip>
-               <MultiBinding Converter="{StaticResource RadialClipConverter}">
+               <MultiBinding Converter="{cnv:RadialClipConverter}">
                   <Binding Path="ActualWidth"
                      ElementName="ProgressRing" />
                   <Binding Path="Progress"
