@@ -143,7 +143,6 @@
     <Compile Include="Views\Controls\TransitionEntryBox.xaml.cs">
       <DependentUpon>TransitionEntryBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Converters\BorderToGeometryConverter.cs" />
     <Compile Include="Views\Converters\ExitReasonBaseConverter.cs" />
     <Compile Include="Views\Converters\RadialClipConverter.cs" />
     <Compile Include="Views\Converters\StringLengthToProgressConverter.cs" />
