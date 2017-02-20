@@ -14,6 +14,7 @@ namespace GitWrite.Views.Controls
    {
       private DialogResult _dialogResult;
       private Window _modalWindow;
+      private Button _defaultFocusedButton;
       private bool _hasPlayedExitAnimation;
 
       public StyledDialog()
@@ -48,6 +49,7 @@ namespace GitWrite.Views.Controls
 
          preShowCallback( _modalWindow );
 
+         _modalWindow.Loaded += ( sender, e ) => FocusManager.SetFocusedElement( _defaultFocusedButton, _defaultFocusedButton );
          _modalWindow.KeyDown += ModalWindowKeyDown;
          _modalWindow.Closing += ModalWindowClosing;
          _modalWindow.ShowDialog();
@@ -84,25 +86,25 @@ namespace GitWrite.Views.Controls
          {
             case DialogButtons.OK:
             {
-               CreateButton( Resx.OKAcceleratorText, DialogResult.OK );
+               CreateButton( Resx.OKAcceleratorText, DialogResult.OK, true );
                break;
             }
             case DialogButtons.YesNo:
             {
-               CreateButton( Resx.YesAcceleratorText, DialogResult.Yes );
+               CreateButton( Resx.YesAcceleratorText, DialogResult.Yes, true );
                CreateButton( Resx.NoAcceleratorText, DialogResult.No );
                break;
             }
             case DialogButtons.YesNoCancel:
             {
-               CreateButton( Resx.YesAcceleratorText, DialogResult.Yes );
+               CreateButton( Resx.YesAcceleratorText, DialogResult.Yes, true );
                CreateButton( Resx.NoAcceleratorText, DialogResult.No );
                CreateButton( Resx.CancelAcceleratorText, DialogResult.Cancel );
                break;
             }
             case DialogButtons.SaveDiscardCancel:
             {
-               CreateButton( Resx.SaveAcceleratorText, DialogResult.Save );
+               CreateButton( Resx.SaveAcceleratorText, DialogResult.Save, true );
                CreateButton( Resx.DiscardAcceleratorText, DialogResult.Discard );
                CreateButton( Resx.CancelAcceleratorText, DialogResult.Cancel );
                break;
@@ -110,7 +112,7 @@ namespace GitWrite.Views.Controls
          }
       }
 
-      private void CreateButton( string text, DialogResult dialogResult )
+      private void CreateButton( string text, DialogResult dialogResult, bool hasFocus = false )
       {
          var button = new Button
          {
@@ -161,6 +163,11 @@ namespace GitWrite.Views.Controls
          button.Content = canvas;
 
          ButtonPanel.Children.Add( button );
+
+         if ( hasFocus )
+         {
+            _defaultFocusedButton = button;
+         }
       }
 
       private void Button_OnClick( object sender, EventArgs e )
