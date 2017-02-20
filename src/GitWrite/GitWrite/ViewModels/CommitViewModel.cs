@@ -140,6 +140,8 @@ namespace GitWrite.ViewModels
             return false;
          }
 
+         IsExiting = true;
+
          await CollapseUIAsync();
 
          await OnExitRequestedAsync( this, new ShutdownEventArgs( ExitReason.Save ) );
