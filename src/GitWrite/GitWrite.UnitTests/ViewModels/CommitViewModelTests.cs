@@ -777,36 +777,6 @@ namespace GitWrite.UnitTests.ViewModels
       }
 
       [Fact]
-      public void AbortCommand_ExpandedFlagIsNotSet_DoesNotRaiseCollapseRequested()
-      {
-         bool wasRaised = false;
-
-         // Arrange
-
-         var appServiceMock = new Mock<IAppService>();
-         var commitDocumentMock = new Mock<ICommitDocument>();
-
-         // Act
-
-         var viewModel = new CommitViewModel( null, appServiceMock.Object, null, commitDocumentMock.Object, null )
-         {
-            IsExpanded = false
-         };
-
-         viewModel.AsyncCollapseRequested += ( _, __ ) =>
-         {
-            wasRaised = true;
-            return Task.CompletedTask;
-         };
-
-         viewModel.AbortCommand.Execute( null );
-
-         // Assert
-
-         wasRaised.Should().BeFalse();
-      }
-
-      [Fact]
       public void SaveCommand_ShortMessageIsEmpty_RaisesShakeRequestedEvent()
       {
          bool wasRaised = false;

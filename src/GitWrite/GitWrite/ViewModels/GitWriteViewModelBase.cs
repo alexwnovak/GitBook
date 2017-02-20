@@ -143,6 +143,7 @@ namespace GitWrite.ViewModels
       private async void OnSave()
       {
          ExitReason = ExitReason.Save;
+
          bool shouldContinue = await OnSaveAsync();
 
          if ( !shouldContinue )
@@ -150,7 +151,6 @@ namespace GitWrite.ViewModels
             return;
          }
 
-         IsExiting = true;
          await OnShutdownRequested( this, new ShutdownEventArgs( ExitReason.Save ) );
 
          AppService.Shutdown();

@@ -140,6 +140,8 @@ namespace GitWrite.ViewModels
             return false;
          }
 
+         IsExiting = true;
+
          await CollapseUIAsync();
 
          await OnExitRequestedAsync( this, new ShutdownEventArgs( ExitReason.Save ) );
@@ -175,11 +177,8 @@ namespace GitWrite.ViewModels
 
       private async Task CollapseUIAsync()
       {
-         if ( IsExpanded )
-         {
-            IsExpanded = false;
-            await OnCollapseRequestedAsync( this, EventArgs.Empty );
-         }
+         IsExpanded = false;
+         await OnCollapseRequestedAsync( this, EventArgs.Empty );
       }
 
       private async Task PasteFromClipboard()

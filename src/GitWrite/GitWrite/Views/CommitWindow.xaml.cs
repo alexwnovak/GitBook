@@ -23,6 +23,7 @@ namespace GitWrite.Views
       private readonly ISoundService _soundService = new SoundService();
       private readonly IApplicationSettings _applicationSettings = SimpleIoc.Default.GetInstance<IApplicationSettings>();
       private bool _isCtrlDown;
+      private bool _isPlayingExitAnimation;
       private Task _materialGenerationTask;
 
       public CommitWindow()
@@ -143,10 +144,12 @@ namespace GitWrite.Views
 
       private async Task OnAsyncExitRequested( object sender, ShutdownEventArgs e )
       {
-         if ( _viewModel.IsExiting )
+         if ( _isPlayingExitAnimation )
          {
             return;
          }
+
+         _isPlayingExitAnimation = true;
 
          await _materialGenerationTask;
 
@@ -237,6 +240,8 @@ namespace GitWrite.Views
          storyboard.Begin( this );
 
          await tcs.Task;
+
+         _isPlayingExitAnimation = true;
       }
 
       private Task OnAsyncExpansionRequested( object sender, EventArgs eventArgs )
