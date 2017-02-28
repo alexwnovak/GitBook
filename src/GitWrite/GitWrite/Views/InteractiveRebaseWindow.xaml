@@ -12,7 +12,7 @@
    Background="Transparent"
    Title="{Binding Title}"
    Width="1080"
-   Height="700"
+   Height="500"
    ResizeMode="NoResize"
    WindowStyle="None"
    FocusManager.FocusedElement="{Binding ElementName=RebasePanel}"
