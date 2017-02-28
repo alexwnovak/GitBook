@@ -380,5 +380,74 @@ namespace GitWrite.Views.Controls
             await ChangeActionAsync( RebaseItemAction.Exec, HorizontalMovementDirection.Right );
          }
       }
+
+      private class ItemMoverAdorner : Adorner
+      {
+         private readonly Point _position;
+         private FrameworkElement _frameworkElement;
+
+         public ItemMoverAdorner( UIElement adornedElement, Point position )
+            : base( adornedElement )
+         {
+            _position = position;
+            _frameworkElement = (FrameworkElement) adornedElement;
+
+            Loaded += OnLoaded;
+         }
+
+         private void OnLoaded( object sender, RoutedEventArgs routedEventArgs )
+         {
+            DoubleAnimation myDoubleAnimation = new DoubleAnimation
+            {
+               From = 0.0,
+               To = 1.0,
+               Duration = new Duration( TimeSpan.FromMilliseconds( 300 ) )
+            };
+
+            Storyboard myStoryboard = new Storyboard();
+            myStoryboard.Children.Add( myDoubleAnimation );
+            Storyboard.SetTarget( myStoryboard, this );
+            Storyboard.SetTargetProperty( myDoubleAnimation, new PropertyPath( OpacityProperty ) );
+
+            myStoryboard.Begin( this );
+         }
+
+         protected override void OnRender( DrawingContext dc )
+         {
+            dc.DrawRectangle( Brushes.Red, null, new Rect( 0, 0, _frameworkElement.Width, _frameworkElement.Height ) );
+         }
+      }
+
+      private Adorner _movementAdorner;
+
+      private void InteractiveRebasePanel_OnPreviewKeyDown( object sender, KeyEventArgs e )
+      {
+         if ( e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl )
+         {
+
+            var pos = _selectedObject.TranslatePoint( new Point( 0, 0 ), _scrollViewer );
+
+            _movementAdorner = new ItemMoverAdorner( _selectedObject, pos );
+            var adornerLayer = AdornerLayer.GetAdornerLayer( _selectedObject );
+            adornerLayer.Add( _movementAdorner );
+
+            System.Diagnostics.Debug.WriteLine( "Ctrl down" );
+         }
+      }
+
+      private void InteractiveRebasePanel_OnPreviewKeyUp( object sender, KeyEventArgs e )
+      {
+         if ( e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl )
+         {
+            //var container = (ContentPresenter) ItemContainerGenerator.ContainerFromIndex( _selectedIndex );
+
+            //var currentItem = (RebaseItem) container.Content;
+
+            var adornerLayer = AdornerLayer.GetAdornerLayer( this );
+            adornerLayer.Remove( _movementAdorner );
+
+            System.Diagnostics.Debug.WriteLine( "Ctrl up" );
+         }
+      }
    }
 }

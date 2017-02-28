@@ -12,6 +12,8 @@
    FocusVisualStyle="{x:Null}"
    FontSize="24"
    FontFamily="Consolas"
+   PreviewKeyDown="InteractiveRebasePanel_OnPreviewKeyDown"
+   PreviewKeyUp="InteractiveRebasePanel_OnPreviewKeyUp"
    KeyDown="InteractiveRebasePanel_OnKeyDown"
    Loaded="InteractiveRebasePanel_OnLoaded">
    <ItemsControl.Template>
