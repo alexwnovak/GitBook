@@ -41,6 +41,12 @@
          Background="{StaticResource WindowBackgroundColor}"
          BorderThickness="2"
          BorderBrush="{StaticResource WindowBorderColor}">
+         <Border.Effect>
+            <DropShadowEffect BlurRadius="16"
+               ShadowDepth="1"
+               Direction="270" />
+         </Border.Effect> 
+
          <controls:InteractiveRebasePanel x:Name="RebasePanel"
             ItemsSource="{Binding Items}" />
       </Border>
