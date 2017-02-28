@@ -92,6 +92,13 @@ namespace GitWrite.Views.Controls
 
       private async Task SwapItemsAsync( int moveDownIndex, int moveUpIndex )
       {
+         if ( _isMoving )
+         {
+            return;
+         }
+
+         _isMoving = true;
+
          var moveDownTask = MoveItemAsync( moveDownIndex, VerticalMovementDirection.Down );
          var moveUpTask = MoveItemAsync( moveUpIndex, VerticalMovementDirection.Up );
 
@@ -118,6 +125,7 @@ namespace GitWrite.Views.Controls
          viewModel.SwapItems( moveDownIndex, moveUpIndex );
 
          SetAdorner( nextIndex );
+         _isMoving = false;
       }
 
       private Task AnimateHighlight( double from, double to, TimeSpan duration )
