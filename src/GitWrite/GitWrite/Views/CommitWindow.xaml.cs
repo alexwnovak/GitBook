@@ -191,17 +191,17 @@ namespace GitWrite.Views
             }
          };
 
-         var translateAnimation = new DoubleAnimation( 0, 25, opacityAnimation.Duration )
+         var translateAnimation = new DoubleAnimation( 0, 5, opacityAnimation.Duration )
          {
             BeginTime = opacityAnimation.BeginTime
          };
 
-         var scaleXAnimation = new DoubleAnimation( 1, 0.97, opacityAnimation.Duration )
+         var scaleXAnimation = new DoubleAnimation( 1, 0.98, opacityAnimation.Duration )
          {
             BeginTime = opacityAnimation.BeginTime
          };
 
-         var scaleYAnimation = new DoubleAnimation( 1, 0.97, opacityAnimation.Duration )
+         var scaleYAnimation = new DoubleAnimation( 1, 0.98, opacityAnimation.Duration )
          {
             BeginTime = opacityAnimation.BeginTime
          };
@@ -232,8 +232,9 @@ namespace GitWrite.Views
          storyboard.Children.Add( scaleXAnimation );
          storyboard.Children.Add( scaleYAnimation );
 
-         storyboard.Completed += ( _, __ ) =>
+         storyboard.Completed += async ( _, __ ) =>
          {
+            await Task.Delay( 100 );
             tcs.SetResult( true );
          };
 
