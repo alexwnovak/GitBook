@@ -8,6 +8,7 @@
    xmlns:c="clr-namespace:GitWrite.Views.Controls"
    xmlns:converters="clr-namespace:GitWrite.Views.Converters"
    xmlns:behaviors="clr-namespace:GitWrite.Behaviors"
+   xmlns:messages="clr-namespace:GitWrite.Messages"
    AllowsTransparency="True"
    Background="Transparent"
    Title="{Binding Title}"
@@ -133,9 +134,11 @@
             AcceptsReturn="True"
             TextWrapping="Wrap"
             Text="{Binding ExtraCommitText, UpdateSourceTrigger=PropertyChanged}"
-            TextChanged="SecondaryNotes_OnTextChanged"
             views:TextBoxAttachedProperties.IsTripleClickEnabled="True">
             <i:Interaction.Triggers>
+               <i:EventTrigger EventName="TextChanged">
+                  <views:EventToMessage MessageType="{x:Type messages:PulseRequestedMessage}" />
+               </i:EventTrigger>
                <i:EventTrigger EventName="GotFocus">
                   <cmd:EventToCommand Command="{Binding SecondaryNotesGotFocusCommand, Mode=OneTime}"
                      MustToggleIsEnabledValue="True" />

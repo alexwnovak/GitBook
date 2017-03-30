@@ -344,11 +344,6 @@ namespace GitWrite.Views
          //}
       }
 
-      private void SecondaryNotes_OnTextChanged( object sender, TextChangedEventArgs e )
-      {
-         Messenger.Default.Send( new PulseRequestedMessage() );
-      }
-
       private void OnRadialMouseEnter( object sender, RoutedEventArgs e )
       {
          HideCounter();
