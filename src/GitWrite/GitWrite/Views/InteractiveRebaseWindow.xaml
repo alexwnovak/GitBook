@@ -9,7 +9,7 @@
    xmlns:controls="clr-namespace:GitWrite.Views.Controls"
    xmlns:res="clr-namespace:GitWrite.Properties"
    AllowsTransparency="True"
-   Background="#E111"
+   Background="#123"
    Title="{Binding Title}"
    Width="1080"
    Height="650"
@@ -37,5 +37,20 @@
          VerticalAlignment="Center"
          Text="GitWrite - Rebasing"
          Foreground="White" />
+
+      <Grid Grid.Row="1">
+         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="75" />
+            <ColumnDefinition />
+         </Grid.ColumnDefinitions>
+
+         <StackPanel Background="#111" Margin="4,0,2,4">
+         </StackPanel>
+
+         <Grid Grid.Column="1"
+            Background="#111"
+            Margin="2,0,4,4">
+         </Grid>
+      </Grid>
    </Grid>
 </views:WindowBase>
