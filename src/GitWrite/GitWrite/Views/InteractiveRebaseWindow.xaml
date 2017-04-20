@@ -16,6 +16,7 @@
    <Window.Resources>
       <ResourceDictionary>
          <ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary Source="..\Styles\RebasePanelStyle.xaml" />
             <ResourceDictionary Source="..\Styles\TextBlockStyle.xaml" />
             <ResourceDictionary Source="..\Styles\TextBoxStyle.xaml" />
             <ResourceDictionary Source="..\Styles\ButtonStyle.xaml" />
@@ -56,6 +57,49 @@
                <TextBlock Margin="8,0,0,0"
                   Text="Rebasing..." />
             </Grid>
+
+            <ListBox x:Name="RebasePanel"
+               Grid.Row="1"
+               Background="Transparent"
+               ItemsSource="{Binding Items}">
+               <ListBox.ItemTemplate>
+                  <DataTemplate>
+                     <Grid x:Name="ItemTemplateRoot"
+                        Height="35">
+                        <Grid.ColumnDefinitions>
+                           <ColumnDefinition Width="40" />
+                           <ColumnDefinition Width="80" />
+                           <ColumnDefinition Width="80" />
+                           <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <Ellipse Width="24"
+                           Height="24"
+                           Stroke="Red"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center" />
+
+                        <TextBlock Grid.Column="1"
+                           Foreground="#EEE"
+                           FontSize="14"
+                           VerticalAlignment="Center"
+                           Text="{Binding Action}" />
+
+                        <TextBlock Grid.Column="2"
+                           Foreground="#EEE"
+                           FontSize="14"
+                           VerticalAlignment="Center"
+                           Text="{Binding CommitHash}" />
+
+                        <TextBlock Grid.Column="3"
+                           Foreground="#EEE"
+                           FontSize="14"
+                           VerticalAlignment="Center"
+                           Text="{Binding Text}" />
+                     </Grid>
+                  </DataTemplate>
+               </ListBox.ItemTemplate>
+            </ListBox>
          </Grid>
       </Grid>
    </Grid>
