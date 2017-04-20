@@ -19,7 +19,6 @@
             <ResourceDictionary Source="..\Styles\RebasePanelStyle.xaml" />
             <ResourceDictionary Source="..\Styles\TextBlockStyle.xaml" />
             <ResourceDictionary Source="..\Styles\TextBoxStyle.xaml" />
-            <ResourceDictionary Source="..\Styles\ButtonStyle.xaml" />
          </ResourceDictionary.MergedDictionaries>
       </ResourceDictionary>
    </Window.Resources>
@@ -56,6 +55,16 @@
             <Grid Background="#224">
                <TextBlock Margin="8,0,0,0"
                   Text="Rebasing..." />
+
+               <Button Margin="0,2,90,2"
+                  HorizontalAlignment="Right"
+                  Width="70"
+                  Content="Accept"/>
+
+               <Button Margin="0,2,10,2"
+                  HorizontalAlignment="Right"
+                  Width="70"
+                  Content="Discard" />
             </Grid>
 
             <ListBox x:Name="RebasePanel"
