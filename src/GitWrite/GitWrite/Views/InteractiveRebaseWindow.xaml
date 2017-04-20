@@ -16,6 +16,7 @@
    <Window.Resources>
       <ResourceDictionary>
          <ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary Source="..\Styles\ButtonStyle.xaml" />
             <ResourceDictionary Source="..\Styles\RebasePanelStyle.xaml" />
             <ResourceDictionary Source="..\Styles\TextBlockStyle.xaml" />
             <ResourceDictionary Source="..\Styles\TextBoxStyle.xaml" />
