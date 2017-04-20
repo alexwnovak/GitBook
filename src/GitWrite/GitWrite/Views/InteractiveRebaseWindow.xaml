@@ -4,10 +4,10 @@
    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
    xmlns:views="clr-namespace:GitWrite.Views"
    AllowsTransparency="True"
-   Background="#123"
+   Background="Transparent"
    Title="{Binding Title}"
-   Width="1080"
-   Height="650"
+   Width="1120"
+   Height="690"
    ResizeMode="NoResize"
    WindowStyle="None"
    FocusManager.FocusedElement="{Binding ElementName=RebasePanel}"
@@ -23,7 +23,16 @@
       </ResourceDictionary>
    </Window.Resources>
 
-   <Grid x:Name="MainGrid">
+   <Grid x:Name="MainGrid"
+      Background="#123"
+      Margin="40">
+
+      <Grid.Effect>
+         <DropShadowEffect BlurRadius="50"
+            ShadowDepth="2"
+            Direction="270" />
+      </Grid.Effect>
+
       <Grid.RowDefinitions>
          <RowDefinition Height="35" />
          <RowDefinition Height="*" />
