@@ -39,6 +39,9 @@
          </Grid.ColumnDefinitions>
 
          <StackPanel Background="#111" Margin="4,0,2,4">
+            <Ellipse Width="55" Height="55" Stroke="Red" Margin="0,6,0,0" />
+            <Ellipse Width="55" Height="55" Stroke="Red" Margin="0,6,0,0" />
+            <Ellipse Width="55" Height="55" Stroke="Red" Margin="0,6,0,0" />
          </StackPanel>
 
          <Grid Grid.Column="1"
