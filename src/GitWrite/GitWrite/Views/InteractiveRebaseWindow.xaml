@@ -46,8 +46,9 @@
       <StackPanel Grid.Row="0"
          Orientation="Horizontal"
          HorizontalAlignment="Right">
-         <Button Content="&#xE10A;"
-            Style="{StaticResource ChromeButtonStyle}" />
+         <Button Style="{StaticResource MinimizeButton}" />
+         <Button Style="{StaticResource RestoreButton}" />
+         <Button Style="{StaticResource CloseButton}" />
       </StackPanel>
 
       <Grid Grid.Row="1">

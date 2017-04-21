@@ -55,4 +55,49 @@
          </Setter.Value>
       </Setter>
    </Style>
+
+   <Style x:Key="MinimizeButton"
+      TargetType="Button"
+      BasedOn="{StaticResource ChromeButtonStyle}">
+      <Setter Property="Content">
+         <Setter.Value>
+            <Path Fill="#DEF"
+               Data="M0,12 L12,12 12,12 12,13 0,13 0,12 z" />
+         </Setter.Value>
+      </Setter>
+   </Style>
+
+   <Style x:Key="MaximizeButton"
+      TargetType="Button"
+      BasedOn="{StaticResource ChromeButtonStyle}">
+      <Setter Property="Content">
+         <Setter.Value>
+            <Path Stroke="#DEF"
+               Data="M0,0 L12,0 12,12 0,12 0,0" />
+         </Setter.Value>
+      </Setter>
+   </Style>
+
+   <Style x:Key="RestoreButton"
+      TargetType="Button"
+      BasedOn="{StaticResource ChromeButtonStyle}">
+      <Setter Property="Content">
+         <Setter.Value>
+            <Path Stroke="#DEF"
+               Data="M0,12 L0,5 8,5 M0,6 8,6 8,12 0,12 M4,6 L4,2 12,2 M4,3 12,3 12,9 8,9" />
+         </Setter.Value>
+      </Setter>
+   </Style>
+
+   <Style x:Key="CloseButton"
+      TargetType="Button"
+      BasedOn="{StaticResource ChromeButtonStyle}">
+      <Setter Property="Content">
+         <Setter.Value>
+            <Path Stroke="#DEF"
+               Data="M0,0 L12,12 M0,12 12,0" />
+         </Setter.Value>
+      </Setter>
+   </Style>
+
 </ResourceDictionary>
