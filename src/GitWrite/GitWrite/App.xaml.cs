@@ -120,7 +120,7 @@ namespace GitWrite
 
          SimpleIoc.Default.Register<AppController>();
          SimpleIoc.Default.Register<CommitViewModel>();
-         SimpleIoc.Default.Register<InteractiveRebaseViewModel>();
+         SimpleIoc.Default.Register<RebaseViewModel>();
       }
 
       private void InitializeTheme()
