@@ -34,7 +34,7 @@ namespace GitWrite
             }
             case ApplicationMode.Rebase:
             {
-               InteractiveRebasePath( e.Args[0] );
+               RebasePath( e.Args[0] );
                break;
             }
             case ApplicationMode.EditPatch:
@@ -86,7 +86,7 @@ namespace GitWrite
          SimpleIoc.Default.Register<IGitService>( () => new GitService( null ) );
       }
 
-      private void InteractiveRebasePath( string fileName )
+      private void RebasePath( string fileName )
       {
          RebaseDocument document = null;
 
