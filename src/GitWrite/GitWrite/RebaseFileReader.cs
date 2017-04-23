@@ -65,7 +65,7 @@ namespace GitWrite
 
       private RebaseDocument CreateBasicDocument( string path )
       {
-         return new RebaseDocument( _fileAdapter )
+         return new RebaseDocument
          {
             RawLines = _fileAdapter.ReadAllLines( path ),
             Name = path

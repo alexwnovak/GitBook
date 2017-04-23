@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using FluentAssertions;
-using Moq;
 using Xunit;
+using Moq;
+using FluentAssertions;
 using GitWrite.ViewModels;
 
 namespace GitWrite.UnitTests
 {
-   public class RebaseDocumentTests
+   public class RebaseFileWriterTests
    {
       [Fact]
       public void Save_DocumentHasOneItem_ItemIsSavedToFileAdapter()
@@ -35,13 +35,15 @@ namespace GitWrite.UnitTests
 
          // Test
 
-         var document = new RebaseDocument( fileAdapterMock.Object )
+         var document = new RebaseDocument
          {
             Name = documentName,
             RebaseItems = rebaseItems
          };
 
-         document.Save();
+         var rebaseFileWriter = new RebaseFileWriter( fileAdapterMock.Object );
+
+         rebaseFileWriter.Save( document );
 
          // Assert
 
