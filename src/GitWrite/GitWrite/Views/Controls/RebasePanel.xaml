@@ -1,4 +1,4 @@
-﻿<ItemsControl x:Class="GitWrite.Views.Controls.InteractiveRebasePanel"
+﻿<ItemsControl x:Class="GitWrite.Views.Controls.RebasePanel"
    x:Name="LayoutRoot"
    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -12,8 +12,8 @@
    FocusVisualStyle="{x:Null}"
    FontSize="24"
    FontFamily="Consolas"
-   KeyDown="InteractiveRebasePanel_OnKeyDown"
-   Loaded="InteractiveRebasePanel_OnLoaded">
+   KeyDown="RebasePanel_OnKeyDown"
+   Loaded="RebasePanel_OnLoaded">
    <ItemsControl.Template>
       <ControlTemplate>
          <ScrollViewer x:Name="ScrollViewer"
