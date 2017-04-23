@@ -168,7 +168,6 @@
     <Compile Include="Services\IViewService.cs" />
     <Compile Include="Views\MaterialGenerator.cs" />
     <Compile Include="Views\EventToMessage.cs" />
-    <Compile Include="Views\StoryboardHelper.cs" />
     <Compile Include="Views\TextBoxAttachedProperties.cs" />
     <Compile Include="Views\TextBoxExtensions.cs" />
     <Compile Include="Views\WindowBase.cs" />
