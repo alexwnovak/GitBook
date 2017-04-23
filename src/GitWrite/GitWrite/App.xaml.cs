@@ -32,9 +32,9 @@ namespace GitWrite
                CommitPath( e.Args[0] );
                break;
             }
-            case ApplicationMode.InteractiveRebase:
+            case ApplicationMode.Rebase:
             {
-               InteractiveRebasePath( e.Args[0] );
+               RebasePath( e.Args[0] );
                break;
             }
             case ApplicationMode.EditPatch:
@@ -86,13 +86,13 @@ namespace GitWrite
          SimpleIoc.Default.Register<IGitService>( () => new GitService( null ) );
       }
 
-      private void InteractiveRebasePath( string fileName )
+      private void RebasePath( string fileName )
       {
-         InteractiveRebaseDocument document = null;
+         RebaseDocument document = null;
 
          try
          {
-            var documentReader = SimpleIoc.Default.GetInstance<InteractiveRebaseFileReader>();
+            var documentReader = SimpleIoc.Default.GetInstance<RebaseFileReader>();
             document = documentReader.FromFile( fileName );
          }
          catch ( GitFileLoadException )
@@ -116,7 +116,7 @@ namespace GitWrite
          SimpleIoc.Default.Register<IRegistryService, RegistryService>();
          SimpleIoc.Default.Register<IEnvironmentAdapter, EnvironmentAdapter>();
 
-         SimpleIoc.Default.Register<InteractiveRebaseFileReader>();
+         SimpleIoc.Default.Register<RebaseFileReader>();
 
          SimpleIoc.Default.Register<AppController>();
          SimpleIoc.Default.Register<CommitViewModel>();
@@ -147,8 +147,8 @@ namespace GitWrite
          {
             case ApplicationMode.Commit:
                return new Uri( @"Views\CommitWindow.xaml", UriKind.Relative );
-            case ApplicationMode.InteractiveRebase:
-               return new Uri( @"Views\InteractiveRebaseWindow.xaml", UriKind.Relative );
+            case ApplicationMode.Rebase:
+               return new Uri( @"Views\RebaseWindow.xaml", UriKind.Relative );
          }
 
          throw new ArgumentException( $"Unknown application mode: {applicationMode}", nameof( applicationMode ) );

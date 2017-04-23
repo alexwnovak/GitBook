@@ -40,9 +40,9 @@ namespace GitWrite.UnitTests
       [Fact]
       public void GetFromFileName_PassingRebaseFileName_ReturnsRebaseMode()
       {
-         var applicationMode = ApplicationModeInterpreter.GetFromFileName( GitFileNames.InteractiveRebaseFileName );
+         var applicationMode = ApplicationModeInterpreter.GetFromFileName( GitFileNames.RebaseFileName );
 
-         applicationMode.Should().Be( ApplicationMode.InteractiveRebase );
+         applicationMode.Should().Be( ApplicationMode.Rebase );
       }
 
       [Fact]

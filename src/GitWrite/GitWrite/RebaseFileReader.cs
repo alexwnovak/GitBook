@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using GitWrite.ViewModels;
 
 namespace GitWrite
 {
-   public class InteractiveRebaseFileReader
+   public class RebaseFileReader
    {
       private readonly IFileAdapter _fileAdapter;
       private static readonly RebaseItemAction[] _rebaseItemActions = GetRebaseItemActions();
 
-      public InteractiveRebaseFileReader( IFileAdapter fileAdapter )
+      public RebaseFileReader( IFileAdapter fileAdapter )
       {
          _fileAdapter = fileAdapter;
       }
@@ -18,7 +17,7 @@ namespace GitWrite
       private static RebaseItemAction[] GetRebaseItemActions()
          => (RebaseItemAction[]) Enum.GetValues( typeof( RebaseItemAction ) );
 
-      public InteractiveRebaseDocument FromFile( string path )
+      public RebaseDocument FromFile( string path )
       {
          var rebaseItems = new List<RebaseItem>();
          var document = CreateBasicDocument( path );
@@ -64,9 +63,9 @@ namespace GitWrite
          throw new ArgumentException( $"Unknown action: {action}", nameof( action ) );
       }
 
-      private InteractiveRebaseDocument CreateBasicDocument( string path )
+      private RebaseDocument CreateBasicDocument( string path )
       {
-         return new InteractiveRebaseDocument( _fileAdapter )
+         return new RebaseDocument( _fileAdapter )
          {
             RawLines = _fileAdapter.ReadAllLines( path ),
             Name = path

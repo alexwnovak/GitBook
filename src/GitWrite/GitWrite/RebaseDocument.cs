@@ -3,7 +3,7 @@ using GitWrite.ViewModels;
 
 namespace GitWrite
 {
-   public class InteractiveRebaseDocument
+   public class RebaseDocument
    {
       private readonly IFileAdapter _fileAdapter;
 
@@ -25,7 +25,7 @@ namespace GitWrite
          set;
       }
 
-      public InteractiveRebaseDocument( IFileAdapter fileAdapter )
+      public RebaseDocument( IFileAdapter fileAdapter )
       {
          _fileAdapter = fileAdapter;
       }

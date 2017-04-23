@@ -7,7 +7,7 @@ namespace GitWrite.ViewModels
 {
    public class RebaseViewModel : GitWriteViewModelBase
    {
-      private readonly InteractiveRebaseDocument _document;
+      private readonly RebaseDocument _document;
 
       public ObservableCollection<RebaseItem> Items 
       {
@@ -16,7 +16,7 @@ namespace GitWrite.ViewModels
 
       public string Title => "Rebasing";
 
-      public RebaseViewModel( IViewService viewService, IAppService appService, InteractiveRebaseDocument document )
+      public RebaseViewModel( IViewService viewService, IAppService appService, RebaseDocument document )
          : base ( viewService, appService )
       {
          _document = document;

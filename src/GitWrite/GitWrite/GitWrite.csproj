@@ -94,8 +94,8 @@
     <Compile Include="CommitFileReader.cs" />
     <Compile Include="FrameworkElementExtensions.cs" />
     <Compile Include="GitFileAttribute.cs" />
-    <Compile Include="InteractiveRebaseDocument.cs" />
-    <Compile Include="InteractiveRebaseFileReader.cs" />
+    <Compile Include="RebaseDocument.cs" />
+    <Compile Include="RebaseFileReader.cs" />
     <Compile Include="Messages\PulseRequestedMessage.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -128,8 +128,8 @@
     <Compile Include="Views\Controls\DialogResult.cs" />
     <Compile Include="Views\Controls\DrawingContextExtensions.cs" />
     <Compile Include="Views\Controls\ItemSelectionAdorner.cs" />
-    <Compile Include="Views\Controls\InteractiveRebasePanel.xaml.cs">
-      <DependentUpon>InteractiveRebasePanel.xaml</DependentUpon>
+    <Compile Include="Views\Controls\RebasePanel.xaml.cs">
+      <DependentUpon>RebasePanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Controls\MainEntryBox.xaml.cs">
       <DependentUpon>MainEntryBox.xaml</DependentUpon>
@@ -159,8 +159,8 @@
     <Compile Include="Services\AppService.cs" />
     <Compile Include="ViewModels\CommitViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
-    <Compile Include="Views\InteractiveRebaseWindow.xaml.cs">
-      <DependentUpon>InteractiveRebaseWindow.xaml</DependentUpon>
+    <Compile Include="Views\RebaseWindow.xaml.cs">
+      <DependentUpon>RebaseWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\IStoryboardHelper.cs" />
     <Compile Include="Services\IViewService.cs" />
@@ -219,7 +219,7 @@
       <DependentUpon>CommitWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\Controls\InteractiveRebasePanel.xaml">
+    <Page Include="Views\Controls\RebasePanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -239,7 +239,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\InteractiveRebaseWindow.xaml">
+    <Page Include="Views\RebaseWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

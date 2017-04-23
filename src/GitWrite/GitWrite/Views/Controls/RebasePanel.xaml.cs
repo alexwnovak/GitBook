@@ -12,7 +12,7 @@ using GitWrite.ViewModels;
 
 namespace GitWrite.Views.Controls
 {
-   public partial class InteractiveRebasePanel : ItemsControl
+   public partial class RebasePanel : ItemsControl
    {
       private enum VerticalMovementDirection
       {
@@ -35,17 +35,17 @@ namespace GitWrite.Views.Controls
       private bool _isMoving;
       private double _previousY;
 
-      static InteractiveRebasePanel()
+      static RebasePanel()
       {
-         ItemsSourceProperty.OverrideMetadata( typeof( InteractiveRebasePanel ), new FrameworkPropertyMetadata( ItemsSourceChanged ) );
+         ItemsSourceProperty.OverrideMetadata( typeof( RebasePanel ), new FrameworkPropertyMetadata( ItemsSourceChanged ) );
       }
 
-      public InteractiveRebasePanel()
+      public RebasePanel()
       {
          InitializeComponent();
       }
 
-      private async void InteractiveRebasePanel_OnLoaded( object sender, RoutedEventArgs e )
+      private async void RebasePanel_OnLoaded( object sender, RoutedEventArgs e )
       {
          _scrollViewer = (ScrollViewer) Template.FindName( "ScrollViewer", this );
          _layoutGrid = (Grid) Template.FindName( "LayoutGrid", this );
@@ -55,7 +55,7 @@ namespace GitWrite.Views.Controls
 
       private static void ItemsSourceChanged( DependencyObject d, DependencyPropertyChangedEventArgs e )
       {
-         ( (InteractiveRebasePanel) d )._itemCollection = (ICollection) e.NewValue;
+         ( (RebasePanel) d )._itemCollection = (ICollection) e.NewValue;
       }
 
       private double GetContainerHeight() =>
@@ -305,7 +305,7 @@ namespace GitWrite.Views.Controls
          return taskCompletionSource.Task;
       }
 
-      private async void InteractiveRebasePanel_OnKeyDown( object sender, KeyEventArgs e )
+      private async void RebasePanel_OnKeyDown( object sender, KeyEventArgs e )
       {
          if ( e.Key == Key.Down )
          {
