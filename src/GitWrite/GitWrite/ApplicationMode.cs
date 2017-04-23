@@ -7,7 +7,7 @@
       [GitFile( GitFileNames.CommitFileName )]
       Commit,
 
-      [GitFile( GitFileNames.InteractiveRebaseFileName )]
+      [GitFile( GitFileNames.RebaseFileName )]
       InteractiveRebase,
 
       [GitFile( GitFileNames.EditPatchFileName )]
