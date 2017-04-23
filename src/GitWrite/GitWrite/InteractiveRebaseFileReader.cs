@@ -18,7 +18,7 @@ namespace GitWrite
       private static RebaseItemAction[] GetRebaseItemActions()
          => (RebaseItemAction[]) Enum.GetValues( typeof( RebaseItemAction ) );
 
-      public InteractiveRebaseDocument FromFile( string path )
+      public RebaseDocument FromFile( string path )
       {
          var rebaseItems = new List<RebaseItem>();
          var document = CreateBasicDocument( path );
@@ -64,9 +64,9 @@ namespace GitWrite
          throw new ArgumentException( $"Unknown action: {action}", nameof( action ) );
       }
 
-      private InteractiveRebaseDocument CreateBasicDocument( string path )
+      private RebaseDocument CreateBasicDocument( string path )
       {
-         return new InteractiveRebaseDocument( _fileAdapter )
+         return new RebaseDocument( _fileAdapter )
          {
             RawLines = _fileAdapter.ReadAllLines( path ),
             Name = path

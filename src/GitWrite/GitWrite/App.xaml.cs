@@ -88,7 +88,7 @@ namespace GitWrite
 
       private void InteractiveRebasePath( string fileName )
       {
-         InteractiveRebaseDocument document = null;
+         RebaseDocument document = null;
 
          try
          {

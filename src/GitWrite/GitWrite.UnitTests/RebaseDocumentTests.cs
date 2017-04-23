@@ -7,7 +7,7 @@ using GitWrite.ViewModels;
 
 namespace GitWrite.UnitTests
 {
-   public class InteractiveRebaseDocumentTests
+   public class RebaseDocumentTests
    {
       [Fact]
       public void Save_DocumentHasOneItem_ItemIsSavedToFileAdapter()
@@ -35,7 +35,7 @@ namespace GitWrite.UnitTests
 
          // Test
 
-         var document = new InteractiveRebaseDocument( fileAdapterMock.Object )
+         var document = new RebaseDocument( fileAdapterMock.Object )
          {
             Name = documentName,
             RebaseItems = rebaseItems
