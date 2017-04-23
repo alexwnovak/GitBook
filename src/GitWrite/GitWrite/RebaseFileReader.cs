@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using GitWrite.ViewModels;
 
 namespace GitWrite
 {
-   public class InteractiveRebaseFileReader
+   public class RebaseFileReader
    {
       private readonly IFileAdapter _fileAdapter;
       private static readonly RebaseItemAction[] _rebaseItemActions = GetRebaseItemActions();
 
-      public InteractiveRebaseFileReader( IFileAdapter fileAdapter )
+      public RebaseFileReader( IFileAdapter fileAdapter )
       {
          _fileAdapter = fileAdapter;
       }

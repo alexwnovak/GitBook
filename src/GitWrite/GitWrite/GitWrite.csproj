@@ -95,7 +95,7 @@
     <Compile Include="FrameworkElementExtensions.cs" />
     <Compile Include="GitFileAttribute.cs" />
     <Compile Include="RebaseDocument.cs" />
-    <Compile Include="InteractiveRebaseFileReader.cs" />
+    <Compile Include="RebaseFileReader.cs" />
     <Compile Include="Messages\PulseRequestedMessage.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

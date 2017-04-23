@@ -1,11 +1,11 @@
-﻿using FluentAssertions;
-using GitWrite.ViewModels;
+﻿using Xunit;
 using Moq;
-using Xunit;
+using FluentAssertions;
+using GitWrite.ViewModels;
 
 namespace GitWrite.UnitTests
 {
-   public class InteractiveRebaseFileReaderTests
+   public class RebaseFileReaderTests
    {
       [Fact]
       public void FromFile_FileHasNoLines_ReturnsBlankDocument()
@@ -16,7 +16,7 @@ namespace GitWrite.UnitTests
 
          // Test
 
-         var documentReader = new InteractiveRebaseFileReader( fileAdapterMock.Object );
+         var documentReader = new RebaseFileReader( fileAdapterMock.Object );
 
          var document = documentReader.FromFile( "git-rebase-todo" );
 
@@ -44,7 +44,7 @@ namespace GitWrite.UnitTests
 
          // Test
 
-         var documentReader = new InteractiveRebaseFileReader( fileAdapterMock.Object );
+         var documentReader = new RebaseFileReader( fileAdapterMock.Object );
 
          var document = documentReader.FromFile( fileName );
 
@@ -74,7 +74,7 @@ namespace GitWrite.UnitTests
 
          // Test
 
-         var documentReader = new InteractiveRebaseFileReader( fileAdapterMock.Object );
+         var documentReader = new RebaseFileReader( fileAdapterMock.Object );
 
          var document = documentReader.FromFile( fileName );
 
