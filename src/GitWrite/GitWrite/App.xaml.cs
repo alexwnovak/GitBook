@@ -148,7 +148,7 @@ namespace GitWrite
             case ApplicationMode.Commit:
                return new Uri( @"Views\CommitWindow.xaml", UriKind.Relative );
             case ApplicationMode.InteractiveRebase:
-               return new Uri( @"Views\InteractiveRebaseWindow.xaml", UriKind.Relative );
+               return new Uri( @"Views\RebaseWindow.xaml", UriKind.Relative );
          }
 
          throw new ArgumentException( $"Unknown application mode: {applicationMode}", nameof( applicationMode ) );

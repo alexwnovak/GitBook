@@ -159,8 +159,8 @@
     <Compile Include="Services\AppService.cs" />
     <Compile Include="ViewModels\CommitViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
-    <Compile Include="Views\InteractiveRebaseWindow.xaml.cs">
-      <DependentUpon>InteractiveRebaseWindow.xaml</DependentUpon>
+    <Compile Include="Views\RebaseWindow.xaml.cs">
+      <DependentUpon>RebaseWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\IStoryboardHelper.cs" />
     <Compile Include="Services\IViewService.cs" />
@@ -239,7 +239,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\InteractiveRebaseWindow.xaml">
+    <Page Include="Views\RebaseWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
