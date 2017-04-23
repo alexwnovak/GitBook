@@ -117,8 +117,8 @@
     <Compile Include="CommitDocumentTests.cs" />
     <Compile Include="CommitFileReaderTests.cs" />
     <Compile Include="Helpers\TestHelper.cs" />
-    <Compile Include="RebaseDocumentTests.cs" />
     <Compile Include="RebaseFileReaderTests.cs" />
+    <Compile Include="RebaseFileWriterTests.cs" />
     <Compile Include="RebaseItemHelper.cs" />
     <Compile Include="Services\ApplicationSettingsTests.cs" />
     <Compile Include="Services\GitRepositoryPathConverterTests.cs" />

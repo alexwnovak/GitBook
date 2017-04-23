@@ -94,6 +94,7 @@
     <Compile Include="CommitFileReader.cs" />
     <Compile Include="FrameworkElementExtensions.cs" />
     <Compile Include="GitFileAttribute.cs" />
+    <Compile Include="IRebaseFileWriter.cs" />
     <Compile Include="RebaseDocument.cs" />
     <Compile Include="RebaseFileReader.cs" />
     <Compile Include="Messages\PulseRequestedMessage.cs" />
@@ -102,6 +103,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="RebaseFileWriter.cs" />
     <Compile Include="RebaseItemActionExtensions.cs" />
     <Compile Include="Services\ApplicationSettings.cs" />
     <Compile Include="Services\GitRepositoryPathConverter.cs" />
@@ -166,7 +168,6 @@
     <Compile Include="Services\IViewService.cs" />
     <Compile Include="Views\MaterialGenerator.cs" />
     <Compile Include="Views\EventToMessage.cs" />
-    <Compile Include="Views\StoryboardHelper.cs" />
     <Compile Include="Views\TextBoxAttachedProperties.cs" />
     <Compile Include="Views\TextBoxExtensions.cs" />
     <Compile Include="Views\WindowBase.cs" />

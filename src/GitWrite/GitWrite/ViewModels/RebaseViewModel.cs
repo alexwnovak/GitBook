@@ -7,6 +7,7 @@ namespace GitWrite.ViewModels
 {
    public class RebaseViewModel : GitWriteViewModelBase
    {
+      private readonly IRebaseFileWriter _rebaseFileWriter;
       private readonly RebaseDocument _document;
 
       public ObservableCollection<RebaseItem> Items 
@@ -16,9 +17,10 @@ namespace GitWrite.ViewModels
 
       public string Title => "Rebasing";
 
-      public RebaseViewModel( IViewService viewService, IAppService appService, RebaseDocument document )
+      public RebaseViewModel( IViewService viewService, IAppService appService, IRebaseFileWriter rebaseFileWriter, RebaseDocument document )
          : base ( viewService, appService )
       {
+         _rebaseFileWriter = rebaseFileWriter;
          _document = document;
 
          Items = new ObservableCollection<RebaseItem>( document.RebaseItems );
@@ -34,7 +36,7 @@ namespace GitWrite.ViewModels
       protected override Task<bool> OnSaveAsync()
       {
          _document.RebaseItems = Items.ToArray();
-         _document.Save();
+         _rebaseFileWriter.Save( _document );
 
          return Task.FromResult( true );
       }
