@@ -42,7 +42,7 @@ namespace GitWrite.UnitTests
       {
          var applicationMode = ApplicationModeInterpreter.GetFromFileName( GitFileNames.RebaseFileName );
 
-         applicationMode.Should().Be( ApplicationMode.InteractiveRebase );
+         applicationMode.Should().Be( ApplicationMode.Rebase );
       }
 
       [Fact]

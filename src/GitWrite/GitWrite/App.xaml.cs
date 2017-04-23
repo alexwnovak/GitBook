@@ -32,7 +32,7 @@ namespace GitWrite
                CommitPath( e.Args[0] );
                break;
             }
-            case ApplicationMode.InteractiveRebase:
+            case ApplicationMode.Rebase:
             {
                InteractiveRebasePath( e.Args[0] );
                break;
@@ -147,7 +147,7 @@ namespace GitWrite
          {
             case ApplicationMode.Commit:
                return new Uri( @"Views\CommitWindow.xaml", UriKind.Relative );
-            case ApplicationMode.InteractiveRebase:
+            case ApplicationMode.Rebase:
                return new Uri( @"Views\RebaseWindow.xaml", UriKind.Relative );
          }
 
