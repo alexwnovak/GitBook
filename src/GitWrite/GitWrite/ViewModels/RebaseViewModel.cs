@@ -5,7 +5,7 @@ using GitWrite.Services;
 
 namespace GitWrite.ViewModels
 {
-   public class InteractiveRebaseViewModel : GitWriteViewModelBase
+   public class RebaseViewModel : GitWriteViewModelBase
    {
       private readonly InteractiveRebaseDocument _document;
 
@@ -16,7 +16,7 @@ namespace GitWrite.ViewModels
 
       public string Title => "Rebasing";
 
-      public InteractiveRebaseViewModel( IViewService viewService, IAppService appService, InteractiveRebaseDocument document )
+      public RebaseViewModel( IViewService viewService, IAppService appService, InteractiveRebaseDocument document )
          : base ( viewService, appService )
       {
          _document = document;
