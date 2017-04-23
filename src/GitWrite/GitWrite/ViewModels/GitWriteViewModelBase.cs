@@ -27,10 +27,7 @@ namespace GitWrite.ViewModels
       private bool _isExiting;
       public bool IsExiting
       {
-         get
-         {
-            return _isExiting;
-         }
+         get => _isExiting;
          set
          {
             Set( () => IsExiting, ref _isExiting, value );
@@ -40,10 +37,7 @@ namespace GitWrite.ViewModels
       private ExitReason _exitReason;
       public ExitReason ExitReason
       {
-         get
-         {
-            return _exitReason;
-         }
+         get => _exitReason;
          set
          {
             Set( () => ExitReason, ref _exitReason, value );

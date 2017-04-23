@@ -19,10 +19,7 @@ namespace GitWrite.ViewModels
       private RebaseItemAction _action;
       public RebaseItemAction Action
       {
-         get
-         {
-            return _action;
-         }
+         get => _action;
          set
          {
             Set( () => Action, ref _action, value );
