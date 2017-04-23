@@ -51,10 +51,7 @@ namespace GitWrite.ViewModels
       private string _shortMessage;
       public string ShortMessage
       {
-         get
-         {
-            return _shortMessage;
-         }
+         get => _shortMessage;
          set
          {
             Set( () => ShortMessage, ref _shortMessage, value );
@@ -65,10 +62,7 @@ namespace GitWrite.ViewModels
       private string _extraCommitText;
       public string ExtraCommitText
       {
-         get
-         {
-            return _extraCommitText;
-         }
+         get => _extraCommitText;
          set
          {
             Set( () => ExtraCommitText, ref _extraCommitText, value );
