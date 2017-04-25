@@ -18,7 +18,7 @@ namespace GitWrite.ViewModels
       public string Title => "Rebasing";
 
       public RebaseViewModel( IViewService viewService, IAppService appService, IRebaseFileWriter rebaseFileWriter, RebaseDocument document )
-         : base ( viewService, appService )
+         : base( viewService, appService )
       {
          _rebaseFileWriter = rebaseFileWriter;
          _document = document;
