@@ -35,44 +35,50 @@
          <Setter Property="Template">
             <Setter.Value>
                <ControlTemplate TargetType="Window">
-                  <Grid Background="#123">
-                     <Grid.RowDefinitions>
-                        <RowDefinition Height="35" />
-                        <RowDefinition />
-                     </Grid.RowDefinitions>
+                  <Border>
+                     <Grid x:Name="WindowRoot"
+                        Background="#123">
+                        <Grid.RowDefinitions>
+                           <RowDefinition Height="35" />
+                           <RowDefinition />
+                        </Grid.RowDefinitions>
 
-                     <TextBlock HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Foreground="#DEF"
-                        Text="GitWrite" />
+                        <TextBlock HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Foreground="#DEF"
+                           Text="GitWrite" />
 
-                     <StackPanel Grid.Row="0"
-                        Orientation="Horizontal"
-                        HorizontalAlignment="Right">
-                        <Button Style="{StaticResource MinimizeButton}"
-                           WindowChrome.IsHitTestVisibleInChrome="True"
-                           Command="{Binding Source={x:Static SystemCommands.MinimizeWindowCommand}}" />
-                        <Button x:Name="RestoreButton"
-                           Style="{StaticResource RestoreButton}"
-                           WindowChrome.IsHitTestVisibleInChrome="True"
-                           Command="{Binding Source={x:Static SystemCommands.RestoreWindowCommand}}"/>
-                        <Button x:Name="MaximizeButton"
-                           Style="{StaticResource MaximizeButton}"
-                           WindowChrome.IsHitTestVisibleInChrome="True"
-                           Command="{Binding Source={x:Static SystemCommands.MaximizeWindowCommand}}"/>
-                        <Button Style="{StaticResource CloseButton}"
-                           WindowChrome.IsHitTestVisibleInChrome="True"
-                           Command="{Binding Source={x:Static SystemCommands.CloseWindowCommand}}" />
-                     </StackPanel>
+                        <StackPanel Grid.Row="0"
+                           Orientation="Horizontal"
+                           HorizontalAlignment="Right">
+                           <Button Style="{StaticResource MinimizeButton}"
+                              WindowChrome.IsHitTestVisibleInChrome="True"
+                              Command="{Binding Source={x:Static SystemCommands.MinimizeWindowCommand}}" />
+                           <Button x:Name="RestoreButton"
+                              Style="{StaticResource RestoreButton}"
+                              WindowChrome.IsHitTestVisibleInChrome="True"
+                              Command="{Binding Source={x:Static SystemCommands.RestoreWindowCommand}}"/>
+                           <Button x:Name="MaximizeButton"
+                              Style="{StaticResource MaximizeButton}"
+                              WindowChrome.IsHitTestVisibleInChrome="True"
+                              Command="{Binding Source={x:Static SystemCommands.MaximizeWindowCommand}}"/>
+                           <Button Style="{StaticResource CloseButton}"
+                              WindowChrome.IsHitTestVisibleInChrome="True"
+                              Command="{Binding Source={x:Static SystemCommands.CloseWindowCommand}}" />
+                        </StackPanel>
 
-                     <ContentPresenter Grid.Row="1" />
-                  </Grid>
+                        <ContentPresenter Grid.Row="1" />
+                     </Grid>
+                  </Border>
 
                   <ControlTemplate.Triggers>
                      <Trigger Property="WindowState" Value="Maximized">
                         <Setter TargetName="MaximizeButton"
                            Property="Visibility"
                            Value="Collapsed" />
+                        <Setter TargetName="WindowRoot"
+                           Property="Margin"
+                           Value="7" />
                      </Trigger>
                      <Trigger Property="WindowState" Value="Normal">
                         <Setter TargetName="RestoreButton"
