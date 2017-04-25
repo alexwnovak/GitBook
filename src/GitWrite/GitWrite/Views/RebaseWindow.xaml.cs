@@ -3,7 +3,7 @@ using System.Windows.Input;
 
 namespace GitWrite.Views
 {
-   public partial class RebaseWindow : Window
+   public partial class RebaseWindow : WindowBase
    {
       public RebaseWindow()
       {
