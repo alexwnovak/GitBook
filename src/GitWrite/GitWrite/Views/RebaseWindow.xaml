@@ -35,8 +35,35 @@
          <Setter Property="Template">
             <Setter.Value>
                <ControlTemplate TargetType="Window">
-                  <Grid>
-                     <ContentPresenter />
+                  <Grid Background="#123">
+                     <Grid.RowDefinitions>
+                        <RowDefinition Height="35" />
+                        <RowDefinition />
+                     </Grid.RowDefinitions>
+
+                     <TextBlock HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Foreground="#DEF"
+                        Text="GitWrite" />
+
+                     <StackPanel Grid.Row="0"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Right">
+                        <Button Style="{StaticResource MinimizeButton}"
+                           WindowChrome.IsHitTestVisibleInChrome="True"
+                           Command="{Binding Source={x:Static SystemCommands.MinimizeWindowCommand}}" />
+                        <Button Style="{StaticResource RestoreButton}"
+                           WindowChrome.IsHitTestVisibleInChrome="True"
+                           Command="{Binding Source={x:Static SystemCommands.RestoreWindowCommand}}"/>
+                        <Button Style="{StaticResource MaximizeButton}"
+                           WindowChrome.IsHitTestVisibleInChrome="True"
+                           Command="{Binding Source={x:Static SystemCommands.MaximizeWindowCommand}}"/>
+                        <Button Style="{StaticResource CloseButton}"
+                           WindowChrome.IsHitTestVisibleInChrome="True"
+                           Command="{Binding Source={x:Static SystemCommands.CloseWindowCommand}}" />
+                     </StackPanel>
+
+                     <ContentPresenter Grid.Row="1" />
                   </Grid>
                </ControlTemplate>
             </Setter.Value>
