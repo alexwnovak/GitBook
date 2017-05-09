@@ -117,6 +117,7 @@
     <Compile Include="CommitDocumentTests.cs" />
     <Compile Include="CommitFileReaderTests.cs" />
     <Compile Include="Helpers\TestHelper.cs" />
+    <Compile Include="Internal\Builders\CommitViewModelBuilder.cs" />
     <Compile Include="RebaseFileReaderTests.cs" />
     <Compile Include="RebaseFileWriterTests.cs" />
     <Compile Include="RebaseItemHelper.cs" />
