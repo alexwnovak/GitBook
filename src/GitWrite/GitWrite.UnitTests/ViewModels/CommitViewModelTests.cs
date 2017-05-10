@@ -4,6 +4,7 @@ using FluentAssertions;
 using Moq;
 using Xunit;
 using GitWrite.Services;
+using GitWrite.UnitTests.Internal.Builders;
 using GitWrite.ViewModels;
 
 namespace GitWrite.UnitTests.ViewModels
@@ -20,8 +21,9 @@ namespace GitWrite.UnitTests.ViewModels
 
          // Act
 
-         var commitViewModel = new CommitViewModel( null, null, null, commitDocumentMock.Object, null );
-
+         var commitViewModel = new CommitViewModelBuilder()
+                                .WithCommitDocument( commitDocumentMock.Object )
+                                .Build();
          // Assert
 
          commitViewModel.ShortMessage.Should().BeEmpty();
@@ -37,7 +39,9 @@ namespace GitWrite.UnitTests.ViewModels
 
          // Act
 
-         var commitViewModel = new CommitViewModel( null, null, null, commitDocumentMock.Object, null );
+         var commitViewModel = new CommitViewModelBuilder()
+                                 .WithCommitDocument( commitDocumentMock.Object )
+                                 .Build();
 
          // Assert
 
@@ -54,7 +58,9 @@ namespace GitWrite.UnitTests.ViewModels
 
          // Act
 
-         var commitViewModel = new CommitViewModel( null, null, null, commitDocumentMock.Object, null );
+         var commitViewModel = new CommitViewModelBuilder()
+                                 .WithCommitDocument( commitDocumentMock.Object )
+                                 .Build();
 
          // Assert
 
@@ -66,7 +72,8 @@ namespace GitWrite.UnitTests.ViewModels
       {
          bool expanded = false;
 
-         var commitViewModel = new CommitViewModel( null, null, null, null, null );
+         var commitViewModel = new CommitViewModelBuilder().Build();
+
          commitViewModel.AsyncExpansionRequested += ( sender, e ) =>
          {
             expanded = true;
@@ -90,7 +97,9 @@ namespace GitWrite.UnitTests.ViewModels
 
          // Test
 
-         var commitViewModel = new CommitViewModel( null, null, null, commitDocumentMock.Object, null );
+         var commitViewModel = new CommitViewModelBuilder()
+                                 .WithCommitDocument( commitDocumentMock.Object )
+                                 .Build();
 
          commitViewModel.ShortMessage.Should().Be( shortMessage );
       }
@@ -107,7 +116,9 @@ namespace GitWrite.UnitTests.ViewModels
 
          // Test
 
-         var commitViewModel = new CommitViewModel( null, null, null, commitDocumentMock.Object, null );
+         var commitViewModel = new CommitViewModelBuilder()
+                                 .WithCommitDocument( commitDocumentMock.Object )
+                                 .Build();
 
          commitViewModel.ExtraCommitText.Should().Be( longMessage );
       }
@@ -117,10 +128,8 @@ namespace GitWrite.UnitTests.ViewModels
       {
          bool expanded = false;
 
-         var commitViewModel = new CommitViewModel( null, null, null, null, null )
-         {
-            ExtraCommitText = "Extra notes"
-         };
+         var commitViewModel = new CommitViewModelBuilder().Build();
+         commitViewModel.ExtraCommitText = "Extra notes";
 
          commitViewModel.AsyncExpansionRequested += ( sender, e ) =>
          {
@@ -144,7 +153,9 @@ namespace GitWrite.UnitTests.ViewModels
 
          // Act
 
-         var commitViewModel = new CommitViewModel( null, null, null, commitDocumentMock.Object, null );
+         var commitViewModel = new CommitViewModelBuilder()
+                                 .WithCommitDocument( commitDocumentMock.Object )
+                                 .Build();
 
          commitViewModel.AsyncShakeRequested += ( _, __ ) =>
          {
@@ -213,10 +224,8 @@ namespace GitWrite.UnitTests.ViewModels
       [Fact]
       public void ExpandCommand_IsNotExpanded_SetsExpandedFlag()
       {
-         var commitViewModel = new CommitViewModel( null, null, null, null, null )
-         {
-            IsExpanded = false
-         };
+         var commitViewModel = new CommitViewModelBuilder().Build();
+         commitViewModel.IsExpanded = false;
 
          commitViewModel.ExpandCommand.Execute( null );
 
@@ -228,10 +237,8 @@ namespace GitWrite.UnitTests.ViewModels
       {
          bool expansionEventRaised = false;
 
-         var commitViewModel = new CommitViewModel( null, null, null, null, null )
-         {
-            IsExpanded = false
-         };
+         var commitViewModel = new CommitViewModelBuilder().Build();
+         commitViewModel.IsExpanded = false;
 
          commitViewModel.AsyncExpansionRequested += ( sender, e ) =>
          {
@@ -247,10 +254,8 @@ namespace GitWrite.UnitTests.ViewModels
       [Fact]
       public void ExpandCommand_IsAlreadyExpanded_DoesNotChangeExpandedFlag()
       {
-         var commitViewModel = new CommitViewModel( null, null, null, null, null )
-         {
-            IsExpanded = true
-         };
+         var commitViewModel = new CommitViewModelBuilder().Build();
+         commitViewModel.IsExpanded = true;
 
          commitViewModel.ExpandCommand.Execute( null );
 
@@ -262,10 +267,8 @@ namespace GitWrite.UnitTests.ViewModels
       {
          bool expansionEventRaised = false;
 
-         var commitViewModel = new CommitViewModel( null, null, null, null, null )
-         {
-            IsExpanded = true
-         };
+         var commitViewModel = new CommitViewModelBuilder().Build();
+         commitViewModel.IsExpanded = true;
 
          commitViewModel.AsyncExpansionRequested += ( sender, e ) =>
          {
@@ -281,11 +284,9 @@ namespace GitWrite.UnitTests.ViewModels
       [Fact]
       public void ExpandCommand_IsExitingFlagSetButIsNotExpanded_DoesNotChangeExpandedFlag()
       {
-         var commitViewModel = new CommitViewModel( null, null, null, null, null )
-         {
-            IsExiting = true,
-            IsExpanded = false
-         };
+         var commitViewModel = new CommitViewModelBuilder().Build();
+         commitViewModel.IsExiting = true;
+         commitViewModel.IsExpanded = false;
 
          commitViewModel.ExpandCommand.Execute( null );
 
@@ -297,11 +298,9 @@ namespace GitWrite.UnitTests.ViewModels
       {
          bool expansionEventRaised = false;
 
-         var commitViewModel = new CommitViewModel( null, null, null, null, null )
-         {
-            IsExiting = true,
-            IsExpanded = true
-         };
+         var commitViewModel = new CommitViewModelBuilder().Build();
+         commitViewModel.IsExiting = true;
+         commitViewModel.IsExpanded = true;
 
          commitViewModel.AsyncExpansionRequested += ( sender, e ) =>
          {
@@ -326,13 +325,15 @@ namespace GitWrite.UnitTests.ViewModels
 
          // Test
 
-         var viewModel = new CommitViewModel( null, null, clipboardServiceMock.Object, null, null );
+         var commitViewModel = new CommitViewModelBuilder()
+                                 .WithClipboardService( clipboardServiceMock.Object )
+                                 .Build();
 
-         viewModel.PasteCommand.Execute( null );
+         commitViewModel.PasteCommand.Execute( null );
 
          // Assert
 
-         viewModel.ShortMessage.Should().Be( clipboardText );
+         commitViewModel.ShortMessage.Should().Be( clipboardText );
       }
 
       //[Fact]
@@ -369,14 +370,16 @@ namespace GitWrite.UnitTests.ViewModels
 
          // Test
 
-         var viewModel = new CommitViewModel( null, null, clipboardServiceMock.Object, null, null );
+         var commitViewModel = new CommitViewModelBuilder()
+                                 .WithClipboardService( clipboardServiceMock.Object )
+                                 .Build();
 
-         viewModel.PasteCommand.Execute( null );
+         commitViewModel.PasteCommand.Execute( null );
 
          // Assert
 
-         viewModel.ShortMessage.Should().Be( "First line" );
-         viewModel.ExtraCommitText.Should().BeNull();
+         commitViewModel.ShortMessage.Should().Be( "First line" );
+         commitViewModel.ExtraCommitText.Should().BeNull();
       }
 
       [Fact]
@@ -391,14 +394,16 @@ namespace GitWrite.UnitTests.ViewModels
 
          // Test
 
-         var viewModel = new CommitViewModel( null, null, clipboardServiceMock.Object, null, null );
+         var commitViewModel = new CommitViewModelBuilder()
+                                 .WithClipboardService( clipboardServiceMock.Object )
+                                 .Build();
 
-         viewModel.PasteCommand.Execute( null );
+         commitViewModel.PasteCommand.Execute( null );
 
          // Assert
 
-         viewModel.ShortMessage.Should().Be( "First line" );
-         viewModel.ExtraCommitText.Should().BeNull();
+         commitViewModel.ShortMessage.Should().Be( "First line" );
+         commitViewModel.ExtraCommitText.Should().BeNull();
       }
 
       //[Fact]
@@ -483,8 +488,11 @@ namespace GitWrite.UnitTests.ViewModels
 
          // Test
 
-         var viewModel = new CommitViewModel( null, null, null, null, gitServiceMock.Object );
-         string title = viewModel.Title;
+         var commitViewModel = new CommitViewModelBuilder()
+                                 .WithGitService( gitServiceMock.Object )
+                                 .Build();
+
+         string title = commitViewModel.Title;
 
          // Assert
 
@@ -758,18 +766,20 @@ namespace GitWrite.UnitTests.ViewModels
 
          // Act
 
-         var viewModel = new CommitViewModel( null, appServiceMock.Object, null, commitDocumentMock.Object, null )
-         {
-            IsExpanded = true
-         };
+         var commitViewModel = new CommitViewModelBuilder()
+                                 .WithAppService( appServiceMock.Object )
+                                 .WithCommitDocument( commitDocumentMock.Object )
+                                 .Build();
 
-         viewModel.AsyncCollapseRequested += ( _, __ ) =>
+         commitViewModel.IsExpanded = true;
+
+         commitViewModel.AsyncCollapseRequested += ( _, __ ) =>
          {
             wasRaised = true;
             return Task.CompletedTask;
          };
 
-         viewModel.AbortCommand.Execute( null );
+         commitViewModel.AbortCommand.Execute( null );
 
          // Assert
 
@@ -789,18 +799,20 @@ namespace GitWrite.UnitTests.ViewModels
 
          // Act
 
-         var viewModel = new CommitViewModel( null, appServiceMock.Object, null, commitDocumentMock.Object, null )
-         {
-            IsExiting = false
-         };
+         var commitViewModel = new CommitViewModelBuilder()
+                                 .WithAppService( appServiceMock.Object )
+                                 .WithCommitDocument( commitDocumentMock.Object )
+                                 .Build();
 
-         viewModel.AsyncShakeRequested += ( _, __ ) =>
+         commitViewModel.IsExiting = false;
+
+         commitViewModel.AsyncShakeRequested += ( _, __ ) =>
          {
             wasRaised = true;
             return Task.CompletedTask;
          };
 
-         viewModel.SaveCommand.Execute( null );
+         commitViewModel.SaveCommand.Execute( null );
 
          // Assert
 
