@@ -30,6 +30,7 @@ packages/
 [Tt]est[Rr]esult*/
 [Bb]uild[Ll]og.*
 
+.vs/
 *_i.c
 *_p.c
 *.ilk
