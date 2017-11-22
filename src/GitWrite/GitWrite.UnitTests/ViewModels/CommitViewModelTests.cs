@@ -156,96 +156,96 @@ namespace GitWrite.UnitTests.ViewModels
          commitViewModel.IsExpanded.Should().BeTrue();
       }
 
-      //[Fact]
-      //public void ExpandCommand_IsNotExpanded_RaisesExpansionRequestedEvent()
-      //{
-      //   bool expansionEventRaised = false;
+      [Fact]
+      public void ExpandCommand_IsNotExpanded_RaisesExpansionRequestedEvent()
+      {
+         bool expansionEventRaised = false;
 
-      //   var commitViewModel = new CommitViewModel( null, null, null, null, null )
-      //   {
-      //      IsExpanded = false
-      //   };
+         var commitViewModel = new CommitViewModel( null, null, null, null, null, null )
+         {
+            IsExpanded = false
+         };
 
-      //   commitViewModel.AsyncExpansionRequested += ( sender, e ) =>
-      //   {
-      //      expansionEventRaised = true;
-      //      return Task.CompletedTask;
-      //   };
+         commitViewModel.AsyncExpansionRequested += ( sender, e ) =>
+         {
+            expansionEventRaised = true;
+            return Task.CompletedTask;
+         };
 
-      //   commitViewModel.ExpandCommand.Execute( null );
+         commitViewModel.ExpandCommand.Execute( null );
 
-      //   expansionEventRaised.Should().BeTrue();
-      //}
+         expansionEventRaised.Should().BeTrue();
+      }
 
-      //[Fact]
-      //public void ExpandCommand_IsAlreadyExpanded_DoesNotChangeExpandedFlag()
-      //{
-      //   var commitViewModel = new CommitViewModel( null, null, null, null, null )
-      //   {
-      //      IsExpanded = true
-      //   };
+      [Fact]
+      public void ExpandCommand_IsAlreadyExpanded_DoesNotChangeExpandedFlag()
+      {
+         var commitViewModel = new CommitViewModel( null, null, null, null, null, null )
+         {
+            IsExpanded = true
+         };
 
-      //   commitViewModel.ExpandCommand.Execute( null );
+         commitViewModel.ExpandCommand.Execute( null );
 
-      //   commitViewModel.IsExpanded.Should().BeTrue();
-      //}
+         commitViewModel.IsExpanded.Should().BeTrue();
+      }
 
-      //[Fact]
-      //public void ExpandCommand_IsAlreadyExpanded_DoesNotRaiseExpansionRequestedEvent()
-      //{
-      //   bool expansionEventRaised = false;
+      [Fact]
+      public void ExpandCommand_IsAlreadyExpanded_DoesNotRaiseExpansionRequestedEvent()
+      {
+         bool expansionEventRaised = false;
 
-      //   var commitViewModel = new CommitViewModel( null, null, null, null, null )
-      //   {
-      //      IsExpanded = true
-      //   };
+         var commitViewModel = new CommitViewModel( null, null, null, null, null, null )
+         {
+            IsExpanded = true
+         };
 
-      //   commitViewModel.AsyncExpansionRequested += ( sender, e ) =>
-      //   {
-      //      expansionEventRaised = true;
-      //      return Task.CompletedTask;
-      //   };
+         commitViewModel.AsyncExpansionRequested += ( sender, e ) =>
+         {
+            expansionEventRaised = true;
+            return Task.CompletedTask;
+         };
 
-      //   commitViewModel.ExpandCommand.Execute( null );
+         commitViewModel.ExpandCommand.Execute( null );
 
-      //   expansionEventRaised.Should().BeFalse();
-      //}
+         expansionEventRaised.Should().BeFalse();
+      }
 
-      //[Fact]
-      //public void ExpandCommand_IsExitingFlagSetButIsNotExpanded_DoesNotChangeExpandedFlag()
-      //{
-      //   var commitViewModel = new CommitViewModel( null, null, null, null, null )
-      //   {
-      //      IsExiting = true,
-      //      IsExpanded = false
-      //   };
+      [Fact]
+      public void ExpandCommand_IsExitingFlagSetButIsNotExpanded_DoesNotChangeExpandedFlag()
+      {
+         var commitViewModel = new CommitViewModel( null, null, null, null, null, null )
+         {
+            IsExiting = true,
+            IsExpanded = false
+         };
 
-      //   commitViewModel.ExpandCommand.Execute( null );
+         commitViewModel.ExpandCommand.Execute( null );
 
-      //   commitViewModel.IsExpanded.Should().BeFalse();
-      //}
+         commitViewModel.IsExpanded.Should().BeFalse();
+      }
 
-      //[Fact]
-      //public void ExpandCommand_IsExitingFlagSetAndIsExpanded_DoesNotRaiseExpansionRequestedEvent()
-      //{
-      //   bool expansionEventRaised = false;
+      [Fact]
+      public void ExpandCommand_IsExitingFlagSetAndIsExpanded_DoesNotRaiseExpansionRequestedEvent()
+      {
+         bool expansionEventRaised = false;
 
-      //   var commitViewModel = new CommitViewModel( null, null, null, null, null )
-      //   {
-      //      IsExiting = true,
-      //      IsExpanded = true
-      //   };
+         var commitViewModel = new CommitViewModel( null, null, null, null, null, null )
+         {
+            IsExiting = true,
+            IsExpanded = true
+         };
 
-      //   commitViewModel.AsyncExpansionRequested += ( sender, e ) =>
-      //   {
-      //      expansionEventRaised = true;
-      //      return Task.CompletedTask;
-      //   };
+         commitViewModel.AsyncExpansionRequested += ( sender, e ) =>
+         {
+            expansionEventRaised = true;
+            return Task.CompletedTask;
+         };
 
-      //   commitViewModel.ExpandCommand.Execute( null );
+         commitViewModel.ExpandCommand.Execute( null );
 
-      //   expansionEventRaised.Should().BeFalse();
-      //}
+         expansionEventRaised.Should().BeFalse();
+      }
 
       //[Fact]
       //public void PasteCommand_ClipboardHasOneLineOfText_SetsShortMessage()
