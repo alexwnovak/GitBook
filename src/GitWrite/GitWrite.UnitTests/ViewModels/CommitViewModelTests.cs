@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using FluentAssertions;
+using GalaSoft.MvvmLight.Command;
 using GitModel;
 using Moq;
 using Xunit;
 using GitWrite.Services;
+using GitWrite.UnitTests.Helpers;
 using GitWrite.ViewModels;
 
 namespace GitWrite.UnitTests.ViewModels
@@ -139,57 +142,6 @@ namespace GitWrite.UnitTests.ViewModels
 
          shakeRequestedRaised.Should().BeTrue();
       }
-
-      //[Fact]
-      //public void KeyDown_PressesEnter_RunsSaveCommand()
-      //{
-      //   bool saveCommandExecuted = false;
-
-      //   var commitViewModel = new CommitViewModel
-      //   {
-      //      SaveCommand = new RelayCommand( () => saveCommandExecuted = true )
-      //   };
-
-      //   var args = TestHelper.GetKeyEventArgs( Key.Enter );
-
-      //   commitViewModel.OnCommitNotesKeyDown( args );
-
-      //   Assert.IsTrue( saveCommandExecuted );
-      //}
-
-      //[Fact]
-      //public void KeyDown_PressesEscape_RunsAbortCommand()
-      //{
-      //   bool abortCommandRun = false;
-
-      //   var commitViewModel = new CommitViewModel
-      //   {
-      //      AbortCommand = new RelayCommand( () => abortCommandRun = true )
-      //   };
-
-      //   var args = TestHelper.GetKeyEventArgs( Key.Escape );
-
-      //   commitViewModel.OnCommitNotesKeyDown( args );
-
-      //   Assert.IsTrue( abortCommandRun );
-      //}
-
-      //[Fact]
-      //public void KeyDown_PressesEscape_MarksEventAsHandled()
-      //{
-      //   var commitViewModel = new CommitViewModel
-      //   {
-      //      AbortCommand = new RelayCommand( () =>
-      //      {
-      //      } )
-      //   };
-
-      //   var args = TestHelper.GetKeyEventArgs( Key.Escape );
-
-      //   commitViewModel.OnCommitNotesKeyDown( args );
-
-      //   Assert.IsTrue( args.Handled );
-      //}
 
       //[Fact]
       //public void ExpandCommand_IsNotExpanded_SetsExpandedFlag()
