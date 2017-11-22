@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight.Command;
 using GitModel;
@@ -102,8 +103,8 @@ namespace GitWrite.ViewModels
          LoadCommand = new RelayCommand( ViewLoaded );
          PasteCommand = new RelayCommand( async () => await PasteFromClipboard() );
 
-         ShortMessage = _commitDocument?.Subject ?? string.Empty;
-         ExtraCommitText = _commitDocument?.Body[0];
+         ShortMessage = _commitDocument.Subject;
+         ExtraCommitText = _commitDocument.Body.Aggregate( ( i, j ) => $"{i}{Environment.NewLine}{j}");
 
          IsDirty = false;
          IsAmending = !string.IsNullOrEmpty( ShortMessage );
