@@ -110,14 +110,14 @@ namespace GitWrite
 
          SimpleIoc.Default.Register<IApplicationSettings, ApplicationSettings>();
          SimpleIoc.Default.Register<ICommitFileReader, CommitFileReader>();
+         SimpleIoc.Default.Register<ICommitFileWriter, CommitFileWriter>();
          SimpleIoc.Default.Register<IRebaseFileWriter, RebaseFileWriter>();
+         SimpleIoc.Default.Register<RebaseFileReader>();
          SimpleIoc.Default.Register<IAppService, AppService>();
          SimpleIoc.Default.Register<IClipboardService, ClipboardService>();
          SimpleIoc.Default.Register<IRegistryService, RegistryService>();
          SimpleIoc.Default.Register<IEnvironmentAdapter, EnvironmentAdapter>();
-         SimpleIoc.Default.Register<ICommitFileWriter, CommitFileWriter>();
 
-         SimpleIoc.Default.Register<RebaseFileReader>();
 
          SimpleIoc.Default.Register<AppController>();
          SimpleIoc.Default.Register<CommitViewModel>();
