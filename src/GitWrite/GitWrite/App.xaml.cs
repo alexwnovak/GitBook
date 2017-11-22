@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows;
 using Microsoft.Practices.ServiceLocation;
 using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Messaging;
 using GitModel;
 using GitWrite.Services;
 using GitWrite.Themes;
@@ -116,6 +117,7 @@ namespace GitWrite
          SimpleIoc.Default.Register<IClipboardService, ClipboardService>();
          SimpleIoc.Default.Register<IRegistryService, RegistryService>();
          SimpleIoc.Default.Register<IEnvironmentAdapter, EnvironmentAdapter>();
+         SimpleIoc.Default.Register( () => Messenger.Default );
 
 
          SimpleIoc.Default.Register<AppController>();
