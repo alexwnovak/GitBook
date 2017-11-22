@@ -150,9 +150,13 @@ namespace GitWrite.ViewModels
 
          _commitDocument.Subject = ShortMessage;
 
-         if ( !string.IsNullOrEmpty( ExtraCommitText ) )
+         if ( string.IsNullOrEmpty( ExtraCommitText ) )
          {
-            _commitDocument.Body[0] = ExtraCommitText;
+            _commitDocument.Body = null;
+         }
+         else
+         {
+            _commitDocument.Body = ExtraCommitText.Split( new[] { Environment.NewLine }, StringSplitOptions.None );
          }
 
          var commitFileWriter = new CommitFileWriter();
