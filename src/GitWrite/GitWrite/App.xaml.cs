@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using Microsoft.Practices.ServiceLocation;
@@ -50,9 +51,7 @@ namespace GitWrite
 
       private void EnsureFileExists( string fileName )
       {
-         var fileAdapter = SimpleIoc.Default.GetInstance<IFileAdapter>();
-
-         if ( !fileAdapter.Exists( fileName ) || fileAdapter.GetFileSize( fileName ) <= 0 )
+         if ( !File.Exists( fileName ) || new FileInfo( fileName ).Length <= 0 )
          {
             string title = Resx.FileLoadErrorTitle;
             string message = $"{Resx.FileLoadErrorMessage}{Environment.NewLine}{fileName}";
@@ -112,7 +111,6 @@ namespace GitWrite
          SimpleIoc.Default.Register<IApplicationSettings, ApplicationSettings>();
          SimpleIoc.Default.Register<ICommitFileReader, CommitFileReader>();
          SimpleIoc.Default.Register<IRebaseFileWriter, RebaseFileWriter>();
-         SimpleIoc.Default.Register<IFileAdapter, FileAdapter>();
          SimpleIoc.Default.Register<IAppService, AppService>();
          SimpleIoc.Default.Register<IClipboardService, ClipboardService>();
          SimpleIoc.Default.Register<IRegistryService, RegistryService>();
