@@ -95,16 +95,12 @@
     <Compile Include="Behaviors\WindowPlacementBehavior.cs" />
     <Compile Include="FrameworkElementExtensions.cs" />
     <Compile Include="GitFileAttribute.cs" />
-    <Compile Include="IRebaseFileWriter.cs" />
-    <Compile Include="RebaseDocument.cs" />
-    <Compile Include="RebaseFileReader.cs" />
     <Compile Include="Messages\PulseRequestedMessage.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="RebaseFileWriter.cs" />
     <Compile Include="RebaseItemActionExtensions.cs" />
     <Compile Include="Services\ApplicationSettings.cs" />
     <Compile Include="Services\GitRepositoryPathConverter.cs" />
@@ -122,9 +118,7 @@
     <Compile Include="ViewModels\CloseRequestedEventArgs.cs" />
     <Compile Include="ViewModels\GitWriteViewModelBase.cs" />
     <Compile Include="ViewModels\RebaseViewModel.cs" />
-    <Compile Include="ViewModels\RebaseItem.cs" />
     <Compile Include="Themes\ThemeSwitcher.cs" />
-    <Compile Include="ViewModels\RebaseItemAction.cs" />
     <Compile Include="ViewModels\ShutdownEventArgs.cs" />
     <Compile Include="ViewModels\ExitReason.cs" />
     <Compile Include="Views\Controls\DialogButtons.cs" />
