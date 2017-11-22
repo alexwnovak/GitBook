@@ -97,25 +97,25 @@ namespace GitWrite.UnitTests.ViewModels
          expanded.Should().BeFalse();
       }
 
-      //[Fact]
-      //public void ViewLoaded_HasExtraNotes_RaisesExpansionEvent()
-      //{
-      //   bool expanded = false;
+      [Fact]
+      public void ViewLoaded_HasExtraNotes_RaisesExpansionEvent()
+      {
+         bool expanded = false;
 
-      //   var commitViewModel = new CommitViewModel( null, null, null, null, null )
-      //   {
-      //      ExtraCommitText = "Extra notes"
-      //   };
+         var commitViewModel = new CommitViewModel( null, null, null, null, null, null )
+         {
+            ExtraCommitText = "Extra notes"
+         };
 
-      //   commitViewModel.AsyncExpansionRequested += ( sender, e ) =>
-      //   {
-      //      expanded = true;
-      //      return Task.CompletedTask;
-      //   };
-      //   commitViewModel.ViewLoaded();
+         commitViewModel.AsyncExpansionRequested += ( sender, e ) =>
+         {
+            expanded = true;
+            return Task.CompletedTask;
+         };
+         commitViewModel.ViewLoaded();
 
-      //   expanded.Should().BeTrue();
-      //}
+         expanded.Should().BeTrue();
+      }
 
       //[Fact]
       //public void SaveCommand_ShortMessageIsBlank_RaisesShakeRequested()
