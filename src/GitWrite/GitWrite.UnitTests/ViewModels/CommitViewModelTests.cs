@@ -37,22 +37,18 @@ namespace GitWrite.UnitTests.ViewModels
          commitViewModel.IsAmending.Should().BeFalse();
       }
 
-      //[Fact]
-      //public void Constructor_HasIncomingShortMessage_IsAmending()
-      //{
-      //   // Arrange
+      [Fact]
+      public void Constructor_HasIncomingShortMessage_IsAmending()
+      {
+         var commitDocument = new CommitDocument
+         {
+            Subject = "Not empty"
+         };
 
-      //   var commitDocumentMock = new Mock<ICommitDocument>();
-      //   commitDocumentMock.SetupGet( cd => cd.ShortMessage ).Returns( "Incoming message! Must be amending!" );
+         var commitViewModel = new CommitViewModel( null, null, null, null, commitDocument, null );
 
-      //   // Act
-
-      //   var commitViewModel = new CommitViewModel( null, null, null, commitDocumentMock.Object, null );
-
-      //   // Assert
-
-      //   commitViewModel.IsAmending.Should().BeTrue();
-      //}
+         commitViewModel.IsAmending.Should().BeTrue();
+      }
 
       //[Fact]
       //public void ViewLoaded_DoesNotHaveExtraNotes_DoesNotRaiseExpansionEvent()
