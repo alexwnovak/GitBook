@@ -117,7 +117,6 @@
     <Compile Include="AppControllerTests.cs" />
     <Compile Include="ApplicationModeInterpreterTests.cs" />
     <Compile Include="Behaviors\SuppressAltLogicTests.cs" />
-    <Compile Include="CommitDocumentTests.cs" />
     <Compile Include="CommitFileReaderTests.cs" />
     <Compile Include="Helpers\TestHelper.cs" />
     <Compile Include="RebaseFileReaderTests.cs" />
