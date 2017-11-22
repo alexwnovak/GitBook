@@ -247,162 +247,162 @@ namespace GitWrite.UnitTests.ViewModels
          expansionEventRaised.Should().BeFalse();
       }
 
-      //[Fact]
-      //public void PasteCommand_ClipboardHasOneLineOfText_SetsShortMessage()
-      //{
-      //   const string clipboardText = "Some text";
+      [Fact]
+      public void PasteCommand_ClipboardHasOneLineOfText_SetsShortMessage()
+      {
+         const string clipboardText = "Some text";
 
-      //   Setup
+         // Setup
 
-      //  var clipboardServiceMock = new Mock<IClipboardService>();
-      //   clipboardServiceMock.Setup( cs => cs.GetText() ).Returns( clipboardText );
+         var clipboardServiceMock = new Mock<IClipboardService>();
+         clipboardServiceMock.Setup( cs => cs.GetText() ).Returns( clipboardText );
 
-      //   Test
+         // Test
 
-      //  var viewModel = new CommitViewModel( null, null, clipboardServiceMock.Object, null, null );
+         var viewModel = new CommitViewModel( null, null, null, clipboardServiceMock.Object, null, null );
 
-      //   viewModel.PasteCommand.Execute( null );
+         viewModel.PasteCommand.Execute( null );
 
-      //   Assert
+         // Assert
 
-      //   viewModel.ShortMessage.Should().Be( clipboardText );
-      //}
+         viewModel.ShortMessage.Should().Be( clipboardText );
+      }
 
-      //[Fact]
-      //public void PasteCommand_ClipboardHasTwoLinesWithNoBlankLine_SetsBothMessages()
-      //{
-      //   string clipboardText = $"First line{Environment.NewLine}Second line";
+      [Fact]
+      public void PasteCommand_ClipboardHasTwoLinesWithNoBlankLine_SetsBothMessages()
+      {
+         string clipboardText = $"First line{Environment.NewLine}Second line";
 
-      //   // Setup
+         // Setup
 
-      //   var clipboardServiceMock = new Mock<IClipboardService>();
-      //   clipboardServiceMock.Setup( cs => cs.GetText() ).Returns( clipboardText );
+         var clipboardServiceMock = new Mock<IClipboardService>();
+         clipboardServiceMock.Setup( cs => cs.GetText() ).Returns( clipboardText );
 
-      //   // Test
+         // Test
 
-      //   var viewModel = new CommitViewModel( null, null, clipboardServiceMock.Object, null, null );
+         var viewModel = new CommitViewModel( null, null, null, clipboardServiceMock.Object, null, null );
 
-      //   viewModel.PasteCommand.Execute( null );
+         viewModel.PasteCommand.Execute( null );
 
-      //   // Assert
+         // Assert
 
-      //   viewModel.ShortMessage.Should().Be( "First line" );
-      //   viewModel.ExtraCommitText.Should().Be( "Second line" );
-      //}
+         viewModel.ShortMessage.Should().Be( "First line" );
+         viewModel.ExtraCommitText.Should().Be( "Second line" );
+      }
 
-      //[Fact]
-      //public void PasteCommand_ClipboardHasOneLineEndingWithLineBreak_SetsShortMessage()
-      //{
-      //   string clipboardText = $"First line{Environment.NewLine}";
+      [Fact]
+      public void PasteCommand_ClipboardHasOneLineEndingWithLineBreak_SetsShortMessage()
+      {
+         string clipboardText = $"First line{Environment.NewLine}";
 
-      //   Setup
+         // Setup
 
-      //  var clipboardServiceMock = new Mock<IClipboardService>();
-      //   clipboardServiceMock.Setup( cs => cs.GetText() ).Returns( clipboardText );
+         var clipboardServiceMock = new Mock<IClipboardService>();
+         clipboardServiceMock.Setup( cs => cs.GetText() ).Returns( clipboardText );
 
-      //   Test
+         // Test
 
-      //  var viewModel = new CommitViewModel( null, null, clipboardServiceMock.Object, null, null );
+         var viewModel = new CommitViewModel( null, null, null, clipboardServiceMock.Object, null, null );
 
-      //   viewModel.PasteCommand.Execute( null );
+         viewModel.PasteCommand.Execute( null );
 
-      //   Assert
+         // Assert
 
-      //   viewModel.ShortMessage.Should().Be( "First line" );
-      //   viewModel.ExtraCommitText.Should().BeNull();
-      //}
+         viewModel.ShortMessage.Should().Be( "First line" );
+         viewModel.ExtraCommitText.Should().BeNull();
+      }
 
-      //[Fact]
-      //public void PasteCommand_ClipboardHasOneLineEndingWithTwoLineBreaks_SetsShortMessage()
-      //{
-      //   string clipboardText = $"First line{Environment.NewLine}{Environment.NewLine}";
+      [Fact]
+      public void PasteCommand_ClipboardHasOneLineEndingWithTwoLineBreaks_SetsShortMessage()
+      {
+         string clipboardText = $"First line{Environment.NewLine}{Environment.NewLine}";
 
-      //   Setup
+         // Setup
 
-      //  var clipboardServiceMock = new Mock<IClipboardService>();
-      //   clipboardServiceMock.Setup( cs => cs.GetText() ).Returns( clipboardText );
+         var clipboardServiceMock = new Mock<IClipboardService>();
+         clipboardServiceMock.Setup( cs => cs.GetText() ).Returns( clipboardText );
 
-      //   Test
+         // Test
 
-      //  var viewModel = new CommitViewModel( null, null, clipboardServiceMock.Object, null, null );
+         var viewModel = new CommitViewModel( null, null, null, clipboardServiceMock.Object, null, null );
 
-      //   viewModel.PasteCommand.Execute( null );
+         viewModel.PasteCommand.Execute( null );
 
-      //   Assert
+         // Assert
 
-      //   viewModel.ShortMessage.Should().Be( "First line" );
-      //   viewModel.ExtraCommitText.Should().BeNull();
-      //}
+         viewModel.ShortMessage.Should().Be( "First line" );
+         viewModel.ExtraCommitText.Should().BeNull();
+      }
 
-      //[Fact]
-      //public void PasteCommand_ClipboardHasBothMessagesSeparatedByBlankLine_SetsBothMessages()
-      //{
-      //   string clipboardText = $"Short message{Environment.NewLine}{Environment.NewLine}Secondary notes";
+      [Fact]
+      public void PasteCommand_ClipboardHasBothMessagesSeparatedByBlankLine_SetsBothMessages()
+      {
+         string clipboardText = $"Short message{Environment.NewLine}{Environment.NewLine}Secondary notes";
 
-      //   // Setup
+         // Setup
 
-      //   var clipboardServiceMock = new Mock<IClipboardService>();
-      //   clipboardServiceMock.Setup( cs => cs.GetText() ).Returns( clipboardText );
+         var clipboardServiceMock = new Mock<IClipboardService>();
+         clipboardServiceMock.Setup( cs => cs.GetText() ).Returns( clipboardText );
 
-      //   // Test
+         // Test
 
-      //   var viewModel = new CommitViewModel( null, null, clipboardServiceMock.Object, null, null );
+         var viewModel = new CommitViewModel( null, null, null, clipboardServiceMock.Object, null, null );
 
-      //   viewModel.PasteCommand.Execute( null );
+         viewModel.PasteCommand.Execute( null );
 
-      //   // Assert
+         // Assert
 
-      //   viewModel.ShortMessage.Should().Be( "Short message" );
-      //   viewModel.ExtraCommitText.Should().Be( "Secondary notes" );
-      //}
+         viewModel.ShortMessage.Should().Be( "Short message" );
+         viewModel.ExtraCommitText.Should().Be( "Secondary notes" );
+      }
 
-      //[Fact]
-      //public void PasteCommand_ClipboardHasBothMessagesEndingWithLineBreaks_TrimsEndLineBreaks()
-      //{
-      //   string clipboardText = $"Short message{Environment.NewLine}Secondary notes{Environment.NewLine}{Environment.NewLine}";
+      [Fact]
+      public void PasteCommand_ClipboardHasBothMessagesEndingWithLineBreaks_TrimsEndLineBreaks()
+      {
+         string clipboardText = $"Short message{Environment.NewLine}Secondary notes{Environment.NewLine}{Environment.NewLine}";
 
-      //   // Setup
+         // Setup
 
-      //   var clipboardServiceMock = new Mock<IClipboardService>();
-      //   clipboardServiceMock.Setup( cs => cs.GetText() ).Returns( clipboardText );
+         var clipboardServiceMock = new Mock<IClipboardService>();
+         clipboardServiceMock.Setup( cs => cs.GetText() ).Returns( clipboardText );
 
-      //   // Test
+         // Test
 
-      //   var viewModel = new CommitViewModel( null, null, clipboardServiceMock.Object, null, null );
+         var viewModel = new CommitViewModel( null, null, null, clipboardServiceMock.Object, null, null );
 
-      //   viewModel.PasteCommand.Execute( null );
+         viewModel.PasteCommand.Execute( null );
 
-      //   // Assert
+         // Assert
 
-      //   viewModel.ShortMessage.Should().Be( "Short message" );
-      //   viewModel.ExtraCommitText.Should().Be( "Secondary notes" );
-      //}
+         viewModel.ShortMessage.Should().Be( "Short message" );
+         viewModel.ExtraCommitText.Should().Be( "Secondary notes" );
+      }
 
-      //[Fact]
-      //public async Task PasteCommand_ClipboardHasBothMessagesAndExtraNotesSpanMultipleLines_SetsBothMessage()
-      //{
-      //   const string shortMessage = "First line message";
-      //   string extraMessage = $"Secondary notes, first line{Environment.NewLine}{Environment.NewLine}Second line{Environment.NewLine}Third line";
-      //   string clipboardText = $"{shortMessage}{Environment.NewLine}{Environment.NewLine}{extraMessage}";
+      [Fact]
+      public async Task PasteCommand_ClipboardHasBothMessagesAndExtraNotesSpanMultipleLines_SetsBothMessage()
+      {
+         const string shortMessage = "First line message";
+         string extraMessage = $"Secondary notes, first line{Environment.NewLine}{Environment.NewLine}Second line{Environment.NewLine}Third line";
+         string clipboardText = $"{shortMessage}{Environment.NewLine}{Environment.NewLine}{extraMessage}";
 
-      //   // Setup
+         // Setup
 
-      //   await Task.Yield();
+         await Task.Yield();
 
-      //   var clipboardServiceMock = new Mock<IClipboardService>();
-      //   clipboardServiceMock.Setup( cs => cs.GetText() ).Returns( clipboardText );
+         var clipboardServiceMock = new Mock<IClipboardService>();
+         clipboardServiceMock.Setup( cs => cs.GetText() ).Returns( clipboardText );
 
-      //   // Test
+         // Test
 
-      //   var viewModel = new CommitViewModel( null, null, clipboardServiceMock.Object, null, null );
+         var viewModel = new CommitViewModel( null, null, null, clipboardServiceMock.Object, null, null );
 
-      //   viewModel.PasteCommand.Execute( null );
+         viewModel.PasteCommand.Execute( null );
 
-      //   // Assert
+         // Assert
 
-      //   viewModel.ShortMessage.Should().Be( shortMessage );
-      //   viewModel.ExtraCommitText.Should().Be( extraMessage );
-      //}
+         viewModel.ShortMessage.Should().Be( shortMessage );
+         viewModel.ExtraCommitText.Should().Be( extraMessage );
+      }
 
       //[Fact]
       //public void Title_HappyPath_TitleContainsBranchName()
