@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using FluentAssertions;
+using GalaSoft.MvvmLight.Command;
+using GitModel;
 using Moq;
 using Xunit;
 using GitWrite.Services;
+using GitWrite.UnitTests.Helpers;
 using GitWrite.ViewModels;
 
 namespace GitWrite.UnitTests.ViewModels
@@ -11,35 +15,57 @@ namespace GitWrite.UnitTests.ViewModels
    public class CommitViewModelTests
    {
       [Fact]
-      public void Constructor_IncomingShortMessageIsNull_ViewModelShortMessageIsEmptyString()
+      public void Constructor_IncomingSubjectIsNull_ViewModelShortMessageMatches()
       {
-         // Arrange
+         var commitDocument = new CommitDocument
+         {
+            Subject = null
+         };
 
-         var commitDocumentMock = new Mock<ICommitDocument>();
-         commitDocumentMock.SetupGet( cd => cd.ShortMessage ).Returns( (string) null );
+         var commitViewModel = new CommitViewModel( null, null, null, null, commitDocument, null, null );
 
-         // Act
-
-         var commitViewModel = new CommitViewModel( null, null, null, commitDocumentMock.Object, null );
-
-         // Assert
-
-         commitViewModel.ShortMessage.Should().BeEmpty();
+         commitViewModel.ShortMessage.Should().BeNull();
       }
 
       [Fact]
-      public void Constructor_IncomingShortMessageIsNull_IsNotAmending()
+      public void Constructor_CommitDocumentHasShortMessage_ViewModelReadsShortMessage()
       {
-         // Arrange
+         const string shortMessage = "Short commit message";
 
-         var commitDocumentMock = new Mock<ICommitDocument>();
-         commitDocumentMock.SetupGet( cd => cd.ShortMessage ).Returns( (string) null );
+         var commitDocument = new CommitDocument
+         {
+            Subject = shortMessage
+         };
 
-         // Act
+         var commitViewModel = new CommitViewModel( null, null, null, null, commitDocument, null, null );
 
-         var commitViewModel = new CommitViewModel( null, null, null, commitDocumentMock.Object, null );
+         commitViewModel.ShortMessage.Should().Be( shortMessage );
+      }
 
-         // Assert
+      [Fact]
+      public void Constructor_HasSingleLineBody_ViewModelReadsTheLongMessage()
+      {
+         const string longMessage = "Long message here";
+
+         var commitDocument = new CommitDocument
+         {
+            Body = new[] { longMessage }
+         };
+
+         var commitViewModel = new CommitViewModel( null, null, null, null, commitDocument, null, null );
+
+         commitViewModel.ExtraCommitText.Should().Be( longMessage );
+      }
+
+      [Fact]
+      public void Constructor_IncomingSubjectIsNull_IsNotAmending()
+      {
+         var commitDocument = new CommitDocument
+         {
+            Subject = null
+         };
+
+         var commitViewModel = new CommitViewModel( null, null, null, null, commitDocument, null, null );
 
          commitViewModel.IsAmending.Should().BeFalse();
       }
@@ -47,16 +73,12 @@ namespace GitWrite.UnitTests.ViewModels
       [Fact]
       public void Constructor_HasIncomingShortMessage_IsAmending()
       {
-         // Arrange
+         var commitDocument = new CommitDocument
+         {
+            Subject = "Not empty"
+         };
 
-         var commitDocumentMock = new Mock<ICommitDocument>();
-         commitDocumentMock.SetupGet( cd => cd.ShortMessage ).Returns( "Incoming message! Must be amending!" );
-
-         // Act
-
-         var commitViewModel = new CommitViewModel( null, null, null, commitDocumentMock.Object, null );
-
-         // Assert
+         var commitViewModel = new CommitViewModel( null, null, null, null, commitDocument, null, null );
 
          commitViewModel.IsAmending.Should().BeTrue();
       }
@@ -66,7 +88,7 @@ namespace GitWrite.UnitTests.ViewModels
       {
          bool expanded = false;
 
-         var commitViewModel = new CommitViewModel( null, null, null, null, null );
+         var commitViewModel = new CommitViewModel( null, null, null, null, null, null, null );
          commitViewModel.AsyncExpansionRequested += ( sender, e ) =>
          {
             expanded = true;
@@ -79,45 +101,11 @@ namespace GitWrite.UnitTests.ViewModels
       }
 
       [Fact]
-      public void Constructor_CommitDocumentHasShortMessage_ViewModelReadsShortMessage()
-      {
-         const string shortMessage = "Short commit message";
-
-         // Setup
-
-         var commitDocumentMock = new Mock<ICommitDocument>();
-         commitDocumentMock.SetupGet( cd => cd.ShortMessage ).Returns( shortMessage );
-
-         // Test
-
-         var commitViewModel = new CommitViewModel( null, null, null, commitDocumentMock.Object, null );
-
-         commitViewModel.ShortMessage.Should().Be( shortMessage );
-      }
-
-      [Fact]
-      public void Constructor_HasSingleLineLongMessage_ViewModelReadsTheLongMessage()
-      {
-         const string longMessage = "Long message here";
-
-         // Setup
-
-         var commitDocumentMock = new Mock<ICommitDocument>();
-         commitDocumentMock.SetupGet( cd => cd.LongMessage ).Returns( longMessage );
-
-         // Test
-
-         var commitViewModel = new CommitViewModel( null, null, null, commitDocumentMock.Object, null );
-
-         commitViewModel.ExtraCommitText.Should().Be( longMessage );
-      }
-
-      [Fact]
       public void ViewLoaded_HasExtraNotes_RaisesExpansionEvent()
       {
          bool expanded = false;
 
-         var commitViewModel = new CommitViewModel( null, null, null, null, null )
+         var commitViewModel = new CommitViewModel( null, null, null, null, null, null, null )
          {
             ExtraCommitText = "Extra notes"
          };
@@ -137,14 +125,12 @@ namespace GitWrite.UnitTests.ViewModels
       {
          bool shakeRequestedRaised = false;
 
-         // Arrange
+         var commitDocument = new CommitDocument
+         {
+            Subject = string.Empty
+         };
 
-         var commitDocumentMock = new Mock<ICommitDocument>();
-         commitDocumentMock.SetupGet( cd => cd.ShortMessage ).Returns( string.Empty );
-
-         // Act
-
-         var commitViewModel = new CommitViewModel( null, null, null, commitDocumentMock.Object, null );
+         var commitViewModel = new CommitViewModel( null, null, null, null, commitDocument, null, null );
 
          commitViewModel.AsyncShakeRequested += ( _, __ ) =>
          {
@@ -154,66 +140,13 @@ namespace GitWrite.UnitTests.ViewModels
 
          commitViewModel.SaveCommand.Execute( null );
 
-         // Assert
-
          shakeRequestedRaised.Should().BeTrue();
       }
-
-      //[Fact]
-      //public void KeyDown_PressesEnter_RunsSaveCommand()
-      //{
-      //   bool saveCommandExecuted = false;
-
-      //   var commitViewModel = new CommitViewModel
-      //   {
-      //      SaveCommand = new RelayCommand( () => saveCommandExecuted = true )
-      //   };
-
-      //   var args = TestHelper.GetKeyEventArgs( Key.Enter );
-
-      //   commitViewModel.OnCommitNotesKeyDown( args );
-
-      //   Assert.IsTrue( saveCommandExecuted );
-      //}
-
-      //[Fact]
-      //public void KeyDown_PressesEscape_RunsAbortCommand()
-      //{
-      //   bool abortCommandRun = false;
-
-      //   var commitViewModel = new CommitViewModel
-      //   {
-      //      AbortCommand = new RelayCommand( () => abortCommandRun = true )
-      //   };
-
-      //   var args = TestHelper.GetKeyEventArgs( Key.Escape );
-
-      //   commitViewModel.OnCommitNotesKeyDown( args );
-
-      //   Assert.IsTrue( abortCommandRun );
-      //}
-
-      //[Fact]
-      //public void KeyDown_PressesEscape_MarksEventAsHandled()
-      //{
-      //   var commitViewModel = new CommitViewModel
-      //   {
-      //      AbortCommand = new RelayCommand( () =>
-      //      {
-      //      } )
-      //   };
-
-      //   var args = TestHelper.GetKeyEventArgs( Key.Escape );
-
-      //   commitViewModel.OnCommitNotesKeyDown( args );
-
-      //   Assert.IsTrue( args.Handled );
-      //}
 
       [Fact]
       public void ExpandCommand_IsNotExpanded_SetsExpandedFlag()
       {
-         var commitViewModel = new CommitViewModel( null, null, null, null, null )
+         var commitViewModel = new CommitViewModel( null, null, null, null, null, null, null )
          {
             IsExpanded = false
          };
@@ -228,7 +161,7 @@ namespace GitWrite.UnitTests.ViewModels
       {
          bool expansionEventRaised = false;
 
-         var commitViewModel = new CommitViewModel( null, null, null, null, null )
+         var commitViewModel = new CommitViewModel( null, null, null, null, null, null, null )
          {
             IsExpanded = false
          };
@@ -247,7 +180,7 @@ namespace GitWrite.UnitTests.ViewModels
       [Fact]
       public void ExpandCommand_IsAlreadyExpanded_DoesNotChangeExpandedFlag()
       {
-         var commitViewModel = new CommitViewModel( null, null, null, null, null )
+         var commitViewModel = new CommitViewModel( null, null, null, null, null, null, null )
          {
             IsExpanded = true
          };
@@ -262,7 +195,7 @@ namespace GitWrite.UnitTests.ViewModels
       {
          bool expansionEventRaised = false;
 
-         var commitViewModel = new CommitViewModel( null, null, null, null, null )
+         var commitViewModel = new CommitViewModel( null, null, null, null, null, null, null )
          {
             IsExpanded = true
          };
@@ -281,7 +214,7 @@ namespace GitWrite.UnitTests.ViewModels
       [Fact]
       public void ExpandCommand_IsExitingFlagSetButIsNotExpanded_DoesNotChangeExpandedFlag()
       {
-         var commitViewModel = new CommitViewModel( null, null, null, null, null )
+         var commitViewModel = new CommitViewModel( null, null, null, null, null, null, null )
          {
             IsExiting = true,
             IsExpanded = false
@@ -297,7 +230,7 @@ namespace GitWrite.UnitTests.ViewModels
       {
          bool expansionEventRaised = false;
 
-         var commitViewModel = new CommitViewModel( null, null, null, null, null )
+         var commitViewModel = new CommitViewModel( null, null, null, null, null, null, null )
          {
             IsExiting = true,
             IsExpanded = true
@@ -326,7 +259,7 @@ namespace GitWrite.UnitTests.ViewModels
 
          // Test
 
-         var viewModel = new CommitViewModel( null, null, clipboardServiceMock.Object, null, null );
+         var viewModel = new CommitViewModel( null, null, null, clipboardServiceMock.Object, null, null, null );
 
          viewModel.PasteCommand.Execute( null );
 
@@ -335,27 +268,27 @@ namespace GitWrite.UnitTests.ViewModels
          viewModel.ShortMessage.Should().Be( clipboardText );
       }
 
-      //[Fact]
-      //public void PasteCommand_ClipboardHasTwoLinesWithNoBlankLine_SetsBothMessages()
-      //{
-      //   string clipboardText = $"First line{Environment.NewLine}Second line";
+      [Fact]
+      public void PasteCommand_ClipboardHasTwoLinesWithNoBlankLine_SetsBothMessages()
+      {
+         string clipboardText = $"First line{Environment.NewLine}Second line";
 
-      //   // Setup
+         // Setup
 
-      //   var clipboardServiceMock = new Mock<IClipboardService>();
-      //   clipboardServiceMock.Setup( cs => cs.GetText() ).Returns( clipboardText );
+         var clipboardServiceMock = new Mock<IClipboardService>();
+         clipboardServiceMock.Setup( cs => cs.GetText() ).Returns( clipboardText );
 
-      //   // Test
+         // Test
 
-      //   var viewModel = new CommitViewModel( null, null, clipboardServiceMock.Object, null, null );
+         var viewModel = new CommitViewModel( null, null, null, clipboardServiceMock.Object, null, null, null );
 
-      //   viewModel.PasteCommand.Execute( null );
+         viewModel.PasteCommand.Execute( null );
 
-      //   // Assert
+         // Assert
 
-      //   viewModel.ShortMessage.Should().Be( "First line" );
-      //   viewModel.ExtraCommitText.Should().Be( "Second line" );
-      //}
+         viewModel.ShortMessage.Should().Be( "First line" );
+         viewModel.ExtraCommitText.Should().Be( "Second line" );
+      }
 
       [Fact]
       public void PasteCommand_ClipboardHasOneLineEndingWithLineBreak_SetsShortMessage()
@@ -369,7 +302,7 @@ namespace GitWrite.UnitTests.ViewModels
 
          // Test
 
-         var viewModel = new CommitViewModel( null, null, clipboardServiceMock.Object, null, null );
+         var viewModel = new CommitViewModel( null, null, null, clipboardServiceMock.Object, null, null, null );
 
          viewModel.PasteCommand.Execute( null );
 
@@ -391,7 +324,7 @@ namespace GitWrite.UnitTests.ViewModels
 
          // Test
 
-         var viewModel = new CommitViewModel( null, null, clipboardServiceMock.Object, null, null );
+         var viewModel = new CommitViewModel( null, null, null, clipboardServiceMock.Object, null, null, null );
 
          viewModel.PasteCommand.Execute( null );
 
@@ -401,75 +334,75 @@ namespace GitWrite.UnitTests.ViewModels
          viewModel.ExtraCommitText.Should().BeNull();
       }
 
-      //[Fact]
-      //public void PasteCommand_ClipboardHasBothMessagesSeparatedByBlankLine_SetsBothMessages()
-      //{
-      //   string clipboardText = $"Short message{Environment.NewLine}{Environment.NewLine}Secondary notes";
+      [Fact]
+      public void PasteCommand_ClipboardHasBothMessagesSeparatedByBlankLine_SetsBothMessages()
+      {
+         string clipboardText = $"Short message{Environment.NewLine}{Environment.NewLine}Secondary notes";
 
-      //   // Setup
+         // Setup
 
-      //   var clipboardServiceMock = new Mock<IClipboardService>();
-      //   clipboardServiceMock.Setup( cs => cs.GetText() ).Returns( clipboardText );
+         var clipboardServiceMock = new Mock<IClipboardService>();
+         clipboardServiceMock.Setup( cs => cs.GetText() ).Returns( clipboardText );
 
-      //   // Test
+         // Test
 
-      //   var viewModel = new CommitViewModel( null, null, clipboardServiceMock.Object, null, null );
+         var viewModel = new CommitViewModel( null, null, null, clipboardServiceMock.Object, null, null, null );
 
-      //   viewModel.PasteCommand.Execute( null );
+         viewModel.PasteCommand.Execute( null );
 
-      //   // Assert
+         // Assert
 
-      //   viewModel.ShortMessage.Should().Be( "Short message" );
-      //   viewModel.ExtraCommitText.Should().Be( "Secondary notes" );
-      //}
+         viewModel.ShortMessage.Should().Be( "Short message" );
+         viewModel.ExtraCommitText.Should().Be( "Secondary notes" );
+      }
 
-      //[Fact]
-      //public void PasteCommand_ClipboardHasBothMessagesEndingWithLineBreaks_TrimsEndLineBreaks()
-      //{
-      //   string clipboardText = $"Short message{Environment.NewLine}Secondary notes{Environment.NewLine}{Environment.NewLine}";
+      [Fact]
+      public void PasteCommand_ClipboardHasBothMessagesEndingWithLineBreaks_TrimsEndLineBreaks()
+      {
+         string clipboardText = $"Short message{Environment.NewLine}Secondary notes{Environment.NewLine}{Environment.NewLine}";
 
-      //   // Setup
+         // Setup
 
-      //   var clipboardServiceMock = new Mock<IClipboardService>();
-      //   clipboardServiceMock.Setup( cs => cs.GetText() ).Returns( clipboardText );
+         var clipboardServiceMock = new Mock<IClipboardService>();
+         clipboardServiceMock.Setup( cs => cs.GetText() ).Returns( clipboardText );
 
-      //   // Test
+         // Test
 
-      //   var viewModel = new CommitViewModel( null, null, clipboardServiceMock.Object, null, null );
+         var viewModel = new CommitViewModel( null, null, null, clipboardServiceMock.Object, null, null, null );
 
-      //   viewModel.PasteCommand.Execute( null );
+         viewModel.PasteCommand.Execute( null );
 
-      //   // Assert
+         // Assert
 
-      //   viewModel.ShortMessage.Should().Be( "Short message" );
-      //   viewModel.ExtraCommitText.Should().Be( "Secondary notes" );
-      //}
+         viewModel.ShortMessage.Should().Be( "Short message" );
+         viewModel.ExtraCommitText.Should().Be( "Secondary notes" );
+      }
 
-      //[Fact]
-      //public async Task PasteCommand_ClipboardHasBothMessagesAndExtraNotesSpanMultipleLines_SetsBothMessage()
-      //{
-      //   const string shortMessage = "First line message";
-      //   string extraMessage = $"Secondary notes, first line{Environment.NewLine}{Environment.NewLine}Second line{Environment.NewLine}Third line";
-      //   string clipboardText = $"{shortMessage}{Environment.NewLine}{Environment.NewLine}{extraMessage}";
+      [Fact]
+      public async Task PasteCommand_ClipboardHasBothMessagesAndExtraNotesSpanMultipleLines_SetsBothMessage()
+      {
+         const string shortMessage = "First line message";
+         string extraMessage = $"Secondary notes, first line{Environment.NewLine}{Environment.NewLine}Second line{Environment.NewLine}Third line";
+         string clipboardText = $"{shortMessage}{Environment.NewLine}{Environment.NewLine}{extraMessage}";
 
-      //   // Setup
+         // Setup
 
-      //   await Task.Yield();
+         await Task.Yield();
 
-      //   var clipboardServiceMock = new Mock<IClipboardService>();
-      //   clipboardServiceMock.Setup( cs => cs.GetText() ).Returns( clipboardText );
+         var clipboardServiceMock = new Mock<IClipboardService>();
+         clipboardServiceMock.Setup( cs => cs.GetText() ).Returns( clipboardText );
 
-      //   // Test
+         // Test
 
-      //   var viewModel = new CommitViewModel( null, null, clipboardServiceMock.Object, null, null );
+         var viewModel = new CommitViewModel( null, null, null, clipboardServiceMock.Object, null, null, null );
 
-      //   viewModel.PasteCommand.Execute( null );
+         viewModel.PasteCommand.Execute( null );
 
-      //   // Assert
+         // Assert
 
-      //   viewModel.ShortMessage.Should().Be( shortMessage );
-      //   viewModel.ExtraCommitText.Should().Be( extraMessage );
-      //}
+         viewModel.ShortMessage.Should().Be( shortMessage );
+         viewModel.ExtraCommitText.Should().Be( extraMessage );
+      }
 
       [Fact]
       public void Title_HappyPath_TitleContainsBranchName()
@@ -483,268 +416,13 @@ namespace GitWrite.UnitTests.ViewModels
 
          // Test
 
-         var viewModel = new CommitViewModel( null, null, null, null, gitServiceMock.Object );
+         var viewModel = new CommitViewModel( null, null, null, null, null, gitServiceMock.Object, null );
          string title = viewModel.Title;
 
          // Assert
 
          title.Should().Contain( branchName );
       }
-
-      //[Fact]
-      //public void OnCommitNotesKeyDown_KeyIsEscapeAndHasNoCommitText_CallsShutdown()
-      //{
-      //   // Setup
-
-      //   var serviceMock = new Mock<IAppService>();
-      //   SimpleIoc.Default.Register( () => serviceMock.Object );
-
-      //   // Test
-
-      //   var viewModel = new CommitViewModel();
-
-      //   var args = TestHelper.GetKeyEventArgs( Key.Escape );
-
-      //   viewModel.OnCommitNotesKeyDown( args );
-
-      //   // Assert
-
-      //   serviceMock.Verify( sm => sm.Shutdown(), Times.Once() );
-      //}
-
-      //[Fact]
-      //public void OnCommitNotesKeyDown_KeyIsEscapeAndNotesHaveNotBeenEntered_DoesNotDisplayConfirmDialog()
-      //{
-      //   // Setup
-
-      //   var serviceMock = new Mock<IAppService>();
-      //   SimpleIoc.Default.Register( () => serviceMock.Object );
-
-      //   // Test
-
-      //   var viewModel = new CommitViewModel();
-
-      //   var args = TestHelper.GetKeyEventArgs( Key.Escape );
-
-      //   viewModel.OnCommitNotesKeyDown( args );
-
-      //   // Assert
-
-      //   serviceMock.Verify( sm => sm.DisplayMessageBox( It.IsAny<string>(), It.IsAny<MessageBoxButton>() ), Times.Never() );
-      //}
-
-      //[Fact]
-      //public void OnCommitNotesKeyDown_KeyIsEscapeAndNotesHaveBeenEntered_DisplaysConfirmDialog()
-      //{
-      //   // Setup
-
-      //   var serviceMock = new Mock<IAppService>();
-      //   SimpleIoc.Default.Register( () => serviceMock.Object );
-
-      //   // Test
-
-      //   var viewModel = new CommitViewModel
-      //   {
-      //      ShortMessage = "Some notes"
-      //   };
-
-      //   var args = TestHelper.GetKeyEventArgs( Key.Escape );
-
-      //   viewModel.OnCommitNotesKeyDown( args );
-
-      //   // Assert
-
-      //   serviceMock.Verify( sm => sm.DisplayMessageBox( It.IsAny<string>(), It.IsAny<MessageBoxButton>() ), Times.Once() );
-      //}
-
-      //[Fact]
-      //public void OnCommitNotesKeyDown_KeyIsEscapeAndNotesHaveBeenEntered_DisplaysConfirmDialogWithCorrectTextAndButtons()
-      //{
-      //   // Setup
-
-      //   var serviceMock = new Mock<IAppService>();
-      //   SimpleIoc.Default.Register( () => serviceMock.Object );
-
-      //   // Test
-
-      //   var viewModel = new CommitViewModel
-      //   {
-      //      ShortMessage = "Some notes"
-      //   };
-
-      //   var args = TestHelper.GetKeyEventArgs( Key.Escape );
-
-      //   viewModel.OnCommitNotesKeyDown( args );
-
-      //   // Assert
-
-      //   serviceMock.Verify( sm => sm.DisplayMessageBox( Strings.ConfirmDiscardMessage, MessageBoxButton.YesNo ), Times.Once() );
-      //}
-
-      //[Fact]
-      //public void OnCommitNotesKeyDown_UserDiscardsTheirCommit_ShutsDownAfterConfirmation()
-      //{
-      //   // Setup
-
-      //   var serviceMock = new Mock<IAppService>();
-      //   serviceMock.Setup( sm => sm.DisplayMessageBox( Strings.ConfirmDiscardMessage, MessageBoxButton.YesNo ) ).Returns( MessageBoxResult.Yes );
-      //   SimpleIoc.Default.Register( () => serviceMock.Object );
-
-      //   // Test
-
-      //   var viewModel = new CommitViewModel
-      //   {
-      //      ShortMessage = "Some notes"
-      //   };
-
-      //   var args = TestHelper.GetKeyEventArgs( Key.Escape );
-
-      //   viewModel.OnCommitNotesKeyDown( args );
-
-      //   // Assert
-
-      //   serviceMock.Verify( sm => sm.DisplayMessageBox( Strings.ConfirmDiscardMessage, MessageBoxButton.YesNo ), Times.Once() );
-
-      //   serviceMock.Verify( sm => sm.Shutdown(), Times.Once() );
-      //}
-
-      //[Fact]
-      //public void OnCommitNotesKeyDown_UserDoesNotDiscardTheirCommit_DoesNotShutDownAfterConfirmation()
-      //{
-      //   // Setup
-
-      //   var serviceMock = new Mock<IAppService>();
-      //   serviceMock.Setup( sm => sm.DisplayMessageBox( Strings.ConfirmDiscardMessage, MessageBoxButton.YesNo ) ).Returns( MessageBoxResult.No );
-      //   SimpleIoc.Default.Register( () => serviceMock.Object );
-
-      //   // Test
-
-      //   var viewModel = new CommitViewModel
-      //   {
-      //      ShortMessage = "Some notes"
-      //   };
-
-      //   var args = TestHelper.GetKeyEventArgs( Key.Escape );
-
-      //   viewModel.OnCommitNotesKeyDown( args );
-
-      //   // Assert
-
-      //   serviceMock.Verify( sm => sm.DisplayMessageBox( Strings.ConfirmDiscardMessage, MessageBoxButton.YesNo ), Times.Once() );
-
-      //   serviceMock.Verify( sm => sm.Shutdown(), Times.Never() );
-      //}
-
-      //[Fact]
-      //public void OnCommitNotesKeyDown_EnterKeyPressed_StoresCommitNotesIntoDocument()
-      //{
-      //   const string commitText = "This commit text.";
-
-      //   // Setup
-
-      //   var serviceMock = new Mock<IAppService>();
-      //   SimpleIoc.Default.Register( () => serviceMock.Object );
-
-      //   var commitDocumentMock = new Mock<ICommitDocument>();
-      //   commitDocumentMock.SetupProperty( cd => cd.ShortMessage );
-      //   commitDocumentMock.SetupGet( cd => cd.LongMessage ).Returns( new List<string>() );
-      //   App.CommitDocument = commitDocumentMock.Object;
-
-      //   // Test
-
-      //   var viewModel = new CommitViewModel
-      //   {
-      //      ShortMessage = commitText
-      //   };
-
-      //   var args = TestHelper.GetKeyEventArgs( Key.Enter );
-
-      //   viewModel.OnCommitNotesKeyDown( args );
-
-      //   // Assert
-
-      //   Assert.AreEqual( commitText, App.CommitDocument.ShortMessage );
-      //}
-
-      //[Fact]
-      //public void OnCommitNotesKeyDown_EnterKeyPressed_StoresExtraCommitNotesIntoDocument()
-      //{
-      //   string extraCommitText = "This is much longer" + Environment.NewLine + "text for the commit.";
-
-      //   // Setup
-
-      //   var serviceMock = new Mock<IAppService>();
-      //   SimpleIoc.Default.Register( () => serviceMock.Object );
-
-      //   var commitDocumentMock = new Mock<ICommitDocument>();
-      //   commitDocumentMock.SetupGet( cd => cd.LongMessage ).Returns( new List<string>() );
-      //   App.CommitDocument = commitDocumentMock.Object;
-
-      //   // Test
-
-      //   var viewModel = new CommitViewModel
-      //   {
-      //      ExtraCommitText = extraCommitText
-      //   };
-
-      //   var args = TestHelper.GetKeyEventArgs( Key.Enter );
-
-      //   viewModel.OnCommitNotesKeyDown( args );
-
-      //   // Assert
-
-      //   Assert.AreEqual( extraCommitText, App.CommitDocument.LongMessage.First() );
-      //}
-
-      //[Fact]
-      //public void OnCommitNotesKeyDown_EnterKeyPressed_SavesCommitNotes()
-      //{
-      //   // Setup
-
-      //   var serviceMock = new Mock<IAppService>();
-      //   SimpleIoc.Default.Register( () => serviceMock.Object );
-
-      //   var commitDocumentMock = new Mock<ICommitDocument>();
-      //   commitDocumentMock.SetupGet( cd => cd.LongMessage ).Returns( new List<string>() );
-      //   App.CommitDocument = commitDocumentMock.Object;
-
-      //   // Test
-
-      //   var viewModel = new CommitViewModel();
-
-      //   var args = TestHelper.GetKeyEventArgs( Key.Enter );
-
-      //   viewModel.OnCommitNotesKeyDown( args );
-
-      //   // Assert
-
-      //   commitDocumentMock.Verify( cd => cd.Save(), Times.Once() );
-      //}
-
-      //[Fact]
-      //public void OnCommitNotesKeyDown_EnterKeyPressed_ExitsAppWithCodeZero()
-      //{
-      //   // Setup
-
-      //   var commitDocumentMock = new Mock<ICommitDocument>();
-      //   commitDocumentMock.SetupGet( cd => cd.LongMessage ).Returns( new List<string>() );
-      //   App.CommitDocument = commitDocumentMock.Object;
-
-      //   var appServiceMock = new Mock<IAppService>();
-      //   SimpleIoc.Default.Register( () => appServiceMock.Object );
-
-      //   // Test
-
-      //   var viewModel = new CommitViewModel();
-
-      //   var args = TestHelper.GetKeyEventArgs( Key.Enter );
-
-      //   viewModel.OnCommitNotesKeyDown( args );
-
-      //   // Assert
-
-      //   appServiceMock.Verify( @as => @as.Shutdown(), Times.Once() );
-      //}
 
       [Fact]
       public void AbortCommand_ExpandedFlagIsSet_RaisesCollapseRequested()
@@ -754,11 +432,10 @@ namespace GitWrite.UnitTests.ViewModels
          // Arrange
 
          var appServiceMock = new Mock<IAppService>();
-         var commitDocumentMock = new Mock<ICommitDocument>();
 
          // Act
 
-         var viewModel = new CommitViewModel( null, appServiceMock.Object, null, commitDocumentMock.Object, null )
+         var viewModel = new CommitViewModel( null, null, appServiceMock.Object, null, new CommitDocument(), null, Mock.Of<ICommitFileWriter>() )
          {
             IsExpanded = true
          };
@@ -781,15 +458,14 @@ namespace GitWrite.UnitTests.ViewModels
       {
          bool wasRaised = false;
 
-         // Arrange
-
-         var appServiceMock = new Mock<IAppService>();
-         var commitDocumentMock = new Mock<ICommitDocument>();
-         commitDocumentMock.SetupGet( cd => cd.ShortMessage ).Returns( string.Empty );
-
          // Act
 
-         var viewModel = new CommitViewModel( null, appServiceMock.Object, null, commitDocumentMock.Object, null )
+         var commitDocument = new CommitDocument
+         {
+            Subject = string.Empty
+         };
+
+         var viewModel = new CommitViewModel( null, null, Mock.Of<IAppService>(), null, commitDocument, null, Mock.Of<ICommitFileWriter>() )
          {
             IsExiting = false
          };

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using Microsoft.Practices.ServiceLocation;
 using GalaSoft.MvvmLight.Ioc;
+using GitModel;
 using GitWrite.Services;
 using GitWrite.Themes;
 using GitWrite.ViewModels;
@@ -82,7 +83,8 @@ namespace GitWrite
             Shutdown();
          }
 
-         SimpleIoc.Default.Register<ICommitDocument>( () => commitDocument );
+         SimpleIoc.Default.Register( () => commitDocument );
+         SimpleIoc.Default.Register( () => fileName );
          SimpleIoc.Default.Register<IGitService>( () => new GitService( null ) );
       }
 
@@ -92,8 +94,8 @@ namespace GitWrite
 
          try
          {
-            var documentReader = SimpleIoc.Default.GetInstance<RebaseFileReader>();
-            document = documentReader.FromFile( fileName );
+            var rebaseFileReader = new RebaseFileReader();
+            document = rebaseFileReader.FromFile( fileName );
          }
          catch ( GitFileLoadException )
          {
@@ -115,6 +117,7 @@ namespace GitWrite
          SimpleIoc.Default.Register<IClipboardService, ClipboardService>();
          SimpleIoc.Default.Register<IRegistryService, RegistryService>();
          SimpleIoc.Default.Register<IEnvironmentAdapter, EnvironmentAdapter>();
+         SimpleIoc.Default.Register<ICommitFileWriter, CommitFileWriter>();
 
          SimpleIoc.Default.Register<RebaseFileReader>();
 

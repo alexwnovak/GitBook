@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using GitModel;
 using GitWrite.Services;
 
 namespace GitWrite.ViewModels
@@ -23,7 +24,7 @@ namespace GitWrite.ViewModels
          _rebaseFileWriter = rebaseFileWriter;
          _document = document;
 
-         Items = new ObservableCollection<RebaseItem>( document.RebaseItems );
+         Items = new ObservableCollection<RebaseItem>( document.Items );
       }
 
       public void SwapItems( int indexOne, int indexTwo )
@@ -35,8 +36,8 @@ namespace GitWrite.ViewModels
 
       protected override Task<bool> OnSaveAsync()
       {
-         _document.RebaseItems = Items.ToArray();
-         _rebaseFileWriter.Save( _document );
+         _document.Items = Items.ToArray();
+         _rebaseFileWriter.ToFile( "TempFile", _document );
 
          return Task.FromResult( true );
       }

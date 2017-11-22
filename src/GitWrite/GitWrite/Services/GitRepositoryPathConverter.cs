@@ -1,22 +1,25 @@
-﻿namespace GitWrite.Services
+﻿using GitModel;
+
+namespace GitWrite.Services
 {
    public static class GitRepositoryPathConverter
    {
       public static string GetPath( CommitDocument document )
       {
-         if ( document == null || string.IsNullOrEmpty( document.Name ) )
-         {
-            return string.Empty;
-         }
+         return null;
+         //if ( document == null || string.IsNullOrEmpty( document.Name ) )
+         //{
+         //   return string.Empty;
+         //}
 
-         int repoPosition = document.Name.IndexOf( ".git" );
+         //int repoPosition = document.Name.IndexOf( ".git" );
 
-         if ( repoPosition == -1 )
-         {
-            return string.Empty;
-         }
+         //if ( repoPosition == -1 )
+         //{
+         //   return string.Empty;
+         //}
 
-         return document.Name.Substring( 0, repoPosition + 4 );
+         //return document.Name.Substring( 0, repoPosition + 4 );
       }
    }
 }

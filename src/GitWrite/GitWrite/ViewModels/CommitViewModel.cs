@@ -1,7 +1,9 @@
 using System;
 using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight.Command;
+using GitModel;
 using GitWrite.Services;
 using Resx = GitWrite.Properties.Resources;
 
@@ -9,9 +11,11 @@ namespace GitWrite.ViewModels
 {
    public class CommitViewModel : GitWriteViewModelBase
    {
+      private readonly string _commitFilePath;
       private readonly IClipboardService _clipboardService;
-      private readonly ICommitDocument _commitDocument;
+      private readonly CommitDocument _commitDocument;
       private readonly IGitService _gitService;
+      private readonly ICommitFileWriter _commitFileWriter;
 
       public RelayCommand SecondaryNotesGotFocusCommand
       {
@@ -87,20 +91,32 @@ namespace GitWrite.ViewModels
       public event AsyncEventHandler AsyncShakeRequested;
       public event AsyncEventHandler<ShutdownEventArgs> AsyncExitRequested;
        
-      public CommitViewModel( IViewService viewService, IAppService appService, IClipboardService clipboardService, ICommitDocument commitDocument, IGitService gitService )
+      public CommitViewModel( string commitFilePath,
+         IViewService viewService,
+         IAppService appService,
+         IClipboardService clipboardService,
+         CommitDocument commitDocument,
+         IGitService gitService,
+         ICommitFileWriter commitFileWriter )
          : base( viewService, appService )
       {
+         _commitFilePath = commitFilePath;
          _clipboardService = clipboardService;
          _commitDocument = commitDocument;
          _gitService = gitService;
+         _commitFileWriter = commitFileWriter;
 
          SecondaryNotesGotFocusCommand = new RelayCommand( async () => await ExpandUI() );
          ExpandCommand = new RelayCommand( async () => await ExpandUI() );
          LoadCommand = new RelayCommand( ViewLoaded );
          PasteCommand = new RelayCommand( async () => await PasteFromClipboard() );
 
-         ShortMessage = _commitDocument?.ShortMessage ?? string.Empty;
-         ExtraCommitText = _commitDocument?.LongMessage;
+         ShortMessage = _commitDocument?.Subject;
+
+         if ( _commitDocument != null && _commitDocument.Body?.Length > 0 )
+         {
+            ExtraCommitText = _commitDocument.Body.Aggregate( ( i, j ) => $"{i}{Environment.NewLine}{j}");
+         }
 
          IsDirty = false;
          IsAmending = !string.IsNullOrEmpty( ShortMessage );
@@ -140,9 +156,18 @@ namespace GitWrite.ViewModels
 
          await OnExitRequestedAsync( this, new ShutdownEventArgs( ExitReason.Save ) );
 
-         _commitDocument.ShortMessage = ShortMessage;
-         _commitDocument.LongMessage = ExtraCommitText;
-         _commitDocument.Save();
+         _commitDocument.Subject = ShortMessage;
+
+         if ( string.IsNullOrEmpty( ExtraCommitText ) )
+         {
+            _commitDocument.Body = null;
+         }
+         else
+         {
+            _commitDocument.Body = ExtraCommitText.Split( new[] { Environment.NewLine }, StringSplitOptions.None );
+         }
+
+         _commitFileWriter.ToFile( _commitFilePath, _commitDocument );
 
          return true;
       }
@@ -153,9 +178,10 @@ namespace GitWrite.ViewModels
 
          await OnExitRequestedAsync( this, new ShutdownEventArgs( ExitReason.Discard ) );
 
-         _commitDocument.ShortMessage = null;
-         _commitDocument.LongMessage = null;
-         _commitDocument.Save();
+         _commitDocument.Subject = null;
+         _commitDocument.Body = new string[0];
+
+         _commitFileWriter.ToFile( _commitFilePath, _commitDocument );
 
          return true;
       }

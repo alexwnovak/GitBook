@@ -164,7 +164,7 @@
                         Foreground="#EEE"
                         FontSize="14"
                         VerticalAlignment="Center"
-                        Text="{Binding Text}" />
+                        Text="{Binding Subject}" />
                   </Grid>
                </DataTemplate>
             </ListBox.ItemTemplate>

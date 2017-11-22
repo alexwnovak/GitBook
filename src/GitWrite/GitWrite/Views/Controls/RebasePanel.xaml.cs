@@ -8,6 +8,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using GitModel;
 using GitWrite.ViewModels;
 
 namespace GitWrite.Views.Controls
@@ -227,7 +228,7 @@ namespace GitWrite.Views.Controls
          _selectedObject.BringIntoView();
       }
 
-      private async Task ChangeActionAsync( RebaseItemAction itemAction, HorizontalMovementDirection direction )
+      private async Task ChangeActionAsync( RebaseAction itemAction, HorizontalMovementDirection direction )
       {
          if ( _isMoving )
          {
@@ -365,27 +366,27 @@ namespace GitWrite.Views.Controls
          }
          else if ( e.Key == Key.P )
          {
-            await ChangeActionAsync( RebaseItemAction.Pick, HorizontalMovementDirection.Right );
+            await ChangeActionAsync( RebaseAction.Pick, HorizontalMovementDirection.Right );
          }
          else if ( e.Key == Key.S )
          {
-            await ChangeActionAsync( RebaseItemAction.Squash, HorizontalMovementDirection.Right );
+            await ChangeActionAsync( RebaseAction.Squash, HorizontalMovementDirection.Right );
          }
          else if ( e.Key == Key.R )
          {
-            await ChangeActionAsync( RebaseItemAction.Reword, HorizontalMovementDirection.Right );
+            await ChangeActionAsync( RebaseAction.Reword, HorizontalMovementDirection.Right );
          }
          else if ( e.Key == Key.F )
          {
-            await ChangeActionAsync( RebaseItemAction.Fixup, HorizontalMovementDirection.Right );
+            await ChangeActionAsync( RebaseAction.Fixup, HorizontalMovementDirection.Right );
          }
          else if ( e.Key == Key.E )
          {
-            await ChangeActionAsync( RebaseItemAction.Edit, HorizontalMovementDirection.Right );
+            await ChangeActionAsync( RebaseAction.Edit, HorizontalMovementDirection.Right );
          }
          else if ( e.Key == Key.X )
          {
-            await ChangeActionAsync( RebaseItemAction.Exec, HorizontalMovementDirection.Right );
+            await ChangeActionAsync( RebaseAction.Exec, HorizontalMovementDirection.Right );
          }
       }
    }

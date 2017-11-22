@@ -49,6 +49,9 @@
     <Reference Include="GalaSoft.MvvmLight.WPF45">
       <HintPath>..\packages\MvvmLightLibs.4.3.31.1\lib\net45\GalaSoft.MvvmLight.WPF45.dll</HintPath>
     </Reference>
+    <Reference Include="GitModel, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GitModel.0.9.0\lib\netstandard1.5\GitModel.dll</HintPath>
+    </Reference>
     <Reference Include="LibGit2Sharp, Version=0.22.0.0, Culture=neutral, PublicKeyToken=7cbde695407f0333, processorArchitecture=MSIL">
       <HintPath>..\packages\LibGit2Sharp.0.22.0\lib\net40\LibGit2Sharp.dll</HintPath>
       <Private>True</Private>
@@ -90,20 +93,14 @@
     <Compile Include="Behaviors\TripleClickSelectionBehavior.cs" />
     <Compile Include="Behaviors\WindowDragBehavior.cs" />
     <Compile Include="Behaviors\WindowPlacementBehavior.cs" />
-    <Compile Include="CommitDocument.cs" />
-    <Compile Include="CommitFileReader.cs" />
     <Compile Include="FrameworkElementExtensions.cs" />
     <Compile Include="GitFileAttribute.cs" />
-    <Compile Include="IRebaseFileWriter.cs" />
-    <Compile Include="RebaseDocument.cs" />
-    <Compile Include="RebaseFileReader.cs" />
     <Compile Include="Messages\PulseRequestedMessage.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="RebaseFileWriter.cs" />
     <Compile Include="RebaseItemActionExtensions.cs" />
     <Compile Include="Services\ApplicationSettings.cs" />
     <Compile Include="Services\GitRepositoryPathConverter.cs" />
@@ -121,9 +118,7 @@
     <Compile Include="ViewModels\CloseRequestedEventArgs.cs" />
     <Compile Include="ViewModels\GitWriteViewModelBase.cs" />
     <Compile Include="ViewModels\RebaseViewModel.cs" />
-    <Compile Include="ViewModels\RebaseItem.cs" />
     <Compile Include="Themes\ThemeSwitcher.cs" />
-    <Compile Include="ViewModels\RebaseItemAction.cs" />
     <Compile Include="ViewModels\ShutdownEventArgs.cs" />
     <Compile Include="ViewModels\ExitReason.cs" />
     <Compile Include="Views\Controls\DialogButtons.cs" />
@@ -152,8 +147,6 @@
     <Compile Include="FileAdapter.cs" />
     <Compile Include="GitFileLoadException.cs" />
     <Compile Include="GitFileNames.cs" />
-    <Compile Include="ICommitDocument.cs" />
-    <Compile Include="ICommitFileReader.cs" />
     <Compile Include="IEnvironmentAdapter.cs" />
     <Compile Include="IFileAdapter.cs" />
     <Compile Include="Services\IAppService.cs" />
