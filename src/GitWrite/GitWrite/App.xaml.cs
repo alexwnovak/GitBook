@@ -9,7 +9,6 @@ using GitModel;
 using GitWrite.Services;
 using GitWrite.Themes;
 using GitWrite.ViewModels;
-using GitWrite.Views;
 using GitWrite.Views.Controls;
 using Resx = GitWrite.Properties.Resources;
 
