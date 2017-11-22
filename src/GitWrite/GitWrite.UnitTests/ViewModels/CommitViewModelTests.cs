@@ -143,18 +143,18 @@ namespace GitWrite.UnitTests.ViewModels
          shakeRequestedRaised.Should().BeTrue();
       }
 
-      //[Fact]
-      //public void ExpandCommand_IsNotExpanded_SetsExpandedFlag()
-      //{
-      //   var commitViewModel = new CommitViewModel( null, null, null, null, null )
-      //   {
-      //      IsExpanded = false
-      //   };
+      [Fact]
+      public void ExpandCommand_IsNotExpanded_SetsExpandedFlag()
+      {
+         var commitViewModel = new CommitViewModel( null, null, null, null, null, null )
+         {
+            IsExpanded = false
+         };
 
-      //   commitViewModel.ExpandCommand.Execute( null );
+         commitViewModel.ExpandCommand.Execute( null );
 
-      //   commitViewModel.IsExpanded.Should().BeTrue();
-      //}
+         commitViewModel.IsExpanded.Should().BeTrue();
+      }
 
       //[Fact]
       //public void ExpandCommand_IsNotExpanded_RaisesExpansionRequestedEvent()
