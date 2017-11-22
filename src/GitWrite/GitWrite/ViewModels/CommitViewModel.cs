@@ -164,13 +164,7 @@ namespace GitWrite.ViewModels
          _commitDocument.Body = new string[0];
 
          var commitFileWriter = new CommitFileWriter();
-         //commitFileWriter.ToFile( );
-         //_commitDocument.Save();
-
-
-         //_commitDocument.ShortMessage = null;
-         //_commitDocument.LongMessage = null;
-         //_commitDocument.Save();
+         commitFileWriter.ToFile( _commitFilePath, _commitDocument );
 
          return true;
       }
