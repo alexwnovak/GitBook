@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using GalaSoft.MvvmLight.Messaging;
 using GitModel;
 using GitWrite.Services;
 
@@ -18,8 +19,12 @@ namespace GitWrite.ViewModels
 
       public string Title => "Rebasing";
 
-      public RebaseViewModel( IViewService viewService, IAppService appService, IRebaseFileWriter rebaseFileWriter, RebaseDocument document )
-         : base( viewService, appService )
+      public RebaseViewModel( IViewService viewService,
+         IAppService appService,
+         IRebaseFileWriter rebaseFileWriter, 
+         RebaseDocument document,
+         IMessenger messenger )
+         : base( viewService, appService, messenger )
       {
          _rebaseFileWriter = rebaseFileWriter;
          _document = document;

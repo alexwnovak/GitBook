@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using FluentAssertions;
+using GalaSoft.MvvmLight.Messaging;
 using GitWrite.Services;
 using GitWrite.ViewModels;
 using Moq;
@@ -18,7 +19,7 @@ namespace GitWrite.UnitTests.ViewModels
 
          // Test
 
-         var viewModel = new GitWriteViewModelBase( null, appServiceMock.Object );
+         var viewModel = new GitWriteViewModelBase( null, appServiceMock.Object, Mock.Of<IMessenger>() );
 
          viewModel.AbortCommand.Execute( null );
 
@@ -38,7 +39,7 @@ namespace GitWrite.UnitTests.ViewModels
 
          // Test
 
-         var viewModel = new GitWriteViewModelBase( null, appServiceMock.Object );
+         var viewModel = new GitWriteViewModelBase( null, appServiceMock.Object, Mock.Of<IMessenger>() );
 
          viewModel.ShutdownRequested += ( sender, e ) =>
          {

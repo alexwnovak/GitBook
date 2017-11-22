@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 using GitWrite.Services;
 
 namespace GitWrite.ViewModels
@@ -74,7 +75,8 @@ namespace GitWrite.ViewModels
          }
       } 
 
-      public GitWriteViewModelBase( IViewService viewService, IAppService appService )
+      public GitWriteViewModelBase( IViewService viewService, IAppService appService, IMessenger messenger )
+         : base( messenger )
       {
          ViewService = viewService;
          AppService = appService;

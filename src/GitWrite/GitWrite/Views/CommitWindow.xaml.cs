@@ -35,8 +35,10 @@ namespace GitWrite.Views
          _viewModel = (CommitViewModel) DataContext;
          _viewModel.AsyncExpansionRequested += OnAsyncExpansionRequested;
          _viewModel.AsyncCollapseRequested += OnAsyncCollapseRequested;
-         _viewModel.AsyncShakeRequested += OnAsyncShakeRequested;
+         //_viewModel.AsyncShakeRequested += OnAsyncShakeRequested;
          _viewModel.AsyncExitRequested += OnAsyncExitRequested;
+
+         Messenger.Default.Register<ShakeRequestedMessage>( this, _ => OnAsyncShakeRequested() );
       }
 
       private void CommitWindow_OnLoaded( object sender, RoutedEventArgs e )
@@ -301,7 +303,7 @@ namespace GitWrite.Views
          return tcs.Task;
       }
 
-      private Task OnAsyncShakeRequested( object sender, EventArgs e )
+      private void OnAsyncShakeRequested()
       {
          var subject = MainEntryBox;
          var savedTransform = subject.RenderTransform;
@@ -322,17 +324,12 @@ namespace GitWrite.Views
 
          subject.RenderTransform = translateTransform;
 
-         var tcs = new TaskCompletionSource<bool>();
-
          shakeAnimation.Completed += ( _, __ ) =>
          {
             subject.RenderTransform = savedTransform;
-            tcs.SetResult( true );
          };
 
          translateTransform.BeginAnimation( TranslateTransform.XProperty, shakeAnimation );
-
-         return tcs.Task;
       }
 
       private void CommitWindow_OnPreviewCanExecute( object sender, CanExecuteRoutedEventArgs e )

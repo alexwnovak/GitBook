@@ -3,7 +3,9 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 using GitModel;
+using GitWrite.Messages;
 using GitWrite.Services;
 using Resx = GitWrite.Properties.Resources;
 
@@ -88,7 +90,6 @@ namespace GitWrite.ViewModels
 
       public event AsyncEventHandler AsyncExpansionRequested;
       public event AsyncEventHandler AsyncCollapseRequested;
-      public event AsyncEventHandler AsyncShakeRequested;
       public event AsyncEventHandler<ShutdownEventArgs> AsyncExitRequested;
        
       public CommitViewModel( string commitFilePath,
@@ -97,8 +98,9 @@ namespace GitWrite.ViewModels
          IClipboardService clipboardService,
          CommitDocument commitDocument,
          IGitService gitService,
-         ICommitFileWriter commitFileWriter )
-         : base( viewService, appService )
+         ICommitFileWriter commitFileWriter,
+         IMessenger messenger )
+         : base( viewService, appService, messenger )
       {
          _commitFilePath = commitFilePath;
          _clipboardService = clipboardService;
@@ -136,9 +138,6 @@ namespace GitWrite.ViewModels
       protected virtual async Task OnCollapseRequestedAsync( object sender, EventArgs e )
          => await RaiseAsync( AsyncCollapseRequested, sender, e );
 
-      protected virtual async Task OnShakeRequestedAsync( object sender, EventArgs e )
-         => await RaiseAsync( AsyncShakeRequested, sender, e );
-
       protected virtual async Task OnExitRequestedAsync( object sender, ShutdownEventArgs e )
          => await RaiseAsync( AsyncExitRequested, sender, e );
 
@@ -146,7 +145,7 @@ namespace GitWrite.ViewModels
       {
          if ( string.IsNullOrWhiteSpace( ShortMessage ) || IsExiting )
          {
-            await OnShakeRequestedAsync( this, EventArgs.Empty );
+            MessengerInstance.Send( new ShakeRequestedMessage() );
             return false;
          }
 
