@@ -105,7 +105,7 @@ namespace GitWrite.ViewModels
 
          ShortMessage = _commitDocument.Subject;
 
-         if ( _commitDocument != null && _commitDocument.Body.Length > 0 )
+         if ( _commitDocument != null && _commitDocument.Body?.Length > 0 )
          {
             ExtraCommitText = _commitDocument.Body.Aggregate( ( i, j ) => $"{i}{Environment.NewLine}{j}");
          }

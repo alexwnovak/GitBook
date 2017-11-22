@@ -1,810 +1,807 @@
-﻿//using System;
-//using System.Threading.Tasks;
-//using FluentAssertions;
-//using Moq;
-//using Xunit;
-//using GitWrite.Services;
-//using GitWrite.ViewModels;
+﻿using System;
+using System.Threading.Tasks;
+using FluentAssertions;
+using GitModel;
+using Moq;
+using Xunit;
+using GitWrite.Services;
+using GitWrite.ViewModels;
 
-//namespace GitWrite.UnitTests.ViewModels
-//{
-//   public class CommitViewModelTests
-//   {
-//      //[Fact]
-//      //public void Constructor_IncomingShortMessageIsNull_ViewModelShortMessageIsEmptyString()
-//      //{
-//      //   // Arrange
+namespace GitWrite.UnitTests.ViewModels
+{
+   public class CommitViewModelTests
+   {
+      [Fact]
+      public void Constructor_IncomingSubjectIsNull_ViewModelShortMessageMatches()
+      {
+         var commitDocument = new CommitDocument
+         {
+            Subject = null
+         };
 
-//      //   var commitDocumentMock = new Mock<ICommitDocument>();
-//      //   commitDocumentMock.SetupGet( cd => cd.ShortMessage ).Returns( (string) null );
+         var commitViewModel = new CommitViewModel( null, null, null, null, commitDocument, null );
 
-//      //   // Act
+         commitViewModel.ShortMessage.Should().BeNull();
+      }
 
-//      //   var commitViewModel = new CommitViewModel( null, null, null, commitDocumentMock.Object, null );
+      //[Fact]
+      //public void Constructor_IncomingShortMessageIsNull_IsNotAmending()
+      //{
+      //   // Arrange
 
-//      //   // Assert
+      //   var commitDocumentMock = new Mock<ICommitDocument>();
+      //   commitDocumentMock.SetupGet( cd => cd.ShortMessage ).Returns( (string) null );
 
-//      //   commitViewModel.ShortMessage.Should().BeEmpty();
-//      //}
+      //   // Act
 
-//      //[Fact]
-//      //public void Constructor_IncomingShortMessageIsNull_IsNotAmending()
-//      //{
-//      //   // Arrange
+      //   var commitViewModel = new CommitViewModel( null, null, null, commitDocumentMock.Object, null );
 
-//      //   var commitDocumentMock = new Mock<ICommitDocument>();
-//      //   commitDocumentMock.SetupGet( cd => cd.ShortMessage ).Returns( (string) null );
+      //   // Assert
 
-//      //   // Act
+      //   commitViewModel.IsAmending.Should().BeFalse();
+      //}
 
-//      //   var commitViewModel = new CommitViewModel( null, null, null, commitDocumentMock.Object, null );
+      //[Fact]
+      //public void Constructor_HasIncomingShortMessage_IsAmending()
+      //{
+      //   // Arrange
 
-//      //   // Assert
+      //   var commitDocumentMock = new Mock<ICommitDocument>();
+      //   commitDocumentMock.SetupGet( cd => cd.ShortMessage ).Returns( "Incoming message! Must be amending!" );
 
-//      //   commitViewModel.IsAmending.Should().BeFalse();
-//      //}
+      //   // Act
 
-//      //[Fact]
-//      //public void Constructor_HasIncomingShortMessage_IsAmending()
-//      //{
-//      //   // Arrange
+      //   var commitViewModel = new CommitViewModel( null, null, null, commitDocumentMock.Object, null );
 
-//      //   var commitDocumentMock = new Mock<ICommitDocument>();
-//      //   commitDocumentMock.SetupGet( cd => cd.ShortMessage ).Returns( "Incoming message! Must be amending!" );
+      //   // Assert
 
-//      //   // Act
+      //   commitViewModel.IsAmending.Should().BeTrue();
+      //}
 
-//      //   var commitViewModel = new CommitViewModel( null, null, null, commitDocumentMock.Object, null );
+      //[Fact]
+      //public void ViewLoaded_DoesNotHaveExtraNotes_DoesNotRaiseExpansionEvent()
+      //{
+      //   bool expanded = false;
 
-//      //   // Assert
+      //   var commitViewModel = new CommitViewModel( null, null, null, null, null );
+      //   commitViewModel.AsyncExpansionRequested += ( sender, e ) =>
+      //   {
+      //      expanded = true;
+      //      return Task.CompletedTask;
+      //   };
 
-//      //   commitViewModel.IsAmending.Should().BeTrue();
-//      //}
+      //   commitViewModel.ViewLoaded();
 
-//      [Fact]
-//      public void ViewLoaded_DoesNotHaveExtraNotes_DoesNotRaiseExpansionEvent()
-//      {
-//         bool expanded = false;
+      //   expanded.Should().BeFalse();
+      //}
 
-//         var commitViewModel = new CommitViewModel( null, null, null, null, null );
-//         commitViewModel.AsyncExpansionRequested += ( sender, e ) =>
-//         {
-//            expanded = true;
-//            return Task.CompletedTask;
-//         };
+      //[Fact]
+      //public void Constructor_CommitDocumentHasShortMessage_ViewModelReadsShortMessage()
+      //{
+      //   const string shortMessage = "Short commit message";
 
-//         commitViewModel.ViewLoaded();
+      //   // Setup
 
-//         expanded.Should().BeFalse();
-//      }
+      //   var commitDocumentMock = new Mock<ICommitDocument>();
+      //   commitDocumentMock.SetupGet( cd => cd.ShortMessage ).Returns( shortMessage );
 
-//      //[Fact]
-//      //public void Constructor_CommitDocumentHasShortMessage_ViewModelReadsShortMessage()
-//      //{
-//      //   const string shortMessage = "Short commit message";
+      //   // Test
 
-//      //   // Setup
+      //   var commitViewModel = new CommitViewModel( null, null, null, commitDocumentMock.Object, null );
 
-//      //   var commitDocumentMock = new Mock<ICommitDocument>();
-//      //   commitDocumentMock.SetupGet( cd => cd.ShortMessage ).Returns( shortMessage );
+      //   commitViewModel.ShortMessage.Should().Be( shortMessage );
+      //}
 
-//      //   // Test
+      //[Fact]
+      //public void Constructor_HasSingleLineLongMessage_ViewModelReadsTheLongMessage()
+      //{
+      //   const string longMessage = "Long message here";
 
-//      //   var commitViewModel = new CommitViewModel( null, null, null, commitDocumentMock.Object, null );
+      //   // Setup
 
-//      //   commitViewModel.ShortMessage.Should().Be( shortMessage );
-//      //}
+      //   var commitDocumentMock = new Mock<ICommitDocument>();
+      //   commitDocumentMock.SetupGet( cd => cd.LongMessage ).Returns( longMessage );
 
-//      //[Fact]
-//      //public void Constructor_HasSingleLineLongMessage_ViewModelReadsTheLongMessage()
-//      //{
-//      //   const string longMessage = "Long message here";
+      //   // Test
 
-//      //   // Setup
+      //   var commitViewModel = new CommitViewModel( null, null, null, commitDocumentMock.Object, null );
 
-//      //   var commitDocumentMock = new Mock<ICommitDocument>();
-//      //   commitDocumentMock.SetupGet( cd => cd.LongMessage ).Returns( longMessage );
+      //   commitViewModel.ExtraCommitText.Should().Be( longMessage );
+      //}
 
-//      //   // Test
+      //[Fact]
+      //public void ViewLoaded_HasExtraNotes_RaisesExpansionEvent()
+      //{
+      //   bool expanded = false;
 
-//      //   var commitViewModel = new CommitViewModel( null, null, null, commitDocumentMock.Object, null );
+      //   var commitViewModel = new CommitViewModel( null, null, null, null, null )
+      //   {
+      //      ExtraCommitText = "Extra notes"
+      //   };
 
-//      //   commitViewModel.ExtraCommitText.Should().Be( longMessage );
-//      //}
+      //   commitViewModel.AsyncExpansionRequested += ( sender, e ) =>
+      //   {
+      //      expanded = true;
+      //      return Task.CompletedTask;
+      //   };
+      //   commitViewModel.ViewLoaded();
 
-//      [Fact]
-//      public void ViewLoaded_HasExtraNotes_RaisesExpansionEvent()
-//      {
-//         bool expanded = false;
+      //   expanded.Should().BeTrue();
+      //}
 
-//         var commitViewModel = new CommitViewModel( null, null, null, null, null )
-//         {
-//            ExtraCommitText = "Extra notes"
-//         };
+      //[Fact]
+      //public void SaveCommand_ShortMessageIsBlank_RaisesShakeRequested()
+      //{
+      //   bool shakeRequestedRaised = false;
 
-//         commitViewModel.AsyncExpansionRequested += ( sender, e ) =>
-//         {
-//            expanded = true;
-//            return Task.CompletedTask;
-//         };
-//         commitViewModel.ViewLoaded();
+      //   // Arrange
 
-//         expanded.Should().BeTrue();
-//      }
+      //   var commitDocumentMock = new Mock<ICommitDocument>();
+      //   commitDocumentMock.SetupGet( cd => cd.ShortMessage ).Returns( string.Empty );
 
-//      //[Fact]
-//      //public void SaveCommand_ShortMessageIsBlank_RaisesShakeRequested()
-//      //{
-//      //   bool shakeRequestedRaised = false;
+      //   // Act
 
-//      //   // Arrange
+      //   var commitViewModel = new CommitViewModel( null, null, null, commitDocumentMock.Object, null );
 
-//      //   var commitDocumentMock = new Mock<ICommitDocument>();
-//      //   commitDocumentMock.SetupGet( cd => cd.ShortMessage ).Returns( string.Empty );
+      //   commitViewModel.AsyncShakeRequested += ( _, __ ) =>
+      //   {
+      //      shakeRequestedRaised = true;
+      //      return Task.CompletedTask;
+      //   };
 
-//      //   // Act
+      //   commitViewModel.SaveCommand.Execute( null );
 
-//      //   var commitViewModel = new CommitViewModel( null, null, null, commitDocumentMock.Object, null );
+      //   // Assert
 
-//      //   commitViewModel.AsyncShakeRequested += ( _, __ ) =>
-//      //   {
-//      //      shakeRequestedRaised = true;
-//      //      return Task.CompletedTask;
-//      //   };
+      //   shakeRequestedRaised.Should().BeTrue();
+      //}
 
-//      //   commitViewModel.SaveCommand.Execute( null );
+      //[Fact]
+      //public void KeyDown_PressesEnter_RunsSaveCommand()
+      //{
+      //   bool saveCommandExecuted = false;
 
-//      //   // Assert
+      //   var commitViewModel = new CommitViewModel
+      //   {
+      //      SaveCommand = new RelayCommand( () => saveCommandExecuted = true )
+      //   };
 
-//      //   shakeRequestedRaised.Should().BeTrue();
-//      //}
+      //   var args = TestHelper.GetKeyEventArgs( Key.Enter );
 
-//      //[Fact]
-//      //public void KeyDown_PressesEnter_RunsSaveCommand()
-//      //{
-//      //   bool saveCommandExecuted = false;
+      //   commitViewModel.OnCommitNotesKeyDown( args );
 
-//      //   var commitViewModel = new CommitViewModel
-//      //   {
-//      //      SaveCommand = new RelayCommand( () => saveCommandExecuted = true )
-//      //   };
+      //   Assert.IsTrue( saveCommandExecuted );
+      //}
 
-//      //   var args = TestHelper.GetKeyEventArgs( Key.Enter );
+      //[Fact]
+      //public void KeyDown_PressesEscape_RunsAbortCommand()
+      //{
+      //   bool abortCommandRun = false;
 
-//      //   commitViewModel.OnCommitNotesKeyDown( args );
+      //   var commitViewModel = new CommitViewModel
+      //   {
+      //      AbortCommand = new RelayCommand( () => abortCommandRun = true )
+      //   };
 
-//      //   Assert.IsTrue( saveCommandExecuted );
-//      //}
+      //   var args = TestHelper.GetKeyEventArgs( Key.Escape );
 
-//      //[Fact]
-//      //public void KeyDown_PressesEscape_RunsAbortCommand()
-//      //{
-//      //   bool abortCommandRun = false;
+      //   commitViewModel.OnCommitNotesKeyDown( args );
 
-//      //   var commitViewModel = new CommitViewModel
-//      //   {
-//      //      AbortCommand = new RelayCommand( () => abortCommandRun = true )
-//      //   };
+      //   Assert.IsTrue( abortCommandRun );
+      //}
 
-//      //   var args = TestHelper.GetKeyEventArgs( Key.Escape );
+      //[Fact]
+      //public void KeyDown_PressesEscape_MarksEventAsHandled()
+      //{
+      //   var commitViewModel = new CommitViewModel
+      //   {
+      //      AbortCommand = new RelayCommand( () =>
+      //      {
+      //      } )
+      //   };
 
-//      //   commitViewModel.OnCommitNotesKeyDown( args );
+      //   var args = TestHelper.GetKeyEventArgs( Key.Escape );
 
-//      //   Assert.IsTrue( abortCommandRun );
-//      //}
+      //   commitViewModel.OnCommitNotesKeyDown( args );
 
-//      //[Fact]
-//      //public void KeyDown_PressesEscape_MarksEventAsHandled()
-//      //{
-//      //   var commitViewModel = new CommitViewModel
-//      //   {
-//      //      AbortCommand = new RelayCommand( () =>
-//      //      {
-//      //      } )
-//      //   };
+      //   Assert.IsTrue( args.Handled );
+      //}
 
-//      //   var args = TestHelper.GetKeyEventArgs( Key.Escape );
+      //[Fact]
+      //public void ExpandCommand_IsNotExpanded_SetsExpandedFlag()
+      //{
+      //   var commitViewModel = new CommitViewModel( null, null, null, null, null )
+      //   {
+      //      IsExpanded = false
+      //   };
 
-//      //   commitViewModel.OnCommitNotesKeyDown( args );
+      //   commitViewModel.ExpandCommand.Execute( null );
 
-//      //   Assert.IsTrue( args.Handled );
-//      //}
+      //   commitViewModel.IsExpanded.Should().BeTrue();
+      //}
 
-//      [Fact]
-//      public void ExpandCommand_IsNotExpanded_SetsExpandedFlag()
-//      {
-//         var commitViewModel = new CommitViewModel( null, null, null, null, null )
-//         {
-//            IsExpanded = false
-//         };
+      //[Fact]
+      //public void ExpandCommand_IsNotExpanded_RaisesExpansionRequestedEvent()
+      //{
+      //   bool expansionEventRaised = false;
 
-//         commitViewModel.ExpandCommand.Execute( null );
+      //   var commitViewModel = new CommitViewModel( null, null, null, null, null )
+      //   {
+      //      IsExpanded = false
+      //   };
 
-//         commitViewModel.IsExpanded.Should().BeTrue();
-//      }
+      //   commitViewModel.AsyncExpansionRequested += ( sender, e ) =>
+      //   {
+      //      expansionEventRaised = true;
+      //      return Task.CompletedTask;
+      //   };
 
-//      [Fact]
-//      public void ExpandCommand_IsNotExpanded_RaisesExpansionRequestedEvent()
-//      {
-//         bool expansionEventRaised = false;
+      //   commitViewModel.ExpandCommand.Execute( null );
 
-//         var commitViewModel = new CommitViewModel( null, null, null, null, null )
-//         {
-//            IsExpanded = false
-//         };
+      //   expansionEventRaised.Should().BeTrue();
+      //}
 
-//         commitViewModel.AsyncExpansionRequested += ( sender, e ) =>
-//         {
-//            expansionEventRaised = true;
-//            return Task.CompletedTask;
-//         };
+      //[Fact]
+      //public void ExpandCommand_IsAlreadyExpanded_DoesNotChangeExpandedFlag()
+      //{
+      //   var commitViewModel = new CommitViewModel( null, null, null, null, null )
+      //   {
+      //      IsExpanded = true
+      //   };
 
-//         commitViewModel.ExpandCommand.Execute( null );
+      //   commitViewModel.ExpandCommand.Execute( null );
 
-//         expansionEventRaised.Should().BeTrue();
-//      }
+      //   commitViewModel.IsExpanded.Should().BeTrue();
+      //}
 
-//      [Fact]
-//      public void ExpandCommand_IsAlreadyExpanded_DoesNotChangeExpandedFlag()
-//      {
-//         var commitViewModel = new CommitViewModel( null, null, null, null, null )
-//         {
-//            IsExpanded = true
-//         };
+      //[Fact]
+      //public void ExpandCommand_IsAlreadyExpanded_DoesNotRaiseExpansionRequestedEvent()
+      //{
+      //   bool expansionEventRaised = false;
 
-//         commitViewModel.ExpandCommand.Execute( null );
+      //   var commitViewModel = new CommitViewModel( null, null, null, null, null )
+      //   {
+      //      IsExpanded = true
+      //   };
 
-//         commitViewModel.IsExpanded.Should().BeTrue();
-//      }
+      //   commitViewModel.AsyncExpansionRequested += ( sender, e ) =>
+      //   {
+      //      expansionEventRaised = true;
+      //      return Task.CompletedTask;
+      //   };
 
-//      [Fact]
-//      public void ExpandCommand_IsAlreadyExpanded_DoesNotRaiseExpansionRequestedEvent()
-//      {
-//         bool expansionEventRaised = false;
+      //   commitViewModel.ExpandCommand.Execute( null );
 
-//         var commitViewModel = new CommitViewModel( null, null, null, null, null )
-//         {
-//            IsExpanded = true
-//         };
+      //   expansionEventRaised.Should().BeFalse();
+      //}
 
-//         commitViewModel.AsyncExpansionRequested += ( sender, e ) =>
-//         {
-//            expansionEventRaised = true;
-//            return Task.CompletedTask;
-//         };
+      //[Fact]
+      //public void ExpandCommand_IsExitingFlagSetButIsNotExpanded_DoesNotChangeExpandedFlag()
+      //{
+      //   var commitViewModel = new CommitViewModel( null, null, null, null, null )
+      //   {
+      //      IsExiting = true,
+      //      IsExpanded = false
+      //   };
 
-//         commitViewModel.ExpandCommand.Execute( null );
+      //   commitViewModel.ExpandCommand.Execute( null );
 
-//         expansionEventRaised.Should().BeFalse();
-//      }
+      //   commitViewModel.IsExpanded.Should().BeFalse();
+      //}
 
-//      [Fact]
-//      public void ExpandCommand_IsExitingFlagSetButIsNotExpanded_DoesNotChangeExpandedFlag()
-//      {
-//         var commitViewModel = new CommitViewModel( null, null, null, null, null )
-//         {
-//            IsExiting = true,
-//            IsExpanded = false
-//         };
+      //[Fact]
+      //public void ExpandCommand_IsExitingFlagSetAndIsExpanded_DoesNotRaiseExpansionRequestedEvent()
+      //{
+      //   bool expansionEventRaised = false;
 
-//         commitViewModel.ExpandCommand.Execute( null );
+      //   var commitViewModel = new CommitViewModel( null, null, null, null, null )
+      //   {
+      //      IsExiting = true,
+      //      IsExpanded = true
+      //   };
 
-//         commitViewModel.IsExpanded.Should().BeFalse();
-//      }
+      //   commitViewModel.AsyncExpansionRequested += ( sender, e ) =>
+      //   {
+      //      expansionEventRaised = true;
+      //      return Task.CompletedTask;
+      //   };
 
-//      [Fact]
-//      public void ExpandCommand_IsExitingFlagSetAndIsExpanded_DoesNotRaiseExpansionRequestedEvent()
-//      {
-//         bool expansionEventRaised = false;
+      //   commitViewModel.ExpandCommand.Execute( null );
 
-//         var commitViewModel = new CommitViewModel( null, null, null, null, null )
-//         {
-//            IsExiting = true,
-//            IsExpanded = true
-//         };
+      //   expansionEventRaised.Should().BeFalse();
+      //}
 
-//         commitViewModel.AsyncExpansionRequested += ( sender, e ) =>
-//         {
-//            expansionEventRaised = true;
-//            return Task.CompletedTask;
-//         };
+      //[Fact]
+      //public void PasteCommand_ClipboardHasOneLineOfText_SetsShortMessage()
+      //{
+      //   const string clipboardText = "Some text";
 
-//         commitViewModel.ExpandCommand.Execute( null );
+      //   Setup
 
-//         expansionEventRaised.Should().BeFalse();
-//      }
+      //  var clipboardServiceMock = new Mock<IClipboardService>();
+      //   clipboardServiceMock.Setup( cs => cs.GetText() ).Returns( clipboardText );
 
-//      [Fact]
-//      public void PasteCommand_ClipboardHasOneLineOfText_SetsShortMessage()
-//      {
-//         const string clipboardText = "Some text";
+      //   Test
 
-//         // Setup
+      //  var viewModel = new CommitViewModel( null, null, clipboardServiceMock.Object, null, null );
 
-//         var clipboardServiceMock = new Mock<IClipboardService>();
-//         clipboardServiceMock.Setup( cs => cs.GetText() ).Returns( clipboardText );
+      //   viewModel.PasteCommand.Execute( null );
 
-//         // Test
+      //   Assert
 
-//         var viewModel = new CommitViewModel( null, null, clipboardServiceMock.Object, null, null );
+      //   viewModel.ShortMessage.Should().Be( clipboardText );
+      //}
 
-//         viewModel.PasteCommand.Execute( null );
+      //[Fact]
+      //public void PasteCommand_ClipboardHasTwoLinesWithNoBlankLine_SetsBothMessages()
+      //{
+      //   string clipboardText = $"First line{Environment.NewLine}Second line";
 
-//         // Assert
+      //   // Setup
 
-//         viewModel.ShortMessage.Should().Be( clipboardText );
-//      }
+      //   var clipboardServiceMock = new Mock<IClipboardService>();
+      //   clipboardServiceMock.Setup( cs => cs.GetText() ).Returns( clipboardText );
 
-//      //[Fact]
-//      //public void PasteCommand_ClipboardHasTwoLinesWithNoBlankLine_SetsBothMessages()
-//      //{
-//      //   string clipboardText = $"First line{Environment.NewLine}Second line";
+      //   // Test
 
-//      //   // Setup
+      //   var viewModel = new CommitViewModel( null, null, clipboardServiceMock.Object, null, null );
 
-//      //   var clipboardServiceMock = new Mock<IClipboardService>();
-//      //   clipboardServiceMock.Setup( cs => cs.GetText() ).Returns( clipboardText );
+      //   viewModel.PasteCommand.Execute( null );
 
-//      //   // Test
+      //   // Assert
 
-//      //   var viewModel = new CommitViewModel( null, null, clipboardServiceMock.Object, null, null );
+      //   viewModel.ShortMessage.Should().Be( "First line" );
+      //   viewModel.ExtraCommitText.Should().Be( "Second line" );
+      //}
 
-//      //   viewModel.PasteCommand.Execute( null );
+      //[Fact]
+      //public void PasteCommand_ClipboardHasOneLineEndingWithLineBreak_SetsShortMessage()
+      //{
+      //   string clipboardText = $"First line{Environment.NewLine}";
 
-//      //   // Assert
+      //   Setup
 
-//      //   viewModel.ShortMessage.Should().Be( "First line" );
-//      //   viewModel.ExtraCommitText.Should().Be( "Second line" );
-//      //}
+      //  var clipboardServiceMock = new Mock<IClipboardService>();
+      //   clipboardServiceMock.Setup( cs => cs.GetText() ).Returns( clipboardText );
 
-//      [Fact]
-//      public void PasteCommand_ClipboardHasOneLineEndingWithLineBreak_SetsShortMessage()
-//      {
-//         string clipboardText = $"First line{Environment.NewLine}";
+      //   Test
 
-//         // Setup
+      //  var viewModel = new CommitViewModel( null, null, clipboardServiceMock.Object, null, null );
 
-//         var clipboardServiceMock = new Mock<IClipboardService>();
-//         clipboardServiceMock.Setup( cs => cs.GetText() ).Returns( clipboardText );
+      //   viewModel.PasteCommand.Execute( null );
 
-//         // Test
+      //   Assert
 
-//         var viewModel = new CommitViewModel( null, null, clipboardServiceMock.Object, null, null );
+      //   viewModel.ShortMessage.Should().Be( "First line" );
+      //   viewModel.ExtraCommitText.Should().BeNull();
+      //}
 
-//         viewModel.PasteCommand.Execute( null );
+      //[Fact]
+      //public void PasteCommand_ClipboardHasOneLineEndingWithTwoLineBreaks_SetsShortMessage()
+      //{
+      //   string clipboardText = $"First line{Environment.NewLine}{Environment.NewLine}";
 
-//         // Assert
+      //   Setup
 
-//         viewModel.ShortMessage.Should().Be( "First line" );
-//         viewModel.ExtraCommitText.Should().BeNull();
-//      }
+      //  var clipboardServiceMock = new Mock<IClipboardService>();
+      //   clipboardServiceMock.Setup( cs => cs.GetText() ).Returns( clipboardText );
 
-//      [Fact]
-//      public void PasteCommand_ClipboardHasOneLineEndingWithTwoLineBreaks_SetsShortMessage()
-//      {
-//         string clipboardText = $"First line{Environment.NewLine}{Environment.NewLine}";
+      //   Test
 
-//         // Setup
+      //  var viewModel = new CommitViewModel( null, null, clipboardServiceMock.Object, null, null );
 
-//         var clipboardServiceMock = new Mock<IClipboardService>();
-//         clipboardServiceMock.Setup( cs => cs.GetText() ).Returns( clipboardText );
+      //   viewModel.PasteCommand.Execute( null );
 
-//         // Test
+      //   Assert
 
-//         var viewModel = new CommitViewModel( null, null, clipboardServiceMock.Object, null, null );
+      //   viewModel.ShortMessage.Should().Be( "First line" );
+      //   viewModel.ExtraCommitText.Should().BeNull();
+      //}
 
-//         viewModel.PasteCommand.Execute( null );
+      //[Fact]
+      //public void PasteCommand_ClipboardHasBothMessagesSeparatedByBlankLine_SetsBothMessages()
+      //{
+      //   string clipboardText = $"Short message{Environment.NewLine}{Environment.NewLine}Secondary notes";
 
-//         // Assert
+      //   // Setup
 
-//         viewModel.ShortMessage.Should().Be( "First line" );
-//         viewModel.ExtraCommitText.Should().BeNull();
-//      }
+      //   var clipboardServiceMock = new Mock<IClipboardService>();
+      //   clipboardServiceMock.Setup( cs => cs.GetText() ).Returns( clipboardText );
 
-//      //[Fact]
-//      //public void PasteCommand_ClipboardHasBothMessagesSeparatedByBlankLine_SetsBothMessages()
-//      //{
-//      //   string clipboardText = $"Short message{Environment.NewLine}{Environment.NewLine}Secondary notes";
+      //   // Test
 
-//      //   // Setup
+      //   var viewModel = new CommitViewModel( null, null, clipboardServiceMock.Object, null, null );
 
-//      //   var clipboardServiceMock = new Mock<IClipboardService>();
-//      //   clipboardServiceMock.Setup( cs => cs.GetText() ).Returns( clipboardText );
+      //   viewModel.PasteCommand.Execute( null );
 
-//      //   // Test
+      //   // Assert
 
-//      //   var viewModel = new CommitViewModel( null, null, clipboardServiceMock.Object, null, null );
+      //   viewModel.ShortMessage.Should().Be( "Short message" );
+      //   viewModel.ExtraCommitText.Should().Be( "Secondary notes" );
+      //}
 
-//      //   viewModel.PasteCommand.Execute( null );
+      //[Fact]
+      //public void PasteCommand_ClipboardHasBothMessagesEndingWithLineBreaks_TrimsEndLineBreaks()
+      //{
+      //   string clipboardText = $"Short message{Environment.NewLine}Secondary notes{Environment.NewLine}{Environment.NewLine}";
 
-//      //   // Assert
+      //   // Setup
 
-//      //   viewModel.ShortMessage.Should().Be( "Short message" );
-//      //   viewModel.ExtraCommitText.Should().Be( "Secondary notes" );
-//      //}
+      //   var clipboardServiceMock = new Mock<IClipboardService>();
+      //   clipboardServiceMock.Setup( cs => cs.GetText() ).Returns( clipboardText );
 
-//      //[Fact]
-//      //public void PasteCommand_ClipboardHasBothMessagesEndingWithLineBreaks_TrimsEndLineBreaks()
-//      //{
-//      //   string clipboardText = $"Short message{Environment.NewLine}Secondary notes{Environment.NewLine}{Environment.NewLine}";
+      //   // Test
 
-//      //   // Setup
+      //   var viewModel = new CommitViewModel( null, null, clipboardServiceMock.Object, null, null );
 
-//      //   var clipboardServiceMock = new Mock<IClipboardService>();
-//      //   clipboardServiceMock.Setup( cs => cs.GetText() ).Returns( clipboardText );
+      //   viewModel.PasteCommand.Execute( null );
 
-//      //   // Test
+      //   // Assert
 
-//      //   var viewModel = new CommitViewModel( null, null, clipboardServiceMock.Object, null, null );
+      //   viewModel.ShortMessage.Should().Be( "Short message" );
+      //   viewModel.ExtraCommitText.Should().Be( "Secondary notes" );
+      //}
 
-//      //   viewModel.PasteCommand.Execute( null );
+      //[Fact]
+      //public async Task PasteCommand_ClipboardHasBothMessagesAndExtraNotesSpanMultipleLines_SetsBothMessage()
+      //{
+      //   const string shortMessage = "First line message";
+      //   string extraMessage = $"Secondary notes, first line{Environment.NewLine}{Environment.NewLine}Second line{Environment.NewLine}Third line";
+      //   string clipboardText = $"{shortMessage}{Environment.NewLine}{Environment.NewLine}{extraMessage}";
 
-//      //   // Assert
+      //   // Setup
 
-//      //   viewModel.ShortMessage.Should().Be( "Short message" );
-//      //   viewModel.ExtraCommitText.Should().Be( "Secondary notes" );
-//      //}
+      //   await Task.Yield();
 
-//      //[Fact]
-//      //public async Task PasteCommand_ClipboardHasBothMessagesAndExtraNotesSpanMultipleLines_SetsBothMessage()
-//      //{
-//      //   const string shortMessage = "First line message";
-//      //   string extraMessage = $"Secondary notes, first line{Environment.NewLine}{Environment.NewLine}Second line{Environment.NewLine}Third line";
-//      //   string clipboardText = $"{shortMessage}{Environment.NewLine}{Environment.NewLine}{extraMessage}";
+      //   var clipboardServiceMock = new Mock<IClipboardService>();
+      //   clipboardServiceMock.Setup( cs => cs.GetText() ).Returns( clipboardText );
 
-//      //   // Setup
+      //   // Test
 
-//      //   await Task.Yield();
+      //   var viewModel = new CommitViewModel( null, null, clipboardServiceMock.Object, null, null );
 
-//      //   var clipboardServiceMock = new Mock<IClipboardService>();
-//      //   clipboardServiceMock.Setup( cs => cs.GetText() ).Returns( clipboardText );
+      //   viewModel.PasteCommand.Execute( null );
 
-//      //   // Test
+      //   // Assert
 
-//      //   var viewModel = new CommitViewModel( null, null, clipboardServiceMock.Object, null, null );
+      //   viewModel.ShortMessage.Should().Be( shortMessage );
+      //   viewModel.ExtraCommitText.Should().Be( extraMessage );
+      //}
 
-//      //   viewModel.PasteCommand.Execute( null );
+      //[Fact]
+      //public void Title_HappyPath_TitleContainsBranchName()
+      //{
+      //   const string branchName = "master";
 
-//      //   // Assert
+      //   Setup
 
-//      //   viewModel.ShortMessage.Should().Be( shortMessage );
-//      //   viewModel.ExtraCommitText.Should().Be( extraMessage );
-//      //}
+      //  var gitServiceMock = new Mock<IGitService>();
+      //   gitServiceMock.Setup( gs => gs.GetCurrentBranchName() ).Returns( branchName );
 
-//      [Fact]
-//      public void Title_HappyPath_TitleContainsBranchName()
-//      {
-//         const string branchName = "master";
+      //   Test
 
-//         // Setup
+      //  var viewModel = new CommitViewModel( null, null, null, null, gitServiceMock.Object );
+      //   string title = viewModel.Title;
 
-//         var gitServiceMock = new Mock<IGitService>();
-//         gitServiceMock.Setup( gs => gs.GetCurrentBranchName() ).Returns( branchName );
+      //   Assert
 
-//         // Test
+      //   title.Should().Contain( branchName );
+      //}
 
-//         var viewModel = new CommitViewModel( null, null, null, null, gitServiceMock.Object );
-//         string title = viewModel.Title;
+      //[Fact]
+      //public void OnCommitNotesKeyDown_KeyIsEscapeAndHasNoCommitText_CallsShutdown()
+      //{
+      //   // Setup
 
-//         // Assert
+      //   var serviceMock = new Mock<IAppService>();
+      //   SimpleIoc.Default.Register( () => serviceMock.Object );
 
-//         title.Should().Contain( branchName );
-//      }
+      //   // Test
 
-//      //[Fact]
-//      //public void OnCommitNotesKeyDown_KeyIsEscapeAndHasNoCommitText_CallsShutdown()
-//      //{
-//      //   // Setup
+      //   var viewModel = new CommitViewModel();
 
-//      //   var serviceMock = new Mock<IAppService>();
-//      //   SimpleIoc.Default.Register( () => serviceMock.Object );
+      //   var args = TestHelper.GetKeyEventArgs( Key.Escape );
 
-//      //   // Test
+      //   viewModel.OnCommitNotesKeyDown( args );
 
-//      //   var viewModel = new CommitViewModel();
+      //   // Assert
 
-//      //   var args = TestHelper.GetKeyEventArgs( Key.Escape );
+      //   serviceMock.Verify( sm => sm.Shutdown(), Times.Once() );
+      //}
 
-//      //   viewModel.OnCommitNotesKeyDown( args );
+      //[Fact]
+      //public void OnCommitNotesKeyDown_KeyIsEscapeAndNotesHaveNotBeenEntered_DoesNotDisplayConfirmDialog()
+      //{
+      //   // Setup
 
-//      //   // Assert
+      //   var serviceMock = new Mock<IAppService>();
+      //   SimpleIoc.Default.Register( () => serviceMock.Object );
 
-//      //   serviceMock.Verify( sm => sm.Shutdown(), Times.Once() );
-//      //}
+      //   // Test
 
-//      //[Fact]
-//      //public void OnCommitNotesKeyDown_KeyIsEscapeAndNotesHaveNotBeenEntered_DoesNotDisplayConfirmDialog()
-//      //{
-//      //   // Setup
+      //   var viewModel = new CommitViewModel();
 
-//      //   var serviceMock = new Mock<IAppService>();
-//      //   SimpleIoc.Default.Register( () => serviceMock.Object );
+      //   var args = TestHelper.GetKeyEventArgs( Key.Escape );
 
-//      //   // Test
+      //   viewModel.OnCommitNotesKeyDown( args );
 
-//      //   var viewModel = new CommitViewModel();
+      //   // Assert
 
-//      //   var args = TestHelper.GetKeyEventArgs( Key.Escape );
+      //   serviceMock.Verify( sm => sm.DisplayMessageBox( It.IsAny<string>(), It.IsAny<MessageBoxButton>() ), Times.Never() );
+      //}
 
-//      //   viewModel.OnCommitNotesKeyDown( args );
+      //[Fact]
+      //public void OnCommitNotesKeyDown_KeyIsEscapeAndNotesHaveBeenEntered_DisplaysConfirmDialog()
+      //{
+      //   // Setup
 
-//      //   // Assert
+      //   var serviceMock = new Mock<IAppService>();
+      //   SimpleIoc.Default.Register( () => serviceMock.Object );
 
-//      //   serviceMock.Verify( sm => sm.DisplayMessageBox( It.IsAny<string>(), It.IsAny<MessageBoxButton>() ), Times.Never() );
-//      //}
+      //   // Test
 
-//      //[Fact]
-//      //public void OnCommitNotesKeyDown_KeyIsEscapeAndNotesHaveBeenEntered_DisplaysConfirmDialog()
-//      //{
-//      //   // Setup
+      //   var viewModel = new CommitViewModel
+      //   {
+      //      ShortMessage = "Some notes"
+      //   };
 
-//      //   var serviceMock = new Mock<IAppService>();
-//      //   SimpleIoc.Default.Register( () => serviceMock.Object );
+      //   var args = TestHelper.GetKeyEventArgs( Key.Escape );
 
-//      //   // Test
+      //   viewModel.OnCommitNotesKeyDown( args );
 
-//      //   var viewModel = new CommitViewModel
-//      //   {
-//      //      ShortMessage = "Some notes"
-//      //   };
+      //   // Assert
 
-//      //   var args = TestHelper.GetKeyEventArgs( Key.Escape );
+      //   serviceMock.Verify( sm => sm.DisplayMessageBox( It.IsAny<string>(), It.IsAny<MessageBoxButton>() ), Times.Once() );
+      //}
 
-//      //   viewModel.OnCommitNotesKeyDown( args );
+      //[Fact]
+      //public void OnCommitNotesKeyDown_KeyIsEscapeAndNotesHaveBeenEntered_DisplaysConfirmDialogWithCorrectTextAndButtons()
+      //{
+      //   // Setup
 
-//      //   // Assert
+      //   var serviceMock = new Mock<IAppService>();
+      //   SimpleIoc.Default.Register( () => serviceMock.Object );
 
-//      //   serviceMock.Verify( sm => sm.DisplayMessageBox( It.IsAny<string>(), It.IsAny<MessageBoxButton>() ), Times.Once() );
-//      //}
+      //   // Test
 
-//      //[Fact]
-//      //public void OnCommitNotesKeyDown_KeyIsEscapeAndNotesHaveBeenEntered_DisplaysConfirmDialogWithCorrectTextAndButtons()
-//      //{
-//      //   // Setup
+      //   var viewModel = new CommitViewModel
+      //   {
+      //      ShortMessage = "Some notes"
+      //   };
 
-//      //   var serviceMock = new Mock<IAppService>();
-//      //   SimpleIoc.Default.Register( () => serviceMock.Object );
+      //   var args = TestHelper.GetKeyEventArgs( Key.Escape );
 
-//      //   // Test
+      //   viewModel.OnCommitNotesKeyDown( args );
 
-//      //   var viewModel = new CommitViewModel
-//      //   {
-//      //      ShortMessage = "Some notes"
-//      //   };
+      //   // Assert
 
-//      //   var args = TestHelper.GetKeyEventArgs( Key.Escape );
+      //   serviceMock.Verify( sm => sm.DisplayMessageBox( Strings.ConfirmDiscardMessage, MessageBoxButton.YesNo ), Times.Once() );
+      //}
 
-//      //   viewModel.OnCommitNotesKeyDown( args );
+      //[Fact]
+      //public void OnCommitNotesKeyDown_UserDiscardsTheirCommit_ShutsDownAfterConfirmation()
+      //{
+      //   // Setup
 
-//      //   // Assert
+      //   var serviceMock = new Mock<IAppService>();
+      //   serviceMock.Setup( sm => sm.DisplayMessageBox( Strings.ConfirmDiscardMessage, MessageBoxButton.YesNo ) ).Returns( MessageBoxResult.Yes );
+      //   SimpleIoc.Default.Register( () => serviceMock.Object );
 
-//      //   serviceMock.Verify( sm => sm.DisplayMessageBox( Strings.ConfirmDiscardMessage, MessageBoxButton.YesNo ), Times.Once() );
-//      //}
+      //   // Test
 
-//      //[Fact]
-//      //public void OnCommitNotesKeyDown_UserDiscardsTheirCommit_ShutsDownAfterConfirmation()
-//      //{
-//      //   // Setup
+      //   var viewModel = new CommitViewModel
+      //   {
+      //      ShortMessage = "Some notes"
+      //   };
 
-//      //   var serviceMock = new Mock<IAppService>();
-//      //   serviceMock.Setup( sm => sm.DisplayMessageBox( Strings.ConfirmDiscardMessage, MessageBoxButton.YesNo ) ).Returns( MessageBoxResult.Yes );
-//      //   SimpleIoc.Default.Register( () => serviceMock.Object );
+      //   var args = TestHelper.GetKeyEventArgs( Key.Escape );
 
-//      //   // Test
+      //   viewModel.OnCommitNotesKeyDown( args );
 
-//      //   var viewModel = new CommitViewModel
-//      //   {
-//      //      ShortMessage = "Some notes"
-//      //   };
+      //   // Assert
 
-//      //   var args = TestHelper.GetKeyEventArgs( Key.Escape );
+      //   serviceMock.Verify( sm => sm.DisplayMessageBox( Strings.ConfirmDiscardMessage, MessageBoxButton.YesNo ), Times.Once() );
 
-//      //   viewModel.OnCommitNotesKeyDown( args );
+      //   serviceMock.Verify( sm => sm.Shutdown(), Times.Once() );
+      //}
 
-//      //   // Assert
+      //[Fact]
+      //public void OnCommitNotesKeyDown_UserDoesNotDiscardTheirCommit_DoesNotShutDownAfterConfirmation()
+      //{
+      //   // Setup
 
-//      //   serviceMock.Verify( sm => sm.DisplayMessageBox( Strings.ConfirmDiscardMessage, MessageBoxButton.YesNo ), Times.Once() );
+      //   var serviceMock = new Mock<IAppService>();
+      //   serviceMock.Setup( sm => sm.DisplayMessageBox( Strings.ConfirmDiscardMessage, MessageBoxButton.YesNo ) ).Returns( MessageBoxResult.No );
+      //   SimpleIoc.Default.Register( () => serviceMock.Object );
 
-//      //   serviceMock.Verify( sm => sm.Shutdown(), Times.Once() );
-//      //}
+      //   // Test
 
-//      //[Fact]
-//      //public void OnCommitNotesKeyDown_UserDoesNotDiscardTheirCommit_DoesNotShutDownAfterConfirmation()
-//      //{
-//      //   // Setup
+      //   var viewModel = new CommitViewModel
+      //   {
+      //      ShortMessage = "Some notes"
+      //   };
 
-//      //   var serviceMock = new Mock<IAppService>();
-//      //   serviceMock.Setup( sm => sm.DisplayMessageBox( Strings.ConfirmDiscardMessage, MessageBoxButton.YesNo ) ).Returns( MessageBoxResult.No );
-//      //   SimpleIoc.Default.Register( () => serviceMock.Object );
+      //   var args = TestHelper.GetKeyEventArgs( Key.Escape );
 
-//      //   // Test
+      //   viewModel.OnCommitNotesKeyDown( args );
 
-//      //   var viewModel = new CommitViewModel
-//      //   {
-//      //      ShortMessage = "Some notes"
-//      //   };
+      //   // Assert
 
-//      //   var args = TestHelper.GetKeyEventArgs( Key.Escape );
+      //   serviceMock.Verify( sm => sm.DisplayMessageBox( Strings.ConfirmDiscardMessage, MessageBoxButton.YesNo ), Times.Once() );
 
-//      //   viewModel.OnCommitNotesKeyDown( args );
+      //   serviceMock.Verify( sm => sm.Shutdown(), Times.Never() );
+      //}
 
-//      //   // Assert
+      //[Fact]
+      //public void OnCommitNotesKeyDown_EnterKeyPressed_StoresCommitNotesIntoDocument()
+      //{
+      //   const string commitText = "This commit text.";
 
-//      //   serviceMock.Verify( sm => sm.DisplayMessageBox( Strings.ConfirmDiscardMessage, MessageBoxButton.YesNo ), Times.Once() );
+      //   // Setup
 
-//      //   serviceMock.Verify( sm => sm.Shutdown(), Times.Never() );
-//      //}
+      //   var serviceMock = new Mock<IAppService>();
+      //   SimpleIoc.Default.Register( () => serviceMock.Object );
 
-//      //[Fact]
-//      //public void OnCommitNotesKeyDown_EnterKeyPressed_StoresCommitNotesIntoDocument()
-//      //{
-//      //   const string commitText = "This commit text.";
+      //   var commitDocumentMock = new Mock<ICommitDocument>();
+      //   commitDocumentMock.SetupProperty( cd => cd.ShortMessage );
+      //   commitDocumentMock.SetupGet( cd => cd.LongMessage ).Returns( new List<string>() );
+      //   App.CommitDocument = commitDocumentMock.Object;
 
-//      //   // Setup
+      //   // Test
 
-//      //   var serviceMock = new Mock<IAppService>();
-//      //   SimpleIoc.Default.Register( () => serviceMock.Object );
+      //   var viewModel = new CommitViewModel
+      //   {
+      //      ShortMessage = commitText
+      //   };
 
-//      //   var commitDocumentMock = new Mock<ICommitDocument>();
-//      //   commitDocumentMock.SetupProperty( cd => cd.ShortMessage );
-//      //   commitDocumentMock.SetupGet( cd => cd.LongMessage ).Returns( new List<string>() );
-//      //   App.CommitDocument = commitDocumentMock.Object;
+      //   var args = TestHelper.GetKeyEventArgs( Key.Enter );
 
-//      //   // Test
+      //   viewModel.OnCommitNotesKeyDown( args );
 
-//      //   var viewModel = new CommitViewModel
-//      //   {
-//      //      ShortMessage = commitText
-//      //   };
+      //   // Assert
 
-//      //   var args = TestHelper.GetKeyEventArgs( Key.Enter );
+      //   Assert.AreEqual( commitText, App.CommitDocument.ShortMessage );
+      //}
 
-//      //   viewModel.OnCommitNotesKeyDown( args );
+      //[Fact]
+      //public void OnCommitNotesKeyDown_EnterKeyPressed_StoresExtraCommitNotesIntoDocument()
+      //{
+      //   string extraCommitText = "This is much longer" + Environment.NewLine + "text for the commit.";
 
-//      //   // Assert
+      //   // Setup
 
-//      //   Assert.AreEqual( commitText, App.CommitDocument.ShortMessage );
-//      //}
+      //   var serviceMock = new Mock<IAppService>();
+      //   SimpleIoc.Default.Register( () => serviceMock.Object );
 
-//      //[Fact]
-//      //public void OnCommitNotesKeyDown_EnterKeyPressed_StoresExtraCommitNotesIntoDocument()
-//      //{
-//      //   string extraCommitText = "This is much longer" + Environment.NewLine + "text for the commit.";
+      //   var commitDocumentMock = new Mock<ICommitDocument>();
+      //   commitDocumentMock.SetupGet( cd => cd.LongMessage ).Returns( new List<string>() );
+      //   App.CommitDocument = commitDocumentMock.Object;
 
-//      //   // Setup
+      //   // Test
 
-//      //   var serviceMock = new Mock<IAppService>();
-//      //   SimpleIoc.Default.Register( () => serviceMock.Object );
+      //   var viewModel = new CommitViewModel
+      //   {
+      //      ExtraCommitText = extraCommitText
+      //   };
 
-//      //   var commitDocumentMock = new Mock<ICommitDocument>();
-//      //   commitDocumentMock.SetupGet( cd => cd.LongMessage ).Returns( new List<string>() );
-//      //   App.CommitDocument = commitDocumentMock.Object;
+      //   var args = TestHelper.GetKeyEventArgs( Key.Enter );
 
-//      //   // Test
+      //   viewModel.OnCommitNotesKeyDown( args );
 
-//      //   var viewModel = new CommitViewModel
-//      //   {
-//      //      ExtraCommitText = extraCommitText
-//      //   };
+      //   // Assert
 
-//      //   var args = TestHelper.GetKeyEventArgs( Key.Enter );
+      //   Assert.AreEqual( extraCommitText, App.CommitDocument.LongMessage.First() );
+      //}
 
-//      //   viewModel.OnCommitNotesKeyDown( args );
+      //[Fact]
+      //public void OnCommitNotesKeyDown_EnterKeyPressed_SavesCommitNotes()
+      //{
+      //   // Setup
 
-//      //   // Assert
+      //   var serviceMock = new Mock<IAppService>();
+      //   SimpleIoc.Default.Register( () => serviceMock.Object );
 
-//      //   Assert.AreEqual( extraCommitText, App.CommitDocument.LongMessage.First() );
-//      //}
+      //   var commitDocumentMock = new Mock<ICommitDocument>();
+      //   commitDocumentMock.SetupGet( cd => cd.LongMessage ).Returns( new List<string>() );
+      //   App.CommitDocument = commitDocumentMock.Object;
 
-//      //[Fact]
-//      //public void OnCommitNotesKeyDown_EnterKeyPressed_SavesCommitNotes()
-//      //{
-//      //   // Setup
+      //   // Test
 
-//      //   var serviceMock = new Mock<IAppService>();
-//      //   SimpleIoc.Default.Register( () => serviceMock.Object );
+      //   var viewModel = new CommitViewModel();
 
-//      //   var commitDocumentMock = new Mock<ICommitDocument>();
-//      //   commitDocumentMock.SetupGet( cd => cd.LongMessage ).Returns( new List<string>() );
-//      //   App.CommitDocument = commitDocumentMock.Object;
+      //   var args = TestHelper.GetKeyEventArgs( Key.Enter );
 
-//      //   // Test
+      //   viewModel.OnCommitNotesKeyDown( args );
 
-//      //   var viewModel = new CommitViewModel();
+      //   // Assert
 
-//      //   var args = TestHelper.GetKeyEventArgs( Key.Enter );
+      //   commitDocumentMock.Verify( cd => cd.Save(), Times.Once() );
+      //}
 
-//      //   viewModel.OnCommitNotesKeyDown( args );
+      //[Fact]
+      //public void OnCommitNotesKeyDown_EnterKeyPressed_ExitsAppWithCodeZero()
+      //{
+      //   // Setup
 
-//      //   // Assert
+      //   var commitDocumentMock = new Mock<ICommitDocument>();
+      //   commitDocumentMock.SetupGet( cd => cd.LongMessage ).Returns( new List<string>() );
+      //   App.CommitDocument = commitDocumentMock.Object;
 
-//      //   commitDocumentMock.Verify( cd => cd.Save(), Times.Once() );
-//      //}
+      //   var appServiceMock = new Mock<IAppService>();
+      //   SimpleIoc.Default.Register( () => appServiceMock.Object );
 
-//      //[Fact]
-//      //public void OnCommitNotesKeyDown_EnterKeyPressed_ExitsAppWithCodeZero()
-//      //{
-//      //   // Setup
+      //   // Test
 
-//      //   var commitDocumentMock = new Mock<ICommitDocument>();
-//      //   commitDocumentMock.SetupGet( cd => cd.LongMessage ).Returns( new List<string>() );
-//      //   App.CommitDocument = commitDocumentMock.Object;
+      //   var viewModel = new CommitViewModel();
 
-//      //   var appServiceMock = new Mock<IAppService>();
-//      //   SimpleIoc.Default.Register( () => appServiceMock.Object );
+      //   var args = TestHelper.GetKeyEventArgs( Key.Enter );
 
-//      //   // Test
+      //   viewModel.OnCommitNotesKeyDown( args );
 
-//      //   var viewModel = new CommitViewModel();
+      //   // Assert
 
-//      //   var args = TestHelper.GetKeyEventArgs( Key.Enter );
+      //   appServiceMock.Verify( @as => @as.Shutdown(), Times.Once() );
+      //}
 
-//      //   viewModel.OnCommitNotesKeyDown( args );
+      //[Fact]
+      //public void AbortCommand_ExpandedFlagIsSet_RaisesCollapseRequested()
+      //{
+      //   bool wasRaised = false;
 
-//      //   // Assert
+      //   // Arrange
 
-//      //   appServiceMock.Verify( @as => @as.Shutdown(), Times.Once() );
-//      //}
+      //   var appServiceMock = new Mock<IAppService>();
+      //   var commitDocumentMock = new Mock<ICommitDocument>();
 
-//      //[Fact]
-//      //public void AbortCommand_ExpandedFlagIsSet_RaisesCollapseRequested()
-//      //{
-//      //   bool wasRaised = false;
+      //   // Act
 
-//      //   // Arrange
+      //   var viewModel = new CommitViewModel( null, appServiceMock.Object, null, commitDocumentMock.Object, null )
+      //   {
+      //      IsExpanded = true
+      //   };
 
-//      //   var appServiceMock = new Mock<IAppService>();
-//      //   var commitDocumentMock = new Mock<ICommitDocument>();
+      //   viewModel.AsyncCollapseRequested += ( _, __ ) =>
+      //   {
+      //      wasRaised = true;
+      //      return Task.CompletedTask;
+      //   };
 
-//      //   // Act
+      //   viewModel.AbortCommand.Execute( null );
 
-//      //   var viewModel = new CommitViewModel( null, appServiceMock.Object, null, commitDocumentMock.Object, null )
-//      //   {
-//      //      IsExpanded = true
-//      //   };
+      //   // Assert
 
-//      //   viewModel.AsyncCollapseRequested += ( _, __ ) =>
-//      //   {
-//      //      wasRaised = true;
-//      //      return Task.CompletedTask;
-//      //   };
+      //   wasRaised.Should().BeTrue();
+      //}
 
-//      //   viewModel.AbortCommand.Execute( null );
+      //[Fact]
+      //public void SaveCommand_ShortMessageIsEmpty_RaisesShakeRequestedEvent()
+      //{
+      //   bool wasRaised = false;
 
-//      //   // Assert
+      //   // Arrange
 
-//      //   wasRaised.Should().BeTrue();
-//      //}
+      //   var appServiceMock = new Mock<IAppService>();
+      //   var commitDocumentMock = new Mock<ICommitDocument>();
+      //   commitDocumentMock.SetupGet( cd => cd.ShortMessage ).Returns( string.Empty );
 
-//      //[Fact]
-//      //public void SaveCommand_ShortMessageIsEmpty_RaisesShakeRequestedEvent()
-//      //{
-//      //   bool wasRaised = false;
+      //   // Act
 
-//      //   // Arrange
+      //   var viewModel = new CommitViewModel( null, appServiceMock.Object, null, commitDocumentMock.Object, null )
+      //   {
+      //      IsExiting = false
+      //   };
 
-//      //   var appServiceMock = new Mock<IAppService>();
-//      //   var commitDocumentMock = new Mock<ICommitDocument>();
-//      //   commitDocumentMock.SetupGet( cd => cd.ShortMessage ).Returns( string.Empty );
+      //   viewModel.AsyncShakeRequested += ( _, __ ) =>
+      //   {
+      //      wasRaised = true;
+      //      return Task.CompletedTask;
+      //   };
 
-//      //   // Act
+      //   viewModel.SaveCommand.Execute( null );
 
-//      //   var viewModel = new CommitViewModel( null, appServiceMock.Object, null, commitDocumentMock.Object, null )
-//      //   {
-//      //      IsExiting = false
-//      //   };
+      //   // Assert
 
-//      //   viewModel.AsyncShakeRequested += ( _, __ ) =>
-//      //   {
-//      //      wasRaised = true;
-//      //      return Task.CompletedTask;
-//      //   };
-
-//      //   viewModel.SaveCommand.Execute( null );
-
-//      //   // Assert
-
-//      //   wasRaised.Should().BeTrue();
-//      //}
-//   }
-//}
+      //   wasRaised.Should().BeTrue();
+      //}
+   }
+}
