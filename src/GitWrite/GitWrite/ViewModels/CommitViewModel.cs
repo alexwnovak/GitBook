@@ -104,7 +104,11 @@ namespace GitWrite.ViewModels
          PasteCommand = new RelayCommand( async () => await PasteFromClipboard() );
 
          ShortMessage = _commitDocument.Subject;
-         ExtraCommitText = _commitDocument.Body.Aggregate( ( i, j ) => $"{i}{Environment.NewLine}{j}");
+
+         if ( _commitDocument != null && _commitDocument.Body.Length > 0 )
+         {
+            ExtraCommitText = _commitDocument.Body.Aggregate( ( i, j ) => $"{i}{Environment.NewLine}{j}");
+         }
 
          IsDirty = false;
          IsAmending = !string.IsNullOrEmpty( ShortMessage );
