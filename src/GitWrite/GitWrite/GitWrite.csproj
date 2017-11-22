@@ -95,6 +95,7 @@
     <Compile Include="Behaviors\WindowPlacementBehavior.cs" />
     <Compile Include="FrameworkElementExtensions.cs" />
     <Compile Include="GitFileAttribute.cs" />
+    <Compile Include="Messages\ExpansionRequestedMessage.cs" />
     <Compile Include="Messages\PulseRequestedMessage.cs" />
     <Compile Include="Messages\ShakeRequestedMessage.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
