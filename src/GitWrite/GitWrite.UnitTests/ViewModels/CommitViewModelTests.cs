@@ -24,22 +24,18 @@ namespace GitWrite.UnitTests.ViewModels
          commitViewModel.ShortMessage.Should().BeNull();
       }
 
-      //[Fact]
-      //public void Constructor_IncomingShortMessageIsNull_IsNotAmending()
-      //{
-      //   // Arrange
+      [Fact]
+      public void Constructor_IncomingSubjectIsNull_IsNotAmending()
+      {
+         var commitDocument = new CommitDocument
+         {
+            Subject = null
+         };
 
-      //   var commitDocumentMock = new Mock<ICommitDocument>();
-      //   commitDocumentMock.SetupGet( cd => cd.ShortMessage ).Returns( (string) null );
+         var commitViewModel = new CommitViewModel( null, null, null, null, commitDocument, null );
 
-      //   // Act
-
-      //   var commitViewModel = new CommitViewModel( null, null, null, commitDocumentMock.Object, null );
-
-      //   // Assert
-
-      //   commitViewModel.IsAmending.Should().BeFalse();
-      //}
+         commitViewModel.IsAmending.Should().BeFalse();
+      }
 
       //[Fact]
       //public void Constructor_HasIncomingShortMessage_IsAmending()
