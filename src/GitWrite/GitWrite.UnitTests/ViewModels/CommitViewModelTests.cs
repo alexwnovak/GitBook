@@ -25,6 +25,21 @@ namespace GitWrite.UnitTests.ViewModels
       }
 
       [Fact]
+      public void Constructor_CommitDocumentHasShortMessage_ViewModelReadsShortMessage()
+      {
+         const string shortMessage = "Short commit message";
+
+         var commitDocument = new CommitDocument
+         {
+            Subject = shortMessage
+         };
+
+         var commitViewModel = new CommitViewModel( null, null, null, null, commitDocument, null );
+
+         commitViewModel.ShortMessage.Should().Be( shortMessage );
+      }
+
+      [Fact]
       public void Constructor_IncomingSubjectIsNull_IsNotAmending()
       {
          var commitDocument = new CommitDocument
@@ -66,23 +81,6 @@ namespace GitWrite.UnitTests.ViewModels
 
          expanded.Should().BeFalse();
       }
-
-      //[Fact]
-      //public void Constructor_CommitDocumentHasShortMessage_ViewModelReadsShortMessage()
-      //{
-      //   const string shortMessage = "Short commit message";
-
-      //   // Setup
-
-      //   var commitDocumentMock = new Mock<ICommitDocument>();
-      //   commitDocumentMock.SetupGet( cd => cd.ShortMessage ).Returns( shortMessage );
-
-      //   // Test
-
-      //   var commitViewModel = new CommitViewModel( null, null, null, commitDocumentMock.Object, null );
-
-      //   commitViewModel.ShortMessage.Should().Be( shortMessage );
-      //}
 
       //[Fact]
       //public void Constructor_HasSingleLineLongMessage_ViewModelReadsTheLongMessage()
