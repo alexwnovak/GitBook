@@ -15,6 +15,7 @@ namespace GitWrite.ViewModels
       private readonly IClipboardService _clipboardService;
       private readonly CommitDocument _commitDocument;
       private readonly IGitService _gitService;
+      private readonly ICommitFileWriter _commitFileWriter;
 
       public RelayCommand SecondaryNotesGotFocusCommand
       {
@@ -90,13 +91,20 @@ namespace GitWrite.ViewModels
       public event AsyncEventHandler AsyncShakeRequested;
       public event AsyncEventHandler<ShutdownEventArgs> AsyncExitRequested;
        
-      public CommitViewModel( string commitFilePath, IViewService viewService, IAppService appService, IClipboardService clipboardService, CommitDocument commitDocument, IGitService gitService )
+      public CommitViewModel( string commitFilePath,
+         IViewService viewService,
+         IAppService appService,
+         IClipboardService clipboardService,
+         CommitDocument commitDocument,
+         IGitService gitService,
+         ICommitFileWriter commitFileWriter )
          : base( viewService, appService )
       {
          _commitFilePath = commitFilePath;
          _clipboardService = clipboardService;
          _commitDocument = commitDocument;
          _gitService = gitService;
+         _commitFileWriter = commitFileWriter;
 
          SecondaryNotesGotFocusCommand = new RelayCommand( async () => await ExpandUI() );
          ExpandCommand = new RelayCommand( async () => await ExpandUI() );
@@ -159,8 +167,7 @@ namespace GitWrite.ViewModels
             _commitDocument.Body = ExtraCommitText.Split( new[] { Environment.NewLine }, StringSplitOptions.None );
          }
 
-         var commitFileWriter = new CommitFileWriter();
-         commitFileWriter.ToFile( _commitFilePath, _commitDocument );
+         _commitFileWriter.ToFile( _commitFilePath, _commitDocument );
 
          return true;
       }
@@ -174,8 +181,7 @@ namespace GitWrite.ViewModels
          _commitDocument.Subject = null;
          _commitDocument.Body = new string[0];
 
-         var commitFileWriter = new CommitFileWriter();
-         commitFileWriter.ToFile( _commitFilePath, _commitDocument );
+         _commitFileWriter.ToFile( _commitFilePath, _commitDocument );
 
          return true;
       }

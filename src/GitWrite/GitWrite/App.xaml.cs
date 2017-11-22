@@ -117,6 +117,7 @@ namespace GitWrite
          SimpleIoc.Default.Register<IClipboardService, ClipboardService>();
          SimpleIoc.Default.Register<IRegistryService, RegistryService>();
          SimpleIoc.Default.Register<IEnvironmentAdapter, EnvironmentAdapter>();
+         SimpleIoc.Default.Register<ICommitFileWriter, CommitFileWriter>();
 
          SimpleIoc.Default.Register<RebaseFileReader>();
 
