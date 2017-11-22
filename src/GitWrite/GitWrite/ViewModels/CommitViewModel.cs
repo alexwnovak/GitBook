@@ -149,11 +149,14 @@ namespace GitWrite.ViewModels
          await OnExitRequestedAsync( this, new ShutdownEventArgs( ExitReason.Save ) );
 
          _commitDocument.Subject = ShortMessage;
-         _commitDocument.Body[0] = ExtraCommitText;
+
+         if ( !string.IsNullOrEmpty( ExtraCommitText ) )
+         {
+            _commitDocument.Body[0] = ExtraCommitText;
+         }
 
          var commitFileWriter = new CommitFileWriter();
-         //commitFileWriter.ToFile();
-         //_commitDocument.Save();
+         commitFileWriter.ToFile( _commitFilePath, _commitDocument );
 
          return true;
       }
