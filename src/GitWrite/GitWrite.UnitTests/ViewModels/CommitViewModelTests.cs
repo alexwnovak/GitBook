@@ -404,25 +404,25 @@ namespace GitWrite.UnitTests.ViewModels
          viewModel.ExtraCommitText.Should().Be( extraMessage );
       }
 
-      //[Fact]
-      //public void Title_HappyPath_TitleContainsBranchName()
-      //{
-      //   const string branchName = "master";
+      [Fact]
+      public void Title_HappyPath_TitleContainsBranchName()
+      {
+         const string branchName = "master";
 
-      //   Setup
+         // Setup
 
-      //  var gitServiceMock = new Mock<IGitService>();
-      //   gitServiceMock.Setup( gs => gs.GetCurrentBranchName() ).Returns( branchName );
+         var gitServiceMock = new Mock<IGitService>();
+         gitServiceMock.Setup( gs => gs.GetCurrentBranchName() ).Returns( branchName );
 
-      //   Test
+         // Test
 
-      //  var viewModel = new CommitViewModel( null, null, null, null, gitServiceMock.Object );
-      //   string title = viewModel.Title;
+         var viewModel = new CommitViewModel( null, null, null, null, null, gitServiceMock.Object );
+         string title = viewModel.Title;
 
-      //   Assert
+         // Assert
 
-      //   title.Should().Contain( branchName );
-      //}
+         title.Should().Contain( branchName );
+      }
 
       //[Fact]
       //public void OnCommitNotesKeyDown_KeyIsEscapeAndHasNoCommitText_CallsShutdown()
