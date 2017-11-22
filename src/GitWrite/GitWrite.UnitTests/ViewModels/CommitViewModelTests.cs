@@ -40,6 +40,21 @@ namespace GitWrite.UnitTests.ViewModels
       }
 
       [Fact]
+      public void Constructor_HasSingleLineBody_ViewModelReadsTheLongMessage()
+      {
+         const string longMessage = "Long message here";
+
+         var commitDocument = new CommitDocument
+         {
+            Body = new[] { longMessage }
+         };
+
+         var commitViewModel = new CommitViewModel( null, null, null, null, commitDocument, null );
+
+         commitViewModel.ExtraCommitText.Should().Be( longMessage );
+      }
+
+      [Fact]
       public void Constructor_IncomingSubjectIsNull_IsNotAmending()
       {
          var commitDocument = new CommitDocument
@@ -81,23 +96,6 @@ namespace GitWrite.UnitTests.ViewModels
 
          expanded.Should().BeFalse();
       }
-
-      //[Fact]
-      //public void Constructor_HasSingleLineLongMessage_ViewModelReadsTheLongMessage()
-      //{
-      //   const string longMessage = "Long message here";
-
-      //   // Setup
-
-      //   var commitDocumentMock = new Mock<ICommitDocument>();
-      //   commitDocumentMock.SetupGet( cd => cd.LongMessage ).Returns( longMessage );
-
-      //   // Test
-
-      //   var commitViewModel = new CommitViewModel( null, null, null, commitDocumentMock.Object, null );
-
-      //   commitViewModel.ExtraCommitText.Should().Be( longMessage );
-      //}
 
       //[Fact]
       //public void ViewLoaded_HasExtraNotes_RaisesExpansionEvent()
