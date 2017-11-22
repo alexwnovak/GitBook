@@ -103,7 +103,7 @@ namespace GitWrite.ViewModels
          LoadCommand = new RelayCommand( ViewLoaded );
          PasteCommand = new RelayCommand( async () => await PasteFromClipboard() );
 
-         ShortMessage = _commitDocument.Subject;
+         ShortMessage = _commitDocument?.Subject;
 
          if ( _commitDocument != null && _commitDocument.Body?.Length > 0 )
          {

@@ -50,22 +50,22 @@ namespace GitWrite.UnitTests.ViewModels
          commitViewModel.IsAmending.Should().BeTrue();
       }
 
-      //[Fact]
-      //public void ViewLoaded_DoesNotHaveExtraNotes_DoesNotRaiseExpansionEvent()
-      //{
-      //   bool expanded = false;
+      [Fact]
+      public void ViewLoaded_DoesNotHaveExtraNotes_DoesNotRaiseExpansionEvent()
+      {
+         bool expanded = false;
 
-      //   var commitViewModel = new CommitViewModel( null, null, null, null, null );
-      //   commitViewModel.AsyncExpansionRequested += ( sender, e ) =>
-      //   {
-      //      expanded = true;
-      //      return Task.CompletedTask;
-      //   };
+         var commitViewModel = new CommitViewModel( null, null, null, null, null, null );
+         commitViewModel.AsyncExpansionRequested += ( sender, e ) =>
+         {
+            expanded = true;
+            return Task.CompletedTask;
+         };
 
-      //   commitViewModel.ViewLoaded();
+         commitViewModel.ViewLoaded();
 
-      //   expanded.Should().BeFalse();
-      //}
+         expanded.Should().BeFalse();
+      }
 
       //[Fact]
       //public void Constructor_CommitDocumentHasShortMessage_ViewModelReadsShortMessage()
