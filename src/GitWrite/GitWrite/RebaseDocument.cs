@@ -1,25 +1,25 @@
-﻿using GitWrite.ViewModels;
+﻿//using GitWrite.ViewModels;
 
-namespace GitWrite
-{
-   public class RebaseDocument
-   {
-      public string Name
-      {
-         get;
-         set;
-      }
+//namespace GitWrite
+//{
+//   public class RebaseDocument
+//   {
+//      public string Name
+//      {
+//         get;
+//         set;
+//      }
 
-      public string[] RawLines
-      {
-         get;
-         set;
-      }
+//      public string[] RawLines
+//      {
+//         get;
+//         set;
+//      }
 
-      public RebaseItem[] RebaseItems
-      {
-         get;
-         set;
-      }
-   }
-}
+//      public RebaseItem[] RebaseItems
+//      {
+//         get;
+//         set;
+//      }
+//   }
+//}

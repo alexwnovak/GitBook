@@ -1,14 +1,15 @@
-﻿using GitWrite.ViewModels;
+﻿using GitModel;
 
 namespace GitWrite.UnitTests
 {
    public static class RebaseItemHelper
    {
-      public static RebaseItem Create( RebaseItemAction action, string commitHash, string text )
-         => new RebaseItem( text )
+      public static RebaseItem Create( RebaseAction action, string commitHash, string text ) =>
+         new RebaseItem
          {
             Action = action,
-            CommitHash = commitHash
+            CommitHash = commitHash,
+            Subject = text
          };
    }
 }

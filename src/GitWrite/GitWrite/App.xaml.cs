@@ -94,8 +94,8 @@ namespace GitWrite
 
          try
          {
-            var documentReader = SimpleIoc.Default.GetInstance<RebaseFileReader>();
-            document = documentReader.FromFile( fileName );
+            var rebaseFileReader = new RebaseFileReader();
+            document = rebaseFileReader.FromFile( fileName );
          }
          catch ( GitFileLoadException )
          {

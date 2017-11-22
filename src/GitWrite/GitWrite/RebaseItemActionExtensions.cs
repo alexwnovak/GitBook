@@ -1,26 +1,26 @@
 ﻿using System;
-using GitWrite.ViewModels;
+using GitModel;
 
 namespace GitWrite
 {
    public static class RebaseItemActionExtensions
    {
-      public static RebaseItemAction PreviousValue( this RebaseItemAction itemAction )
+      public static RebaseAction PreviousValue( this RebaseAction itemAction )
       {
          int numValues = Enum.GetValues( itemAction.GetType() ).Length;
 
          int thisValue = ((int) itemAction) - 1;
 
-         return thisValue < 0 ? (RebaseItemAction) (thisValue + numValues) : (RebaseItemAction) thisValue;
+         return thisValue < 0 ? (RebaseAction) (thisValue + numValues) : (RebaseAction) thisValue;
       }
 
-      public static RebaseItemAction NextValue( this RebaseItemAction itemAction )
+      public static RebaseAction NextValue( this RebaseAction itemAction )
       {
          int numValues = Enum.GetValues( itemAction.GetType() ).Length;
 
          int thisValue = (int) itemAction;
 
-         return (RebaseItemAction) ( ++thisValue % numValues );
+         return (RebaseAction) ( ++thisValue % numValues );
       }
    }
 }

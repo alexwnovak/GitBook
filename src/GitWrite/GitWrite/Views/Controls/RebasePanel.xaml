@@ -45,7 +45,7 @@
 
             <TextBlock Grid.Column="2"
                Margin="20,0,0,0"
-               Text="{Binding Text}" />
+               Text="{Binding Subject}" />
          </Grid>
       </DataTemplate>
    </ItemsControl.ItemTemplate>

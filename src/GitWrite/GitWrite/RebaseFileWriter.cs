@@ -1,21 +1,21 @@
-using System.Linq;
+//using System.Linq;
 
-namespace GitWrite
-{
-   public class RebaseFileWriter : IRebaseFileWriter
-   {
-      private readonly IFileAdapter _fileAdapter;
+//namespace GitWrite
+//{
+//   public class RebaseFileWriter : IRebaseFileWriter
+//   {
+//      private readonly IFileAdapter _fileAdapter;
 
-      public RebaseFileWriter( IFileAdapter fileAdapter )
-      {
-         _fileAdapter = fileAdapter;
-      }
+//      public RebaseFileWriter( IFileAdapter fileAdapter )
+//      {
+//         _fileAdapter = fileAdapter;
+//      }
 
-      public void Save( RebaseDocument rebaseDocument )
-      {
-         var allLines = rebaseDocument.RebaseItems.Select( i => $"{i.Action.ToString().ToLower()} {i.CommitHash} {i.Text}" );
+//      public void Save( RebaseDocument rebaseDocument )
+//      {
+//         var allLines = rebaseDocument.RebaseItems.Select( i => $"{i.Action.ToString().ToLower()} {i.CommitHash} {i.Text}" );
 
-         _fileAdapter.WriteAllLines( rebaseDocument.Name, allLines );
-      }
-   }
-}
+//         _fileAdapter.WriteAllLines( rebaseDocument.Name, allLines );
+//      }
+//   }
+//}
