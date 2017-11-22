@@ -453,35 +453,34 @@ namespace GitWrite.UnitTests.ViewModels
          wasRaised.Should().BeTrue();
       }
 
-      //[Fact]
-      //public void SaveCommand_ShortMessageIsEmpty_RaisesShakeRequestedEvent()
-      //{
-      //   bool wasRaised = false;
+      [Fact]
+      public void SaveCommand_ShortMessageIsEmpty_RaisesShakeRequestedEvent()
+      {
+         bool wasRaised = false;
 
-      //   // Arrange
+         // Act
 
-      //   var appServiceMock = new Mock<IAppService>();
-      //   var commitDocumentMock = new Mock<ICommitDocument>();
-      //   commitDocumentMock.SetupGet( cd => cd.ShortMessage ).Returns( string.Empty );
+         var commitDocument = new CommitDocument
+         {
+            Subject = string.Empty
+         };
 
-      //   // Act
+         var viewModel = new CommitViewModel( null, null, Mock.Of<IAppService>(), null, commitDocument, null, Mock.Of<ICommitFileWriter>() )
+         {
+            IsExiting = false
+         };
 
-      //   var viewModel = new CommitViewModel( null, appServiceMock.Object, null, commitDocumentMock.Object, null )
-      //   {
-      //      IsExiting = false
-      //   };
+         viewModel.AsyncShakeRequested += ( _, __ ) =>
+         {
+            wasRaised = true;
+            return Task.CompletedTask;
+         };
 
-      //   viewModel.AsyncShakeRequested += ( _, __ ) =>
-      //   {
-      //      wasRaised = true;
-      //      return Task.CompletedTask;
-      //   };
+         viewModel.SaveCommand.Execute( null );
 
-      //   viewModel.SaveCommand.Execute( null );
+         // Assert
 
-      //   // Assert
-
-      //   wasRaised.Should().BeTrue();
-      //}
+         wasRaised.Should().BeTrue();
+      }
    }
 }
