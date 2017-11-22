@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight.Command;
+using GitModel;
 using GitWrite.Services;
 using Resx = GitWrite.Properties.Resources;
 
@@ -9,8 +10,9 @@ namespace GitWrite.ViewModels
 {
    public class CommitViewModel : GitWriteViewModelBase
    {
+      private readonly string _commitFilePath;
       private readonly IClipboardService _clipboardService;
-      private readonly ICommitDocument _commitDocument;
+      private readonly CommitDocument _commitDocument;
       private readonly IGitService _gitService;
 
       public RelayCommand SecondaryNotesGotFocusCommand
@@ -87,9 +89,10 @@ namespace GitWrite.ViewModels
       public event AsyncEventHandler AsyncShakeRequested;
       public event AsyncEventHandler<ShutdownEventArgs> AsyncExitRequested;
        
-      public CommitViewModel( IViewService viewService, IAppService appService, IClipboardService clipboardService, ICommitDocument commitDocument, IGitService gitService )
+      public CommitViewModel( string commitFilePath, IViewService viewService, IAppService appService, IClipboardService clipboardService, CommitDocument commitDocument, IGitService gitService )
          : base( viewService, appService )
       {
+         _commitFilePath = commitFilePath;
          _clipboardService = clipboardService;
          _commitDocument = commitDocument;
          _gitService = gitService;
@@ -99,8 +102,8 @@ namespace GitWrite.ViewModels
          LoadCommand = new RelayCommand( ViewLoaded );
          PasteCommand = new RelayCommand( async () => await PasteFromClipboard() );
 
-         ShortMessage = _commitDocument?.ShortMessage ?? string.Empty;
-         ExtraCommitText = _commitDocument?.LongMessage;
+         ShortMessage = _commitDocument?.Subject ?? string.Empty;
+         ExtraCommitText = _commitDocument?.Body[0];
 
          IsDirty = false;
          IsAmending = !string.IsNullOrEmpty( ShortMessage );
@@ -140,9 +143,12 @@ namespace GitWrite.ViewModels
 
          await OnExitRequestedAsync( this, new ShutdownEventArgs( ExitReason.Save ) );
 
-         _commitDocument.ShortMessage = ShortMessage;
-         _commitDocument.LongMessage = ExtraCommitText;
-         _commitDocument.Save();
+         _commitDocument.Subject = ShortMessage;
+         _commitDocument.Body[0] = ExtraCommitText;
+
+         var commitFileWriter = new CommitFileWriter();
+         //commitFileWriter.ToFile();
+         //_commitDocument.Save();
 
          return true;
       }
@@ -153,9 +159,17 @@ namespace GitWrite.ViewModels
 
          await OnExitRequestedAsync( this, new ShutdownEventArgs( ExitReason.Discard ) );
 
-         _commitDocument.ShortMessage = null;
-         _commitDocument.LongMessage = null;
-         _commitDocument.Save();
+         _commitDocument.Subject = null;
+         _commitDocument.Body = new string[0];
+
+         var commitFileWriter = new CommitFileWriter();
+         //commitFileWriter.ToFile( );
+         //_commitDocument.Save();
+
+
+         //_commitDocument.ShortMessage = null;
+         //_commitDocument.LongMessage = null;
+         //_commitDocument.Save();
 
          return true;
       }

@@ -1,109 +1,109 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using FluentAssertions;
-using Moq;
-using Xunit;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using FluentAssertions;
+//using Moq;
+//using Xunit;
 
-namespace GitWrite.UnitTests
-{
-   public class CommitDocumentTests
-   {
-      [Fact]
-      public void Save_OnlyHasShortMessage_WritesCommitNotes()
-      {
-         bool parametersMatch = false;
-         const string path = "SomeFile.txt";
-         const string shortMessage = "This is the short message";
+//namespace GitWrite.UnitTests
+//{
+//   public class CommitDocumentTests
+//   {
+//      [Fact]
+//      public void Save_OnlyHasShortMessage_WritesCommitNotes()
+//      {
+//         bool parametersMatch = false;
+//         const string path = "SomeFile.txt";
+//         const string shortMessage = "This is the short message";
          
-         // Setup
+//         // Setup
 
-         var fileAdapterMock = new Mock<IFileAdapter>();
-         fileAdapterMock.Setup( fa => fa.WriteAllLines( It.IsAny<string>(), It.IsAny<IEnumerable<string>>() ) ).Callback<string, IEnumerable<string>>( ( p, l ) =>
-         {
-            var lines = l.ToList();
-            parametersMatch = ( p == path && lines[0] == shortMessage );
-         } );    
+//         var fileAdapterMock = new Mock<IFileAdapter>();
+//         fileAdapterMock.Setup( fa => fa.WriteAllLines( It.IsAny<string>(), It.IsAny<IEnumerable<string>>() ) ).Callback<string, IEnumerable<string>>( ( p, l ) =>
+//         {
+//            var lines = l.ToList();
+//            parametersMatch = ( p == path && lines[0] == shortMessage );
+//         } );    
 
-         // Test
+//         // Test
 
-         var commitDocument = new CommitDocument( fileAdapterMock.Object )
-         {
-            Name = path,
-            ShortMessage = shortMessage
-         };
+//         var commitDocument = new CommitDocument( fileAdapterMock.Object )
+//         {
+//            Name = path,
+//            ShortMessage = shortMessage
+//         };
 
-         commitDocument.Save();
+//         commitDocument.Save();
 
-         // Assert
+//         // Assert
 
-         parametersMatch.Should().BeTrue();
-      }
+//         parametersMatch.Should().BeTrue();
+//      }
 
-      [Fact]
-      public void Save_HasLongMessage_WritesLongMessage()
-      {
-         bool parametersMatch = false;
-         const string path = "SomeFile.txt";
-         const string shortMessage = "This is the short message";
-         string longMessage = "This is the longer message" + Environment.NewLine + " with a new line";
+//      [Fact]
+//      public void Save_HasLongMessage_WritesLongMessage()
+//      {
+//         bool parametersMatch = false;
+//         const string path = "SomeFile.txt";
+//         const string shortMessage = "This is the short message";
+//         string longMessage = "This is the longer message" + Environment.NewLine + " with a new line";
 
-         // Setup
+//         // Setup
 
-         var fileAdapterMock = new Mock<IFileAdapter>();
-         fileAdapterMock.Setup( fa => fa.WriteAllLines( It.IsAny<string>(), It.IsAny<IEnumerable<string>>() ) ).Callback<string, IEnumerable<string>>( ( p, l ) =>
-         {
-            var lines = l.ToList();
-            parametersMatch = (p == path && lines[0] == shortMessage && lines[1] == string.Empty && lines[2] == longMessage);
-         } );
+//         var fileAdapterMock = new Mock<IFileAdapter>();
+//         fileAdapterMock.Setup( fa => fa.WriteAllLines( It.IsAny<string>(), It.IsAny<IEnumerable<string>>() ) ).Callback<string, IEnumerable<string>>( ( p, l ) =>
+//         {
+//            var lines = l.ToList();
+//            parametersMatch = (p == path && lines[0] == shortMessage && lines[1] == string.Empty && lines[2] == longMessage);
+//         } );
 
-         // Test
+//         // Test
 
-         var commitDocument = new CommitDocument( fileAdapterMock.Object )
-         {
-            Name = path,
-            ShortMessage = shortMessage,
-            LongMessage = longMessage,
-         };
+//         var commitDocument = new CommitDocument( fileAdapterMock.Object )
+//         {
+//            Name = path,
+//            ShortMessage = shortMessage,
+//            LongMessage = longMessage,
+//         };
 
-         commitDocument.Save();
+//         commitDocument.Save();
 
-         // Assert
+//         // Assert
 
-         parametersMatch.Should().BeTrue();
-      }
+//         parametersMatch.Should().BeTrue();
+//      }
 
-      [Fact]
-      public void Save_HasLongMessageInTwoParagraphs_WritesLongMessage()
-      {
-         bool parametersMatch = false;
-         const string path = "SomeFile.txt";
-         const string shortMessage = "This is the short message";
-         string longMessage = $"First line {Environment.NewLine}{Environment.NewLine} Second line after one blank line";
+//      [Fact]
+//      public void Save_HasLongMessageInTwoParagraphs_WritesLongMessage()
+//      {
+//         bool parametersMatch = false;
+//         const string path = "SomeFile.txt";
+//         const string shortMessage = "This is the short message";
+//         string longMessage = $"First line {Environment.NewLine}{Environment.NewLine} Second line after one blank line";
 
-         // Setup
+//         // Setup
 
-         var fileAdapterMock = new Mock<IFileAdapter>();
-         fileAdapterMock.Setup( fa => fa.WriteAllLines( It.IsAny<string>(), It.IsAny<IEnumerable<string>>() ) ).Callback<string, IEnumerable<string>>( ( p, l ) =>
-         {
-            var lines = l.ToList();
-            parametersMatch = ( p == path && lines[0] == shortMessage && lines[1] == string.Empty && lines[2] == longMessage );
-         } );
+//         var fileAdapterMock = new Mock<IFileAdapter>();
+//         fileAdapterMock.Setup( fa => fa.WriteAllLines( It.IsAny<string>(), It.IsAny<IEnumerable<string>>() ) ).Callback<string, IEnumerable<string>>( ( p, l ) =>
+//         {
+//            var lines = l.ToList();
+//            parametersMatch = ( p == path && lines[0] == shortMessage && lines[1] == string.Empty && lines[2] == longMessage );
+//         } );
 
-         // Test
+//         // Test
 
-         var commitDocument = new CommitDocument( fileAdapterMock.Object )
-         {
-            Name = path,
-            ShortMessage = shortMessage,
-            LongMessage = longMessage,
-         };
+//         var commitDocument = new CommitDocument( fileAdapterMock.Object )
+//         {
+//            Name = path,
+//            ShortMessage = shortMessage,
+//            LongMessage = longMessage,
+//         };
 
-         commitDocument.Save();
+//         commitDocument.Save();
 
-         // Assert
+//         // Assert
 
-         parametersMatch.Should().BeTrue();
-      }
-   }
-}
+//         parametersMatch.Should().BeTrue();
+//      }
+//   }
+//}

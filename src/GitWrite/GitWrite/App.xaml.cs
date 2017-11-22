@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using Microsoft.Practices.ServiceLocation;
 using GalaSoft.MvvmLight.Ioc;
+using GitModel;
 using GitWrite.Services;
 using GitWrite.Themes;
 using GitWrite.ViewModels;
@@ -82,7 +83,8 @@ namespace GitWrite
             Shutdown();
          }
 
-         SimpleIoc.Default.Register<ICommitDocument>( () => commitDocument );
+         SimpleIoc.Default.Register( () => commitDocument );
+         SimpleIoc.Default.Register( () => fileName );
          SimpleIoc.Default.Register<IGitService>( () => new GitService( null ) );
       }
 

@@ -1,28 +1,28 @@
-﻿using System.Collections.Generic;
+﻿//using System.Collections.Generic;
 
-namespace GitWrite
-{
-   public interface ICommitDocument
-   {
-      string Name
-      {
-         get;
-      }
+//namespace GitWrite
+//{
+//   public interface ICommitDocument
+//   {
+//      string Name
+//      {
+//         get;
+//      }
 
-      string ShortMessage
-      {
-         get;
-         set;
-      }
+//      string ShortMessage
+//      {
+//         get;
+//         set;
+//      }
 
-      string LongMessage
-      {
-         get;
-         set;
-      }
+//      string LongMessage
+//      {
+//         get;
+//         set;
+//      }
 
-      void Save();
+//      void Save();
 
-      void Clear();
-   }
-}
+//      void Clear();
+//   }
+//}
