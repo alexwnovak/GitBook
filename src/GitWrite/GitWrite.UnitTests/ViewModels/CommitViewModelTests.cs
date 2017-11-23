@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
-using System.Windows.Input;
-using FluentAssertions;
-using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
+using Xunit;
+using Moq;
+using FluentAssertions;
 using GitModel;
 using GitWrite.Messages;
-using Moq;
-using Xunit;
 using GitWrite.Services;
-using GitWrite.UnitTests.Helpers;
 using GitWrite.ViewModels;
 
 namespace GitWrite.UnitTests.ViewModels
@@ -86,144 +83,30 @@ namespace GitWrite.UnitTests.ViewModels
       }
 
       [Fact]
-      public void ViewLoaded_DoesNotHaveExtraNotes_DoesNotRaiseExpansionEvent()
+      public void ViewLoaded_DoesNotHaveExtraNotes_DoesNotSendExpansionMessage()
       {
-         bool expanded = false;
+         var messengerMock = new Mock<IMessenger>();
 
-         var commitViewModel = new CommitViewModel( null, null, null, null, null, null, null, Mock.Of<IMessenger>() );
-         commitViewModel.AsyncExpansionRequested += ( sender, e ) =>
-         {
-            expanded = true;
-            return Task.CompletedTask;
-         };
+         var commitViewModel = new CommitViewModel( null, null, null, null, null, null, null, messengerMock.Object );
 
          commitViewModel.ViewLoaded();
 
-         expanded.Should().BeFalse();
+         messengerMock.Verify( m => m.Send( It.IsAny<ExpansionRequestedMessage>() ), Times.Never() );
       }
 
       [Fact]
-      public void ViewLoaded_HasExtraNotes_RaisesExpansionEvent()
+      public void ViewLoaded_HasExtraNotes_SendsExpansionMessage()
       {
-         bool expanded = false;
+         var messengerMock = new Mock<IMessenger>();
 
-         var commitViewModel = new CommitViewModel( null, null, null, null, null, null, null, Mock.Of<IMessenger>() )
+         var commitViewModel = new CommitViewModel( null, null, null, null, null, null, null, messengerMock.Object )
          {
             ExtraCommitText = "Extra notes"
          };
 
-         commitViewModel.AsyncExpansionRequested += ( sender, e ) =>
-         {
-            expanded = true;
-            return Task.CompletedTask;
-         };
          commitViewModel.ViewLoaded();
 
-         expanded.Should().BeTrue();
-      }
-
-      [Fact]
-      public void ExpandCommand_IsNotExpanded_SetsExpandedFlag()
-      {
-         var commitViewModel = new CommitViewModel( null, null, null, null, null, null, null, Mock.Of<IMessenger>() )
-         {
-            IsExpanded = false
-         };
-
-         commitViewModel.ExpandCommand.Execute( null );
-
-         commitViewModel.IsExpanded.Should().BeTrue();
-      }
-
-      [Fact]
-      public void ExpandCommand_IsNotExpanded_RaisesExpansionRequestedEvent()
-      {
-         bool expansionEventRaised = false;
-
-         var commitViewModel = new CommitViewModel( null, null, null, null, null, null, null, Mock.Of<IMessenger>() )
-         {
-            IsExpanded = false
-         };
-
-         commitViewModel.AsyncExpansionRequested += ( sender, e ) =>
-         {
-            expansionEventRaised = true;
-            return Task.CompletedTask;
-         };
-
-         commitViewModel.ExpandCommand.Execute( null );
-
-         expansionEventRaised.Should().BeTrue();
-      }
-
-      [Fact]
-      public void ExpandCommand_IsAlreadyExpanded_DoesNotChangeExpandedFlag()
-      {
-         var commitViewModel = new CommitViewModel( null, null, null, null, null, null, null, Mock.Of<IMessenger>() )
-         {
-            IsExpanded = true
-         };
-
-         commitViewModel.ExpandCommand.Execute( null );
-
-         commitViewModel.IsExpanded.Should().BeTrue();
-      }
-
-      [Fact]
-      public void ExpandCommand_IsAlreadyExpanded_DoesNotRaiseExpansionRequestedEvent()
-      {
-         bool expansionEventRaised = false;
-
-         var commitViewModel = new CommitViewModel( null, null, null, null, null, null, null, Mock.Of<IMessenger>() )
-         {
-            IsExpanded = true
-         };
-
-         commitViewModel.AsyncExpansionRequested += ( sender, e ) =>
-         {
-            expansionEventRaised = true;
-            return Task.CompletedTask;
-         };
-
-         commitViewModel.ExpandCommand.Execute( null );
-
-         expansionEventRaised.Should().BeFalse();
-      }
-
-      [Fact]
-      public void ExpandCommand_IsExitingFlagSetButIsNotExpanded_DoesNotChangeExpandedFlag()
-      {
-         var commitViewModel = new CommitViewModel( null, null, null, null, null, null, null, Mock.Of<IMessenger>() )
-         {
-            IsExiting = true,
-            IsExpanded = false
-         };
-
-         commitViewModel.ExpandCommand.Execute( null );
-
-         commitViewModel.IsExpanded.Should().BeFalse();
-      }
-
-      [Fact]
-      public void ExpandCommand_IsExitingFlagSetAndIsExpanded_DoesNotRaiseExpansionRequestedEvent()
-      {
-         bool expansionEventRaised = false;
-
-         var commitViewModel = new CommitViewModel( null, null, null, null, null, null, null, Mock.Of<IMessenger>() )
-         {
-            IsExiting = true,
-            IsExpanded = true
-         };
-
-         commitViewModel.AsyncExpansionRequested += ( sender, e ) =>
-         {
-            expansionEventRaised = true;
-            return Task.CompletedTask;
-         };
-
-         commitViewModel.ExpandCommand.Execute( null );
-
-         expansionEventRaised.Should().BeFalse();
+         messengerMock.Verify( m => m.Send( It.IsAny<ExpansionRequestedMessage>() ), Times.Once() );
       }
 
       [Fact]

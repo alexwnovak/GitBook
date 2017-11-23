@@ -24,11 +24,6 @@ namespace GitWrite.ViewModels
          get;
       }
 
-      public RelayCommand ExpandCommand
-      {
-         get;
-      }
-
       public RelayCommand<CancelEventArgs> CloseCommand
       {
          get;
@@ -88,7 +83,6 @@ namespace GitWrite.ViewModels
          set;
       }
 
-      public event AsyncEventHandler AsyncExpansionRequested;
       public event AsyncEventHandler AsyncCollapseRequested;
       public event AsyncEventHandler<ShutdownEventArgs> AsyncExitRequested;
        
@@ -108,10 +102,9 @@ namespace GitWrite.ViewModels
          _gitService = gitService;
          _commitFileWriter = commitFileWriter;
 
-         SecondaryNotesGotFocusCommand = new RelayCommand( async () => await ExpandUI() );
-         ExpandCommand = new RelayCommand( async () => await ExpandUI() );
+         SecondaryNotesGotFocusCommand = new RelayCommand( ExpandUI );
          LoadCommand = new RelayCommand( ViewLoaded );
-         PasteCommand = new RelayCommand( async () => await PasteFromClipboard() );
+         PasteCommand = new RelayCommand( PasteFromClipboard );
 
          ShortMessage = _commitDocument?.Subject;
 
@@ -124,16 +117,13 @@ namespace GitWrite.ViewModels
          IsAmending = !string.IsNullOrEmpty( ShortMessage );
       }
 
-      public async void ViewLoaded()
+      public void ViewLoaded()
       {
          if ( !string.IsNullOrEmpty( ExtraCommitText ) )
          {
-            await ExpandUI();
+            ExpandUI();
          }
       }
-
-      protected virtual async Task OnExpansionRequestedAsync( object sender, EventArgs e )
-         => await RaiseAsync( AsyncExpansionRequested, sender, e );
 
       protected virtual async Task OnCollapseRequestedAsync( object sender, EventArgs e )
          => await RaiseAsync( AsyncCollapseRequested, sender, e );
@@ -185,12 +175,12 @@ namespace GitWrite.ViewModels
          return true;
       }
 
-      private async Task ExpandUI()
+      private void ExpandUI()
       {
          if ( !IsExpanded && !IsExiting )
          {
             IsExpanded = true;
-            await OnExpansionRequestedAsync( this, EventArgs.Empty );
+            MessengerInstance.Send( new ExpansionRequestedMessage() );
          }
       }
 
@@ -200,7 +190,7 @@ namespace GitWrite.ViewModels
          await OnCollapseRequestedAsync( this, EventArgs.Empty );
       }
 
-      private async Task PasteFromClipboard()
+      private void PasteFromClipboard()
       {
          string clipboardText = _clipboardService.GetText();
 
@@ -211,7 +201,7 @@ namespace GitWrite.ViewModels
 
             if ( lineBreakIndex != -1 )
             {
-               await ExpandUI();
+               ExpandUI();
 
                ShortMessage = clipboardText.Substring( 0, lineBreakIndex );
 

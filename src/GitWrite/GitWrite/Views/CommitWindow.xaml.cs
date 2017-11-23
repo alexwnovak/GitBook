@@ -2,7 +2,6 @@
 using System.Globalization;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
@@ -33,12 +32,13 @@ namespace GitWrite.Views
          MainEntryBox.MaxLength = _applicationSettings.MaxCommitLength;
 
          _viewModel = (CommitViewModel) DataContext;
-         _viewModel.AsyncExpansionRequested += OnAsyncExpansionRequested;
+         //_viewModel.AsyncExpansionRequested += OnAsyncExpansionRequested;
          _viewModel.AsyncCollapseRequested += OnAsyncCollapseRequested;
          //_viewModel.AsyncShakeRequested += OnAsyncShakeRequested;
          _viewModel.AsyncExitRequested += OnAsyncExitRequested;
 
          Messenger.Default.Register<ShakeRequestedMessage>( this, _ => OnAsyncShakeRequested() );
+         Messenger.Default.Register<ExpansionRequestedMessage>( this, _ => OnAsyncExpansionRequested() );
       }
 
       private void CommitWindow_OnLoaded( object sender, RoutedEventArgs e )
@@ -247,9 +247,8 @@ namespace GitWrite.Views
          _isPlayingExitAnimation = true;
       }
 
-      private Task OnAsyncExpansionRequested( object sender, EventArgs eventArgs )
+      private void OnAsyncExpansionRequested()
       {
-         var tcs = new TaskCompletionSource<bool>();
          const double duration = 200;
 
          var heightAnimation = new DoubleAnimation
@@ -267,12 +266,9 @@ namespace GitWrite.Views
 
          var storyboard = new Storyboard();
          storyboard.Children.Add( heightAnimation );
-         storyboard.Completed += ( _, __ ) => tcs.SetResult( true );
 
          Storyboard.SetTarget( storyboard, this );
          storyboard.Begin();
-
-         return tcs.Task;
       }
 
       private Task OnAsyncCollapseRequested( object sender, EventArgs eventArgs )
