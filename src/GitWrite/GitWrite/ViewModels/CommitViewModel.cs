@@ -22,6 +22,11 @@ namespace GitWrite.ViewModels
          get;
       }
 
+      public RelayCommand SaveCommand
+      {
+         get;
+      }
+
       public string Title
       {
          get
@@ -35,7 +40,7 @@ namespace GitWrite.ViewModels
 
             return string.Format( Resx.CommittingToBranchText, branchName, Resx.ApplicationName );
          }
-      } 
+      }
 
       private string _shortMessage;
       public string ShortMessage
@@ -70,7 +75,7 @@ namespace GitWrite.ViewModels
          get;
          set;
       }
-       
+
       public CommitViewModel( string commitFilePath,
          IViewService viewService,
          IAppService appService,
@@ -86,13 +91,14 @@ namespace GitWrite.ViewModels
          _gitService = gitService;
 
          LoadCommand = new RelayCommand( ViewLoaded );
+         SaveCommand = new RelayCommand( OnSaveCommand );
          PasteCommand = new RelayCommand( PasteFromClipboard );
 
          ShortMessage = _commitDocument?.Subject;
 
          if ( _commitDocument != null && _commitDocument.Body?.Length > 0 )
          {
-            ExtraCommitText = _commitDocument.Body.Aggregate( ( i, j ) => $"{i}{Environment.NewLine}{j}");
+            ExtraCommitText = _commitDocument.Body.Aggregate( ( i, j ) => $"{i}{Environment.NewLine}{j}" );
          }
 
          IsDirty = false;
@@ -107,6 +113,22 @@ namespace GitWrite.ViewModels
          }
       }
 
+      private async void OnSaveCommand()
+      {
+         ExitReason = ExitReason.Save;
+
+         bool shouldContinue = await OnSaveAsync();
+
+         if ( !shouldContinue )
+         {
+            return;
+         }
+
+         await OnShutdownRequested( this, new ShutdownEventArgs( ExitReason.Save ) );
+
+         AppService.Shutdown();
+      }
+
       protected async Task OnExitRequestedAsync( ExitReason exitReason )
       {
          var message = new ExitRequestedMessage( exitReason );
@@ -116,7 +138,7 @@ namespace GitWrite.ViewModels
          await message.Task;
       }
 
-      protected override async Task<bool> OnSaveAsync()
+      protected async Task<bool> OnSaveAsync()
       {
          if ( string.IsNullOrWhiteSpace( ShortMessage ) || IsExiting )
          {

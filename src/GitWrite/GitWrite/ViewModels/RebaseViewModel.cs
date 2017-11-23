@@ -39,7 +39,7 @@ namespace GitWrite.ViewModels
          Items.Insert( indexTwo, tempItem );
       }
 
-      protected override Task<bool> OnSaveAsync()
+      protected Task<bool> OnSaveAsync()
       {
          _document.Items = Items.ToArray();
          _rebaseFileWriter.ToFile( "TempFile", _document );
