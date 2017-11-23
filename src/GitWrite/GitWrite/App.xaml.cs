@@ -27,6 +27,7 @@ namespace GitWrite
          InitializeTheme();
 
          _receivers.Add( new WriteCommitDocumentMessageReceiver() );
+         _receivers.Add( new ShutdownRequestedMessageReceiver() );
 
          var appController = SimpleIoc.Default.GetInstance<AppController>();
          var applicationMode = appController.Start( e.Args );
