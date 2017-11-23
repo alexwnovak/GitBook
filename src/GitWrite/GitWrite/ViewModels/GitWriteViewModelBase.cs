@@ -124,8 +124,7 @@ namespace GitWrite.ViewModels
                IsExiting = true;
             }
          }
-
-         if ( exitReason == ExitReason.Discard )
+         else if ( exitReason == ExitReason.Discard )
          {
             await OnDiscardAsync();
          }
