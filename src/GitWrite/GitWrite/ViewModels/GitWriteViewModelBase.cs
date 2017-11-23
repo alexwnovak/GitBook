@@ -45,12 +45,6 @@ namespace GitWrite.ViewModels
          }
       }
 
-      public RelayCommand AbortCommand
-      {
-         get;
-         protected internal set;
-      }
-
       public RelayCommand PasteCommand
       {
          get;
@@ -74,63 +68,6 @@ namespace GitWrite.ViewModels
       {
          ViewService = viewService;
          AppService = appService;
-
-         AbortCommand = new RelayCommand( OnAbort );
-      }
-
-      private async void OnAbort()
-      {
-         if ( IsExiting )
-         {
-            return;
-         }
-
-         ExitReason = ExitReason.Discard;
-         ExitReason exitReason = ExitReason.Discard;
-
-         if ( IsDirty )
-         {
-            var confirmationResult = ViewService.ConfirmExit();
-
-            if ( confirmationResult == ExitReason.Cancel )
-            {
-               return;
-            }
-
-            if ( confirmationResult == ExitReason.Save )
-            {
-               ExitReason = ExitReason.Save;
-
-               //bool shouldReallyExit = await OnSaveAsync();
-
-               //if ( !shouldReallyExit )
-               //{
-               //   return;
-               //}
-
-               exitReason = ExitReason.Save;
-            }
-            else
-            {
-               await OnDiscardAsync();
-               exitReason = ExitReason.Discard;
-               IsExiting = true;
-            }
-         }
-         else if ( exitReason == ExitReason.Discard )
-         {
-            await OnDiscardAsync();
-         }
-
-         IsExiting = true;
-         await OnShutdownRequested( this, new ShutdownEventArgs( exitReason ) );
-
-         AppService.Shutdown();
-      }
-
-      protected virtual Task<bool> OnDiscardAsync()
-      {
-         return Task.FromResult( true );
       }
 
       protected Task RaiseAsync( AsyncEventHandler ev, object sender, EventArgs e )

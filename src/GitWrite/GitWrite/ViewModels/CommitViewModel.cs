@@ -27,6 +27,11 @@ namespace GitWrite.ViewModels
          get;
       }
 
+      public RelayCommand AbortCommand
+      {
+         get;
+      }
+
       public string Title
       {
          get
@@ -92,6 +97,7 @@ namespace GitWrite.ViewModels
 
          LoadCommand = new RelayCommand( ViewLoaded );
          SaveCommand = new RelayCommand( OnSaveCommand );
+         AbortCommand = new RelayCommand( OnAbortCommand );
          PasteCommand = new RelayCommand( PasteFromClipboard );
 
          ShortMessage = _commitDocument?.Subject;
@@ -125,6 +131,56 @@ namespace GitWrite.ViewModels
          }
 
          await OnShutdownRequested( this, new ShutdownEventArgs( ExitReason.Save ) );
+
+         AppService.Shutdown();
+      }
+
+      private async void OnAbortCommand()
+      {
+         if ( IsExiting )
+         {
+            return;
+         }
+
+         ExitReason = ExitReason.Discard;
+         ExitReason exitReason = ExitReason.Discard;
+
+         if ( IsDirty )
+         {
+            var confirmationResult = ViewService.ConfirmExit();
+
+            if ( confirmationResult == ExitReason.Cancel )
+            {
+               return;
+            }
+
+            if ( confirmationResult == ExitReason.Save )
+            {
+               ExitReason = ExitReason.Save;
+
+               bool shouldReallyExit = await OnSaveAsync();
+
+               if ( !shouldReallyExit )
+               {
+                  return;
+               }
+
+               exitReason = ExitReason.Save;
+            }
+            else
+            {
+               await OnDiscardAsync();
+               exitReason = ExitReason.Discard;
+               IsExiting = true;
+            }
+         }
+         else if ( exitReason == ExitReason.Discard )
+         {
+            await OnDiscardAsync();
+         }
+
+         IsExiting = true;
+         await OnShutdownRequested( this, new ShutdownEventArgs( exitReason ) );
 
          AppService.Shutdown();
       }
@@ -168,7 +224,7 @@ namespace GitWrite.ViewModels
          return true;
       }
 
-      protected override async Task<bool> OnDiscardAsync()
+      protected async Task<bool> OnDiscardAsync()
       {
          CollapseUI();
 
