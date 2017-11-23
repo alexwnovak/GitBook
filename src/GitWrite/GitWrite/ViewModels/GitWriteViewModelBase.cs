@@ -63,29 +63,5 @@ namespace GitWrite.ViewModels
       {
          ViewService = viewService;
       }
-
-      protected Task RaiseAsync( AsyncEventHandler ev, object sender, EventArgs e )
-      {
-         var handler = ev;
-
-         if ( handler != null )
-         {
-            return handler( sender, e );
-         }
-
-         return Task.CompletedTask;
-      }
-
-      protected Task RaiseAsync<T>( AsyncEventHandler<T> ev, object sender, T e ) where T: EventArgs
-      {
-         var handler = ev;
-
-         if ( handler != null )
-         {
-            return handler( sender, e );
-         }
-
-         return Task.CompletedTask;
-      }
    }
 }
