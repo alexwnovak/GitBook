@@ -24,11 +24,6 @@ namespace GitWrite.ViewModels
          get;
       }
 
-      public RelayCommand<CancelEventArgs> CloseCommand
-      {
-         get;
-      }
-
       public RelayCommand LoadCommand
       {
          get;
