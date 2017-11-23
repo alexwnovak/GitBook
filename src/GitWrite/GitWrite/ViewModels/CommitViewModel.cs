@@ -82,9 +82,6 @@ namespace GitWrite.ViewModels
          get;
          set;
       }
-
-      public event AsyncEventHandler AsyncCollapseRequested;
-      public event AsyncEventHandler<ShutdownEventArgs> AsyncExitRequested;
        
       public CommitViewModel( string commitFilePath,
          IViewService viewService,
@@ -125,11 +122,14 @@ namespace GitWrite.ViewModels
          }
       }
 
-      protected virtual async Task OnCollapseRequestedAsync( object sender, EventArgs e )
-         => await RaiseAsync( AsyncCollapseRequested, sender, e );
+      protected async Task OnExitRequestedAsync( ExitReason exitReason )
+      {
+         var message = new ExitRequestedMessage( exitReason );
 
-      protected virtual async Task OnExitRequestedAsync( object sender, ShutdownEventArgs e )
-         => await RaiseAsync( AsyncExitRequested, sender, e );
+         MessengerInstance.Send( message );
+
+         await message.Task;
+      }
 
       protected override async Task<bool> OnSaveAsync()
       {
@@ -141,9 +141,9 @@ namespace GitWrite.ViewModels
 
          IsExiting = true;
 
-         await CollapseUIAsync();
+         CollapseUI();
 
-         await OnExitRequestedAsync( this, new ShutdownEventArgs( ExitReason.Save ) );
+         await OnExitRequestedAsync( ExitReason.Save );
 
          _commitDocument.Subject = ShortMessage;
 
@@ -163,9 +163,9 @@ namespace GitWrite.ViewModels
 
       protected override async Task<bool> OnDiscardAsync()
       {
-         await CollapseUIAsync();
+         CollapseUI();
 
-         await OnExitRequestedAsync( this, new ShutdownEventArgs( ExitReason.Discard ) );
+         await OnExitRequestedAsync( ExitReason.Discard );
 
          _commitDocument.Subject = null;
          _commitDocument.Body = new string[0];
@@ -184,10 +184,10 @@ namespace GitWrite.ViewModels
          }
       }
 
-      private async Task CollapseUIAsync()
+      private void CollapseUI()
       {
          IsExpanded = false;
-         await OnCollapseRequestedAsync( this, EventArgs.Empty );
+         MessengerInstance.Send( new CollapseRequestedMessage() );
       }
 
       private void PasteFromClipboard()

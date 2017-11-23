@@ -29,16 +29,14 @@ namespace GitWrite.Views
       {
          InitializeComponent();
 
-         MainEntryBox.MaxLength = _applicationSettings.MaxCommitLength;
-
          _viewModel = (CommitViewModel) DataContext;
-         //_viewModel.AsyncExpansionRequested += OnAsyncExpansionRequested;
-         _viewModel.AsyncCollapseRequested += OnAsyncCollapseRequested;
-         //_viewModel.AsyncShakeRequested += OnAsyncShakeRequested;
-         _viewModel.AsyncExitRequested += OnAsyncExitRequested;
+
+         MainEntryBox.MaxLength = _applicationSettings.MaxCommitLength;
 
          Messenger.Default.Register<ShakeRequestedMessage>( this, _ => OnAsyncShakeRequested() );
          Messenger.Default.Register<ExpansionRequestedMessage>( this, _ => OnAsyncExpansionRequested() );
+         Messenger.Default.Register<CollapseRequestedMessage>( this, _ => OnAsyncCollapseRequested() );
+         Messenger.Default.Register<ExitRequestedMessage>( this, async m => await OnAsyncExitRequested( m ) );
       }
 
       private void CommitWindow_OnLoaded( object sender, RoutedEventArgs e )
@@ -144,7 +142,7 @@ namespace GitWrite.Views
          };
       }
 
-      private async Task OnAsyncExitRequested( object sender, ShutdownEventArgs e )
+      private async Task OnAsyncExitRequested( ExitRequestedMessage message )
       {
          if ( _isPlayingExitAnimation )
          {
@@ -158,15 +156,13 @@ namespace GitWrite.Views
          var frontMaterialImage = GetFrontMaterialImage();
          FrontMaterial.Brush = GetMaterialBrush( frontMaterialImage );
 
-         var backMaterialImage = GetBackMaterialImage( e.ExitReason );
+         var backMaterialImage = GetBackMaterialImage( message.ExitReason );
          BackMaterial.Brush = GetMaterialBrush( backMaterialImage );
 
          Camera.Position = new Point3D( 0, 0, 5.67 );
 
          MainEntryBox.Visibility = Visibility.Collapsed;
          Viewport.Visibility = Visibility.Visible;
-
-         var tcs = new TaskCompletionSource<bool>();
 
          var rotationAnimation = new DoubleAnimation( 0, 180, new Duration( TimeSpan.FromMilliseconds( 600 ) ) )
          {
@@ -237,12 +233,10 @@ namespace GitWrite.Views
          storyboard.Completed += async ( _, __ ) =>
          {
             await Task.Delay( 100 );
-            tcs.SetResult( true );
+            message.Complete();
          };
 
          storyboard.Begin( this );
-
-         await tcs.Task;
 
          _isPlayingExitAnimation = true;
       }
@@ -271,9 +265,8 @@ namespace GitWrite.Views
          storyboard.Begin();
       }
 
-      private Task OnAsyncCollapseRequested( object sender, EventArgs eventArgs )
+      private void OnAsyncCollapseRequested()
       {
-         var tcs = new TaskCompletionSource<bool>();
          const double duration = 200;
 
          var heightAnimation = new DoubleAnimation
@@ -291,12 +284,9 @@ namespace GitWrite.Views
 
          var storyboard = new Storyboard();
          storyboard.Children.Add( heightAnimation );
-         storyboard.Completed += ( _, __ ) => tcs.SetResult( true );
 
          Storyboard.SetTarget( storyboard, this );
          storyboard.Begin();
-
-         return tcs.Task;
       }
 
       private void OnAsyncShakeRequested()
