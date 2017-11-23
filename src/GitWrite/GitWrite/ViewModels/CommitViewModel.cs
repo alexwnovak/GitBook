@@ -129,8 +129,6 @@ namespace GitWrite.ViewModels
             return;
          }
 
-         await OnShutdownRequested( this, new ShutdownEventArgs( ExitReason.Save ) );
-
          MessengerInstance.Send( new ShutdownRequestedMessage() );
       }
 
@@ -163,13 +161,10 @@ namespace GitWrite.ViewModels
                {
                   return;
                }
-
-               exitReason = ExitReason.Save;
             }
             else
             {
                await OnDiscardAsync();
-               exitReason = ExitReason.Discard;
                IsExiting = true;
             }
          }
@@ -179,8 +174,6 @@ namespace GitWrite.ViewModels
          }
 
          IsExiting = true;
-         await OnShutdownRequested( this, new ShutdownEventArgs( exitReason ) );
-
          MessengerInstance.Send( new ShutdownRequestedMessage() );
       }
 

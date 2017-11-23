@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using GalaSoft.MvvmLight;
+﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using GitWrite.Services;
@@ -45,18 +43,6 @@ namespace GitWrite.ViewModels
          get;
          protected internal set;
       }
-
-      public event AsyncEventHandler<ShutdownEventArgs> ShutdownRequested;
-
-      protected virtual async Task OnShutdownRequested( object sender, ShutdownEventArgs e )
-      {
-         var handler = ShutdownRequested;
-
-         if ( handler != null )
-         {
-            await handler( sender, e );
-         }
-      } 
 
       public GitWriteViewModelBase( IViewService viewService, IMessenger messenger )
          : base( messenger )
