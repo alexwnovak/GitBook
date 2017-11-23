@@ -132,7 +132,7 @@ namespace GitWrite.ViewModels
 
          await OnShutdownRequested( this, new ShutdownEventArgs( ExitReason.Save ) );
 
-         AppService.Shutdown();
+         MessengerInstance.Send( new ShutdownRequestedMessage() );
       }
 
       private async void OnAbortCommand()
@@ -182,7 +182,7 @@ namespace GitWrite.ViewModels
          IsExiting = true;
          await OnShutdownRequested( this, new ShutdownEventArgs( exitReason ) );
 
-         AppService.Shutdown();
+         MessengerInstance.Send( new ShutdownRequestedMessage() );
       }
 
       protected async Task OnExitRequestedAsync( ExitReason exitReason )
