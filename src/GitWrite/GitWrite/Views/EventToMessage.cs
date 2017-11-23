@@ -14,14 +14,8 @@ namespace GitWrite.Views
 
       public Type MessageType
       {
-         get
-         {
-            return (Type) GetValue( MessageTypeProperty );
-         }
-         set
-         {
-            SetValue( MessageTypeProperty, value );
-         }
+         get => (Type) GetValue( MessageTypeProperty );
+         set => SetValue( MessageTypeProperty, value );
       }
 
       protected override void Invoke( object parameter )
