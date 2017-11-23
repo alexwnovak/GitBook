@@ -100,6 +100,7 @@
     <Compile Include="Messages\ExpansionRequestedMessage.cs" />
     <Compile Include="Messages\PulseRequestedMessage.cs" />
     <Compile Include="Messages\ShakeRequestedMessage.cs" />
+    <Compile Include="Messages\WriteCommitDocumentMessage.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -121,10 +122,12 @@
     <Compile Include="Services\SoundService.cs" />
     <Compile Include="ViewModels\CloseRequestedEventArgs.cs" />
     <Compile Include="ViewModels\GitWriteViewModelBase.cs" />
+    <Compile Include="Receivers\MessageReceiver.cs" />
     <Compile Include="ViewModels\RebaseViewModel.cs" />
     <Compile Include="Themes\ThemeSwitcher.cs" />
     <Compile Include="ViewModels\ShutdownEventArgs.cs" />
     <Compile Include="ViewModels\ExitReason.cs" />
+    <Compile Include="Receivers\WriteCommitDocumentMessageReceiver.cs" />
     <Compile Include="Views\Controls\DialogButtons.cs" />
     <Compile Include="Views\Controls\DialogResult.cs" />
     <Compile Include="Views\Controls\DrawingContextExtensions.cs" />
@@ -269,6 +272,7 @@
   <ItemGroup>
     <Resource Include="AppIcon.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

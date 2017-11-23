@@ -1,5 +1,4 @@
 using System;
-using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight.Command;
@@ -17,7 +16,6 @@ namespace GitWrite.ViewModels
       private readonly IClipboardService _clipboardService;
       private readonly CommitDocument _commitDocument;
       private readonly IGitService _gitService;
-      private readonly ICommitFileWriter _commitFileWriter;
 
       public RelayCommand LoadCommand
       {
@@ -79,7 +77,6 @@ namespace GitWrite.ViewModels
          IClipboardService clipboardService,
          CommitDocument commitDocument,
          IGitService gitService,
-         ICommitFileWriter commitFileWriter,
          IMessenger messenger )
          : base( viewService, appService, messenger )
       {
@@ -87,7 +84,6 @@ namespace GitWrite.ViewModels
          _clipboardService = clipboardService;
          _commitDocument = commitDocument;
          _gitService = gitService;
-         _commitFileWriter = commitFileWriter;
 
          LoadCommand = new RelayCommand( ViewLoaded );
          PasteCommand = new RelayCommand( PasteFromClipboard );
@@ -145,7 +141,7 @@ namespace GitWrite.ViewModels
             _commitDocument.Body = ExtraCommitText.Split( new[] { Environment.NewLine }, StringSplitOptions.None );
          }
 
-         _commitFileWriter.ToFile( _commitFilePath, _commitDocument );
+         MessengerInstance.Send( new WriteCommitDocumentMessage( _commitFilePath, _commitDocument ) );
 
          return true;
       }
@@ -159,7 +155,7 @@ namespace GitWrite.ViewModels
          _commitDocument.Subject = null;
          _commitDocument.Body = new string[0];
 
-         _commitFileWriter.ToFile( _commitFilePath, _commitDocument );
+         MessengerInstance.Send( new WriteCommitDocumentMessage( _commitFilePath, _commitDocument ) );
 
          return true;
       }
