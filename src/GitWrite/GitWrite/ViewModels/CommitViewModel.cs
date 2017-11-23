@@ -83,12 +83,11 @@ namespace GitWrite.ViewModels
 
       public CommitViewModel( string commitFilePath,
          IViewService viewService,
-         IAppService appService,
          IClipboardService clipboardService,
          CommitDocument commitDocument,
          IGitService gitService,
          IMessenger messenger )
-         : base( viewService, appService, messenger )
+         : base( viewService, messenger )
       {
          _commitFilePath = commitFilePath;
          _clipboardService = clipboardService;

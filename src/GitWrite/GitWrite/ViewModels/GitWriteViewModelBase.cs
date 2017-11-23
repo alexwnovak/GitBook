@@ -14,11 +14,6 @@ namespace GitWrite.ViewModels
          get;
       }
 
-      protected IAppService AppService
-      {
-         get;
-      }
-
       public bool IsDirty
       {
          get;
@@ -63,11 +58,10 @@ namespace GitWrite.ViewModels
          }
       } 
 
-      public GitWriteViewModelBase( IViewService viewService, IAppService appService, IMessenger messenger )
+      public GitWriteViewModelBase( IViewService viewService, IMessenger messenger )
          : base( messenger )
       {
          ViewService = viewService;
-         AppService = appService;
       }
 
       protected Task RaiseAsync( AsyncEventHandler ev, object sender, EventArgs e )

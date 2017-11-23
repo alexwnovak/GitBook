@@ -21,7 +21,7 @@ namespace GitWrite.UnitTests.ViewModels
             Subject = null
          };
 
-         var commitViewModel = new CommitViewModel( null, null, null, null, commitDocument, null, Mock.Of<IMessenger>() );
+         var commitViewModel = new CommitViewModel( null, null, null, commitDocument, null, Mock.Of<IMessenger>() );
 
          commitViewModel.ShortMessage.Should().BeNull();
       }
@@ -36,7 +36,7 @@ namespace GitWrite.UnitTests.ViewModels
             Subject = shortMessage
          };
 
-         var commitViewModel = new CommitViewModel( null, null, null, null, commitDocument, null, Mock.Of<IMessenger>() );
+         var commitViewModel = new CommitViewModel( null, null, null, commitDocument, null, Mock.Of<IMessenger>() );
 
          commitViewModel.ShortMessage.Should().Be( shortMessage );
       }
@@ -51,7 +51,7 @@ namespace GitWrite.UnitTests.ViewModels
             Body = new[] { longMessage }
          };
 
-         var commitViewModel = new CommitViewModel( null, null, null, null, commitDocument, null, Mock.Of<IMessenger>() );
+         var commitViewModel = new CommitViewModel( null, null, null, commitDocument, null, Mock.Of<IMessenger>() );
 
          commitViewModel.ExtraCommitText.Should().Be( longMessage );
       }
@@ -64,7 +64,7 @@ namespace GitWrite.UnitTests.ViewModels
             Subject = null
          };
 
-         var commitViewModel = new CommitViewModel( null, null, null, null, commitDocument, null, Mock.Of<IMessenger>() );
+         var commitViewModel = new CommitViewModel( null, null, null, commitDocument, null, Mock.Of<IMessenger>() );
 
          commitViewModel.IsAmending.Should().BeFalse();
       }
@@ -77,7 +77,7 @@ namespace GitWrite.UnitTests.ViewModels
             Subject = "Not empty"
          };
 
-         var commitViewModel = new CommitViewModel( null, null, null, null, commitDocument, null, Mock.Of<IMessenger>() );
+         var commitViewModel = new CommitViewModel( null, null, null, commitDocument, null, Mock.Of<IMessenger>() );
 
          commitViewModel.IsAmending.Should().BeTrue();
       }
@@ -87,7 +87,7 @@ namespace GitWrite.UnitTests.ViewModels
       {
          var messengerMock = new Mock<IMessenger>();
 
-         var commitViewModel = new CommitViewModel( null, null, null, null, null, null, messengerMock.Object );
+         var commitViewModel = new CommitViewModel( null, null, null, null, null, messengerMock.Object );
 
          commitViewModel.ViewLoaded();
 
@@ -99,7 +99,7 @@ namespace GitWrite.UnitTests.ViewModels
       {
          var messengerMock = new Mock<IMessenger>();
 
-         var commitViewModel = new CommitViewModel( null, null, null, null, null, null, messengerMock.Object )
+         var commitViewModel = new CommitViewModel( null, null, null, null, null, messengerMock.Object )
          {
             ExtraCommitText = "Extra notes"
          };
@@ -121,7 +121,7 @@ namespace GitWrite.UnitTests.ViewModels
 
          // Test
 
-         var viewModel = new CommitViewModel( null, null, null, clipboardServiceMock.Object, null, null, Mock.Of<IMessenger>() );
+         var viewModel = new CommitViewModel( null, null, clipboardServiceMock.Object, null, null, Mock.Of<IMessenger>() );
 
          viewModel.PasteCommand.Execute( null );
 
@@ -142,7 +142,7 @@ namespace GitWrite.UnitTests.ViewModels
 
          // Test
 
-         var viewModel = new CommitViewModel( null, null, null, clipboardServiceMock.Object, null, null, Mock.Of<IMessenger>() );
+         var viewModel = new CommitViewModel( null, null, clipboardServiceMock.Object, null, null, Mock.Of<IMessenger>() );
 
          viewModel.PasteCommand.Execute( null );
 
@@ -164,7 +164,7 @@ namespace GitWrite.UnitTests.ViewModels
 
          // Test
 
-         var viewModel = new CommitViewModel( null, null, null, clipboardServiceMock.Object, null, null, Mock.Of<IMessenger>() );
+         var viewModel = new CommitViewModel( null, null, clipboardServiceMock.Object, null, null, Mock.Of<IMessenger>() );
 
          viewModel.PasteCommand.Execute( null );
 
@@ -186,7 +186,7 @@ namespace GitWrite.UnitTests.ViewModels
 
          // Test
 
-         var viewModel = new CommitViewModel( null, null, null, clipboardServiceMock.Object, null, null, Mock.Of<IMessenger>() );
+         var viewModel = new CommitViewModel( null, null, clipboardServiceMock.Object, null, null, Mock.Of<IMessenger>() );
 
          viewModel.PasteCommand.Execute( null );
 
@@ -208,7 +208,7 @@ namespace GitWrite.UnitTests.ViewModels
 
          // Test
 
-         var viewModel = new CommitViewModel( null, null, null, clipboardServiceMock.Object, null, null, Mock.Of<IMessenger>() );
+         var viewModel = new CommitViewModel( null, null, clipboardServiceMock.Object, null, null, Mock.Of<IMessenger>() );
 
          viewModel.PasteCommand.Execute( null );
 
@@ -230,7 +230,7 @@ namespace GitWrite.UnitTests.ViewModels
 
          // Test
 
-         var viewModel = new CommitViewModel( null, null, null, clipboardServiceMock.Object, null, null, Mock.Of<IMessenger>() );
+         var viewModel = new CommitViewModel( null, null, clipboardServiceMock.Object, null, null, Mock.Of<IMessenger>() );
 
          viewModel.PasteCommand.Execute( null );
 
@@ -256,7 +256,7 @@ namespace GitWrite.UnitTests.ViewModels
 
          // Test
 
-         var viewModel = new CommitViewModel( null, null, null, clipboardServiceMock.Object, null, null, Mock.Of<IMessenger>() );
+         var viewModel = new CommitViewModel( null, null, clipboardServiceMock.Object, null, null, Mock.Of<IMessenger>() );
 
          viewModel.PasteCommand.Execute( null );
 
@@ -278,7 +278,7 @@ namespace GitWrite.UnitTests.ViewModels
 
          // Test
 
-         var viewModel = new CommitViewModel( null, null, null, null, null, gitServiceMock.Object, Mock.Of<IMessenger>() );
+         var viewModel = new CommitViewModel( null, null, null, null, gitServiceMock.Object, Mock.Of<IMessenger>() );
          string title = viewModel.Title;
 
          // Assert
@@ -292,7 +292,7 @@ namespace GitWrite.UnitTests.ViewModels
          var messengerMock = new Mock<IMessenger>();
          messengerMock.Setup( m => m.Send( It.IsAny<ExitRequestedMessage>() ) ).Callback<ExitRequestedMessage>( m => m.Complete() );
 
-         var viewModel = new CommitViewModel( null, null, Mock.Of<IAppService>(), null, new CommitDocument(), null, messengerMock.Object )
+         var viewModel = new CommitViewModel( null, null, null, new CommitDocument(), null, messengerMock.Object )
          {
             IsExpanded = true
          };
@@ -312,7 +312,7 @@ namespace GitWrite.UnitTests.ViewModels
             Subject = string.Empty
          };
 
-         var viewModel = new CommitViewModel( null, null, Mock.Of<IAppService>(), null, commitDocument, null, messengerMock.Object )
+         var viewModel = new CommitViewModel( null, null, null, commitDocument, null, messengerMock.Object )
          {
             IsExiting = false
          };
