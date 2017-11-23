@@ -19,11 +19,6 @@ namespace GitWrite.ViewModels
       private readonly IGitService _gitService;
       private readonly ICommitFileWriter _commitFileWriter;
 
-      public RelayCommand SecondaryNotesGotFocusCommand
-      {
-         get;
-      }
-
       public RelayCommand LoadCommand
       {
          get;
@@ -94,7 +89,6 @@ namespace GitWrite.ViewModels
          _gitService = gitService;
          _commitFileWriter = commitFileWriter;
 
-         SecondaryNotesGotFocusCommand = new RelayCommand( ExpandUI );
          LoadCommand = new RelayCommand( ViewLoaded );
          PasteCommand = new RelayCommand( PasteFromClipboard );
 

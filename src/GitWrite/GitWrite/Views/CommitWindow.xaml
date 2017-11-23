@@ -140,8 +140,7 @@
                   <views:EventToMessage MessageType="{x:Type messages:PulseRequestedMessage}" />
                </i:EventTrigger>
                <i:EventTrigger EventName="GotFocus">
-                  <cmd:EventToCommand Command="{Binding SecondaryNotesGotFocusCommand, Mode=OneTime}"
-                     MustToggleIsEnabledValue="True" />
+                  <views:EventToMessage MessageType="{x:Type messages:ExpansionRequestedMessage}" />
                </i:EventTrigger>
             </i:Interaction.Triggers>
          </TextBox>
