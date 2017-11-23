@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -8,7 +7,6 @@ using Microsoft.Practices.ServiceLocation;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using GitModel;
-using GitWrite.Receivers;
 using GitWrite.Services;
 using GitWrite.Themes;
 using GitWrite.ViewModels;
@@ -19,15 +17,14 @@ namespace GitWrite
 {
    public partial class App : Application
    {
-      private readonly List<object> _receivers = new List<object>();
+      private readonly ReceiverManager _receiveManager = new ReceiverManager();
 
       private void Application_OnStartup( object sender, StartupEventArgs e )
       {
          InitializeDependencies();
          InitializeTheme();
 
-         _receivers.Add( new WriteCommitDocumentMessageReceiver() );
-         _receivers.Add( new ShutdownRequestedMessageReceiver() );
+         _receiveManager.Initialize();
 
          var appController = SimpleIoc.Default.GetInstance<AppController>();
          var applicationMode = appController.Start( e.Args );

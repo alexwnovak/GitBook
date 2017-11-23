@@ -108,6 +108,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="RebaseItemActionExtensions.cs" />
+    <Compile Include="ReceiverManager.cs" />
     <Compile Include="Receivers\ShutdownRequestedMessageReceiver.cs" />
     <Compile Include="Services\ApplicationSettings.cs" />
     <Compile Include="Services\GitRepositoryPathConverter.cs" />
