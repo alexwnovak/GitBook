@@ -82,8 +82,6 @@ namespace GitWrite.ViewModels
          get;
          set;
       }
-
-      public event AsyncEventHandler<ShutdownEventArgs> AsyncExitRequested;
        
       public CommitViewModel( string commitFilePath,
          IViewService viewService,
@@ -124,8 +122,14 @@ namespace GitWrite.ViewModels
          }
       }
 
-      protected virtual async Task OnExitRequestedAsync( object sender, ShutdownEventArgs e )
-         => await RaiseAsync( AsyncExitRequested, sender, e );
+      protected async Task OnExitRequestedAsync( ExitReason exitReason )
+      {
+         var message = new ExitRequestedMessage( exitReason );
+
+         MessengerInstance.Send( message );
+
+         await message.Task;
+      }
 
       protected override async Task<bool> OnSaveAsync()
       {
@@ -139,7 +143,7 @@ namespace GitWrite.ViewModels
 
          CollapseUI();
 
-         await OnExitRequestedAsync( this, new ShutdownEventArgs( ExitReason.Save ) );
+         await OnExitRequestedAsync( ExitReason.Save );
 
          _commitDocument.Subject = ShortMessage;
 
@@ -161,7 +165,7 @@ namespace GitWrite.ViewModels
       {
          CollapseUI();
 
-         await OnExitRequestedAsync( this, new ShutdownEventArgs( ExitReason.Discard ) );
+         await OnExitRequestedAsync( ExitReason.Discard );
 
          _commitDocument.Subject = null;
          _commitDocument.Body = new string[0];

@@ -290,6 +290,7 @@ namespace GitWrite.UnitTests.ViewModels
       public void AbortCommand_ExpandedFlagIsSet_SendsCollapseRequestedMessage()
       {
          var messengerMock = new Mock<IMessenger>();
+         messengerMock.Setup( m => m.Send( It.IsAny<ExitRequestedMessage>() ) ).Callback<ExitRequestedMessage>( m => m.Complete() );
 
          var viewModel = new CommitViewModel( null, null, Mock.Of<IAppService>(), null, new CommitDocument(), null, Mock.Of<ICommitFileWriter>(), messengerMock.Object )
          {
