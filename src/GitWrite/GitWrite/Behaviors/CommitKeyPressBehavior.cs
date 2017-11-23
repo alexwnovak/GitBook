@@ -9,16 +9,16 @@ using GitWrite.Views;
 
 namespace GitWrite.Behaviors
 {
-   public class CommitKeyPressBehavior : Behavior<WindowBase>
+   public class CommitKeyPressBehavior : Behavior<CommitWindow>
    {
-      private GitWriteViewModelBase _viewModel;
+      private CommitViewModel _viewModel;
 
       protected override void OnAttached() => AssociatedObject.Loaded += OnLoaded;
       protected override void OnDetaching() => AssociatedObject.Unloaded -= OnUnloaded;
 
       private void OnLoaded( object sender, RoutedEventArgs e )
       {
-         _viewModel = (GitWriteViewModelBase) AssociatedObject.DataContext;
+         _viewModel = (CommitViewModel) AssociatedObject.DataContext;
 
          AssociatedObject.KeyDown += KeyDown;
          AssociatedObject.PreviewKeyDown += PreviewKeyDown;

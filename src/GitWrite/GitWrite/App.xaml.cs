@@ -27,6 +27,7 @@ namespace GitWrite
          InitializeTheme();
 
          _receivers.Add( new WriteCommitDocumentMessageReceiver() );
+         _receivers.Add( new ShutdownRequestedMessageReceiver() );
 
          var appController = SimpleIoc.Default.GetInstance<AppController>();
          var applicationMode = appController.Start( e.Args );
@@ -118,12 +119,10 @@ namespace GitWrite
          SimpleIoc.Default.Register<ICommitFileReader, CommitFileReader>();
          SimpleIoc.Default.Register<IRebaseFileWriter, RebaseFileWriter>();
          SimpleIoc.Default.Register<RebaseFileReader>();
-         SimpleIoc.Default.Register<IAppService, AppService>();
          SimpleIoc.Default.Register<IClipboardService, ClipboardService>();
          SimpleIoc.Default.Register<IRegistryService, RegistryService>();
          SimpleIoc.Default.Register<IEnvironmentAdapter, EnvironmentAdapter>();
          SimpleIoc.Default.Register( () => Messenger.Default );
-
 
          SimpleIoc.Default.Register<AppController>();
          SimpleIoc.Default.Register<CommitViewModel>();

@@ -46,7 +46,6 @@ namespace GitWrite.Views
       private void OnClosing( object sender, CancelEventArgs e )
       {
          e.Cancel = true;
-         _viewModel.AbortCommand.Execute( null );
       }
 
       public ExitReason ConfirmExit()

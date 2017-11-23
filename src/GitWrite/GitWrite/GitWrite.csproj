@@ -100,6 +100,7 @@
     <Compile Include="Messages\ExpansionRequestedMessage.cs" />
     <Compile Include="Messages\PulseRequestedMessage.cs" />
     <Compile Include="Messages\ShakeRequestedMessage.cs" />
+    <Compile Include="Messages\ShutdownRequestedMessage.cs" />
     <Compile Include="Messages\WriteCommitDocumentMessage.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -107,6 +108,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="RebaseItemActionExtensions.cs" />
+    <Compile Include="Receivers\ShutdownRequestedMessageReceiver.cs" />
     <Compile Include="Services\ApplicationSettings.cs" />
     <Compile Include="Services\GitRepositoryPathConverter.cs" />
     <Compile Include="Services\ClipboardService.cs" />
@@ -154,9 +156,7 @@
     <Compile Include="GitFileLoadException.cs" />
     <Compile Include="GitFileNames.cs" />
     <Compile Include="IEnvironmentAdapter.cs" />
-    <Compile Include="Services\IAppService.cs" />
     <Compile Include="Views\Converters\TextLengthInversionConverter.cs" />
-    <Compile Include="Services\AppService.cs" />
     <Compile Include="ViewModels\CommitViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="Views\RebaseWindow.xaml.cs">
