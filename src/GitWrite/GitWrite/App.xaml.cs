@@ -116,7 +116,6 @@ namespace GitWrite
 
          SimpleIoc.Default.Register<IApplicationSettings, ApplicationSettings>();
          SimpleIoc.Default.Register<ICommitFileReader, CommitFileReader>();
-         SimpleIoc.Default.Register<ICommitFileWriter, CommitFileWriter>();
          SimpleIoc.Default.Register<IRebaseFileWriter, RebaseFileWriter>();
          SimpleIoc.Default.Register<RebaseFileReader>();
          SimpleIoc.Default.Register<IAppService, AppService>();
