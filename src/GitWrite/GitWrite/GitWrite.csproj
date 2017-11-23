@@ -100,6 +100,7 @@
     <Compile Include="Messages\ExpansionRequestedMessage.cs" />
     <Compile Include="Messages\PulseRequestedMessage.cs" />
     <Compile Include="Messages\ShakeRequestedMessage.cs" />
+    <Compile Include="Messages\ShutdownRequestedMessage.cs" />
     <Compile Include="Messages\WriteCommitDocumentMessage.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
