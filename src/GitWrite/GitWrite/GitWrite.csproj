@@ -121,6 +121,7 @@
     <Compile Include="Services\SoundService.cs" />
     <Compile Include="ViewModels\CloseRequestedEventArgs.cs" />
     <Compile Include="ViewModels\GitWriteViewModelBase.cs" />
+    <Compile Include="Receivers\MessageReceiver.cs" />
     <Compile Include="ViewModels\RebaseViewModel.cs" />
     <Compile Include="Themes\ThemeSwitcher.cs" />
     <Compile Include="ViewModels\ShutdownEventArgs.cs" />
