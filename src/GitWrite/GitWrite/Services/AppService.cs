@@ -8,10 +8,5 @@ namespace GitWrite.Services
       {
          return MessageBox.Show( message, null, buttons );
       }
-
-      public void Shutdown()
-      {
-         Application.Current.Shutdown();
-      }
    }
 }
