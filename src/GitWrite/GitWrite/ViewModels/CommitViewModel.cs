@@ -83,7 +83,6 @@ namespace GitWrite.ViewModels
          set;
       }
 
-      public event AsyncEventHandler AsyncCollapseRequested;
       public event AsyncEventHandler<ShutdownEventArgs> AsyncExitRequested;
        
       public CommitViewModel( string commitFilePath,
@@ -125,9 +124,6 @@ namespace GitWrite.ViewModels
          }
       }
 
-      protected virtual async Task OnCollapseRequestedAsync( object sender, EventArgs e )
-         => await RaiseAsync( AsyncCollapseRequested, sender, e );
-
       protected virtual async Task OnExitRequestedAsync( object sender, ShutdownEventArgs e )
          => await RaiseAsync( AsyncExitRequested, sender, e );
 
@@ -141,7 +137,7 @@ namespace GitWrite.ViewModels
 
          IsExiting = true;
 
-         await CollapseUIAsync();
+         CollapseUI();
 
          await OnExitRequestedAsync( this, new ShutdownEventArgs( ExitReason.Save ) );
 
@@ -163,7 +159,7 @@ namespace GitWrite.ViewModels
 
       protected override async Task<bool> OnDiscardAsync()
       {
-         await CollapseUIAsync();
+         CollapseUI();
 
          await OnExitRequestedAsync( this, new ShutdownEventArgs( ExitReason.Discard ) );
 
@@ -184,10 +180,10 @@ namespace GitWrite.ViewModels
          }
       }
 
-      private async Task CollapseUIAsync()
+      private void CollapseUI()
       {
          IsExpanded = false;
-         await OnCollapseRequestedAsync( this, EventArgs.Empty );
+         MessengerInstance.Send( new CollapseRequestedMessage() );
       }
 
       private void PasteFromClipboard()

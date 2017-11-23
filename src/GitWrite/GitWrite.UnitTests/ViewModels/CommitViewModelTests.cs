@@ -287,32 +287,18 @@ namespace GitWrite.UnitTests.ViewModels
       }
 
       [Fact]
-      public void AbortCommand_ExpandedFlagIsSet_RaisesCollapseRequested()
+      public void AbortCommand_ExpandedFlagIsSet_SendsCollapseRequestedMessage()
       {
-         bool wasRaised = false;
+         var messengerMock = new Mock<IMessenger>();
 
-         // Arrange
-
-         var appServiceMock = new Mock<IAppService>();
-
-         // Act
-
-         var viewModel = new CommitViewModel( null, null, appServiceMock.Object, null, new CommitDocument(), null, Mock.Of<ICommitFileWriter>(), Mock.Of<IMessenger>() )
+         var viewModel = new CommitViewModel( null, null, Mock.Of<IAppService>(), null, new CommitDocument(), null, Mock.Of<ICommitFileWriter>(), messengerMock.Object )
          {
             IsExpanded = true
          };
 
-         viewModel.AsyncCollapseRequested += ( _, __ ) =>
-         {
-            wasRaised = true;
-            return Task.CompletedTask;
-         };
-
          viewModel.AbortCommand.Execute( null );
 
-         // Assert
-
-         wasRaised.Should().BeTrue();
+         messengerMock.Verify( m => m.Send( It.IsAny<CollapseRequestedMessage>() ), Times.Once() );
       }
 
       [Fact]

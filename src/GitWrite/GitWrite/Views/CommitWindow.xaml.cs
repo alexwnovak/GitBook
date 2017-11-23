@@ -32,13 +32,11 @@ namespace GitWrite.Views
          MainEntryBox.MaxLength = _applicationSettings.MaxCommitLength;
 
          _viewModel = (CommitViewModel) DataContext;
-         //_viewModel.AsyncExpansionRequested += OnAsyncExpansionRequested;
-         _viewModel.AsyncCollapseRequested += OnAsyncCollapseRequested;
-         //_viewModel.AsyncShakeRequested += OnAsyncShakeRequested;
          _viewModel.AsyncExitRequested += OnAsyncExitRequested;
 
          Messenger.Default.Register<ShakeRequestedMessage>( this, _ => OnAsyncShakeRequested() );
          Messenger.Default.Register<ExpansionRequestedMessage>( this, _ => OnAsyncExpansionRequested() );
+         Messenger.Default.Register<CollapseRequestedMessage>( this, _ => OnAsyncCollapseRequested() );
       }
 
       private void CommitWindow_OnLoaded( object sender, RoutedEventArgs e )
@@ -271,9 +269,8 @@ namespace GitWrite.Views
          storyboard.Begin();
       }
 
-      private Task OnAsyncCollapseRequested( object sender, EventArgs eventArgs )
+      private void OnAsyncCollapseRequested()
       {
-         var tcs = new TaskCompletionSource<bool>();
          const double duration = 200;
 
          var heightAnimation = new DoubleAnimation
@@ -291,12 +288,9 @@ namespace GitWrite.Views
 
          var storyboard = new Storyboard();
          storyboard.Children.Add( heightAnimation );
-         storyboard.Completed += ( _, __ ) => tcs.SetResult( true );
 
          Storyboard.SetTarget( storyboard, this );
          storyboard.Begin();
-
-         return tcs.Task;
       }
 
       private void OnAsyncShakeRequested()
