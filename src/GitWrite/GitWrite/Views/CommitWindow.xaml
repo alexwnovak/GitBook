@@ -79,12 +79,6 @@
                Content="{StaticResource SettingsGlyph}" />
          </Grid>
 
-         <!--<Rectangle Grid.Row="1"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Top"
-            Fill="{StaticResource AccentLightBrush}"
-            Height="1" />-->
-
          <TextBox Grid.Row="2"
             Text="{Binding ExtraCommitText, Mode=TwoWay}" />
       </Grid>
