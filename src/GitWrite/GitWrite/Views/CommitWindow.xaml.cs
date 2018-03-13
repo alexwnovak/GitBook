@@ -23,7 +23,6 @@ namespace GitWrite.Views
       private readonly IApplicationSettings _applicationSettings = SimpleIoc.Default.GetInstance<IApplicationSettings>();
       private bool _isCtrlDown;
       private bool _isPlayingExitAnimation;
-      private Task _materialGenerationTask;
 
       public CommitWindow()
       {
@@ -36,7 +35,7 @@ namespace GitWrite.Views
          Messenger.Default.Register<ShakeRequestedMessage>( this, _ => OnAsyncShakeRequested() );
          Messenger.Default.Register<ExpansionRequestedMessage>( this, _ => OnAsyncExpansionRequested() );
          Messenger.Default.Register<CollapseRequestedMessage>( this, _ => OnAsyncCollapseRequested() );
-         Messenger.Default.Register<ExitRequestedMessage>( this, async m => await OnAsyncExitRequested( m ) );
+         Messenger.Default.Register<ExitRequestedMessage>( this, m => OnAsyncExitRequested( m ) );
       }
 
       private void CommitWindow_OnLoaded( object sender, RoutedEventArgs e )
@@ -44,105 +43,11 @@ namespace GitWrite.Views
          MainEntryBox.HideCaret();
          MainEntryBox.MoveCaretToEnd();
          SecondaryTextBox.MoveCaretToEnd();
-
-         Opacity = 0;
-
-         const double duration = 200;
-
-         var storyboard = new Storyboard();
-
-         var opacityAnimation = new DoubleAnimation( 0, 1, new Duration( TimeSpan.FromMilliseconds( duration ) ) );
-         var scaleXAnimation = new DoubleAnimation( 0.95, 1, opacityAnimation.Duration )
-         {
-            EasingFunction = new BackEase
-            {
-               EasingMode = EasingMode.EaseOut,
-               Amplitude = 1
-            }
-         };
-         var scaleYAnimation = new DoubleAnimation( 0.96, 1, opacityAnimation.Duration )
-         {
-            EasingFunction = new BackEase
-            {
-               EasingMode = EasingMode.EaseOut,
-               Amplitude = 0.9
-            }
-         };
-
-         storyboard.Children.Add( opacityAnimation );
-         storyboard.Children.Add( scaleXAnimation );
-         storyboard.Children.Add( scaleYAnimation );
-
-         storyboard.Completed += ( _, __ ) =>
-         {
-            MainEntryBox.ShowCaret();
-
-            string saveText = GetSaveText();
-
-            var materialGenerator = new MaterialGenerator( this );
-            _materialGenerationTask = materialGenerator.GenerateAsync( saveText );
-         };
-
-         Storyboard.SetTargetProperty( opacityAnimation, new PropertyPath( nameof( Opacity ) ) );
-         Storyboard.SetTarget( opacityAnimation, this );
-
-         Storyboard.SetTargetName( scaleXAnimation, nameof( ScaleTransform ) );
-         Storyboard.SetTargetProperty( scaleXAnimation, new PropertyPath( ScaleTransform.ScaleXProperty ) );
-
-         Storyboard.SetTargetName( scaleYAnimation, nameof( ScaleTransform ) );
-         Storyboard.SetTargetProperty( scaleYAnimation, new PropertyPath( ScaleTransform.ScaleYProperty ) );
-
-         storyboard.Begin( this );
-
-         if ( _applicationSettings.PlaySoundOnLaunch )
-         {
-            _soundService.PlayPopSound();
-         }
       }
 
       private string GetSaveText() => _viewModel.IsAmending ? Resx.AmendingText : Resx.CommittingText;
 
-      private DrawingImage GetFrontMaterialImage()
-      {
-         var frontMaterial = (ImageSource) Resources["FrontMaterial"];
-
-         var drawingVisual = new DrawingVisual();
-         var dpiScale = VisualTreeHelper.GetDpi( drawingVisual );
-
-         using ( var drawingContext = drawingVisual.RenderOpen() )
-         {
-            var foregroundBrush = (Brush) Application.Current.Resources["TextColor"];
-            drawingContext.DrawImage( frontMaterial, new Rect( 0, 0, frontMaterial.Width, frontMaterial.Height ) );
-
-            if ( !string.IsNullOrWhiteSpace( _viewModel.ShortMessage ) )
-            {
-               var formattedText = new FormattedText( _viewModel.ShortMessage, CultureInfo.InvariantCulture, FlowDirection.LeftToRight, new Typeface( "Consolas" ), 24, foregroundBrush, dpiScale.DpiScaleX );
-               drawingContext.DrawText( formattedText, new Point( 28, 36 ) );
-            }
-         }
-
-         return new DrawingImage( drawingVisual.Drawing );
-      }
-
-      private ImageSource GetBackMaterialImage( ExitReason exitReason )
-      {
-         if ( exitReason == ExitReason.Discard )
-         {
-            return (ImageSource) Resources["DiscardBackMaterial"];
-         }
-
-         return (ImageSource) Resources["SaveBackMaterial"];
-      }
-
-      private Brush GetMaterialBrush( ImageSource imageSource )
-      {
-         return new ImageBrush( imageSource )
-         {
-            Stretch = Stretch.Uniform
-         };
-      }
-
-      private async Task OnAsyncExitRequested( ExitRequestedMessage message )
+      private void OnAsyncExitRequested( ExitRequestedMessage message )
       {
          if ( _isPlayingExitAnimation )
          {
@@ -150,30 +55,6 @@ namespace GitWrite.Views
          }
 
          _isPlayingExitAnimation = true;
-
-         await _materialGenerationTask;
-
-         var frontMaterialImage = GetFrontMaterialImage();
-         FrontMaterial.Brush = GetMaterialBrush( frontMaterialImage );
-
-         var backMaterialImage = GetBackMaterialImage( message.ExitReason );
-         BackMaterial.Brush = GetMaterialBrush( backMaterialImage );
-
-         Camera.Position = new Point3D( 0, 0, 5.67 );
-
-         MainEntryBox.Visibility = Visibility.Collapsed;
-         Viewport.Visibility = Visibility.Visible;
-
-         var rotationAnimation = new DoubleAnimation( 0, 180, new Duration( TimeSpan.FromMilliseconds( 600 ) ) )
-         {
-            AccelerationRatio = 0.7,
-            DecelerationRatio = 0.3,
-            EasingFunction = new BackEase
-            {
-               Amplitude = 0.65,
-               EasingMode = EasingMode.EaseOut
-            }
-         };
 
          var opacityAnimation = new DoubleAnimation( 1, 0, new Duration( TimeSpan.FromMilliseconds( 200 ) ) )
          {
@@ -205,8 +86,6 @@ namespace GitWrite.Views
          };
 
          var storyboard = new Storyboard();
-         Storyboard.SetTargetName( rotationAnimation, "RotationTransform" );
-         Storyboard.SetTargetProperty( rotationAnimation, new PropertyPath( AxisAngleRotation3D.AngleProperty ) );
 
          Storyboard.SetTarget( opacityAnimation, MainGrid );
          Storyboard.SetTargetProperty( opacityAnimation, new PropertyPath( OpacityProperty ) );
@@ -223,7 +102,6 @@ namespace GitWrite.Views
          Storyboard.SetTargetName( scaleYAnimation, "ScaleTransform" );
          Storyboard.SetTargetProperty( scaleYAnimation, new PropertyPath( ScaleTransform.ScaleYProperty ) );
 
-         storyboard.Children.Add( rotationAnimation );
          storyboard.Children.Add( opacityAnimation );
          storyboard.Children.Add( blurRadiusAnimation );
          storyboard.Children.Add( translateAnimation );
