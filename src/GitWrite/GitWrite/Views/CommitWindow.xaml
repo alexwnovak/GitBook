@@ -73,6 +73,9 @@
 
             <Button Grid.Column="3"
                Content="{StaticResource DiscardGlyph}" />
+
+            <Button Grid.Column="4"
+               Content="{StaticResource SettingsGlyph}" />
          </Grid>
 
          <Rectangle Grid.Row="1"
