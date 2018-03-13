@@ -8,6 +8,7 @@
       <Setter Property="Foreground" Value="{StaticResource TextBrush}" />
       <Setter Property="FontFamily" Value="Inconsolata" />
       <Setter Property="FontSize" Value="21" />
+      <Setter Property="VerticalContentAlignment" Value="Center" />
       <Setter Property="Template">
          <Setter.Value>
             <ControlTemplate TargetType="TextBox">
