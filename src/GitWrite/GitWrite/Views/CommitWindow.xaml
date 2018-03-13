@@ -50,6 +50,7 @@
          <RowDefinition Height="*" />
       </Grid.RowDefinitions>
 
-      <TextBox Text="{Binding ShortMessage, Mode=TwoWay}" />
+      <TextBox Margin="30"
+         Text="{Binding ShortMessage, Mode=TwoWay}" />
    </Grid>
 </views:WindowBase>
