@@ -6,4 +6,7 @@
 
    <Color x:Key="TextColor">#FFF</Color>
    <SolidColorBrush x:Key="TextBrush" Color="{StaticResource TextColor}" />
+
+   <Color x:Key="AccentLightColor">#22FFFFFF</Color>
+   <SolidColorBrush x:Key="AccentLightBrush" Color="{StaticResource AccentLightColor}" />
 </ResourceDictionary>

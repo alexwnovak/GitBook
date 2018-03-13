@@ -45,12 +45,23 @@
          <DropShadowEffect BlurRadius="16" ShadowDepth="1" />
       </Grid.Effect>
 
-      <Grid.RowDefinitions>
-         <RowDefinition Height="100" />
-         <RowDefinition Height="*" />
-      </Grid.RowDefinitions>
+      <Grid Margin="30">
+         <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="1" />
+            <RowDefinition Height="*" />
+         </Grid.RowDefinitions>
 
-      <TextBox Margin="30"
-         Text="{Binding ShortMessage, Mode=TwoWay}" />
+         <TextBox Text="{Binding ShortMessage, Mode=TwoWay}" />
+
+         <Rectangle Grid.Row="1"
+            HorizontalAlignment="Stretch"
+            Fill="{StaticResource AccentLightBrush}"
+            Height="1" />
+
+         <TextBox Grid.Row="2"
+            Margin="0,30,0,0"
+            Text="{Binding ExtraCommitText, Mode=TwoWay}" />
+      </Grid>
    </Grid>
 </views:WindowBase>
