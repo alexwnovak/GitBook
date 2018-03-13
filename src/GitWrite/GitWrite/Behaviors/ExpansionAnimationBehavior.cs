@@ -19,7 +19,7 @@ namespace GitWrite.Behaviors
          {
             _viewModel = SimpleIoc.Default.GetInstance<CommitViewModel>();
 
-            AssociatedObject.MainEntryBox.MouseEnter += MainEntryBoxOnMouseEnter;
+            //AssociatedObject.MainEntryBox.MouseEnter += MainEntryBoxOnMouseEnter;
             AssociatedObject.MouseLeave += CommitWindowOnMouseLeave;
          };
       }
@@ -38,7 +38,7 @@ namespace GitWrite.Behaviors
             Duration = new Duration( TimeSpan.FromMilliseconds( 100 ) )
          };
 
-         AssociatedObject.SecondaryBorder.BeginAnimation( FrameworkElement.HeightProperty, animation );
+         //AssociatedObject.SecondaryBorder.BeginAnimation( FrameworkElement.HeightProperty, animation );
       }
 
       private void MainEntryBoxOnMouseEnter( object sender, MouseEventArgs e )

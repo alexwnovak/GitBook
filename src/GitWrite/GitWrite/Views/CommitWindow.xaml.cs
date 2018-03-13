@@ -30,7 +30,7 @@ namespace GitWrite.Views
 
          _viewModel = (CommitViewModel) DataContext;
 
-         MainEntryBox.MaxLength = _applicationSettings.MaxCommitLength;
+         //MainEntryBox.MaxLength = _applicationSettings.MaxCommitLength;
 
          Messenger.Default.Register<ShakeRequestedMessage>( this, _ => OnAsyncShakeRequested() );
          Messenger.Default.Register<ExpansionRequestedMessage>( this, _ => OnAsyncExpansionRequested() );
@@ -40,9 +40,9 @@ namespace GitWrite.Views
 
       private void CommitWindow_OnLoaded( object sender, RoutedEventArgs e )
       {
-         MainEntryBox.HideCaret();
-         MainEntryBox.MoveCaretToEnd();
-         SecondaryTextBox.MoveCaretToEnd();
+         //MainEntryBox.HideCaret();
+         //MainEntryBox.MoveCaretToEnd();
+         //SecondaryTextBox.MoveCaretToEnd();
       }
 
       private string GetSaveText() => _viewModel.IsAmending ? Resx.AmendingText : Resx.CommittingText;
@@ -133,7 +133,7 @@ namespace GitWrite.Views
             }
          };
 
-         Storyboard.SetTarget( heightAnimation, SecondaryBorder );
+         //Storyboard.SetTarget( heightAnimation, SecondaryBorder );
          Storyboard.SetTargetProperty( heightAnimation, new PropertyPath( nameof( Height ) ) );
 
          var storyboard = new Storyboard();
@@ -157,7 +157,7 @@ namespace GitWrite.Views
             }
          };
 
-         Storyboard.SetTarget( heightAnimation, SecondaryBorder );
+         //Storyboard.SetTarget( heightAnimation, SecondaryBorder );
          Storyboard.SetTargetProperty( heightAnimation, new PropertyPath( nameof( Height ) ) );
 
          var storyboard = new Storyboard();
@@ -169,8 +169,8 @@ namespace GitWrite.Views
 
       private void OnAsyncShakeRequested()
       {
-         var subject = MainEntryBox;
-         var savedTransform = subject.RenderTransform;
+         //var subject = MainEntryBox;
+         //var savedTransform = subject.RenderTransform;
          var translateTransform = new TranslateTransform();
 
          var shakeAnimation = new DoubleAnimation
@@ -186,11 +186,11 @@ namespace GitWrite.Views
             }
          };
 
-         subject.RenderTransform = translateTransform;
+         //subject.RenderTransform = translateTransform;
 
          shakeAnimation.Completed += ( _, __ ) =>
          {
-            subject.RenderTransform = savedTransform;
+            //subject.RenderTransform = savedTransform;
          };
 
          translateTransform.BeginAnimation( TranslateTransform.XProperty, shakeAnimation );
@@ -243,7 +243,7 @@ namespace GitWrite.Views
             _isCtrlDown = true;
 
             string acceptGlyph = (string) Application.Current.Resources["AcceptHintGlyph"];
-            MainEntryBox.AnimateRadialTextTo( acceptGlyph );
+            //MainEntryBox.AnimateRadialTextTo( acceptGlyph );
          }
       }
 
@@ -251,7 +251,7 @@ namespace GitWrite.Views
       {
          if ( _isCtrlDown )
          {
-            MainEntryBox.RestoreCounter();
+            //MainEntryBox.RestoreCounter();
             _isCtrlDown = false;
          }
       }
