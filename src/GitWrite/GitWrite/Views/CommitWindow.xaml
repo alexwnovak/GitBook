@@ -52,7 +52,22 @@
             <RowDefinition Height="*" />
          </Grid.RowDefinitions>
 
-         <TextBox Text="{Binding ShortMessage, Mode=TwoWay}" />
+         <Grid>
+            <Grid.ColumnDefinitions>
+               <ColumnDefinition />
+               <ColumnDefinition Width="50" />
+               <ColumnDefinition Width="50" />
+               <ColumnDefinition Width="50" />
+               <ColumnDefinition Width="50" />
+            </Grid.ColumnDefinitions>
+
+            <TextBox Text="{Binding ShortMessage, Mode=TwoWay}" />
+
+            <Rectangle Grid.Column="1"
+               VerticalAlignment="Stretch"
+               Fill="{StaticResource AccentLightBrush}"
+               Width="1" />
+         </Grid>
 
          <Rectangle Grid.Row="1"
             HorizontalAlignment="Stretch"
