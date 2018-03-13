@@ -69,10 +69,10 @@
                Width="1" />
 
             <Button Grid.Column="2"
-               Style="{StaticResource AcceptButtonStyle}" />
+               Content="{StaticResource AcceptGlyph}" />
 
             <Button Grid.Column="3"
-               Style="{StaticResource DiscardButtonStyle}" />
+               Content="{StaticResource DiscardGlyph}" />
          </Grid>
 
          <Rectangle Grid.Row="1"
