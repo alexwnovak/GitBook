@@ -20,7 +20,7 @@ namespace GitWrite
 
          foreach ( var receiver in allReceivers )
          {
-            var receiverInstance = Activator.CreateInstance(receiver);
+            var receiverInstance = Activator.CreateInstance( receiver );
             _receivers.Add( receiverInstance );
          }
       }
