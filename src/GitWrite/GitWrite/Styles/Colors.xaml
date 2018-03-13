@@ -3,4 +3,7 @@
    xmlns:local="clr-namespace:GitWrite.Styles">
    <Color x:Key="BackgroundColor">#262F48</Color>
    <SolidColorBrush x:Key="BackgroundBrush" Color="{StaticResource BackgroundColor}" />
+
+   <Color x:Key="TextColor">#FFF</Color>
+   <SolidColorBrush x:Key="TextBrush" Color="{StaticResource TextColor}" />
 </ResourceDictionary>

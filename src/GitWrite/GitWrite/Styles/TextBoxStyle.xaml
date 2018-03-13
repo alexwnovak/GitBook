@@ -5,6 +5,7 @@
       <Setter Property="SelectionBrush" Value="{DynamicResource TextSelectionColor}" />
       <Setter Property="SelectionOpacity" Value="0.4" />
       <Setter Property="ContextMenu" Value="{StaticResource TextBoxContextMenu}" />
+      <Setter Property="Foreground" Value="{StaticResource TextBrush}" />
       <Setter Property="Template">
          <Setter.Value>
             <ControlTemplate TargetType="TextBox">
