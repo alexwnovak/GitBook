@@ -60,7 +60,8 @@
                Text="{Binding ShortMessage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
             <TextBox Grid.Row="2"
-               Text="{Binding ExtraCommitText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+               Text="{Binding ExtraCommitText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+               AcceptsReturn="True" />
          </Grid>
 
          <Rectangle Grid.Column="1"
