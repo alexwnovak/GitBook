@@ -2,7 +2,7 @@ using GalaSoft.MvvmLight.Messaging;
 
 namespace GitWrite.Receivers
 {
-   public abstract class MessageReceiver<T>
+   public abstract class MessageReceiver<T> where T : MessageBase
    {
       protected MessageReceiver()
       {

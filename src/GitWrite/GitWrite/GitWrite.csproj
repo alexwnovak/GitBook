@@ -95,6 +95,7 @@
     <Compile Include="Behaviors\WindowPlacementBehavior.cs" />
     <Compile Include="FrameworkElementExtensions.cs" />
     <Compile Include="GitFileAttribute.cs" />
+    <Compile Include="Messages\AcceptChangesMessage.cs" />
     <Compile Include="Messages\CollapseRequestedMessage.cs" />
     <Compile Include="Messages\ExitRequestedMessage.cs" />
     <Compile Include="Messages\ExpansionRequestedMessage.cs" />
@@ -109,6 +110,7 @@
     </Compile>
     <Compile Include="RebaseItemActionExtensions.cs" />
     <Compile Include="ReceiverManager.cs" />
+    <Compile Include="Receivers\AcceptChangesReceiver.cs" />
     <Compile Include="Receivers\ShutdownRequestedMessageReceiver.cs" />
     <Compile Include="Services\ApplicationSettings.cs" />
     <Compile Include="Services\GitRepositoryPathConverter.cs" />
