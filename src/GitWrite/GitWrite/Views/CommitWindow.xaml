@@ -87,13 +87,21 @@
                Content="{StaticResource DiscardGlyph}">
                <i:Interaction.Triggers>
                   <i:EventTrigger SourceName="DiscardButton"
-                                  EventName="Click">
+                     EventName="Click">
                      <views:EventToMessage MessageType="{x:Type messages:DiscardChangesMessage}" />
                   </i:EventTrigger>
                </i:Interaction.Triggers>
             </Button>
 
-            <Button Content="{StaticResource SettingsGlyph}" />
+            <Button x:Name="SettingsButton"
+               Content="{StaticResource SettingsGlyph}">
+               <i:Interaction.Triggers>
+                  <i:EventTrigger SourceName="SettingsButton"
+                     EventName="Click">
+                     <views:EventToMessage MessageType="{x:Type messages:ShowSettingsMessage}" />
+                  </i:EventTrigger>
+               </i:Interaction.Triggers>
+            </Button>
          </StackPanel>
       </Grid>
    </Grid>
