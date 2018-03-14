@@ -1,5 +1,4 @@
-﻿using System;
-using GitWrite.Messages;
+﻿using GitWrite.Messages;
 
 namespace GitWrite.Receivers
 {

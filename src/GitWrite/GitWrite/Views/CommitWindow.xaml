@@ -83,7 +83,15 @@
                </i:Interaction.Triggers>
             </Button>
 
-            <Button Content="{StaticResource DiscardGlyph}" />
+            <Button x:Name="DiscardButton"
+               Content="{StaticResource DiscardGlyph}">
+               <i:Interaction.Triggers>
+                  <i:EventTrigger SourceName="DiscardButton"
+                                  EventName="Click">
+                     <views:EventToMessage MessageType="{x:Type messages:DiscardChangesMessage}" />
+                  </i:EventTrigger>
+               </i:Interaction.Triggers>
+            </Button>
 
             <Button Content="{StaticResource SettingsGlyph}" />
          </StackPanel>
