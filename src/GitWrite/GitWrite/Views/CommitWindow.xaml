@@ -76,7 +76,8 @@
                <i:Interaction.Triggers>
                   <i:EventTrigger SourceName="AcceptButton"
                      EventName="Click">
-                     <views:EventToMessage MessageType="{x:Type messages:AcceptChangesMessage}" />
+                     <views:EventToMessage MessageType="{x:Type messages:AcceptChangesMessage}"
+                         Parameter="{Binding CommitDocument, Mode=OneWay}"/>
                   </i:EventTrigger>
                </i:Interaction.Triggers>
             </Button>

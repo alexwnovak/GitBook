@@ -7,6 +7,7 @@ using Microsoft.Practices.ServiceLocation;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using GitModel;
+using GitWrite.Receivers;
 using GitWrite.Services;
 using GitWrite.Themes;
 using GitWrite.ViewModels;
@@ -34,20 +35,20 @@ namespace GitWrite
          switch ( applicationMode )
          {
             case ApplicationMode.Commit:
-            {
-               CommitPath( e.Args[0] );
-               break;
-            }
+               {
+                  CommitPath( e.Args[0] );
+                  break;
+               }
             case ApplicationMode.Rebase:
-            {
-               RebasePath( e.Args[0] );
-               break;
-            }
+               {
+                  RebasePath( e.Args[0] );
+                  break;
+               }
             case ApplicationMode.EditPatch:
             case ApplicationMode.Unknown:
-               PassThrough( e.Args );
-               Shutdown();
-               return;
+            PassThrough( e.Args );
+            Shutdown();
+            return;
          }
 
          StartupUri = GetStartupWindow( appController.ApplicationMode );
@@ -112,8 +113,15 @@ namespace GitWrite
       {
          ServiceLocator.SetLocatorProvider( () => SimpleIoc.Default );
 
+         SimpleIoc.Default.Register<AcceptChangesReceiver>();
+         SimpleIoc.Default.Register<DiscardChangesReceiver>();
+         SimpleIoc.Default.Register<ShowSettingsReceiver>();
+         SimpleIoc.Default.Register<ShutdownRequestedMessageReceiver>();
+         SimpleIoc.Default.Register<WriteCommitDocumentMessageReceiver>();
+
          SimpleIoc.Default.Register<IApplicationSettings, ApplicationSettings>();
          SimpleIoc.Default.Register<ICommitFileReader, CommitFileReader>();
+         SimpleIoc.Default.Register<ICommitFileWriter, CommitFileWriter>();
          SimpleIoc.Default.Register<IRebaseFileWriter, RebaseFileWriter>();
          SimpleIoc.Default.Register<RebaseFileReader>();
          SimpleIoc.Default.Register<IClipboardService, ClipboardService>();
@@ -149,9 +157,9 @@ namespace GitWrite
          switch ( applicationMode )
          {
             case ApplicationMode.Commit:
-               return new Uri( @"Views\CommitWindow.xaml", UriKind.Relative );
+            return new Uri( @"Views\CommitWindow.xaml", UriKind.Relative );
             case ApplicationMode.Rebase:
-               return new Uri( @"Views\RebaseWindow.xaml", UriKind.Relative );
+            return new Uri( @"Views\RebaseWindow.xaml", UriKind.Relative );
          }
 
          throw new ArgumentException( $"Unknown application mode: {applicationMode}", nameof( applicationMode ) );

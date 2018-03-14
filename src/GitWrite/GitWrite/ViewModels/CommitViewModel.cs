@@ -15,7 +15,11 @@ namespace GitWrite.ViewModels
    {
       private readonly string _commitFilePath;
       private readonly IClipboardService _clipboardService;
-      private readonly CommitDocument _commitDocument;
+      private CommitDocument _commitDocument;
+      public CommitDocument CommitDocument
+      {
+         get => _commitDocument;
+      }
       private readonly IGitService _gitService;
 
       public RelayCommand LoadCommand
