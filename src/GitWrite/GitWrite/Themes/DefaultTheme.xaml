@@ -7,5 +7,4 @@
    <SolidColorBrush x:Key="WindowBorderColor" Color="#6C929F" PresentationOptions:Freeze="True" />
    <SolidColorBrush x:Key="WindowSecondaryBorderColor" Color="#B06C929F" PresentationOptions:Freeze="True" />
    <SolidColorBrush x:Key="TextColor" Color="#DEF" PresentationOptions:Freeze="True" />
-   <SolidColorBrush x:Key="CaretColor" Color="#FFF" PresentationOptions:Freeze="True" />
 </ResourceDictionary>
