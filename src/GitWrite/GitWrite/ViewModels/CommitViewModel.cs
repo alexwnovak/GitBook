@@ -89,7 +89,6 @@ namespace GitWrite.ViewModels
       }
 
       public CommitViewModel( string commitFilePath,
-         IViewService viewService,
          IClipboardService clipboardService,
          CommitDocument commitDocument,
          IGitService gitService,
