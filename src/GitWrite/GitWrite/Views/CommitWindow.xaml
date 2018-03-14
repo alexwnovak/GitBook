@@ -57,10 +57,10 @@
             </Grid.RowDefinitions>
 
             <TextBox VerticalContentAlignment="Center"
-               Text="{Binding ShortMessage, Mode=TwoWay}" />
+               Text="{Binding ShortMessage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
             <TextBox Grid.Row="2"
-               Text="{Binding ExtraCommitText, Mode=TwoWay}" />
+               Text="{Binding ExtraCommitText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
          </Grid>
 
          <Rectangle Grid.Column="1"
