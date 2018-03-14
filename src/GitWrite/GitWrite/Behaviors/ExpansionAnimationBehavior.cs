@@ -26,7 +26,7 @@ namespace GitWrite.Behaviors
 
       private void AnimateDrawer( double from, double to )
       {
-         if ( _viewModel.IsExpanded || _viewModel.IsExiting )
+         if ( _viewModel.IsExpanded /*|| _viewModel.IsExiting*/ )
          {
             return;
          }

@@ -16,7 +16,7 @@ using Resx = GitWrite.Properties.Resources;
 
 namespace GitWrite.Views
 {
-   public partial class CommitWindow : WindowBase
+   public partial class CommitWindow : Window
    {
       private readonly CommitViewModel _viewModel;
       private readonly ISoundService _soundService = new SoundService();
