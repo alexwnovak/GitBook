@@ -5,7 +5,7 @@ namespace GitWrite.Receivers
 {
    public class AcceptChangesReceiver : MessageReceiver<AcceptChangesMessage>
    {
-      private ICommitFileWriter _commitFileWriter;
+      private readonly ICommitFileWriter _commitFileWriter;
 
       public AcceptChangesReceiver( ICommitFileWriter commitFileWriter )
       {
