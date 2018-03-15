@@ -14,6 +14,7 @@ namespace GitWrite.Receivers
 
       protected override void OnReceive( AcceptChangesMessage message )
       {
+         _commitFileWriter.ToFile( message.FilePath, message.CommitDocument );
       }
    }
 }
