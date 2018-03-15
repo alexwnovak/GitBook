@@ -76,8 +76,14 @@
                <i:Interaction.Triggers>
                   <i:EventTrigger SourceName="AcceptButton"
                      EventName="Click">
-                     <views:EventToMessage MessageType="{x:Type messages:AcceptChangesMessage}"
-                         Parameter="{Binding CommitDocument, Mode=OneWay}"/>
+                     <views:EventToMessage MessageType="{x:Type messages:AcceptChangesMessage}">
+                        <views:EventToMessage.Parameters>
+                           <MultiBinding Converter="{views:ParameterConverter}">
+                              <Binding Path="CommitFilePath" Mode="OneWay" />
+                              <Binding Path="CommitDocument" Mode="OneWay" />
+                           </MultiBinding>
+                        </views:EventToMessage.Parameters>
+                     </views:EventToMessage>
                   </i:EventTrigger>
                </i:Interaction.Triggers>
             </Button>

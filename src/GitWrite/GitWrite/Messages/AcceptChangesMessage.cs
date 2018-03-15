@@ -5,13 +5,12 @@ namespace GitWrite.Messages
 {
    public class AcceptChangesMessage : MessageBase
    {
-      public CommitDocument CommitDocument
-      {
-         get;
-      }
+      public string FilePath { get; }
+      public CommitDocument CommitDocument { get; }
 
-      public AcceptChangesMessage( CommitDocument commitDocument )
+      public AcceptChangesMessage( string filePath, CommitDocument commitDocument )
       {
+         FilePath = filePath;
          CommitDocument = commitDocument;
       }
    }

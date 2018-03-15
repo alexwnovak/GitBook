@@ -14,6 +14,7 @@ namespace GitWrite.ViewModels
    public class CommitViewModel : ViewModelBase
    {
       private readonly string _commitFilePath;
+      public string CommitFilePath => _commitFilePath;
       private readonly IClipboardService _clipboardService;
       private CommitDocument _commitDocument;
       public CommitDocument CommitDocument
