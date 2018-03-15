@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
@@ -19,23 +20,24 @@ namespace GitWrite.Views
          set => SetValue( MessageTypeProperty, value );
       }
 
-      public static readonly DependencyProperty ParameterProperty = DependencyProperty.Register( nameof( Parameter ),
-         typeof( object ),
-         typeof( EventToMessage ) );
+      public static readonly DependencyProperty ParametersProperty = DependencyProperty.Register( nameof( Parameters ),
+         typeof( ObservableCollection<object> ),
+         typeof( EventToMessage ),
+         new FrameworkPropertyMetadata( new ObservableCollection<object>() ) );
 
-      public object Parameter
+      public ObservableCollection<object> Parameters
       {
-         get => GetValue( ParameterProperty );
-         set => SetValue( ParameterProperty, value );
+         get => (ObservableCollection<object>) GetValue( ParametersProperty );
+         set => SetValue( ParametersProperty, value );
       }
 
       protected override void Invoke( object parameter )
       {
          object messageInstance;
 
-         if ( Parameter != null )
+         if ( Parameters != null )
          {
-            messageInstance = ActivateWithParameter();
+            messageInstance = ActivateWithParameters();
          }
          else
          {
@@ -49,18 +51,28 @@ namespace GitWrite.Views
          closedSendMethod.Invoke( Messenger.Default, new[] { messageInstance } );
       }
 
-      private MessageBase ActivateWithParameter()
+      private MessageBase ActivateWithParameters()
       {
          var constructors = MessageType.GetConstructors( BindingFlags.Public | BindingFlags.Instance );
 
          foreach ( var c in constructors )
          {
-            var p = c.GetParameters();
+            var constructorParameters = c.GetParameters();
 
-            if ( p.Length == 1 && p[0].ParameterType == Parameter.GetType() )
+            if ( constructorParameters.Length != Parameters.Count )
             {
-               return (MessageBase) c.Invoke( new[] { Parameter } );
+               continue;
             }
+
+            for ( int index = 0; index < constructorParameters.Length; index++ )
+            {
+               if ( constructorParameters[index].ParameterType != Parameters[index].GetType() )
+               {
+                  continue;
+               }
+            }
+
+            return (MessageBase) c.Invoke( Parameters.ToArray() );
          }
 
          throw new InvalidOperationException();
