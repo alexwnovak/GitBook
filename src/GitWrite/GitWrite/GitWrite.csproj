@@ -98,6 +98,7 @@
     <Compile Include="Messages\AcceptChangesMessage.cs" />
     <Compile Include="Messages\CollapseRequestedMessage.cs" />
     <Compile Include="Messages\DiscardChangesMessage.cs" />
+    <Compile Include="Messages\ExitApplicationMessage.cs" />
     <Compile Include="Messages\ExitRequestedMessage.cs" />
     <Compile Include="Messages\ExpansionRequestedMessage.cs" />
     <Compile Include="Messages\PulseRequestedMessage.cs" />
@@ -114,6 +115,7 @@
     <Compile Include="ReceiverManager.cs" />
     <Compile Include="Receivers\AcceptChangesReceiver.cs" />
     <Compile Include="Receivers\DiscardChangesReceiver.cs" />
+    <Compile Include="Receivers\ExitApplicationReceiver.cs" />
     <Compile Include="Receivers\ShowSettingsReceiver.cs" />
     <Compile Include="Receivers\ShutdownRequestedMessageReceiver.cs" />
     <Compile Include="Services\ApplicationSettings.cs" />
