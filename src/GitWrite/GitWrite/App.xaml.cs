@@ -25,8 +25,6 @@ namespace GitWrite
          InitializeDependencies();
          InitializeTheme();
 
-         _receiveManager.Initialize();
-
          var appController = SimpleIoc.Default.GetInstance<AppController>();
          var applicationMode = appController.Start( e.Args );
 
@@ -113,9 +111,11 @@ namespace GitWrite
       {
          ServiceLocator.SetLocatorProvider( () => SimpleIoc.Default );
 
+         SimpleIoc.Default.Register( () => _receiveManager );
          SimpleIoc.Default.Register<AcceptChangesReceiver>();
          SimpleIoc.Default.Register<DiscardChangesReceiver>();
          SimpleIoc.Default.Register<ShowSettingsReceiver>();
+         SimpleIoc.Default.Register<ExitApplicationReceiver>();
          SimpleIoc.Default.Register<ShutdownRequestedMessageReceiver>();
          SimpleIoc.Default.Register<WriteCommitDocumentMessageReceiver>();
 

@@ -36,6 +36,10 @@ namespace GitWrite.Views
          Messenger.Default.Register<ExpansionRequestedMessage>( this, _ => OnAsyncExpansionRequested() );
          Messenger.Default.Register<CollapseRequestedMessage>( this, _ => OnAsyncCollapseRequested() );
          Messenger.Default.Register<ExitRequestedMessage>( this, m => OnAsyncExitRequested( m ) );
+
+         SimpleIoc.Default.Register<Window>( () => this );
+
+         Loaded += ( _, __ ) => SimpleIoc.Default.GetInstance<ReceiverManager>().Initialize();
       }
 
       private void CommitWindow_OnLoaded( object sender, RoutedEventArgs e )
