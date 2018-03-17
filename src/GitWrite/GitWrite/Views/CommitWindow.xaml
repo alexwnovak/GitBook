@@ -6,6 +6,7 @@
    xmlns:views="clr-namespace:GitWrite.Views"
    xmlns:c="clr-namespace:GitWrite.Views.Controls"
    xmlns:messages="clr-namespace:GitWrite.Messages"
+   xmlns:behaviors="clr-namespace:GitWrite.Behaviors"
    AllowsTransparency="True"
    Background="Transparent"
    Title="{Binding Title}"
@@ -33,6 +34,11 @@
          </ResourceDictionary.MergedDictionaries>
       </ResourceDictionary>
    </Window.Resources>
+
+   <i:Interaction.Behaviors>
+      <behaviors:WindowDragBehavior />
+      <behaviors:WindowPlacementBehavior />
+   </i:Interaction.Behaviors>
 
    <Grid x:Name="MainGrid"
       Margin="30"
