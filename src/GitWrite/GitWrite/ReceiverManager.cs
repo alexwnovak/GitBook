@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using GalaSoft.MvvmLight.Ioc;
 using GitWrite.Receivers;
 
 namespace GitWrite
@@ -20,7 +21,8 @@ namespace GitWrite
 
          foreach ( var receiver in allReceivers )
          {
-            var receiverInstance = Activator.CreateInstance(receiver);
+            var receiverInstance = SimpleIoc.Default.GetInstance( receiver );
+            //var receiverInstance = Activator.CreateInstance( receiver );
             _receivers.Add( receiverInstance );
          }
       }

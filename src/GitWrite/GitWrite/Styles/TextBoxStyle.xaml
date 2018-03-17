@@ -1,10 +1,13 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
    <Style TargetType="TextBox">
-      <Setter Property="CaretBrush" Value="{DynamicResource CaretColor}" />
-      <Setter Property="SelectionBrush" Value="{DynamicResource TextSelectionColor}" />
-      <Setter Property="SelectionOpacity" Value="0.4" />
+      <Setter Property="CaretBrush" Value="{StaticResource TextBrush}" />
+      <Setter Property="SelectionBrush" Value="{StaticResource TextSelectionBrush}" />
+      <Setter Property="SelectionOpacity" Value="0.5" />
       <Setter Property="ContextMenu" Value="{StaticResource TextBoxContextMenu}" />
+      <Setter Property="Foreground" Value="{StaticResource TextBrush}" />
+      <Setter Property="FontFamily" Value="Inconsolata" />
+      <Setter Property="FontSize" Value="21" />
       <Setter Property="Template">
          <Setter.Value>
             <ControlTemplate TargetType="TextBox">

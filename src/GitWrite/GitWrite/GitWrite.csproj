@@ -95,11 +95,15 @@
     <Compile Include="Behaviors\WindowPlacementBehavior.cs" />
     <Compile Include="FrameworkElementExtensions.cs" />
     <Compile Include="GitFileAttribute.cs" />
+    <Compile Include="Messages\AcceptChangesMessage.cs" />
     <Compile Include="Messages\CollapseRequestedMessage.cs" />
+    <Compile Include="Messages\DiscardChangesMessage.cs" />
+    <Compile Include="Messages\ExitApplicationMessage.cs" />
     <Compile Include="Messages\ExitRequestedMessage.cs" />
     <Compile Include="Messages\ExpansionRequestedMessage.cs" />
     <Compile Include="Messages\PulseRequestedMessage.cs" />
     <Compile Include="Messages\ShakeRequestedMessage.cs" />
+    <Compile Include="Messages\ShowSettingsMessage.cs" />
     <Compile Include="Messages\ShutdownRequestedMessage.cs" />
     <Compile Include="Messages\WriteCommitDocumentMessage.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -109,6 +113,10 @@
     </Compile>
     <Compile Include="RebaseItemActionExtensions.cs" />
     <Compile Include="ReceiverManager.cs" />
+    <Compile Include="Receivers\AcceptChangesReceiver.cs" />
+    <Compile Include="Receivers\DiscardChangesReceiver.cs" />
+    <Compile Include="Receivers\ExitApplicationReceiver.cs" />
+    <Compile Include="Receivers\ShowSettingsReceiver.cs" />
     <Compile Include="Receivers\ShutdownRequestedMessageReceiver.cs" />
     <Compile Include="Services\ApplicationSettings.cs" />
     <Compile Include="Services\GitRepositoryPathConverter.cs" />
@@ -160,6 +168,7 @@
     <Compile Include="Views\Converters\TextLengthInversionConverter.cs" />
     <Compile Include="ViewModels\CommitViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
+    <Compile Include="Views\ParameterConverter.cs" />
     <Compile Include="Views\RebaseWindow.xaml.cs">
       <DependentUpon>RebaseWindow.xaml</DependentUpon>
     </Compile>
@@ -179,11 +188,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Styles\Colors.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Styles\ContextMenuStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\RebasePanelStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\SettingsButtonStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Glyphs.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

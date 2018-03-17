@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using GitModel;
@@ -10,11 +11,16 @@ using Resx = GitWrite.Properties.Resources;
 
 namespace GitWrite.ViewModels
 {
-   public class CommitViewModel : GitWriteViewModelBase
+   public class CommitViewModel : ViewModelBase
    {
       private readonly string _commitFilePath;
+      public string CommitFilePath => _commitFilePath;
       private readonly IClipboardService _clipboardService;
-      private readonly CommitDocument _commitDocument;
+      private CommitDocument _commitDocument;
+      public CommitDocument CommitDocument
+      {
+         get => _commitDocument;
+      }
       private readonly IGitService _gitService;
 
       public RelayCommand LoadCommand
@@ -30,6 +36,12 @@ namespace GitWrite.ViewModels
       public RelayCommand AbortCommand
       {
          get;
+      }
+
+      public bool IsDirty
+      {
+         get;
+         set;
       }
 
       public string Title
@@ -82,22 +94,20 @@ namespace GitWrite.ViewModels
       }
 
       public CommitViewModel( string commitFilePath,
-         IViewService viewService,
          IClipboardService clipboardService,
          CommitDocument commitDocument,
          IGitService gitService,
          IMessenger messenger )
-         : base( viewService, messenger )
+         : base( messenger )
       {
          _commitFilePath = commitFilePath;
          _clipboardService = clipboardService;
          _commitDocument = commitDocument;
          _gitService = gitService;
 
-         LoadCommand = new RelayCommand( ViewLoaded );
-         SaveCommand = new RelayCommand( OnSaveCommand );
-         AbortCommand = new RelayCommand( OnAbortCommand );
-         PasteCommand = new RelayCommand( PasteFromClipboard );
+         //LoadCommand = new RelayCommand( ViewLoaded );
+         //SaveCommand = new RelayCommand( OnSaveCommand );
+         //AbortCommand = new RelayCommand( OnAbortCommand );
 
          ShortMessage = _commitDocument?.Subject;
 
@@ -110,72 +120,72 @@ namespace GitWrite.ViewModels
          IsAmending = !string.IsNullOrEmpty( ShortMessage );
       }
 
-      public void ViewLoaded()
-      {
-         if ( !string.IsNullOrEmpty( ExtraCommitText ) )
-         {
-            ExpandUI();
-         }
-      }
+      //public void ViewLoaded()
+      //{
+      //   if ( !string.IsNullOrEmpty( ExtraCommitText ) )
+      //   {
+      //      ExpandUI();
+      //   }
+      //}
 
-      private async void OnSaveCommand()
-      {
-         ExitReason = ExitReason.Save;
+      //private async void OnSaveCommand()
+      //{
+      //   ExitReason = ExitReason.Save;
 
-         bool shouldContinue = await OnSaveAsync();
+      //   bool shouldContinue = await OnSaveAsync();
 
-         if ( !shouldContinue )
-         {
-            return;
-         }
+      //   if ( !shouldContinue )
+      //   {
+      //      return;
+      //   }
 
-         MessengerInstance.Send( new ShutdownRequestedMessage() );
-      }
+      //   MessengerInstance.Send( new ShutdownRequestedMessage() );
+      //}
 
-      private async void OnAbortCommand()
-      {
-         if ( IsExiting )
-         {
-            return;
-         }
+      //private async void OnAbortCommand()
+      //{
+      //   if ( IsExiting )
+      //   {
+      //      return;
+      //   }
 
-         ExitReason = ExitReason.Discard;
-         ExitReason exitReason = ExitReason.Discard;
+      //   ExitReason = ExitReason.Discard;
+      //   ExitReason exitReason = ExitReason.Discard;
 
-         if ( IsDirty )
-         {
-            var confirmationResult = ViewService.ConfirmExit();
+      //   if ( IsDirty )
+      //   {
+      //      var confirmationResult = ViewService.ConfirmExit();
 
-            if ( confirmationResult == ExitReason.Cancel )
-            {
-               return;
-            }
+      //      if ( confirmationResult == ExitReason.Cancel )
+      //      {
+      //         return;
+      //      }
 
-            if ( confirmationResult == ExitReason.Save )
-            {
-               ExitReason = ExitReason.Save;
+      //      if ( confirmationResult == ExitReason.Save )
+      //      {
+      //         ExitReason = ExitReason.Save;
 
-               bool shouldReallyExit = await OnSaveAsync();
+      //         bool shouldReallyExit = await OnSaveAsync();
 
-               if ( !shouldReallyExit )
-               {
-                  return;
-               }
-            }
-            else
-            {
-               await OnDiscardAsync();
-               IsExiting = true;
-            }
-         }
-         else if ( exitReason == ExitReason.Discard )
-         {
-            await OnDiscardAsync();
-         }
+      //         if ( !shouldReallyExit )
+      //         {
+      //            return;
+      //         }
+      //      }
+      //      else
+      //      {
+      //         await OnDiscardAsync();
+      //         IsExiting = true;
+      //      }
+      //   }
+      //   else if ( exitReason == ExitReason.Discard )
+      //   {
+      //      await OnDiscardAsync();
+      //   }
 
-         IsExiting = true;
-         MessengerInstance.Send( new ShutdownRequestedMessage() );
-      }
+      //   IsExiting = true;
+      //   MessengerInstance.Send( new ShutdownRequestedMessage() );
+      //}
 
       protected async Task OnExitRequestedAsync( ExitReason exitReason )
       {
@@ -186,35 +196,35 @@ namespace GitWrite.ViewModels
          await message.Task;
       }
 
-      protected async Task<bool> OnSaveAsync()
-      {
-         if ( string.IsNullOrWhiteSpace( ShortMessage ) || IsExiting )
-         {
-            MessengerInstance.Send( new ShakeRequestedMessage() );
-            return false;
-         }
+      //protected async Task<bool> OnSaveAsync()
+      //{
+      //   if ( string.IsNullOrWhiteSpace( ShortMessage ) || IsExiting )
+      //   {
+      //      MessengerInstance.Send( new ShakeRequestedMessage() );
+      //      return false;
+      //   }
 
-         IsExiting = true;
+      //   IsExiting = true;
 
-         CollapseUI();
+      //   CollapseUI();
 
-         await OnExitRequestedAsync( ExitReason.Save );
+      //   await OnExitRequestedAsync( ExitReason.Save );
 
-         _commitDocument.Subject = ShortMessage;
+      //   _commitDocument.Subject = ShortMessage;
 
-         if ( string.IsNullOrEmpty( ExtraCommitText ) )
-         {
-            _commitDocument.Body = null;
-         }
-         else
-         {
-            _commitDocument.Body = ExtraCommitText.Split( new[] { Environment.NewLine }, StringSplitOptions.None );
-         }
+      //   if ( string.IsNullOrEmpty( ExtraCommitText ) )
+      //   {
+      //      _commitDocument.Body = null;
+      //   }
+      //   else
+      //   {
+      //      _commitDocument.Body = ExtraCommitText.Split( new[] { Environment.NewLine }, StringSplitOptions.None );
+      //   }
 
-         MessengerInstance.Send( new WriteCommitDocumentMessage( _commitFilePath, _commitDocument ) );
+      //   MessengerInstance.Send( new WriteCommitDocumentMessage( _commitFilePath, _commitDocument ) );
 
-         return true;
-      }
+      //   return true;
+      //}
 
       protected async Task<bool> OnDiscardAsync()
       {
@@ -230,14 +240,14 @@ namespace GitWrite.ViewModels
          return true;
       }
 
-      private void ExpandUI()
-      {
-         if ( !IsExpanded && !IsExiting )
-         {
-            IsExpanded = true;
-            MessengerInstance.Send( new ExpansionRequestedMessage() );
-         }
-      }
+      //private void ExpandUI()
+      //{
+      //   if ( !IsExpanded && !IsExiting )
+      //   {
+      //      IsExpanded = true;
+      //      MessengerInstance.Send( new ExpansionRequestedMessage() );
+      //   }
+      //}
 
       private void CollapseUI()
       {
@@ -245,30 +255,30 @@ namespace GitWrite.ViewModels
          MessengerInstance.Send( new CollapseRequestedMessage() );
       }
 
-      private void PasteFromClipboard()
-      {
-         string clipboardText = _clipboardService.GetText();
+      //private void PasteFromClipboard()
+      //{
+      //   string clipboardText = _clipboardService.GetText();
 
-         if ( !string.IsNullOrEmpty( clipboardText ) )
-         {
-            clipboardText = clipboardText.Trim( '\r', '\n' );
-            int lineBreakIndex = clipboardText.IndexOf( Environment.NewLine );
+      //   if ( !string.IsNullOrEmpty( clipboardText ) )
+      //   {
+      //      clipboardText = clipboardText.Trim( '\r', '\n' );
+      //      int lineBreakIndex = clipboardText.IndexOf( Environment.NewLine );
 
-            if ( lineBreakIndex != -1 )
-            {
-               ExpandUI();
+      //      if ( lineBreakIndex != -1 )
+      //      {
+      //         ExpandUI();
 
-               ShortMessage = clipboardText.Substring( 0, lineBreakIndex );
+      //         ShortMessage = clipboardText.Substring( 0, lineBreakIndex );
 
-               string extraNotes = clipboardText.Substring( lineBreakIndex + Environment.NewLine.Length );
-               extraNotes = extraNotes.TrimStart( '\r', '\n' ).TrimEnd( '\r', '\n' );
-               ExtraCommitText = extraNotes;
-            }
-            else
-            {
-               ShortMessage = clipboardText;
-            }
-         }
-      }
+      //         string extraNotes = clipboardText.Substring( lineBreakIndex + Environment.NewLine.Length );
+      //         extraNotes = extraNotes.TrimStart( '\r', '\n' ).TrimEnd( '\r', '\n' );
+      //         ExtraCommitText = extraNotes;
+      //      }
+      //      else
+      //      {
+      //         ShortMessage = clipboardText;
+      //      }
+      //   }
+      //}
    }
 }
