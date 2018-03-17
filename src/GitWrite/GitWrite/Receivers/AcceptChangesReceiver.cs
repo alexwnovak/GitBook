@@ -7,14 +7,12 @@ namespace GitWrite.Receivers
    {
       private readonly ICommitFileWriter _commitFileWriter;
 
-      public AcceptChangesReceiver( ICommitFileWriter commitFileWriter )
-      {
-         _commitFileWriter = commitFileWriter;
-      }
+      public AcceptChangesReceiver( ICommitFileWriter commitFileWriter ) => _commitFileWriter = commitFileWriter;
 
       protected override void OnReceive( AcceptChangesMessage message )
       {
          _commitFileWriter.ToFile( message.FilePath, message.CommitDocument );
+         Send<ExitApplicationMessage>();
       }
    }
 }
