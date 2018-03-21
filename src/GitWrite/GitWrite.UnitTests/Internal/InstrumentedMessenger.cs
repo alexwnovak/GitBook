@@ -5,10 +5,10 @@ namespace GitWrite.UnitTests.Internal
 {
    internal class InstrumentedMessenger : Messenger
    {
-      private readonly List<MessageBase> _sentMessages = new List<MessageBase>();
-      public IEnumerable<MessageBase> SentMessages => _sentMessages;
+      private readonly List<object> _sentMessages = new List<object>();
+      public IEnumerable<object> SentMessages => _sentMessages;
 
-      public new void Send<TMessage>( TMessage message ) where TMessage : MessageBase
+      public override void Send<TMessage>( TMessage message )
       {
          _sentMessages.Add( message );
          base.Send( message );

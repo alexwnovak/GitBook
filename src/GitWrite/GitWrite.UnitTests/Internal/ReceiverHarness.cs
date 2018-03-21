@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using GalaSoft.MvvmLight.Messaging;
 using GitWrite.Receivers;
 using FluentAssertions.Execution;
@@ -18,6 +19,16 @@ namespace GitWrite.UnitTests.Internal
       public void Send<TMessage>( TMessage message ) where TMessage : MessageBase
       {
          _messenger.Send( message );
+      }
+
+      public void VerifySend<TMessage>()
+      {
+         bool wasSent = _messenger.SentMessages.Any( m => m is TMessage );
+
+         if ( !wasSent )
+         {
+            throw new AssertionFailedException( $"Receiver harness did not send message of type {typeof( TMessage ).Name}" );
+         }
       }
 
       public void VerifySend<TMessage>( Func<TMessage, bool> predicate ) where TMessage : MessageBase

@@ -36,7 +36,7 @@ namespace GitWrite.UnitTests.Receivers
          var harness = new ReceiverHarness<AcceptChangesReceiver>( receiver );
          harness.Send( message );
 
-         harness.VerifySend<AcceptChangesMessage>( m => m == message );
+         harness.VerifySend<ExitApplicationMessage>();
       }
    }
 }
