@@ -6,6 +6,7 @@ namespace GitWrite.Receivers
    {
       protected override void OnReceive( DiscardChangesMessage message )
       {
+         Send<ExitApplicationMessage>();
       }
    }
 }

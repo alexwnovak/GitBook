@@ -121,6 +121,7 @@
     <Compile Include="Internal\InstrumentedMessenger.cs" />
     <Compile Include="Internal\ReceiverHarness.cs" />
     <Compile Include="Receivers\AcceptChangesReceiverTests.cs" />
+    <Compile Include="Receivers\DiscardChangesReceiverTests.cs" />
     <Compile Include="Services\ApplicationSettingsTests.cs" />
     <Compile Include="Services\GitRepositoryPathConverterTests.cs" />
     <Compile Include="ViewModels\CommitViewModelTests.cs" />
