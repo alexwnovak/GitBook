@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using GalaSoft.MvvmLight.Ioc;
@@ -9,7 +8,7 @@ namespace GitWrite
 {
    public class ReceiverManager
    {
-      private readonly List<object> _receivers = new List<object>();
+      private readonly List<IMessageReceiver> _receivers = new List<IMessageReceiver>();
 
       public void Initialize()
       {
@@ -21,8 +20,10 @@ namespace GitWrite
 
          foreach ( var receiver in allReceivers )
          {
-            var receiverInstance = SimpleIoc.Default.GetInstance( receiver );
-            //var receiverInstance = Activator.CreateInstance( receiver );
+            var receiverInstance = (IMessageReceiver) SimpleIoc.Default.GetInstance( receiver );
+
+            receiverInstance.Register();
+
             _receivers.Add( receiverInstance );
          }
       }
