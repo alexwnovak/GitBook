@@ -119,6 +119,7 @@
     <Compile Include="Behaviors\SuppressAltLogicTests.cs" />
     <Compile Include="Helpers\TestHelper.cs" />
     <Compile Include="Internal\InstrumentedMessenger.cs" />
+    <Compile Include="Receivers\AcceptChangesReceiverTests.cs" />
     <Compile Include="Services\ApplicationSettingsTests.cs" />
     <Compile Include="Services\GitRepositoryPathConverterTests.cs" />
     <Compile Include="ViewModels\CommitViewModelTests.cs" />
