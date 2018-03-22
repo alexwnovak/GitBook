@@ -14,49 +14,6 @@
 //   public class CommitViewModelTests
 //   {
 //      [Fact]
-//      public void Constructor_IncomingSubjectIsNull_ViewModelShortMessageMatches()
-//      {
-//         var commitDocument = new CommitDocument
-//         {
-//            Subject = null
-//         };
-
-//         var commitViewModel = new CommitViewModel( null, null, null, commitDocument, null, Mock.Of<IMessenger>() );
-
-//         commitViewModel.ShortMessage.Should().BeNull();
-//      }
-
-//      [Fact]
-//      public void Constructor_CommitDocumentHasShortMessage_ViewModelReadsShortMessage()
-//      {
-//         const string shortMessage = "Short commit message";
-
-//         var commitDocument = new CommitDocument
-//         {
-//            Subject = shortMessage
-//         };
-
-//         var commitViewModel = new CommitViewModel( null, null, null, commitDocument, null, Mock.Of<IMessenger>() );
-
-//         commitViewModel.ShortMessage.Should().Be( shortMessage );
-//      }
-
-//      [Fact]
-//      public void Constructor_HasSingleLineBody_ViewModelReadsTheLongMessage()
-//      {
-//         const string longMessage = "Long message here";
-
-//         var commitDocument = new CommitDocument
-//         {
-//            Body = new[] { longMessage }
-//         };
-
-//         var commitViewModel = new CommitViewModel( null, null, null, commitDocument, null, Mock.Of<IMessenger>() );
-
-//         commitViewModel.ExtraCommitText.Should().Be( longMessage );
-//      }
-
-//      [Fact]
 //      public void Constructor_IncomingSubjectIsNull_IsNotAmending()
 //      {
 //         var commitDocument = new CommitDocument

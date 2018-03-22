@@ -16,11 +16,7 @@ namespace GitWrite.ViewModels
       private readonly string _commitFilePath;
       public string CommitFilePath => _commitFilePath;
       private readonly IClipboardService _clipboardService;
-      private CommitDocument _commitDocument;
-      public CommitDocument CommitDocument
-      {
-         get => _commitDocument;
-      }
+      public CommitDocument CommitDocument { get; }
       private readonly IGitService _gitService;
 
       public RelayCommand LoadCommand
@@ -59,28 +55,6 @@ namespace GitWrite.ViewModels
          }
       }
 
-      private string _shortMessage;
-      public string ShortMessage
-      {
-         get => _shortMessage;
-         set
-         {
-            Set( () => ShortMessage, ref _shortMessage, value );
-            IsDirty = true;
-         }
-      }
-
-      private string _extraCommitText;
-      public string ExtraCommitText
-      {
-         get => _extraCommitText;
-         set
-         {
-            Set( () => ExtraCommitText, ref _extraCommitText, value );
-            IsDirty = true;
-         }
-      }
-
       public bool IsExpanded
       {
          get;
@@ -102,22 +76,15 @@ namespace GitWrite.ViewModels
       {
          _commitFilePath = commitFilePath;
          _clipboardService = clipboardService;
-         _commitDocument = commitDocument;
+         CommitDocument = commitDocument;
          _gitService = gitService;
 
          //LoadCommand = new RelayCommand( ViewLoaded );
          //SaveCommand = new RelayCommand( OnSaveCommand );
          //AbortCommand = new RelayCommand( OnAbortCommand );
 
-         ShortMessage = _commitDocument?.Subject;
-
-         if ( _commitDocument != null && _commitDocument.Body?.Length > 0 )
-         {
-            ExtraCommitText = _commitDocument.Body.Aggregate( ( i, j ) => $"{i}{Environment.NewLine}{j}" );
-         }
-
          IsDirty = false;
-         IsAmending = !string.IsNullOrEmpty( ShortMessage );
+         IsAmending = !string.IsNullOrEmpty( CommitDocument.Subject );
       }
 
       //public void ViewLoaded()
@@ -232,10 +199,10 @@ namespace GitWrite.ViewModels
 
          await OnExitRequestedAsync( ExitReason.Discard );
 
-         _commitDocument.Subject = null;
-         _commitDocument.Body = new string[0];
+         CommitDocument.Subject = null;
+         CommitDocument.Body = new string[0];
 
-         MessengerInstance.Send( new WriteCommitDocumentMessage( _commitFilePath, _commitDocument ) );
+         MessengerInstance.Send( new WriteCommitDocumentMessage( _commitFilePath, CommitDocument ) );
 
          return true;
       }

@@ -5,6 +5,7 @@
    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
    xmlns:views="clr-namespace:GitWrite.Views"
    xmlns:c="clr-namespace:GitWrite.Views.Controls"
+   xmlns:cnv="clr-namespace:GitWrite.Views.Converters"
    xmlns:messages="clr-namespace:GitWrite.Messages"
    xmlns:behaviors="clr-namespace:GitWrite.Behaviors"
    AllowsTransparency="True"
@@ -66,7 +67,7 @@
                Text="{Binding CommitDocument.Subject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
             <TextBox Grid.Row="2"
-               Text="{Binding ExtraCommitText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+               Text="{Binding CommitDocument.Body, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={cnv:StringToStringArrayConverter}}"
                AcceptsReturn="True" />
          </Grid>
 
