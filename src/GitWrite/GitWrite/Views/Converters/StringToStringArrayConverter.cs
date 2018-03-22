@@ -7,10 +7,11 @@ namespace GitWrite.Views.Converters
 {
    public class StringToStringArrayConverter : MarkupExtension, IValueConverter
    {
+      private static readonly StringToStringArrayConverter _instance = new StringToStringArrayConverter();
       private static readonly string[] _emptyStringArray = new string[0];
       private static readonly string[] _splitToken = { Environment.NewLine };
 
-      public override object ProvideValue( IServiceProvider serviceProvider ) => this;
+      public override object ProvideValue( IServiceProvider serviceProvider ) => _instance;
 
       public object Convert( object value, Type targetType, object parameter, CultureInfo culture )
       {
