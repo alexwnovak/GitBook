@@ -15,7 +15,6 @@
    Height="{x:Static views:WindowValues.ExpandedHeight}"
    ResizeMode="NoResize"
    WindowStyle="None"
-   FocusManager.FocusedElement="{Binding ElementName=MainEntryBox}"
    CommandManager.PreviewCanExecute="CommitWindow_OnPreviewCanExecute"
    DataContext="{Binding CommitViewModel, Source={StaticResource ViewModelLocator}}"
    Loaded="CommitWindow_OnLoaded"
@@ -63,8 +62,10 @@
                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <TextBox VerticalContentAlignment="Center"
-               Text="{Binding CommitDocument.Subject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox x:Name="SubjectTextBox"
+               VerticalContentAlignment="Center"
+               Text="{Binding CommitDocument.Subject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+               views:LaunchFocus.IsFocusTarget="True" />
 
             <TextBox Grid.Row="2"
                Text="{Binding CommitDocument.Body, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={cnv:StringToStringArrayConverter}}"
