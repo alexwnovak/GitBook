@@ -55,28 +55,6 @@ namespace GitWrite.ViewModels
          }
       }
 
-      private string _shortMessage;
-      public string ShortMessage
-      {
-         get => _shortMessage;
-         set
-         {
-            Set( () => ShortMessage, ref _shortMessage, value );
-            IsDirty = true;
-         }
-      }
-
-      private string _extraCommitText;
-      public string ExtraCommitText
-      {
-         get => _extraCommitText;
-         set
-         {
-            Set( () => ExtraCommitText, ref _extraCommitText, value );
-            IsDirty = true;
-         }
-      }
-
       public bool IsExpanded
       {
          get;
@@ -105,15 +83,8 @@ namespace GitWrite.ViewModels
          //SaveCommand = new RelayCommand( OnSaveCommand );
          //AbortCommand = new RelayCommand( OnAbortCommand );
 
-         ShortMessage = CommitDocument?.Subject;
-
-         if ( CommitDocument != null && CommitDocument.Body?.Length > 0 )
-         {
-            ExtraCommitText = CommitDocument.Body.Aggregate( ( i, j ) => $"{i}{Environment.NewLine}{j}" );
-         }
-
          IsDirty = false;
-         IsAmending = !string.IsNullOrEmpty( ShortMessage );
+         IsAmending = !string.IsNullOrEmpty( CommitDocument.Subject );
       }
 
       //public void ViewLoaded()
