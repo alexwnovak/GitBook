@@ -67,5 +67,58 @@ namespace GitWrite.UnitTests.Views.Converters
 
          convertedValue.Should().Be( $"First line{Environment.NewLine}Second line" );
       }
+
+      [Fact]
+      public void ConvertBack_ValueIsNull_ReturnsEmptyStringArray()
+      {
+         var converter = new StringToStringArrayConverter();
+
+         var convertedValue = (string[]) converter.ConvertBack( null, null, null, null );
+
+         convertedValue.Should().BeEmpty();
+      }
+
+      [Fact]
+      public void ConvertBack_ValueIsNotString_ReturnsEmptyStringArray()
+      {
+         var converter = new StringToStringArrayConverter();
+
+         var convertedValue = (string[]) converter.ConvertBack( 5, null, null, null );
+
+         convertedValue.Should().BeEmpty();
+      }
+
+      [Fact]
+      public void ConvertBack_ValueIsEmptyString_ReturnsEmptyStringArray()
+      {
+         var converter = new StringToStringArrayConverter();
+
+         var convertedValue = (string[]) converter.ConvertBack( string.Empty, null, null, null );
+
+         convertedValue.Should().BeEmpty();
+      }
+
+      [Fact]
+      public void ConvertBack_ValueIsOneLine_ReturnsArrayWithOneElement()
+      {
+         var converter = new StringToStringArrayConverter();
+
+         var convertedValue = (string[]) converter.ConvertBack( "The only line", null, null, null );
+
+         convertedValue.Should().ContainSingle( "The only line" );
+      }
+
+      [Fact]
+      public void ConvertBack_HasTwoLinesWithBlankLineInBetween_ReturnsArrayOfLines()
+      {
+         var converter = new StringToStringArrayConverter();
+
+         var convertedValue = (string[]) converter.ConvertBack( $"First line{Environment.NewLine}{Environment.NewLine}Second line", null, null, null );
+
+         convertedValue.Should().HaveCount( 3 );
+         convertedValue[0].Should().Be( "First line" );
+         convertedValue[1].Should().BeEmpty();
+         convertedValue[2].Should().Be( "Second line" );
+      }
    }
 }

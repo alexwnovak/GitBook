@@ -7,6 +7,9 @@ namespace GitWrite.Views.Converters
 {
    public class StringToStringArrayConverter : MarkupExtension, IValueConverter
    {
+      private static readonly string[] _emptyStringArray = new string[0];
+      private static readonly string[] _splitToken = { Environment.NewLine };
+
       public override object ProvideValue( IServiceProvider serviceProvider ) => this;
 
       public object Convert( object value, Type targetType, object parameter, CultureInfo culture )
@@ -31,7 +34,22 @@ namespace GitWrite.Views.Converters
 
       public object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture )
       {
-         throw new NotImplementedException();
+         if ( value == null )
+         {
+            return _emptyStringArray;
+         }
+
+         if ( !( value is string stringValue ) )
+         {
+            return _emptyStringArray;
+         }
+
+         if ( string.IsNullOrEmpty( stringValue ) )
+         {
+            return _emptyStringArray;
+         }
+
+         return stringValue.Split( _splitToken, StringSplitOptions.None );
       }
    }
 }
