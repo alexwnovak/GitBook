@@ -63,13 +63,18 @@
             </Grid.RowDefinitions>
 
             <TextBox x:Name="SubjectTextBox"
+               views:LaunchFocus.IsFocusTarget="True"
                VerticalContentAlignment="Center"
-               Text="{Binding CommitDocument.Subject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-               views:LaunchFocus.IsFocusTarget="True" />
+               Text="{Binding CommitDocument.Subject,
+                  Mode=TwoWay,
+                  UpdateSourceTrigger=PropertyChanged}" />
 
             <TextBox Grid.Row="2"
-               Text="{Binding CommitDocument.Body, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={cnv:StringToStringArrayConverter}}"
-               AcceptsReturn="True" />
+               AcceptsReturn="True"
+               Text="{Binding CommitDocument.Body,
+                  Mode=TwoWay,
+                  UpdateSourceTrigger=PropertyChanged,
+                  Converter={cnv:StringToStringArrayConverter}}" />
          </Grid>
 
          <Rectangle Grid.Column="1"
