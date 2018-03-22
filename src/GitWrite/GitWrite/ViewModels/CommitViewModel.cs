@@ -16,11 +16,7 @@ namespace GitWrite.ViewModels
       private readonly string _commitFilePath;
       public string CommitFilePath => _commitFilePath;
       private readonly IClipboardService _clipboardService;
-      private CommitDocument _commitDocument;
-      public CommitDocument CommitDocument
-      {
-         get => _commitDocument;
-      }
+      public CommitDocument CommitDocument { get; }
       private readonly IGitService _gitService;
 
       public RelayCommand LoadCommand
@@ -102,18 +98,18 @@ namespace GitWrite.ViewModels
       {
          _commitFilePath = commitFilePath;
          _clipboardService = clipboardService;
-         _commitDocument = commitDocument;
+         CommitDocument = commitDocument;
          _gitService = gitService;
 
          //LoadCommand = new RelayCommand( ViewLoaded );
          //SaveCommand = new RelayCommand( OnSaveCommand );
          //AbortCommand = new RelayCommand( OnAbortCommand );
 
-         ShortMessage = _commitDocument?.Subject;
+         ShortMessage = CommitDocument?.Subject;
 
-         if ( _commitDocument != null && _commitDocument.Body?.Length > 0 )
+         if ( CommitDocument != null && CommitDocument.Body?.Length > 0 )
          {
-            ExtraCommitText = _commitDocument.Body.Aggregate( ( i, j ) => $"{i}{Environment.NewLine}{j}" );
+            ExtraCommitText = CommitDocument.Body.Aggregate( ( i, j ) => $"{i}{Environment.NewLine}{j}" );
          }
 
          IsDirty = false;
@@ -232,10 +228,10 @@ namespace GitWrite.ViewModels
 
          await OnExitRequestedAsync( ExitReason.Discard );
 
-         _commitDocument.Subject = null;
-         _commitDocument.Body = new string[0];
+         CommitDocument.Subject = null;
+         CommitDocument.Body = new string[0];
 
-         MessengerInstance.Send( new WriteCommitDocumentMessage( _commitFilePath, _commitDocument ) );
+         MessengerInstance.Send( new WriteCommitDocumentMessage( _commitFilePath, CommitDocument ) );
 
          return true;
       }
