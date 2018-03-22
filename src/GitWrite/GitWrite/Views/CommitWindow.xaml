@@ -99,7 +99,13 @@
                <i:Interaction.Triggers>
                   <i:EventTrigger SourceName="DiscardButton"
                      EventName="Click">
-                     <views:EventToMessage MessageType="{x:Type messages:DiscardChangesMessage}" />
+                     <views:EventToMessage MessageType="{x:Type messages:DiscardChangesMessage}">
+                        <views:EventToMessage.Parameters>
+                           <MultiBinding Converter="{views:ParameterConverter}">
+                              <Binding Path="CommitFilePath" Mode="OneWay" />
+                           </MultiBinding>
+                        </views:EventToMessage.Parameters>
+                     </views:EventToMessage>
                   </i:EventTrigger>
                </i:Interaction.Triggers>
             </Button>
