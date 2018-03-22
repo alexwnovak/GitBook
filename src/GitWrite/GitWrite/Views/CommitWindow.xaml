@@ -69,6 +69,10 @@
                   Mode=TwoWay,
                   UpdateSourceTrigger=PropertyChanged}" />
 
+            <Rectangle Grid.Row="1"
+               Height="1"
+               Fill="{StaticResource AccentLightBrush}" />
+
             <TextBox Grid.Row="2"
                AcceptsReturn="True"
                Text="{Binding CommitDocument.Body,
