@@ -8,6 +8,7 @@
    xmlns:cnv="clr-namespace:GitWrite.Views.Converters"
    xmlns:messages="clr-namespace:GitWrite.Messages"
    xmlns:behaviors="clr-namespace:GitWrite.Behaviors"
+   xmlns:p="clr-namespace:GitWrite.Properties"
    AllowsTransparency="True"
    Background="Transparent"
    Title="{Binding Title}"
@@ -15,7 +16,6 @@
    Height="{x:Static views:WindowValues.ExpandedHeight}"
    ResizeMode="NoResize"
    WindowStyle="None"
-   FocusManager.FocusedElement="{Binding ElementName=MainEntryBox}"
    CommandManager.PreviewCanExecute="CommitWindow_OnPreviewCanExecute"
    DataContext="{Binding CommitViewModel, Source={StaticResource ViewModelLocator}}"
    Loaded="CommitWindow_OnLoaded"
@@ -63,12 +63,25 @@
                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <TextBox VerticalContentAlignment="Center"
-               Text="{Binding CommitDocument.Subject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox x:Name="SubjectTextBox"
+               views:LaunchFocus.IsFocusTarget="True"
+               views:HintManager.HintText="{x:Static p:Resources.CommitSubjectHint}"
+               VerticalContentAlignment="Center"
+               Text="{Binding CommitDocument.Subject,
+                  Mode=TwoWay,
+                  UpdateSourceTrigger=PropertyChanged}" />
+
+            <Rectangle Grid.Row="1"
+               Height="1"
+               Fill="{StaticResource AccentLightBrush}" />
 
             <TextBox Grid.Row="2"
-               Text="{Binding CommitDocument.Body, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={cnv:StringToStringArrayConverter}}"
-               AcceptsReturn="True" />
+               AcceptsReturn="True"
+               views:HintManager.HintText="{x:Static p:Resources.CommitBodyHint}"
+               Text="{Binding CommitDocument.Body,
+                  Mode=TwoWay,
+                  UpdateSourceTrigger=PropertyChanged,
+                  Converter={cnv:StringToStringArrayConverter}}" />
          </Grid>
 
          <Rectangle Grid.Column="1"
