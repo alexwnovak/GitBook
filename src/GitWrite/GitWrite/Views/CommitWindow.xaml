@@ -8,6 +8,7 @@
    xmlns:cnv="clr-namespace:GitWrite.Views.Converters"
    xmlns:messages="clr-namespace:GitWrite.Messages"
    xmlns:behaviors="clr-namespace:GitWrite.Behaviors"
+   xmlns:p="clr-namespace:GitWrite.Properties"
    AllowsTransparency="True"
    Background="Transparent"
    Title="{Binding Title}"
@@ -64,6 +65,7 @@
 
             <TextBox x:Name="SubjectTextBox"
                views:LaunchFocus.IsFocusTarget="True"
+               views:HintManager.HintText="{x:Static p:Resources.CommitSubjectHint}"
                VerticalContentAlignment="Center"
                Text="{Binding CommitDocument.Subject,
                   Mode=TwoWay,
@@ -75,6 +77,7 @@
 
             <TextBox Grid.Row="2"
                AcceptsReturn="True"
+               views:HintManager.HintText="{x:Static p:Resources.CommitBodyHint}"
                Text="{Binding CommitDocument.Body,
                   Mode=TwoWay,
                   UpdateSourceTrigger=PropertyChanged,
