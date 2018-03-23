@@ -115,7 +115,7 @@ namespace GitWrite.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Commit title.
+        ///   Looks up a localized string similar to Commit title (required).
         /// </summary>
         public static string CommitSubjectHint {
             get {
