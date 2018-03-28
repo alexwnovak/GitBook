@@ -23,18 +23,6 @@ namespace GitWrite.ViewModels
          set;
       }
 
-      public bool IsExpanded
-      {
-         get;
-         set;
-      }
-
-      public bool IsAmending
-      {
-         get;
-         set;
-      }
-
       public CommitViewModel( string commitFilePath,
          CommitDocument commitDocument,
          IMessenger messenger )
@@ -48,7 +36,6 @@ namespace GitWrite.ViewModels
          SettingsCommand = new RelayCommand( OnSettingsCommand );
 
          IsDirty = false;
-         IsAmending = !string.IsNullOrEmpty( CommitDocument.Subject );
       }
 
       private void OnAcceptCommand()
@@ -171,8 +158,6 @@ namespace GitWrite.ViewModels
 
       protected async Task<bool> OnDiscardAsync()
       {
-         CollapseUI();
-
          await OnExitRequestedAsync( ExitReason.Discard );
 
          CommitDocument.Subject = null;
@@ -181,21 +166,6 @@ namespace GitWrite.ViewModels
          MessengerInstance.Send( new WriteCommitDocumentMessage( CommitFilePath, CommitDocument ) );
 
          return true;
-      }
-
-      //private void ExpandUI()
-      //{
-      //   if ( !IsExpanded && !IsExiting )
-      //   {
-      //      IsExpanded = true;
-      //      MessengerInstance.Send( new ExpansionRequestedMessage() );
-      //   }
-      //}
-
-      private void CollapseUI()
-      {
-         IsExpanded = false;
-         MessengerInstance.Send( new CollapseRequestedMessage() );
       }
    }
 }

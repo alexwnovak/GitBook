@@ -49,8 +49,6 @@ namespace GitWrite.Views
          //SecondaryTextBox.MoveCaretToEnd();
       }
 
-      private string GetSaveText() => _viewModel.IsAmending ? Resx.AmendingText : Resx.CommittingText;
-
       private void OnAsyncExitRequested( ExitRequestedMessage message )
       {
          if ( _isPlayingExitAnimation )
