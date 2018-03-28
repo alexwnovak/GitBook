@@ -34,14 +34,14 @@ namespace GitWrite.Behaviors
       {
          if ( e.Key == Key.Enter )
          {
-            _viewModel.SaveCommand.Execute( null );
+            //_viewModel.SaveCommand.Execute( null );
          }
          else if ( e.Key == Key.Escape
             || ( e.Key == Key.W && ( Keyboard.Modifiers & ModifierKeys.Control ) == ModifierKeys.Control )
             || ( e.Key == Key.F4 && ( Keyboard.Modifiers & ModifierKeys.Control ) == ModifierKeys.Control ) )
          {
             e.Handled = true;
-            _viewModel.AbortCommand.Execute( null );
+            //_viewModel.AbortCommand.Execute( null );
          }
       }
 

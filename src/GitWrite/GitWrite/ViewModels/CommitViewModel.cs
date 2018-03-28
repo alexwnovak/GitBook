@@ -18,21 +18,6 @@ namespace GitWrite.ViewModels
       public CommitDocument CommitDocument { get; }
       private readonly IGitService _gitService;
 
-      public RelayCommand LoadCommand
-      {
-         get;
-      }
-
-      public RelayCommand SaveCommand
-      {
-         get;
-      }
-
-      public RelayCommand AbortCommand
-      {
-         get;
-      }
-
       public RelayCommand AcceptCommand { get; }
       public RelayCommand DiscardCommand { get; }
       public RelayCommand SettingsCommand { get; }
@@ -79,10 +64,6 @@ namespace GitWrite.ViewModels
          _commitFilePath = commitFilePath;
          CommitDocument = commitDocument;
          _gitService = gitService;
-
-         //LoadCommand = new RelayCommand( ViewLoaded );
-         //SaveCommand = new RelayCommand( OnSaveCommand );
-         //AbortCommand = new RelayCommand( OnAbortCommand );
 
          AcceptCommand = new RelayCommand( OnAcceptCommand );
          DiscardCommand = new RelayCommand( OnDiscardCommand );

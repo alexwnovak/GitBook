@@ -259,10 +259,5 @@ namespace GitWrite.Views
             _isCtrlDown = false;
          }
       }
-
-      private void OnRadialClick( object sender, RoutedEventArgs e )
-      {
-         _viewModel.SaveCommand.Execute( null );
-      }
    }
 }
