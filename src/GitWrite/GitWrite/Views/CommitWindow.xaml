@@ -4,12 +4,9 @@
    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
    xmlns:views="clr-namespace:GitWrite.Views"
-   xmlns:c="clr-namespace:GitWrite.Views.Controls"
    xmlns:cnv="clr-namespace:GitWrite.Views.Converters"
-   xmlns:messages="clr-namespace:GitWrite.Messages"
    xmlns:behaviors="clr-namespace:GitWrite.Behaviors"
    xmlns:p="clr-namespace:GitWrite.Properties"
-   xmlns:system="clr-namespace:System;assembly=mscorlib"
    AllowsTransparency="True"
    Background="Transparent"
    Title="{x:Static p:Resources.ApplicationName}"
@@ -17,14 +14,7 @@
    Height="{x:Static views:WindowValues.ExpandedHeight}"
    ResizeMode="NoResize"
    WindowStyle="None"
-   CommandManager.PreviewCanExecute="CommitWindow_OnPreviewCanExecute"
-   DataContext="{Binding CommitViewModel, Source={StaticResource ViewModelLocator}}"
-   Loaded="CommitWindow_OnLoaded"
-   PreviewKeyDown="CommitWindow_OnPreviewKeyDown"
-   PreviewKeyUp="CommitWindow_OnPreviewKeyUp"
-   Activated="CommitWindow_OnActivated"
-   c:RadialTextBlock.RadialMouseEnter="OnRadialMouseEnter"
-   c:RadialTextBlock.RadialMouseLeave="OnRadialMouseLeave">
+   DataContext="{Binding CommitViewModel, Source={StaticResource ViewModelLocator}}">
 
    <Window.Resources>
       <ResourceDictionary>
