@@ -127,6 +127,9 @@ namespace GitWrite
          SimpleIoc.Default.Register<IEnvironmentAdapter, EnvironmentAdapter>();
          SimpleIoc.Default.Register( () => Messenger.Default );
 
+         SimpleIoc.Default.Register<IViewService, ViewService>();
+         SimpleIoc.Default.Register<Func<Window>>( () => () => SimpleIoc.Default.GetInstance<Window>() );
+
          SimpleIoc.Default.Register<AppController>();
          SimpleIoc.Default.Register<CommitViewModel>();
          SimpleIoc.Default.Register<RebaseViewModel>();
