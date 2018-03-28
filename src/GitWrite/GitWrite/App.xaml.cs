@@ -87,7 +87,6 @@ namespace GitWrite
 
          SimpleIoc.Default.Register( () => commitDocument );
          SimpleIoc.Default.Register( () => fileName );
-         SimpleIoc.Default.Register<IGitService>( () => new GitService( null ) );
       }
 
       private void RebasePath( string fileName )
@@ -124,10 +123,12 @@ namespace GitWrite
          SimpleIoc.Default.Register<ICommitFileWriter, CommitFileWriter>();
          SimpleIoc.Default.Register<IRebaseFileWriter, RebaseFileWriter>();
          SimpleIoc.Default.Register<RebaseFileReader>();
-         SimpleIoc.Default.Register<IClipboardService, ClipboardService>();
          SimpleIoc.Default.Register<IRegistryService, RegistryService>();
          SimpleIoc.Default.Register<IEnvironmentAdapter, EnvironmentAdapter>();
          SimpleIoc.Default.Register( () => Messenger.Default );
+
+         SimpleIoc.Default.Register<IViewService, ViewService>();
+         SimpleIoc.Default.Register<Func<Window>>( () => () => SimpleIoc.Default.GetInstance<Window>() );
 
          SimpleIoc.Default.Register<AppController>();
          SimpleIoc.Default.Register<CommitViewModel>();

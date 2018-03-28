@@ -12,14 +12,12 @@ using Resx = GitWrite.Properties.Resources;
 
 namespace GitWrite.Views
 {
-   public class WindowBase : Window, IViewService
+   public class WindowBase : Window
    {
       private GitWriteViewModelBase _viewModel;
 
       public WindowBase()
       {
-         SimpleIoc.Default.Register<IViewService>( () => this );
-
          var behaviors = Interaction.GetBehaviors( this );
          behaviors.Add( new WindowDragBehavior() );
          behaviors.Add( new WindowPlacementBehavior() );

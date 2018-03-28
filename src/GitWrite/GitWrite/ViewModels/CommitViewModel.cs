@@ -1,251 +1,52 @@
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Messaging;
 using GitModel;
-using GitWrite.Messages;
 using GitWrite.Services;
-using Resx = GitWrite.Properties.Resources;
 
 namespace GitWrite.ViewModels
 {
    public class CommitViewModel : ViewModelBase
    {
-      private readonly string _commitFilePath;
-      public string CommitFilePath => _commitFilePath;
-      private readonly IClipboardService _clipboardService;
+      public string CommitFilePath { get; }
       public CommitDocument CommitDocument { get; }
-      private readonly IGitService _gitService;
 
-      public RelayCommand LoadCommand
-      {
-         get;
-      }
+      private readonly ICommitFileWriter _commitFileWriter;
+      private readonly IViewService _viewService;
 
-      public RelayCommand SaveCommand
-      {
-         get;
-      }
-
-      public RelayCommand AbortCommand
-      {
-         get;
-      }
-
-      public bool IsDirty
-      {
-         get;
-         set;
-      }
-
-      public string Title
-      {
-         get
-         {
-            string branchName = _gitService.GetCurrentBranchName();
-
-            if ( string.IsNullOrEmpty( branchName ) )
-            {
-               return Resx.CommittingHeaderText;
-            }
-
-            return string.Format( Resx.CommittingToBranchText, branchName, Resx.ApplicationName );
-         }
-      }
-
-      public bool IsExpanded
-      {
-         get;
-         set;
-      }
-
-      public bool IsAmending
-      {
-         get;
-         set;
-      }
+      public RelayCommand AcceptCommand { get; }
+      public RelayCommand DiscardCommand { get; }
+      public RelayCommand SettingsCommand { get; }
 
       public CommitViewModel( string commitFilePath,
-         IClipboardService clipboardService,
          CommitDocument commitDocument,
-         IGitService gitService,
-         IMessenger messenger )
-         : base( messenger )
+         ICommitFileWriter commitFileWriter,
+         IViewService viewService )
       {
-         _commitFilePath = commitFilePath;
-         _clipboardService = clipboardService;
+         CommitFilePath = commitFilePath;
          CommitDocument = commitDocument;
-         _gitService = gitService;
 
-         //LoadCommand = new RelayCommand( ViewLoaded );
-         //SaveCommand = new RelayCommand( OnSaveCommand );
-         //AbortCommand = new RelayCommand( OnAbortCommand );
+         _commitFileWriter = commitFileWriter;
+         _viewService = viewService;
 
-         IsDirty = false;
-         IsAmending = !string.IsNullOrEmpty( CommitDocument.Subject );
+         AcceptCommand = new RelayCommand( OnAcceptCommand );
+         DiscardCommand = new RelayCommand( OnDiscardCommand );
+         SettingsCommand = new RelayCommand( OnSettingsCommand );
       }
 
-      //public void ViewLoaded()
-      //{
-      //   if ( !string.IsNullOrEmpty( ExtraCommitText ) )
-      //   {
-      //      ExpandUI();
-      //   }
-      //}
-
-      //private async void OnSaveCommand()
-      //{
-      //   ExitReason = ExitReason.Save;
-
-      //   bool shouldContinue = await OnSaveAsync();
-
-      //   if ( !shouldContinue )
-      //   {
-      //      return;
-      //   }
-
-      //   MessengerInstance.Send( new ShutdownRequestedMessage() );
-      //}
-
-      //private async void OnAbortCommand()
-      //{
-      //   if ( IsExiting )
-      //   {
-      //      return;
-      //   }
-
-      //   ExitReason = ExitReason.Discard;
-      //   ExitReason exitReason = ExitReason.Discard;
-
-      //   if ( IsDirty )
-      //   {
-      //      var confirmationResult = ViewService.ConfirmExit();
-
-      //      if ( confirmationResult == ExitReason.Cancel )
-      //      {
-      //         return;
-      //      }
-
-      //      if ( confirmationResult == ExitReason.Save )
-      //      {
-      //         ExitReason = ExitReason.Save;
-
-      //         bool shouldReallyExit = await OnSaveAsync();
-
-      //         if ( !shouldReallyExit )
-      //         {
-      //            return;
-      //         }
-      //      }
-      //      else
-      //      {
-      //         await OnDiscardAsync();
-      //         IsExiting = true;
-      //      }
-      //   }
-      //   else if ( exitReason == ExitReason.Discard )
-      //   {
-      //      await OnDiscardAsync();
-      //   }
-
-      //   IsExiting = true;
-      //   MessengerInstance.Send( new ShutdownRequestedMessage() );
-      //}
-
-      protected async Task OnExitRequestedAsync( ExitReason exitReason )
+      private void OnAcceptCommand()
       {
-         var message = new ExitRequestedMessage( exitReason );
-
-         MessengerInstance.Send( message );
-
-         await message.Task;
+         _commitFileWriter.ToFile( CommitFilePath, CommitDocument );
+         _viewService.CloseView();
       }
 
-      //protected async Task<bool> OnSaveAsync()
-      //{
-      //   if ( string.IsNullOrWhiteSpace( ShortMessage ) || IsExiting )
-      //   {
-      //      MessengerInstance.Send( new ShakeRequestedMessage() );
-      //      return false;
-      //   }
-
-      //   IsExiting = true;
-
-      //   CollapseUI();
-
-      //   await OnExitRequestedAsync( ExitReason.Save );
-
-      //   _commitDocument.Subject = ShortMessage;
-
-      //   if ( string.IsNullOrEmpty( ExtraCommitText ) )
-      //   {
-      //      _commitDocument.Body = null;
-      //   }
-      //   else
-      //   {
-      //      _commitDocument.Body = ExtraCommitText.Split( new[] { Environment.NewLine }, StringSplitOptions.None );
-      //   }
-
-      //   MessengerInstance.Send( new WriteCommitDocumentMessage( _commitFilePath, _commitDocument ) );
-
-      //   return true;
-      //}
-
-      protected async Task<bool> OnDiscardAsync()
+      private void OnDiscardCommand()
       {
-         CollapseUI();
-
-         await OnExitRequestedAsync( ExitReason.Discard );
-
-         CommitDocument.Subject = null;
-         CommitDocument.Body = new string[0];
-
-         MessengerInstance.Send( new WriteCommitDocumentMessage( _commitFilePath, CommitDocument ) );
-
-         return true;
+         _commitFileWriter.ToFile( CommitFilePath, CommitDocument.Empty );
+         _viewService.CloseView();
       }
 
-      //private void ExpandUI()
-      //{
-      //   if ( !IsExpanded && !IsExiting )
-      //   {
-      //      IsExpanded = true;
-      //      MessengerInstance.Send( new ExpansionRequestedMessage() );
-      //   }
-      //}
-
-      private void CollapseUI()
+      private void OnSettingsCommand()
       {
-         IsExpanded = false;
-         MessengerInstance.Send( new CollapseRequestedMessage() );
       }
-
-      //private void PasteFromClipboard()
-      //{
-      //   string clipboardText = _clipboardService.GetText();
-
-      //   if ( !string.IsNullOrEmpty( clipboardText ) )
-      //   {
-      //      clipboardText = clipboardText.Trim( '\r', '\n' );
-      //      int lineBreakIndex = clipboardText.IndexOf( Environment.NewLine );
-
-      //      if ( lineBreakIndex != -1 )
-      //      {
-      //         ExpandUI();
-
-      //         ShortMessage = clipboardText.Substring( 0, lineBreakIndex );
-
-      //         string extraNotes = clipboardText.Substring( lineBreakIndex + Environment.NewLine.Length );
-      //         extraNotes = extraNotes.TrimStart( '\r', '\n' ).TrimEnd( '\r', '\n' );
-      //         ExtraCommitText = extraNotes;
-      //      }
-      //      else
-      //      {
-      //         ShortMessage = clipboardText;
-      //      }
-      //   }
-      //}
    }
 }
