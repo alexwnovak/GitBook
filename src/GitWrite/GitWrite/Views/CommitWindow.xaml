@@ -38,6 +38,7 @@
 
    <Window.InputBindings>
       <KeyBinding Key="Enter" Modifiers="Control" Command="{Binding AcceptCommand, Mode=OneTime}" />
+      <KeyBinding Key="Escape" Command="{Binding DiscardCommand, Mode=OneTime}" />
    </Window.InputBindings>
 
    <i:Interaction.Behaviors>
