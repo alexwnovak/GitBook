@@ -64,8 +64,7 @@
                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <TextBox x:Name="SubjectTextBox"
-               views:LaunchFocus.IsFocusTarget="True"
+            <TextBox views:LaunchFocus.IsFocusTarget="True"
                views:HintManager.HintText="{x:Static p:Resources.CommitSubjectHint}"
                VerticalContentAlignment="Center"
                Text="{Binding CommitDocument.Subject,
