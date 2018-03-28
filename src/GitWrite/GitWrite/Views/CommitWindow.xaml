@@ -9,6 +9,7 @@
    xmlns:messages="clr-namespace:GitWrite.Messages"
    xmlns:behaviors="clr-namespace:GitWrite.Behaviors"
    xmlns:p="clr-namespace:GitWrite.Properties"
+   xmlns:system="clr-namespace:System;assembly=mscorlib"
    AllowsTransparency="True"
    Background="Transparent"
    Title="{Binding Title}"
@@ -69,7 +70,11 @@
                VerticalContentAlignment="Center"
                Text="{Binding CommitDocument.Subject,
                   Mode=TwoWay,
-                  UpdateSourceTrigger=PropertyChanged}" />
+                  UpdateSourceTrigger=PropertyChanged}">
+               <TextBox.InputBindings>
+                  <KeyBinding Key="Enter" Command="{Binding AcceptCommand, Mode=OneTime}" />
+               </TextBox.InputBindings>
+            </TextBox>
 
             <Rectangle Grid.Row="1"
                Height="1"
@@ -92,47 +97,16 @@
             Orientation="Vertical">
 
             <Button x:Name="AcceptButton"
-               Content="{StaticResource AcceptGlyph}">
-               <i:Interaction.Triggers>
-                  <i:EventTrigger SourceName="AcceptButton"
-                     EventName="Click">
-                     <views:EventToMessage MessageType="{x:Type messages:AcceptChangesMessage}">
-                        <views:EventToMessage.Parameters>
-                           <MultiBinding Converter="{views:ParameterConverter}">
-                              <Binding Path="CommitFilePath" Mode="OneWay" />
-                              <Binding Path="CommitDocument" Mode="OneWay" />
-                           </MultiBinding>
-                        </views:EventToMessage.Parameters>
-                     </views:EventToMessage>
-                  </i:EventTrigger>
-               </i:Interaction.Triggers>
-            </Button>
+               Content="{StaticResource AcceptGlyph}"
+               Command="{Binding AcceptCommand, Mode=OneTime}" />
 
             <Button x:Name="DiscardButton"
-               Content="{StaticResource DiscardGlyph}">
-               <i:Interaction.Triggers>
-                  <i:EventTrigger SourceName="DiscardButton"
-                     EventName="Click">
-                     <views:EventToMessage MessageType="{x:Type messages:DiscardChangesMessage}">
-                        <views:EventToMessage.Parameters>
-                           <MultiBinding Converter="{views:ParameterConverter}">
-                              <Binding Path="CommitFilePath" Mode="OneWay" />
-                           </MultiBinding>
-                        </views:EventToMessage.Parameters>
-                     </views:EventToMessage>
-                  </i:EventTrigger>
-               </i:Interaction.Triggers>
-            </Button>
+               Content="{StaticResource DiscardGlyph}"
+               Command="{Binding DiscardCommand, Mode=OneTime}" />
 
             <Button x:Name="SettingsButton"
-               Content="{StaticResource SettingsGlyph}">
-               <i:Interaction.Triggers>
-                  <i:EventTrigger SourceName="SettingsButton"
-                     EventName="Click">
-                     <views:EventToMessage MessageType="{x:Type messages:ShowSettingsMessage}" />
-                  </i:EventTrigger>
-               </i:Interaction.Triggers>
-            </Button>
+               Content="{StaticResource SettingsGlyph}"
+               Command="{Binding SettingsCommand, Mode=OneTime}" />
          </StackPanel>
       </Grid>
    </Grid>
