@@ -3,7 +3,6 @@ using System.Windows.Input;
 using System.Windows.Interactivity;
 using GalaSoft.MvvmLight.Ioc;
 using GitWrite.Services;
-using GitWrite.Themes;
 using GitWrite.ViewModels;
 using GitWrite.Views;
 
@@ -51,13 +50,6 @@ namespace GitWrite.Behaviors
          //{
          //   _viewModel.PasteCommand.Execute( null );
          //}
-         if ( e.Key == Key.T && Keyboard.Modifiers == ModifierKeys.Control )
-         {
-            ThemeSwitcher.SwitchToNext();
-
-            var appSettings = SimpleIoc.Default.GetInstance<IApplicationSettings>();
-            appSettings.Theme = ThemeSwitcher.ThemeName;
-         }
       }
    }
 }

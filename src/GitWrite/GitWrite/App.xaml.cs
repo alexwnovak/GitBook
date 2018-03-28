@@ -9,7 +9,6 @@ using GalaSoft.MvvmLight.Messaging;
 using GitModel;
 using GitWrite.Receivers;
 using GitWrite.Services;
-using GitWrite.Themes;
 using GitWrite.ViewModels;
 using GitWrite.Views.Controls;
 using Resx = GitWrite.Properties.Resources;
@@ -23,7 +22,6 @@ namespace GitWrite
       private void Application_OnStartup( object sender, StartupEventArgs e )
       {
          InitializeDependencies();
-         InitializeTheme();
 
          var appController = SimpleIoc.Default.GetInstance<AppController>();
          var applicationMode = appController.Start( e.Args );
@@ -133,14 +131,6 @@ namespace GitWrite
          SimpleIoc.Default.Register<AppController>();
          SimpleIoc.Default.Register<CommitViewModel>();
          SimpleIoc.Default.Register<RebaseViewModel>();
-      }
-
-      private void InitializeTheme()
-      {
-         ThemeSwitcher.Initialize();
-
-         var appSettings = SimpleIoc.Default.GetInstance<IApplicationSettings>();
-         ThemeSwitcher.SwitchTo( appSettings.Theme );
       }
 
       private void PassThrough( string[] arguments )

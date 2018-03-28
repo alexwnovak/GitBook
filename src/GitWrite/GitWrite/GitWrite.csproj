@@ -127,7 +127,6 @@
     <Compile Include="ViewModels\GitWriteViewModelBase.cs" />
     <Compile Include="Receivers\MessageReceiver.cs" />
     <Compile Include="ViewModels\RebaseViewModel.cs" />
-    <Compile Include="Themes\ThemeSwitcher.cs" />
     <Compile Include="ViewModels\ShutdownEventArgs.cs" />
     <Compile Include="ViewModels\ExitReason.cs" />
     <Compile Include="Receivers\WriteCommitDocumentMessageReceiver.cs" />
@@ -209,18 +208,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\TextBoxStyle.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\BoldTheme.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\DefaultTheme.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\UmberTheme.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
