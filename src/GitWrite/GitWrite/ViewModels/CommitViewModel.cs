@@ -24,8 +24,6 @@ namespace GitWrite.ViewModels
          set;
       }
 
-      public string Title => Resx.ApplicationName;
-
       public bool IsExpanded
       {
          get;
