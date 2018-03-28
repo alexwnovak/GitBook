@@ -34,6 +34,10 @@ namespace GitWrite.ViewModels
          get;
       }
 
+      public RelayCommand AcceptCommand { get; }
+      public RelayCommand DiscardCommand { get; }
+      public RelayCommand SettingsCommand { get; }
+
       public bool IsDirty
       {
          get;
@@ -83,8 +87,24 @@ namespace GitWrite.ViewModels
          //SaveCommand = new RelayCommand( OnSaveCommand );
          //AbortCommand = new RelayCommand( OnAbortCommand );
 
+         AcceptCommand = new RelayCommand( OnAcceptCommand );
+         DiscardCommand = new RelayCommand( OnDiscardCommand );
+         SettingsCommand = new RelayCommand( OnSettingsCommand );
+
          IsDirty = false;
          IsAmending = !string.IsNullOrEmpty( CommitDocument.Subject );
+      }
+
+      private void OnAcceptCommand()
+      {
+      }
+
+      private void OnDiscardCommand()
+      {
+      }
+
+      private void OnSettingsCommand()
+      {
       }
 
       //public void ViewLoaded()
