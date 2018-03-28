@@ -1,6 +1,7 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GitModel;
+using GitWrite.Services;
 
 namespace GitWrite.ViewModels
 {
@@ -10,6 +11,7 @@ namespace GitWrite.ViewModels
       public CommitDocument CommitDocument { get; }
 
       private readonly ICommitFileWriter _commitFileWriter;
+      private readonly IViewService _viewService;
 
       public RelayCommand AcceptCommand { get; }
       public RelayCommand DiscardCommand { get; }
@@ -17,12 +19,14 @@ namespace GitWrite.ViewModels
 
       public CommitViewModel( string commitFilePath,
          CommitDocument commitDocument,
-         ICommitFileWriter commitFileWriter )
+         ICommitFileWriter commitFileWriter,
+         IViewService viewService )
       {
          CommitFilePath = commitFilePath;
          CommitDocument = commitDocument;
 
          _commitFileWriter = commitFileWriter;
+         _viewService = viewService;
 
          AcceptCommand = new RelayCommand( OnAcceptCommand );
          DiscardCommand = new RelayCommand( OnDiscardCommand );
@@ -32,6 +36,7 @@ namespace GitWrite.ViewModels
       private void OnAcceptCommand()
       {
          _commitFileWriter.ToFile( CommitFilePath, CommitDocument );
+         _viewService.CloseView();
       }
 
       private void OnDiscardCommand()

@@ -122,6 +122,7 @@
     <Compile Include="Services\RegistryService.cs" />
     <Compile Include="Services\ResourceLocator.cs" />
     <Compile Include="Services\SoundService.cs" />
+    <Compile Include="Services\ViewService.cs" />
     <Compile Include="ViewModels\CloseRequestedEventArgs.cs" />
     <Compile Include="ViewModels\GitWriteViewModelBase.cs" />
     <Compile Include="Receivers\MessageReceiver.cs" />
