@@ -15,7 +15,6 @@ namespace GitWrite.ViewModels
    {
       private readonly string _commitFilePath;
       public string CommitFilePath => _commitFilePath;
-      private readonly IClipboardService _clipboardService;
       public CommitDocument CommitDocument { get; }
       private readonly IGitService _gitService;
 
@@ -72,14 +71,12 @@ namespace GitWrite.ViewModels
       }
 
       public CommitViewModel( string commitFilePath,
-         IClipboardService clipboardService,
          CommitDocument commitDocument,
          IGitService gitService,
          IMessenger messenger )
          : base( messenger )
       {
          _commitFilePath = commitFilePath;
-         _clipboardService = clipboardService;
          CommitDocument = commitDocument;
          _gitService = gitService;
 
@@ -241,31 +238,5 @@ namespace GitWrite.ViewModels
          IsExpanded = false;
          MessengerInstance.Send( new CollapseRequestedMessage() );
       }
-
-      //private void PasteFromClipboard()
-      //{
-      //   string clipboardText = _clipboardService.GetText();
-
-      //   if ( !string.IsNullOrEmpty( clipboardText ) )
-      //   {
-      //      clipboardText = clipboardText.Trim( '\r', '\n' );
-      //      int lineBreakIndex = clipboardText.IndexOf( Environment.NewLine );
-
-      //      if ( lineBreakIndex != -1 )
-      //      {
-      //         ExpandUI();
-
-      //         ShortMessage = clipboardText.Substring( 0, lineBreakIndex );
-
-      //         string extraNotes = clipboardText.Substring( lineBreakIndex + Environment.NewLine.Length );
-      //         extraNotes = extraNotes.TrimStart( '\r', '\n' ).TrimEnd( '\r', '\n' );
-      //         ExtraCommitText = extraNotes;
-      //      }
-      //      else
-      //      {
-      //         ShortMessage = clipboardText;
-      //      }
-      //   }
-      //}
    }
 }
