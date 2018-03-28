@@ -118,16 +118,13 @@
     <Compile Include="Services\IApplicationSettings.cs" />
     <Compile Include="Services\IRegistryService.cs" />
     <Compile Include="Services\IResourceLocator.cs" />
-    <Compile Include="Services\ISoundService.cs" />
     <Compile Include="Services\RegistryService.cs" />
     <Compile Include="Services\ResourceLocator.cs" />
-    <Compile Include="Services\SoundService.cs" />
     <Compile Include="Services\ViewService.cs" />
     <Compile Include="ViewModels\CloseRequestedEventArgs.cs" />
     <Compile Include="ViewModels\GitWriteViewModelBase.cs" />
     <Compile Include="Receivers\MessageReceiver.cs" />
     <Compile Include="ViewModels\RebaseViewModel.cs" />
-    <Compile Include="Themes\ThemeSwitcher.cs" />
     <Compile Include="ViewModels\ShutdownEventArgs.cs" />
     <Compile Include="ViewModels\ExitReason.cs" />
     <Compile Include="Receivers\WriteCommitDocumentMessageReceiver.cs" />
@@ -156,7 +153,6 @@
     <Compile Include="Views\Converters\TextLengthToColorConverter.cs" />
     <Compile Include="EnvironmentAdapter.cs" />
     <Compile Include="GitFileLoadException.cs" />
-    <Compile Include="GitFileNames.cs" />
     <Compile Include="IEnvironmentAdapter.cs" />
     <Compile Include="Views\Converters\TextLengthInversionConverter.cs" />
     <Compile Include="ViewModels\CommitViewModel.cs" />
@@ -168,9 +164,7 @@
     <Compile Include="Views\RebaseWindow.xaml.cs">
       <DependentUpon>RebaseWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\IStoryboardHelper.cs" />
     <Compile Include="Services\IViewService.cs" />
-    <Compile Include="Views\MaterialGenerator.cs" />
     <Compile Include="Views\EventToMessage.cs" />
     <Compile Include="Views\TextBoxAttachedProperties.cs" />
     <Compile Include="Views\TextBoxExtensions.cs" />
@@ -209,18 +203,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\TextBoxStyle.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\BoldTheme.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\DefaultTheme.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\UmberTheme.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
