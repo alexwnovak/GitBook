@@ -10,8 +10,7 @@ namespace GitWrite.ViewModels
 {
    public class CommitViewModel : ViewModelBase
    {
-      private readonly string _commitFilePath;
-      public string CommitFilePath => _commitFilePath;
+      public string CommitFilePath { get; }
       public CommitDocument CommitDocument { get; }
 
       public RelayCommand AcceptCommand { get; }
@@ -41,7 +40,7 @@ namespace GitWrite.ViewModels
          IMessenger messenger )
          : base( messenger )
       {
-         _commitFilePath = commitFilePath;
+         CommitFilePath = commitFilePath;
          CommitDocument = commitDocument;
 
          AcceptCommand = new RelayCommand( OnAcceptCommand );
@@ -179,7 +178,7 @@ namespace GitWrite.ViewModels
          CommitDocument.Subject = null;
          CommitDocument.Body = new string[0];
 
-         MessengerInstance.Send( new WriteCommitDocumentMessage( _commitFilePath, CommitDocument ) );
+         MessengerInstance.Send( new WriteCommitDocumentMessage( CommitFilePath, CommitDocument ) );
 
          return true;
       }
