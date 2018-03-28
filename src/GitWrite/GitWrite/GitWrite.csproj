@@ -118,10 +118,8 @@
     <Compile Include="Services\IApplicationSettings.cs" />
     <Compile Include="Services\IRegistryService.cs" />
     <Compile Include="Services\IResourceLocator.cs" />
-    <Compile Include="Services\ISoundService.cs" />
     <Compile Include="Services\RegistryService.cs" />
     <Compile Include="Services\ResourceLocator.cs" />
-    <Compile Include="Services\SoundService.cs" />
     <Compile Include="Services\ViewService.cs" />
     <Compile Include="ViewModels\CloseRequestedEventArgs.cs" />
     <Compile Include="ViewModels\GitWriteViewModelBase.cs" />
