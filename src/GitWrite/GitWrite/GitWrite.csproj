@@ -155,7 +155,6 @@
     <Compile Include="Views\Converters\TextLengthToColorConverter.cs" />
     <Compile Include="EnvironmentAdapter.cs" />
     <Compile Include="GitFileLoadException.cs" />
-    <Compile Include="GitFileNames.cs" />
     <Compile Include="IEnvironmentAdapter.cs" />
     <Compile Include="Views\Converters\TextLengthInversionConverter.cs" />
     <Compile Include="ViewModels\CommitViewModel.cs" />
@@ -167,7 +166,6 @@
     <Compile Include="Views\RebaseWindow.xaml.cs">
       <DependentUpon>RebaseWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\IStoryboardHelper.cs" />
     <Compile Include="Services\IViewService.cs" />
     <Compile Include="Views\EventToMessage.cs" />
     <Compile Include="Views\TextBoxAttachedProperties.cs" />

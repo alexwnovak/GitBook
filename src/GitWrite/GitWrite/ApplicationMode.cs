@@ -1,4 +1,6 @@
-﻿namespace GitWrite
+﻿using GitModel;
+
+namespace GitWrite
 {
    public enum ApplicationMode
    {

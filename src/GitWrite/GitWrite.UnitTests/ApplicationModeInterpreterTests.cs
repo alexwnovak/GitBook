@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using GitModel;
 using Xunit;
 
 namespace GitWrite.UnitTests
