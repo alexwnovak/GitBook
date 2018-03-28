@@ -41,6 +41,8 @@ namespace GitWrite.ViewModels
 
       private void OnDiscardCommand()
       {
+         _commitFileWriter.ToFile( CommitFilePath, CommitDocument.Empty );
+         _viewService.CloseView();
       }
 
       private void OnSettingsCommand()
