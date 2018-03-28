@@ -1,12 +1,9 @@
-using System;
-using System.Linq;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using GitModel;
 using GitWrite.Messages;
-using GitWrite.Services;
 using Resx = GitWrite.Properties.Resources;
 
 namespace GitWrite.ViewModels
@@ -16,7 +13,6 @@ namespace GitWrite.ViewModels
       private readonly string _commitFilePath;
       public string CommitFilePath => _commitFilePath;
       public CommitDocument CommitDocument { get; }
-      private readonly IGitService _gitService;
 
       public RelayCommand AcceptCommand { get; }
       public RelayCommand DiscardCommand { get; }
@@ -28,20 +24,7 @@ namespace GitWrite.ViewModels
          set;
       }
 
-      public string Title
-      {
-         get
-         {
-            string branchName = _gitService.GetCurrentBranchName();
-
-            if ( string.IsNullOrEmpty( branchName ) )
-            {
-               return Resx.CommittingHeaderText;
-            }
-
-            return string.Format( Resx.CommittingToBranchText, branchName, Resx.ApplicationName );
-         }
-      }
+      public string Title => Resx.ApplicationName;
 
       public bool IsExpanded
       {
@@ -57,13 +40,11 @@ namespace GitWrite.ViewModels
 
       public CommitViewModel( string commitFilePath,
          CommitDocument commitDocument,
-         IGitService gitService,
          IMessenger messenger )
          : base( messenger )
       {
          _commitFilePath = commitFilePath;
          CommitDocument = commitDocument;
-         _gitService = gitService;
 
          AcceptCommand = new RelayCommand( OnAcceptCommand );
          DiscardCommand = new RelayCommand( OnDiscardCommand );

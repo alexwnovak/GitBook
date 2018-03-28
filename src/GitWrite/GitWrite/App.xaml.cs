@@ -87,7 +87,6 @@ namespace GitWrite
 
          SimpleIoc.Default.Register( () => commitDocument );
          SimpleIoc.Default.Register( () => fileName );
-         SimpleIoc.Default.Register<IGitService>( () => new GitService( null ) );
       }
 
       private void RebasePath( string fileName )

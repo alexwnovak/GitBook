@@ -121,9 +121,7 @@
     <Compile Include="Receivers\ShutdownRequestedMessageReceiver.cs" />
     <Compile Include="Services\ApplicationSettings.cs" />
     <Compile Include="Services\GitRepositoryPathConverter.cs" />
-    <Compile Include="Services\GitService.cs" />
     <Compile Include="Services\IApplicationSettings.cs" />
-    <Compile Include="Services\IGitService.cs" />
     <Compile Include="Services\IRegistryService.cs" />
     <Compile Include="Services\IResourceLocator.cs" />
     <Compile Include="Services\ISoundService.cs" />
