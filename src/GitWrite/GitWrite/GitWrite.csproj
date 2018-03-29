@@ -87,7 +87,7 @@
     <Compile Include="Behaviors\TripleClickSelectionBehavior.cs" />
     <Compile Include="Behaviors\WindowDragBehavior.cs" />
     <Compile Include="Behaviors\WindowPlacementBehavior.cs" />
-    <Compile Include="FrameworkElementExtensions.cs" />
+    <Compile Include="Views\FrameworkElementExtensions.cs" />
     <Compile Include="GitFileAttribute.cs" />
     <Compile Include="Messages\AcceptChangesMessage.cs" />
     <Compile Include="Messages\CollapseRequestedMessage.cs" />
@@ -169,7 +169,6 @@
     <Compile Include="Views\TextBoxAttachedProperties.cs" />
     <Compile Include="Views\TextBoxExtensions.cs" />
     <Compile Include="Views\WindowBase.cs" />
-    <Compile Include="Views\WindowExtensions.cs" />
     <Compile Include="Views\WindowValues.cs" />
     <Page Include="Styles\ButtonStyle.xaml">
       <SubType>Designer</SubType>

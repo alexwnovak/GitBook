@@ -33,7 +33,7 @@ namespace GitWrite.ViewModels
          SettingsCommand = new RelayCommand( OnSettingsCommand );
       }
 
-      private void OnAcceptCommand()
+      private async void OnAcceptCommand()
       {
          if ( string.IsNullOrWhiteSpace( CommitDocument.Subject ) )
          {
@@ -42,14 +42,14 @@ namespace GitWrite.ViewModels
          else
          {
             _commitFileWriter.ToFile( CommitFilePath, CommitDocument );
-            _viewService.CloseView();
+            await _viewService.CloseViewAsync( true );
          }
       }
 
-      private void OnDiscardCommand()
+      private async void OnDiscardCommand()
       {
          _commitFileWriter.ToFile( CommitFilePath, CommitDocument.Empty );
-         _viewService.CloseView();
+         await _viewService.CloseViewAsync( false );
       }
 
       private void OnSettingsCommand()
