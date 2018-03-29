@@ -16,6 +16,16 @@
    WindowStyle="None"
    DataContext="{Binding CommitViewModel, Source={StaticResource ViewModelLocator}}">
 
+   <Window.Resources>
+      <Storyboard x:Key="SubjectHint">
+         <ColorAnimation Storyboard.TargetName="SubjectTextBox"
+            Storyboard.TargetProperty="(views:HintManager.HintForeground).(SolidColorBrush.Color)"
+            To="{StaticResource TextColor}"
+            AutoReverse="True"
+            Duration="0:0:0.1" />
+      </Storyboard>
+   </Window.Resources>
+
    <Window.InputBindings>
       <KeyBinding Key="Enter" Modifiers="Control" Command="{Binding AcceptCommand, Mode=OneTime}" />
       <KeyBinding Key="Escape" Command="{Binding DiscardCommand, Mode=OneTime}" />
@@ -48,7 +58,8 @@
                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <TextBox views:LaunchFocus.IsFocusTarget="True"
+            <TextBox x:Name="SubjectTextBox"
+               views:LaunchFocus.IsFocusTarget="True"
                views:HintManager.HintText="{x:Static p:Resources.CommitSubjectHint}"
                VerticalContentAlignment="Center"
                Text="{Binding CommitDocument.Subject,
