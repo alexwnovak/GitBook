@@ -29,7 +29,7 @@ namespace GitWrite.UnitTests.ViewModels
          var viewModel = new CommitViewModel( null, commitDocument, Mock.Of<ICommitFileWriter>(), viewServiceMock.Object );
          viewModel.AcceptCommand.Execute( null );
 
-         viewServiceMock.Verify( vs => vs.CloseView(), Times.Once() );
+         viewServiceMock.Verify( vs => vs.CloseViewAsync( true ), Times.Once() );
       }
 
       [Fact]
@@ -63,7 +63,7 @@ namespace GitWrite.UnitTests.ViewModels
          var viewModel = new CommitViewModel( null, null, Mock.Of<ICommitFileWriter>(), viewServiceMock.Object );
          viewModel.DiscardCommand.Execute( null );
 
-         viewServiceMock.Verify( vs => vs.CloseView(), Times.Once() );
+         viewServiceMock.Verify( vs => vs.CloseViewAsync( false ), Times.Once() );
       }
    }
 }

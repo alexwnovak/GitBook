@@ -1,8 +1,10 @@
+using System.Threading.Tasks;
+
 namespace GitWrite.Services
 {
    public interface IViewService
    {
-      void CloseView();
+      Task CloseViewAsync( bool acceptChanges );
       void DisplaySubjectHint();
    }
 }
