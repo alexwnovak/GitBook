@@ -16,16 +16,6 @@
    WindowStyle="None"
    DataContext="{Binding CommitViewModel, Source={StaticResource ViewModelLocator}}">
 
-   <Window.Resources>
-      <ResourceDictionary>
-         <ResourceDictionary.MergedDictionaries>
-            <ResourceDictionary Source="..\Styles\TextBoxStyle.xaml" />
-            <ResourceDictionary Source="..\Styles\ButtonStyle.xaml" />
-            <ResourceDictionary Source="..\Styles\ContextMenuStyle.xaml" />
-         </ResourceDictionary.MergedDictionaries>
-      </ResourceDictionary>
-   </Window.Resources>
-
    <Window.InputBindings>
       <KeyBinding Key="Enter" Modifiers="Control" Command="{Binding AcceptCommand, Mode=OneTime}" />
       <KeyBinding Key="Escape" Command="{Binding DiscardCommand, Mode=OneTime}" />
