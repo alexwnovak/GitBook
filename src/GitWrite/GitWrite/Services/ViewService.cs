@@ -10,5 +10,7 @@ namespace GitWrite.Services
       public ViewService( Func<Window> windowProvider ) => _windowProvider = windowProvider;
 
       public void CloseView() => _windowProvider().Close();
+
+      public void DisplaySubjectHint() => _windowProvider().PlayStoryboard( "SubjectHint" );
    }
 }

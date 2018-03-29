@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace GitWrite.Views
 {
@@ -16,5 +17,14 @@ namespace GitWrite.Views
 
       public static string GetHintText( TextBox textBox ) => (string) textBox.GetValue( HintTextProperty );
       public static void SetHintText( TextBox textBox, string hintText ) => textBox.SetValue( HintTextProperty, hintText );
+
+      public static readonly DependencyProperty HintForegroundProperty = DependencyProperty.RegisterAttached(
+         "HintForeground",
+         typeof( Brush ),
+         typeof( HintManager ),
+         new PropertyMetadata( new SolidColorBrush( Colors.White ) ) );
+
+      public static Brush GetHintForeground( TextBox textBox ) => (Brush) textBox.GetValue( HintForegroundProperty );
+      public static void SetHintForeground( TextBox textBox, Brush hintForeground ) => textBox.SetValue( HintForegroundProperty, hintForeground );
    }
 }
