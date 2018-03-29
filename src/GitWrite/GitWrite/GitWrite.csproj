@@ -169,6 +169,7 @@
     <Compile Include="Views\TextBoxAttachedProperties.cs" />
     <Compile Include="Views\TextBoxExtensions.cs" />
     <Compile Include="Views\WindowBase.cs" />
+    <Compile Include="Views\WindowExtensions.cs" />
     <Compile Include="Views\WindowValues.cs" />
     <Page Include="Styles\ButtonStyle.xaml">
       <SubType>Designer</SubType>
