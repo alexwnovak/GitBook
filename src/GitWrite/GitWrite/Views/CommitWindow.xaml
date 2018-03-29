@@ -61,6 +61,7 @@
             <TextBox x:Name="SubjectTextBox"
                views:LaunchFocus.IsFocusTarget="True"
                views:HintManager.HintText="{x:Static p:Resources.CommitSubjectHint}"
+               views:HintManager.HintForeground="{StaticResource AccentLightBrush}"
                VerticalContentAlignment="Center"
                Text="{Binding CommitDocument.Subject,
                   Mode=TwoWay,
@@ -77,6 +78,7 @@
             <TextBox Grid.Row="2"
                AcceptsReturn="True"
                views:HintManager.HintText="{x:Static p:Resources.CommitBodyHint}"
+               views:HintManager.HintForeground="{StaticResource AccentLightBrush}"
                Text="{Binding CommitDocument.Body,
                   Mode=TwoWay,
                   UpdateSourceTrigger=PropertyChanged,

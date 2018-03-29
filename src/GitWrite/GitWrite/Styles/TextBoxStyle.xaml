@@ -17,7 +17,7 @@
                   <ScrollViewer x:Name="PART_ContentHost" />
                   <TextBlock VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                      Margin="2,0,0,0"
-                     Opacity="0.1"
+                     Foreground="{TemplateBinding views:HintManager.HintForeground}"
                      Text="{TemplateBinding views:HintManager.HintText}"
                      Visibility="{Binding Text.Length,
                         RelativeSource={RelativeSource TemplatedParent},
