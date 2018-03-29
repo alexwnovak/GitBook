@@ -11,7 +11,7 @@ namespace GitWrite.UnitTests.ViewModels
       [Fact]
       public void AcceptCommand_Executing_SavesCommitDetails()
       {
-         var commitDocument = new CommitDocument();
+         var commitDocument = new CommitDocument( "Subject", null );
          var commitFileWriterMock = new Mock<ICommitFileWriter>();
 
          var viewModel = new CommitViewModel( "File.txt", commitDocument, commitFileWriterMock.Object, Mock.Of<IViewService>() );
@@ -23,12 +23,24 @@ namespace GitWrite.UnitTests.ViewModels
       [Fact]
       public void AcceptCommand_Executing_DismissesTheView()
       {
+         var commitDocument = new CommitDocument( "Subject", null );
          var viewServiceMock = new Mock<IViewService>();
 
-         var viewModel = new CommitViewModel( null, null, Mock.Of<ICommitFileWriter>(), viewServiceMock.Object );
+         var viewModel = new CommitViewModel( null, commitDocument, Mock.Of<ICommitFileWriter>(), viewServiceMock.Object );
          viewModel.AcceptCommand.Execute( null );
 
          viewServiceMock.Verify( vs => vs.CloseView(), Times.Once() );
+      }
+
+      [Fact]
+      public void AcceptCommand_HasNoSubject_DisplaysHint()
+      {
+         var viewServiceMock = new Mock<IViewService>();
+
+         var viewModel = new CommitViewModel( null, new CommitDocument(), Mock.Of<ICommitFileWriter>(), viewServiceMock.Object );
+         viewModel.AcceptCommand.Execute( null );
+
+         viewServiceMock.Verify( vs => vs.DisplaySubjectHint(), Times.Once() );
       }
 
       [Fact]

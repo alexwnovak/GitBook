@@ -35,8 +35,15 @@ namespace GitWrite.ViewModels
 
       private void OnAcceptCommand()
       {
-         _commitFileWriter.ToFile( CommitFilePath, CommitDocument );
-         _viewService.CloseView();
+         if ( string.IsNullOrWhiteSpace( CommitDocument.Subject ) )
+         {
+            _viewService.DisplaySubjectHint();
+         }
+         else
+         {
+            _commitFileWriter.ToFile( CommitFilePath, CommitDocument );
+            _viewService.CloseView();
+         }
       }
 
       private void OnDiscardCommand()
