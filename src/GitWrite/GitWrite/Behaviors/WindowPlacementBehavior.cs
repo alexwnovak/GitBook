@@ -15,15 +15,18 @@ namespace GitWrite.Behaviors
          var appSettings = SimpleIoc.Default.GetInstance<IApplicationSettings>();
          AssociatedObject.WindowStartupLocation = WindowStartupLocation.Manual;
 
-         if ( appSettings.WindowX == 0 || appSettings.WindowY == 0 )
+         int windowX = (int) appSettings.GetSetting( "WindowX" );
+         int windowY = (int) appSettings.GetSetting( "WindowY" );
+
+         if ( windowX == 0 || windowY == 0 )
          {
             AssociatedObject.Left = ( SystemParameters.FullPrimaryScreenWidth - AssociatedObject.Width ) / 2;
             AssociatedObject.Top = 0.7 * ( SystemParameters.FullPrimaryScreenHeight - 30 ) / 2;
          }
          else
          {
-            AssociatedObject.Left = appSettings.WindowX;
-            AssociatedObject.Top = appSettings.WindowY;
+            AssociatedObject.Left = windowX;
+            AssociatedObject.Top = windowY;
          }
       }
    }

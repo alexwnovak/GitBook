@@ -14,12 +14,12 @@ namespace GitWrite.Views.Converters
       public TextLengthInversionConverter()
       {
          var appSettings = SimpleIoc.Default.GetInstance<IApplicationSettings>();
-         _maxLength = appSettings.MaxCommitLength;
+         _maxLength = (int) appSettings.GetSetting( "CommitMaxLength" );
       }
 
-      public TextLengthInversionConverter( IApplicationSettings appSettings )
+      public TextLengthInversionConverter( int maxLength )
       {
-         _maxLength = appSettings.MaxCommitLength;
+         _maxLength = maxLength;
       }
 
       public override object ProvideValue( IServiceProvider serviceProvider ) => this;

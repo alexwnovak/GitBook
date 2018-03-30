@@ -69,21 +69,21 @@ namespace GitWrite.Views.Controls
 
       private static void OnTextPropertyChanged( DependencyObject d, DependencyPropertyChangedEventArgs e )
       {
-         var lengthProgressConverter = new StringLengthToProgressConverter();
+         //var lengthProgressConverter = new StringLengthToProgressConverter();
 
-         var radialTextBlock = (RadialTextBlock) d;
-         radialTextBlock.Progress = 1 - (double) lengthProgressConverter.Convert( e.NewValue, null, null, null );
+         //var radialTextBlock = (RadialTextBlock) d;
+         //radialTextBlock.Progress = 1 - (double) lengthProgressConverter.Convert( e.NewValue, null, null, null );
 
-         if ( radialTextBlock.Progress >= 1.0 )
-         {
-            radialTextBlock.ProgressRing.Stroke = (Brush) Application.Current.Resources["MessageLengthReachedColor"];
-         }
-         else
-         {
-            radialTextBlock.ProgressRing.Stroke = (Brush) Application.Current.Resources["WindowBorderColor"];
-         }
+         //if ( radialTextBlock.Progress >= 1.0 )
+         //{
+         //   radialTextBlock.ProgressRing.Stroke = (Brush) Application.Current.Resources["MessageLengthReachedColor"];
+         //}
+         //else
+         //{
+         //   radialTextBlock.ProgressRing.Stroke = (Brush) Application.Current.Resources["WindowBorderColor"];
+         //}
 
-         PulseRing( radialTextBlock.ProgressRing );
+         //PulseRing( radialTextBlock.ProgressRing );
       }
 
       private static void PulseRing( UIElement element )

@@ -1,7 +1,5 @@
 ﻿using FluentAssertions;
-using Moq;
 using Xunit;
-using GitWrite.Services;
 using GitWrite.Views.Converters;
 
 namespace GitWrite.UnitTests.Views.Converters
@@ -9,85 +7,41 @@ namespace GitWrite.UnitTests.Views.Converters
    public class TextLengthInversionConverterTests
    {
       [Fact]
-      public void Convert_InputIsZero_ConvertsToMaxOf72()
+      public void Convert_InputIsZero_TheMaximumRemains()
       {
-         const int maxLength = 72;
+         var converter = new TextLengthInversionConverter( 100 );
 
-         // Arrange
+         int invertedLength = (int) converter.Convert( 20, null, null, null );
 
-         var appSettingsMock = new Mock<IApplicationSettings>();
-         appSettingsMock.SetupGet( @as => @as.MaxCommitLength ).Returns( maxLength );
-
-         // Act
-
-         var converter = new TextLengthInversionConverter( appSettingsMock.Object );
-
-         int invertedLength = (int) converter.Convert( 0, null, null, null );
-
-         // Assert
-
-         invertedLength.Should().Be( maxLength );
+         invertedLength.Should().Be( 80 );
       }
 
       [Fact]
-      public void Convert_InputIsMaxOf72_ReturnsZero()
+      public void Convert_InputIsMaximum_NoCharactersRemain()
       {
-         const int maxLength = 72;
+         var converter = new TextLengthInversionConverter( 100 );
 
-         // Arrange
-
-         var appSettingsMock = new Mock<IApplicationSettings>();
-         appSettingsMock.SetupGet( @as => @as.MaxCommitLength ).Returns( maxLength );
-
-         // Act
-
-         var converter = new TextLengthInversionConverter( appSettingsMock.Object );
-
-         int invertedLength = (int) converter.Convert( maxLength, null, null, null );
-
-         // Assert
+         int invertedLength = (int) converter.Convert( 100, null, null, null );
 
          invertedLength.Should().Be( 0 );
       }
 
       [Fact]
-      public void Convert_InputIsNegative_ReturnsZero()
+      public void Convert_InputIsNegative_NoCharactersRemain()
       {
-         const int maxLength = 72;
-
-         // Arrange
-
-         var appSettingsMock = new Mock<IApplicationSettings>();
-         appSettingsMock.SetupGet( @as => @as.MaxCommitLength ).Returns( maxLength );
-
-         // Act
-
-         var converter = new TextLengthInversionConverter( appSettingsMock.Object );
+         var converter = new TextLengthInversionConverter( 100 );
 
          int invertedLength = (int) converter.Convert( -1, null, null, null );
 
-         // Assert
-
          invertedLength.Should().Be( 0 );
       }
 
       [Fact]
-      public void Convert_InputIsGreaterThanMaxOf72_ReturnsZero()
+      public void Convert_InputIsGreaterThanTheMaximum_NoCharactersRemain()
       {
-         const int maxLength = 72;
+         var converter = new TextLengthInversionConverter( 100 );
 
-         // Arrange
-
-         var appSettingsMock = new Mock<IApplicationSettings>();
-         appSettingsMock.SetupGet( @as => @as.MaxCommitLength ).Returns( maxLength );
-
-         // Act
-
-         var converter = new TextLengthInversionConverter( appSettingsMock.Object );
-
-         int invertedLength = (int) converter.Convert( maxLength + 1, null, null, null );
-
-         // Assert
+         int invertedLength = (int) converter.Convert( 101, null, null, null );
 
          invertedLength.Should().Be( 0 );
       }

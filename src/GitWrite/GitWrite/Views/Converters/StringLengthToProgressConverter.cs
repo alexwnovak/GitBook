@@ -13,13 +13,12 @@ namespace GitWrite.Views.Converters
       public StringLengthToProgressConverter()
       {
          var appSettings = SimpleIoc.Default.GetInstance<IApplicationSettings>();
-
-         _maxLength = appSettings.MaxCommitLength;
+         _maxLength = (int) appSettings.GetSetting( "MaxCommitLength" );
       }
 
-      public StringLengthToProgressConverter( IApplicationSettings appSettings )
+      public StringLengthToProgressConverter( int maxLength )
       {
-         _maxLength = appSettings.MaxCommitLength;
+         _maxLength = maxLength;
       }
 
       public object Convert( object value, Type targetType, object parameter, CultureInfo culture )
