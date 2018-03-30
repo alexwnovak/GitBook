@@ -88,6 +88,7 @@
                views:HintManager.HintText="{x:Static p:Resources.CommitSubjectHint}"
                views:HintManager.HintForeground="{StaticResource AccentLightBrush}"
                VerticalContentAlignment="Center"
+               MaxLength="{views:Settings MaxCommitLength}"
                Text="{Binding CommitDocument.Subject,
                   Mode=TwoWay,
                   UpdateSourceTrigger=PropertyChanged}">

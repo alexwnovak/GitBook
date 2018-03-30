@@ -2,34 +2,6 @@
 {
    public interface IApplicationSettings
    {
-      string Theme
-      {
-         get;
-         set;
-      }
-
-      int WindowX
-      {
-         get;
-         set;
-      }
-
-      int WindowY
-      {
-         get;
-         set;
-      }
-
-      bool PlaySoundOnLaunch
-      {
-         get;
-         set;
-      }
-
-      int MaxCommitLength
-      {
-         get;
-         set;
-      }
+      object GetSetting( string name );
    }
 }
