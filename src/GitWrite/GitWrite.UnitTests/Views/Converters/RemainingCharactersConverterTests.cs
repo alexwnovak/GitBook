@@ -1,5 +1,5 @@
-﻿using FluentAssertions;
-using Xunit;
+﻿using Xunit;
+using FluentAssertions;
 using GitWrite.Views.Converters;
 
 namespace GitWrite.UnitTests.Views.Converters
@@ -27,23 +27,13 @@ namespace GitWrite.UnitTests.Views.Converters
       }
 
       [Fact]
-      public void Convert_InputIsNegative_NoCharactersRemain()
-      {
-         var converter = new RemainingCharactersConverter( 100 );
-
-         int invertedLength = (int) converter.Convert( -1, null, null, null );
-
-         invertedLength.Should().Be( 0 );
-      }
-
-      [Fact]
-      public void Convert_InputIsGreaterThanTheMaximum_NoCharactersRemain()
+      public void Convert_InputIsGreaterThanTheMaximum_CalculatesNegative()
       {
          var converter = new RemainingCharactersConverter( 100 );
 
          int invertedLength = (int) converter.Convert( 101, null, null, null );
 
-         invertedLength.Should().Be( 0 );
+         invertedLength.Should().Be( -1 );
       }
    }
 }

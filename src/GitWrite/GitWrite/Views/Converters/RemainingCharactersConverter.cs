@@ -26,14 +26,7 @@ namespace GitWrite.Views.Converters
 
       public object Convert( object value, Type targetType, object parameter, CultureInfo culture )
       {
-         int textLength = (int) value;
-
-         if ( textLength < 0 || textLength > _maxLength )
-         {
-            return 0;
-         }
-
-         return _maxLength - textLength;
+         return _maxLength - (int) value;
       }
 
       public object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture )
