@@ -96,6 +96,15 @@
                </TextBox.InputBindings>
             </TextBox>
 
+            <TextBlock Grid.Row="0"
+               Margin="0,0,6,0"
+               HorizontalAlignment="Right"
+               VerticalAlignment="Center"
+               Text="{Binding Text.Length,
+                  ElementName=SubjectTextBox,
+                  Converter={cnv:TextLengthInversionConverter},
+                  Mode=OneWay}" />
+
             <Rectangle Grid.Row="1"
                Height="1"
                Fill="{StaticResource AccentLightBrush}" />
