@@ -102,7 +102,7 @@
                VerticalAlignment="Center"
                Text="{Binding Text.Length,
                   ElementName=SubjectTextBox,
-                  Converter={cnv:TextLengthInversionConverter},
+                  Converter={cnv:RemainingCharactersConverter},
                   Mode=OneWay}" />
 
             <Rectangle Grid.Row="1"

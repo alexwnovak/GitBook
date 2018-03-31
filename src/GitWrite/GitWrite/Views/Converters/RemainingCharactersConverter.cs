@@ -7,17 +7,17 @@ using GitWrite.Services;
 
 namespace GitWrite.Views.Converters
 {
-   public class TextLengthInversionConverter : MarkupExtension, IValueConverter
+   public class RemainingCharactersConverter : MarkupExtension, IValueConverter
    {
       private readonly int _maxLength;
 
-      public TextLengthInversionConverter()
+      public RemainingCharactersConverter()
       {
          var appSettings = SimpleIoc.Default.GetInstance<IApplicationSettings>();
          _maxLength = (int) appSettings.GetSetting( "MaxCommitLength" );
       }
 
-      public TextLengthInversionConverter( int maxLength )
+      public RemainingCharactersConverter( int maxLength )
       {
          _maxLength = maxLength;
       }
