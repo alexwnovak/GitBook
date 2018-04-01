@@ -9,12 +9,12 @@
    xmlns:p="clr-namespace:GitWrite.Properties"
    AllowsTransparency="True"
    Background="Transparent"
+   DataContext="{Binding CommitViewModel, Source={StaticResource ViewModelLocator}}"
+   ResizeMode="NoResize"
    Title="{x:Static p:Resources.ApplicationName}"
    Width="1080"
    Height="{x:Static views:WindowValues.ExpandedHeight}"
-   ResizeMode="NoResize"
-   WindowStyle="None"
-   DataContext="{Binding CommitViewModel, Source={StaticResource ViewModelLocator}}">
+   WindowStyle="None">
 
    <Window.Resources>
       <Storyboard x:Key="SubjectHint">
