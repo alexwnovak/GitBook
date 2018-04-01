@@ -9,12 +9,12 @@
    xmlns:p="clr-namespace:GitWrite.Properties"
    AllowsTransparency="True"
    Background="Transparent"
+   DataContext="{Binding CommitViewModel, Source={StaticResource ViewModelLocator}}"
+   ResizeMode="NoResize"
    Title="{x:Static p:Resources.ApplicationName}"
    Width="1080"
    Height="{x:Static views:WindowValues.ExpandedHeight}"
-   ResizeMode="NoResize"
-   WindowStyle="None"
-   DataContext="{Binding CommitViewModel, Source={StaticResource ViewModelLocator}}">
+   WindowStyle="None">
 
    <Window.Resources>
       <Storyboard x:Key="SubjectHint">
@@ -44,7 +44,6 @@
             To="25"
             Duration="0:0:0.25" />
       </Storyboard>
-
    </Window.Resources>
 
    <Window.InputBindings>
@@ -96,6 +95,15 @@
                   <KeyBinding Key="Enter" Command="{Binding AcceptCommand, Mode=OneTime}" />
                </TextBox.InputBindings>
             </TextBox>
+
+            <TextBlock Grid.Row="0"
+               Margin="0,0,6,0"
+               HorizontalAlignment="Right"
+               VerticalAlignment="Center"
+               Text="{Binding Text.Length,
+                  ElementName=SubjectTextBox,
+                  Converter={cnv:RemainingCharactersConverter},
+                  Mode=OneWay}" />
 
             <Rectangle Grid.Row="1"
                Height="1"

@@ -7,17 +7,17 @@ using GitWrite.Services;
 
 namespace GitWrite.Views.Converters
 {
-   public class TextLengthInversionConverter : MarkupExtension, IValueConverter
+   public class RemainingCharactersConverter : MarkupExtension, IValueConverter
    {
       private readonly int _maxLength;
 
-      public TextLengthInversionConverter()
+      public RemainingCharactersConverter()
       {
          var appSettings = SimpleIoc.Default.GetInstance<IApplicationSettings>();
-         _maxLength = (int) appSettings.GetSetting( "CommitMaxLength" );
+         _maxLength = (int) appSettings.GetSetting( "MaxCommitLength" );
       }
 
-      public TextLengthInversionConverter( int maxLength )
+      public RemainingCharactersConverter( int maxLength )
       {
          _maxLength = maxLength;
       }
@@ -26,14 +26,7 @@ namespace GitWrite.Views.Converters
 
       public object Convert( object value, Type targetType, object parameter, CultureInfo culture )
       {
-         int textLength = (int) value;
-
-         if ( textLength < 0 || textLength > _maxLength )
-         {
-            return 0;
-         }
-
-         return _maxLength - textLength;
+         return _maxLength - (int) value;
       }
 
       public object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture )
