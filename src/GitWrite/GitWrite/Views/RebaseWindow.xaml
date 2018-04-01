@@ -1,4 +1,4 @@
-﻿<views:WindowBase x:Class="GitWrite.Views.RebaseWindow"
+﻿<Window x:Class="GitWrite.Views.RebaseWindow"
    x:Name="PageRoot"
    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -171,4 +171,4 @@
          </ListBox>
       </Grid>
    </Grid>
-</views:WindowBase>
+</Window>

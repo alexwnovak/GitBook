@@ -80,7 +80,6 @@
     <Compile Include="AppController.cs" />
     <Compile Include="ApplicationMode.cs" />
     <Compile Include="ApplicationModeInterpreter.cs" />
-    <Compile Include="AsyncEventHandler.cs" />
     <Compile Include="Behaviors\CommitKeyPressBehavior.cs" />
     <Compile Include="Behaviors\SuppressAltBehavior.cs" />
     <Compile Include="Behaviors\SuppressAltLogic.cs" />
@@ -95,8 +94,6 @@
     <Compile Include="Messages\ExitApplicationMessage.cs" />
     <Compile Include="Messages\ExitRequestedMessage.cs" />
     <Compile Include="Messages\ExpansionRequestedMessage.cs" />
-    <Compile Include="Messages\PulseRequestedMessage.cs" />
-    <Compile Include="Messages\ShakeRequestedMessage.cs" />
     <Compile Include="Messages\ShowSettingsMessage.cs" />
     <Compile Include="Messages\ShutdownRequestedMessage.cs" />
     <Compile Include="Messages\WriteCommitDocumentMessage.cs" />
@@ -114,7 +111,6 @@
     <Compile Include="Receivers\ShowSettingsReceiver.cs" />
     <Compile Include="Receivers\ShutdownRequestedMessageReceiver.cs" />
     <Compile Include="Services\ApplicationSettings.cs" />
-    <Compile Include="Services\GitRepositoryPathConverter.cs" />
     <Compile Include="Services\IApplicationSettings.cs" />
     <Compile Include="Services\IRegistryService.cs" />
     <Compile Include="Services\IResourceLocator.cs" />
@@ -130,7 +126,6 @@
     <Compile Include="Receivers\WriteCommitDocumentMessageReceiver.cs" />
     <Compile Include="Views\Controls\DialogButtons.cs" />
     <Compile Include="Views\Controls\DialogResult.cs" />
-    <Compile Include="Views\Controls\DrawingContextExtensions.cs" />
     <Compile Include="Views\Controls\ItemSelectionAdorner.cs" />
     <Compile Include="Views\Controls\RebasePanel.xaml.cs">
       <DependentUpon>RebasePanel.xaml</DependentUpon>
@@ -138,12 +133,8 @@
     <Compile Include="Views\Controls\StyledDialog.xaml.cs">
       <DependentUpon>StyledDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Controls\TransitionEntryBox.xaml.cs">
-      <DependentUpon>TransitionEntryBox.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Converters\StringLengthToProgressConverter.cs" />
     <Compile Include="Views\Converters\StringToStringArrayConverter.cs" />
-    <Compile Include="Views\Converters\TextLengthToColorConverter.cs" />
     <Compile Include="EnvironmentAdapter.cs" />
     <Compile Include="GitFileLoadException.cs" />
     <Compile Include="IEnvironmentAdapter.cs" />
@@ -162,7 +153,6 @@
     <Compile Include="Views\SettingsExtension.cs" />
     <Compile Include="Views\TextBoxAttachedProperties.cs" />
     <Compile Include="Views\TextBoxExtensions.cs" />
-    <Compile Include="Views\WindowBase.cs" />
     <Compile Include="Views\WindowValues.cs" />
     <Page Include="Styles\ButtonStyle.xaml">
       <SubType>Designer</SubType>
@@ -181,10 +171,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\RebasePanelStyle.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Styles\SettingsButtonStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -217,10 +203,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Controls\StyledDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Controls\TransitionEntryBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
