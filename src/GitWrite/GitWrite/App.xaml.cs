@@ -31,15 +31,15 @@ namespace GitWrite
          switch ( applicationMode )
          {
             case ApplicationMode.Commit:
-               {
-                  CommitPath( e.Args[0] );
-                  break;
-               }
+            {
+               CommitPath( e.Args[0] );
+               break;
+            }
             case ApplicationMode.Rebase:
-               {
-                  RebasePath( e.Args[0] );
-                  break;
-               }
+            {
+               RebasePath( e.Args[0] );
+               break;
+            }
             case ApplicationMode.EditPatch:
             case ApplicationMode.Unknown:
             PassThrough( e.Args );
