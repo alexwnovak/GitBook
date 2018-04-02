@@ -73,6 +73,8 @@ namespace GitWrite.ViewModels
 
       private async void OnDiscardCommand()
       {
+         var commitDocument = CommitDocument.Empty;
+
          if ( IsDirty )
          {
             var exitReason = _viewService.ConfirmDiscard();
@@ -81,9 +83,13 @@ namespace GitWrite.ViewModels
             {
                return;
             }
+            if ( exitReason == ExitReason.Save )
+            {
+               commitDocument = new CommitDocument( CommitModel.Subject, CommitModel.Body );
+            }
          }
 
-         _commitFileWriter.ToFile( CommitFilePath, CommitDocument.Empty );
+         _commitFileWriter.ToFile( CommitFilePath, commitDocument );
          await _viewService.CloseViewAsync( false );
       }
 
