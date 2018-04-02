@@ -60,6 +60,12 @@
       <behaviors:WindowPlacementBehavior />
    </i:Interaction.Behaviors>
 
+   <i:Interaction.Triggers>
+      <i:EventTrigger EventName="Loaded">
+         <i:InvokeCommandAction Command="{Binding InitializeCommand, Mode=OneTime}" />
+      </i:EventTrigger>
+   </i:Interaction.Triggers>
+
    <Grid x:Name="MainGrid"
       Margin="30"
       Background="{StaticResource BackgroundBrush}">
@@ -88,7 +94,7 @@
                views:HintManager.HintForeground="{StaticResource AccentLightBrush}"
                VerticalContentAlignment="Center"
                MaxLength="{views:Settings MaxCommitLength}"
-               Text="{Binding CommitDocument.Subject,
+               Text="{Binding CommitModel.Subject,
                   Mode=TwoWay,
                   UpdateSourceTrigger=PropertyChanged}">
                <TextBox.InputBindings>
@@ -113,7 +119,7 @@
                AcceptsReturn="True"
                views:HintManager.HintText="{x:Static p:Resources.CommitBodyHint}"
                views:HintManager.HintForeground="{StaticResource AccentLightBrush}"
-               Text="{Binding CommitDocument.Body,
+               Text="{Binding CommitModel.Body,
                   Mode=TwoWay,
                   UpdateSourceTrigger=PropertyChanged,
                   Converter={cnv:StringToStringArrayConverter}}">
