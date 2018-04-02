@@ -79,11 +79,11 @@ namespace GitWrite.ViewModels
          {
             var exitReason = _viewService.ConfirmDiscard();
 
-            if ( exitReason == ExitReason.Cancel )
+            if ( exitReason == DialogResult.Cancel )
             {
                return;
             }
-            if ( exitReason == ExitReason.Save )
+            if ( exitReason == DialogResult.Save )
             {
                commitDocument = new CommitDocument( CommitModel.Subject, CommitModel.Body );
             }

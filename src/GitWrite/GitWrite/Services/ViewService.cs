@@ -23,15 +23,15 @@ namespace GitWrite.Services
 
       public void DisplaySubjectHint() => _windowProvider().PlayStoryboard( "SubjectHint" );
 
-      public ExitReason ConfirmDiscard()
+      public DialogResult ConfirmDiscard()
       {
          var result = MessageBox.Show( Resx.ExitConfirmationBodyText, Resx.ExitConfirmationHeaderText, MessageBoxButton.YesNoCancel, MessageBoxImage.Question );
 
          switch ( result )
          {
-            case MessageBoxResult.Yes: return ExitReason.Save;
-            case MessageBoxResult.No: return ExitReason.Discard;
-            default: return ExitReason.Cancel;
+            case MessageBoxResult.Yes: return DialogResult.Save;
+            case MessageBoxResult.No: return DialogResult.Discard;
+            default: return DialogResult.Cancel;
          }
       }
    }

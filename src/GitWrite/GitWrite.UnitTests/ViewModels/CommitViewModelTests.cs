@@ -88,7 +88,7 @@ namespace GitWrite.UnitTests.ViewModels
          commitFileReaderMock.Setup( cfr => cfr.FromFile( It.IsAny<string>() ) ).Returns( CommitDocument.Empty );
 
          var viewServiceMock = new Mock<IViewService>();
-         viewServiceMock.Setup( vs => vs.ConfirmDiscard() ).Returns( ExitReason.Cancel );
+         viewServiceMock.Setup( vs => vs.ConfirmDiscard() ).Returns( DialogResult.Cancel );
 
          var viewModel = new CommitViewModel( null, commitFileReaderMock.Object, Mock.Of<ICommitFileWriter>(), viewServiceMock.Object );
          viewModel.InitializeCommand.Execute( null );
@@ -105,7 +105,7 @@ namespace GitWrite.UnitTests.ViewModels
          commitFileReaderMock.Setup( cfr => cfr.FromFile( It.IsAny<string>() ) ).Returns( CommitDocument.Empty );
 
          var viewServiceMock = new Mock<IViewService>();
-         viewServiceMock.Setup( vs => vs.ConfirmDiscard() ).Returns( ExitReason.Discard );
+         viewServiceMock.Setup( vs => vs.ConfirmDiscard() ).Returns( DialogResult.Discard );
 
          var viewModel = new CommitViewModel( null, commitFileReaderMock.Object, Mock.Of<ICommitFileWriter>(), viewServiceMock.Object );
          viewModel.InitializeCommand.Execute( null );
@@ -124,7 +124,7 @@ namespace GitWrite.UnitTests.ViewModels
          var commitFileWriterMock = new Mock<ICommitFileWriter>();
 
          var viewServiceMock = new Mock<IViewService>();
-         viewServiceMock.Setup( vs => vs.ConfirmDiscard() ).Returns( ExitReason.Discard );
+         viewServiceMock.Setup( vs => vs.ConfirmDiscard() ).Returns( DialogResult.Discard );
 
          var viewModel = new CommitViewModel( "File.txt", commitFileReaderMock.Object, commitFileWriterMock.Object, viewServiceMock.Object );
          viewModel.InitializeCommand.Execute( null );
@@ -143,7 +143,7 @@ namespace GitWrite.UnitTests.ViewModels
          var commitFileWriterMock = new Mock<ICommitFileWriter>();
 
          var viewServiceMock = new Mock<IViewService>();
-         viewServiceMock.Setup( vs => vs.ConfirmDiscard() ).Returns( ExitReason.Save );
+         viewServiceMock.Setup( vs => vs.ConfirmDiscard() ).Returns( DialogResult.Save );
 
          var viewModel = new CommitViewModel( "File.txt", commitFileReaderMock.Object, commitFileWriterMock.Object, viewServiceMock.Object );
          viewModel.InitializeCommand.Execute( null );
