@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitWrite", "GitWrite\GitWri
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitWrite.UnitTests", "GitWrite.UnitTests\GitWrite.UnitTests.csproj", "{6088CC2B-F7A8-42FD-B7C8-ACF13B193135}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitWrite.IntegrationTests", "GitWrite.IntegrationTests\GitWrite.IntegrationTests.csproj", "{CA1B7BE6-11DD-4272-A59D-AA1668EC8C3B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,8 +23,15 @@ Global
 		{6088CC2B-F7A8-42FD-B7C8-ACF13B193135}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6088CC2B-F7A8-42FD-B7C8-ACF13B193135}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6088CC2B-F7A8-42FD-B7C8-ACF13B193135}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA1B7BE6-11DD-4272-A59D-AA1668EC8C3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA1B7BE6-11DD-4272-A59D-AA1668EC8C3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA1B7BE6-11DD-4272-A59D-AA1668EC8C3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA1B7BE6-11DD-4272-A59D-AA1668EC8C3B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EF8647F1-04F3-4697-8905-87C5E3A18501}
 	EndGlobalSection
 EndGlobal
