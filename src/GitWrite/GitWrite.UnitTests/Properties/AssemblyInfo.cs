@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration( "" )]
 [assembly: AssemblyCompany( "" )]
 [assembly: AssemblyProduct( "GitWrite.UnitTest" )]
-[assembly: AssemblyCopyright( "Copyright ©  2014-2015 Alex Novak" )]
+[assembly: AssemblyCopyright( "Copyright © 2014-2018 Alex Novak. All rights reserved." )]
 [assembly: AssemblyTrademark( "" )]
 [assembly: AssemblyCulture( "" )]
 
