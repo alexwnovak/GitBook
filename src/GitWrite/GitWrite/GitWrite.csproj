@@ -116,9 +116,7 @@
     <Compile Include="Services\ApplicationSettings.cs" />
     <Compile Include="Services\IApplicationSettings.cs" />
     <Compile Include="Services\IRegistryService.cs" />
-    <Compile Include="Services\IResourceLocator.cs" />
     <Compile Include="Services\RegistryService.cs" />
-    <Compile Include="Services\ResourceLocator.cs" />
     <Compile Include="Services\ViewService.cs" />
     <Compile Include="ViewModels\GitWriteViewModelBase.cs" />
     <Compile Include="Receivers\MessageReceiver.cs" />
