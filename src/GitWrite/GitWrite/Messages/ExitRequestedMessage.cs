@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using GalaSoft.MvvmLight.Messaging;
+using GitWrite.Services;
 using GitWrite.ViewModels;
 
 namespace GitWrite.Messages

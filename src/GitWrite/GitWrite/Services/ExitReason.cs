@@ -1,4 +1,4 @@
-﻿namespace GitWrite.ViewModels
+﻿namespace GitWrite.Services
 {
    public enum ExitReason
    {

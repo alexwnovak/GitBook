@@ -1,4 +1,5 @@
 ﻿using System;
+using GitWrite.Services;
 
 namespace GitWrite.ViewModels
 {
