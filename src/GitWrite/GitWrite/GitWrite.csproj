@@ -92,6 +92,7 @@
     <Compile Include="Behaviors\TripleClickSelectionBehavior.cs" />
     <Compile Include="Behaviors\WindowDragBehavior.cs" />
     <Compile Include="Behaviors\WindowPlacementBehavior.cs" />
+    <Compile Include="IObjectComposer.cs" />
     <Compile Include="Models\CommitModel.cs" />
     <Compile Include="Views\FrameworkElementExtensions.cs" />
     <Compile Include="GitFileAttribute.cs" />
