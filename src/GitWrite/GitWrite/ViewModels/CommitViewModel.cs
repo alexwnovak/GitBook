@@ -53,6 +53,8 @@ namespace GitWrite.ViewModels
             Subject = commitDocument.Subject,
             Body = commitDocument.Body
          };
+
+         CommitModel.PropertyChanged += ( _, __ ) => IsDirty = true;
       }
 
       private async void OnAcceptCommand()
@@ -71,6 +73,16 @@ namespace GitWrite.ViewModels
 
       private async void OnDiscardCommand()
       {
+         if ( IsDirty )
+         {
+            var exitReason = _viewService.ConfirmDiscard();
+
+            if ( exitReason == ExitReason.Cancel )
+            {
+               return;
+            }
+         }
+
          _commitFileWriter.ToFile( CommitFilePath, CommitDocument.Empty );
          await _viewService.CloseViewAsync( false );
       }

@@ -79,5 +79,22 @@ namespace GitWrite.UnitTests.ViewModels
 
          viewServiceMock.Verify( vs => vs.CloseViewAsync( false ), Times.Once() );
       }
+
+      [Fact]
+      public void DiscardChanges_AbortingTheDiscard_DoesNotExit()
+      {
+         var commitFileReaderMock = new Mock<ICommitFileReader>();
+         commitFileReaderMock.Setup( cfr => cfr.FromFile( It.IsAny<string>() ) ).Returns( CommitDocument.Empty );
+
+         var viewServiceMock = new Mock<IViewService>();
+         viewServiceMock.Setup( vs => vs.ConfirmDiscard() ).Returns( ExitReason.Cancel );
+
+         var viewModel = new CommitViewModel( null, commitFileReaderMock.Object, Mock.Of<ICommitFileWriter>(), viewServiceMock.Object );
+         viewModel.InitializeCommand.Execute( null );
+         viewModel.CommitModel.Subject = "Something different";
+         viewModel.DiscardCommand.Execute( null );
+
+         viewServiceMock.Verify( vs => vs.CloseViewAsync( false ), Times.Never() );
+      }
    }
 }
