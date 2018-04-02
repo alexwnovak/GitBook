@@ -96,7 +96,6 @@
     <Compile Include="Messages\CollapseRequestedMessage.cs" />
     <Compile Include="Messages\DiscardChangesMessage.cs" />
     <Compile Include="Messages\ExitApplicationMessage.cs" />
-    <Compile Include="Messages\ExitRequestedMessage.cs" />
     <Compile Include="Messages\ExpansionRequestedMessage.cs" />
     <Compile Include="Messages\ShowSettingsMessage.cs" />
     <Compile Include="Messages\ShutdownRequestedMessage.cs" />
@@ -121,12 +120,9 @@
     <Compile Include="Services\RegistryService.cs" />
     <Compile Include="Services\ResourceLocator.cs" />
     <Compile Include="Services\ViewService.cs" />
-    <Compile Include="ViewModels\CloseRequestedEventArgs.cs" />
     <Compile Include="ViewModels\GitWriteViewModelBase.cs" />
     <Compile Include="Receivers\MessageReceiver.cs" />
     <Compile Include="ViewModels\RebaseViewModel.cs" />
-    <Compile Include="ViewModels\ShutdownEventArgs.cs" />
-    <Compile Include="Services\ExitReason.cs" />
     <Compile Include="Receivers\WriteCommitDocumentMessageReceiver.cs" />
     <Compile Include="Views\Controls\DialogButtons.cs" />
     <Compile Include="Services\DialogResult.cs" />
