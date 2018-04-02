@@ -21,5 +21,10 @@ namespace GitWrite.Services
       }
 
       public void DisplaySubjectHint() => _windowProvider().PlayStoryboard( "SubjectHint" );
+
+      public ExitReason ConfirmDiscard()
+      {
+         throw new NotImplementedException();
+      }
    }
 }
