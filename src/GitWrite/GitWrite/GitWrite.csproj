@@ -41,6 +41,9 @@
   <PropertyGroup>
     <ApplicationIcon>AppIcon.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="GalaSoft.MvvmLight.Extras.WPF45">
       <HintPath>..\packages\MvvmLightLibs.4.3.31.1\lib\net45\GalaSoft.MvvmLight.Extras.WPF45.dll</HintPath>
@@ -86,13 +89,13 @@
     <Compile Include="Behaviors\TripleClickSelectionBehavior.cs" />
     <Compile Include="Behaviors\WindowDragBehavior.cs" />
     <Compile Include="Behaviors\WindowPlacementBehavior.cs" />
+    <Compile Include="Models\CommitModel.cs" />
     <Compile Include="Views\FrameworkElementExtensions.cs" />
     <Compile Include="GitFileAttribute.cs" />
     <Compile Include="Messages\AcceptChangesMessage.cs" />
     <Compile Include="Messages\CollapseRequestedMessage.cs" />
     <Compile Include="Messages\DiscardChangesMessage.cs" />
     <Compile Include="Messages\ExitApplicationMessage.cs" />
-    <Compile Include="Messages\ExitRequestedMessage.cs" />
     <Compile Include="Messages\ExpansionRequestedMessage.cs" />
     <Compile Include="Messages\ShowSettingsMessage.cs" />
     <Compile Include="Messages\ShutdownRequestedMessage.cs" />
@@ -113,19 +116,14 @@
     <Compile Include="Services\ApplicationSettings.cs" />
     <Compile Include="Services\IApplicationSettings.cs" />
     <Compile Include="Services\IRegistryService.cs" />
-    <Compile Include="Services\IResourceLocator.cs" />
     <Compile Include="Services\RegistryService.cs" />
-    <Compile Include="Services\ResourceLocator.cs" />
     <Compile Include="Services\ViewService.cs" />
-    <Compile Include="ViewModels\CloseRequestedEventArgs.cs" />
     <Compile Include="ViewModels\GitWriteViewModelBase.cs" />
     <Compile Include="Receivers\MessageReceiver.cs" />
     <Compile Include="ViewModels\RebaseViewModel.cs" />
-    <Compile Include="ViewModels\ShutdownEventArgs.cs" />
-    <Compile Include="ViewModels\ExitReason.cs" />
     <Compile Include="Receivers\WriteCommitDocumentMessageReceiver.cs" />
     <Compile Include="Views\Controls\DialogButtons.cs" />
-    <Compile Include="Views\Controls\DialogResult.cs" />
+    <Compile Include="Services\DialogResult.cs" />
     <Compile Include="Views\Controls\ItemSelectionAdorner.cs" />
     <Compile Include="Views\Controls\RebasePanel.xaml.cs">
       <DependentUpon>RebasePanel.xaml</DependentUpon>
@@ -225,6 +223,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <None Include="app.manifest" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

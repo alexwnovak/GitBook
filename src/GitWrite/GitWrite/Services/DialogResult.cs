@@ -1,4 +1,4 @@
-﻿namespace GitWrite.Views.Controls
+﻿namespace GitWrite.Services
 {
    public enum DialogResult
    {

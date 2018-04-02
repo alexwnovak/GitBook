@@ -28,16 +28,6 @@ namespace GitWrite.ViewModels
          }
       }
 
-      private ExitReason _exitReason;
-      public ExitReason ExitReason
-      {
-         get => _exitReason;
-         set
-         {
-            Set( () => ExitReason, ref _exitReason, value );
-         }
-      }
-
       public RelayCommand PasteCommand
       {
          get;
