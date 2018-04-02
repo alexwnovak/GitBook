@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Windows;
 using GitWrite.Views;
+using Resx = GitWrite.Properties.Resources;
 
 namespace GitWrite.Services
 {
@@ -24,7 +25,14 @@ namespace GitWrite.Services
 
       public ExitReason ConfirmDiscard()
       {
-         throw new NotImplementedException();
+         var result = MessageBox.Show( Resx.ExitConfirmationBodyText, Resx.ExitConfirmationHeaderText, MessageBoxButton.YesNoCancel, MessageBoxImage.Question );
+
+         switch ( result )
+         {
+            case MessageBoxResult.Yes: return ExitReason.Save;
+            case MessageBoxResult.No: return ExitReason.Discard;
+            default: return ExitReason.Cancel;
+         }
       }
    }
 }
