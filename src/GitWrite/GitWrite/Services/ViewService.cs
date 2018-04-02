@@ -12,13 +12,13 @@ namespace GitWrite.Services
 
       public ViewService( Func<Window> windowProvider ) => _windowProvider = windowProvider;
 
-      public async Task CloseViewAsync( bool acceptChanges )
+      public Task CloseViewAsync( bool acceptChanges )
       {
-         string storyboardName = acceptChanges ? "AcceptDismissal" : "DiscardDismissal";
-
-         await _windowProvider().PlayStoryboardAsync( storyboardName );
+         //string storyboardName = acceptChanges ? "AcceptDismissal" : "DiscardDismissal";
+         //await _windowProvider().PlayStoryboardAsync( storyboardName );
 
          _windowProvider().Close();
+         return Task.CompletedTask;
       }
 
       public void DisplaySubjectHint() => _windowProvider().PlayStoryboard( "SubjectHint" );
