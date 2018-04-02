@@ -93,6 +93,7 @@
     <Compile Include="Behaviors\WindowDragBehavior.cs" />
     <Compile Include="Behaviors\WindowPlacementBehavior.cs" />
     <Compile Include="CommitObjectComposer.cs" />
+    <Compile Include="IAppController.cs" />
     <Compile Include="IObjectComposer.cs" />
     <Compile Include="Models\CommitModel.cs" />
     <Compile Include="Views\FrameworkElementExtensions.cs" />
