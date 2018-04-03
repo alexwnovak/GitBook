@@ -91,6 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Infrastructure\DisposalRegistry.cs" />
+    <Compile Include="Infrastructure\AutoDisposeAttribute.cs" />
     <Compile Include="CommitTests.cs" />
     <Compile Include="Infrastructure\CommitScenario.cs" />
     <Compile Include="Infrastructure\CommitScenarioBuilder.cs" />
