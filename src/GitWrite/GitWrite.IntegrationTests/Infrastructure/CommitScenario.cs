@@ -1,15 +1,18 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using GitWrite.ViewModels;
 
 namespace GitWrite.IntegrationTests.Infrastructure
 {
-   internal class CommitScenario
+   internal class CommitScenario : IDisposable
    {
       private readonly IObjectComposer _objectComposer;
       public string FilePath { get; }
 
       public CommitScenario( IObjectComposer objectComposer, string filePath )
       {
+         DisposalRegistry.Instance.Register( this );
+
          _objectComposer = objectComposer;
          FilePath = filePath;
 
@@ -38,6 +41,12 @@ namespace GitWrite.IntegrationTests.Infrastructure
       public void AcceptChanges()
       {
          _objectComposer.Container.GetInstance<CommitViewModel>().AcceptCommand.Execute( null );
+      }
+
+      public void Dispose()
+      {
+         string path = Path.GetDirectoryName( FilePath );
+         Directory.Delete( path, true );
       }
    }
 }

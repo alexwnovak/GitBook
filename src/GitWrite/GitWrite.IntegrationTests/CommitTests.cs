@@ -7,7 +7,7 @@ namespace GitWrite.IntegrationTests
 {
    public class CommitTests
    {
-      [Fact]
+      [Fact, AutoDispose]
       public void CommitDetailsAreEditedThenSaved()
       {
          var commitScenario = CommitScenarioBuilder.Create().Build();
