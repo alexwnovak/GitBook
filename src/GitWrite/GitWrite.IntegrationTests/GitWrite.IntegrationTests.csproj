@@ -92,6 +92,7 @@
   <ItemGroup>
     <Compile Include="CommitTests.cs" />
     <Compile Include="Infrastructure\CommitScenario.cs" />
+    <Compile Include="Infrastructure\CommitScenarioBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
