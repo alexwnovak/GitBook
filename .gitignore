@@ -18,7 +18,7 @@ build/
 # Build related
 
 tools/Cake/
-tools/xunit.runner.console/
+tools/xunit.runner.console*/
 tools/nuget.exe
 tools/packages.config.md5sum
 
