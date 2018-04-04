@@ -3,17 +3,17 @@
    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-   xmlns:views="clr-namespace:GitWrite.Views"
+   xmlns:b="clr-namespace:GitWrite.Behaviors"
    xmlns:cnv="clr-namespace:GitWrite.Views.Converters"
-   xmlns:behaviors="clr-namespace:GitWrite.Behaviors"
    xmlns:p="clr-namespace:GitWrite.Properties"
+   xmlns:v="clr-namespace:GitWrite.Views"
    AllowsTransparency="True"
    Background="Transparent"
    DataContext="{Binding CommitViewModel, Source={StaticResource ViewModelLocator}}"
    ResizeMode="NoResize"
    Title="{x:Static p:Resources.ApplicationName}"
-   Width="1080"
-   Height="{x:Static views:WindowValues.ExpandedHeight}"
+   Width="1000"
+   Height="450"
    WindowStyle="None">
 
    <Window.InputBindings>
@@ -26,8 +26,8 @@
    </Window.RenderTransform>
 
    <i:Interaction.Behaviors>
-      <behaviors:WindowDragBehavior />
-      <behaviors:WindowPlacementBehavior />
+      <b:WindowDragBehavior />
+      <b:WindowPlacementBehavior />
    </i:Interaction.Behaviors>
 
    <i:Interaction.Triggers>
@@ -59,11 +59,11 @@
             </Grid.RowDefinitions>
 
             <TextBox x:Name="SubjectTextBox"
-               views:LaunchFocus.IsFocusTarget="True"
-               views:HintManager.HintText="{x:Static p:Resources.CommitSubjectHint}"
-               views:HintManager.HintForeground="{StaticResource AccentLightBrush}"
+               v:LaunchFocus.IsFocusTarget="True"
+               v:HintManager.HintText="{x:Static p:Resources.CommitSubjectHint}"
+               v:HintManager.HintForeground="{StaticResource AccentLightBrush}"
                VerticalContentAlignment="Center"
-               MaxLength="{views:Settings MaxCommitLength}"
+               MaxLength="{v:Settings MaxCommitLength}"
                Text="{Binding CommitModel.Subject,
                   Mode=TwoWay,
                   UpdateSourceTrigger=PropertyChanged}">
@@ -87,8 +87,8 @@
 
             <TextBox Grid.Row="2"
                AcceptsReturn="True"
-               views:HintManager.HintText="{x:Static p:Resources.CommitBodyHint}"
-               views:HintManager.HintForeground="{StaticResource AccentLightBrush}"
+               v:HintManager.HintText="{x:Static p:Resources.CommitBodyHint}"
+               v:HintManager.HintForeground="{StaticResource AccentLightBrush}"
                Text="{Binding CommitModel.Body,
                   Mode=TwoWay,
                   UpdateSourceTrigger=PropertyChanged,

@@ -126,21 +126,14 @@
     <Compile Include="Views\Converters\TextLengthToVisibilityConverter.cs" />
     <Compile Include="Views\HintManager.cs" />
     <Compile Include="Views\LaunchFocus.cs" />
-    <Compile Include="Views\ParameterConverter.cs" />
     <Compile Include="Views\RebaseWindow.xaml.cs">
       <DependentUpon>RebaseWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Services\IViewService.cs" />
-    <Compile Include="Views\EventToMessage.cs" />
     <Compile Include="Views\SettingsExtension.cs" />
     <Compile Include="Views\TextBoxAttachedProperties.cs" />
     <Compile Include="Views\TextBoxExtensions.cs" />
-    <Compile Include="Views\WindowValues.cs" />
     <Page Include="Styles\ButtonStyle.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Styles\ChromeButtonStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
