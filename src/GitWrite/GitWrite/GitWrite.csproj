@@ -83,10 +83,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AppController.cs" />
     <Compile Include="AppControllerFactory.cs" />
-    <Compile Include="ApplicationMode.cs" />
-    <Compile Include="ApplicationModeInterpreter.cs" />
     <Compile Include="Behaviors\CommitKeyPressBehavior.cs" />
     <Compile Include="Behaviors\SuppressAltBehavior.cs" />
     <Compile Include="Behaviors\SuppressAltLogic.cs" />
@@ -99,7 +96,6 @@
     <Compile Include="IObjectComposer.cs" />
     <Compile Include="Models\CommitModel.cs" />
     <Compile Include="Views\FrameworkElementExtensions.cs" />
-    <Compile Include="GitFileAttribute.cs" />
     <Compile Include="Messages\AcceptChangesMessage.cs" />
     <Compile Include="Messages\CollapseRequestedMessage.cs" />
     <Compile Include="Messages\DiscardChangesMessage.cs" />
@@ -141,9 +137,7 @@
     </Compile>
     <Compile Include="Views\Converters\StringLengthToProgressConverter.cs" />
     <Compile Include="Views\Converters\StringToStringArrayConverter.cs" />
-    <Compile Include="EnvironmentAdapter.cs" />
     <Compile Include="GitFileLoadException.cs" />
-    <Compile Include="IEnvironmentAdapter.cs" />
     <Compile Include="Views\Converters\RemainingCharactersConverter.cs" />
     <Compile Include="ViewModels\CommitViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
