@@ -3,7 +3,7 @@
 var target = Argument( "target", "Default" );
 var configuration = Argument( "configuration", "Release" );
 
-var buildDir = Directory( "./src/GitWrite/GitWrite/bin" ) + Directory( configuration );
+var buildDir = Directory( "./src/GitWrite/bin" ) + Directory( configuration );
 
 //===========================================================================
 // Clean Task
@@ -23,7 +23,7 @@ Task( "RestoreNuGetPackages" )
    .IsDependentOn( "Clean" )
    .Does( () =>
 {
-   NuGetRestore( "./src/GitWrite/GitWrite.sln" );
+   NuGetRestore( "./src/GitWrite.sln" );
 } );
 
 //===========================================================================
@@ -34,18 +34,29 @@ Task( "Build" )
    .IsDependentOn( "RestoreNuGetPackages")
    .Does( () =>
 {
-  MSBuild( "./src/GitWrite/GitWrite.sln", settings => settings.SetConfiguration( configuration ) );
+  MSBuild( "./src/GitWrite.sln", settings => settings.SetConfiguration( configuration ) );
 } );
 
 //===========================================================================
-// Test Task
+// Unit Test Task
 //===========================================================================
 
 Task( "RunUnitTests" )
    .IsDependentOn( "Build" )
    .Does( () =>
 {
-    XUnit2( "./src/GitWrite/GitWrite.UnitTests/bin/" + Directory( configuration ) + "/*Tests*.dll" );
+    XUnit2( "./src/GitWrite.UnitTests/bin/" + Directory( configuration ) + "/*Tests*.dll" );
+} );
+
+//===========================================================================
+// Integration Test Task
+//===========================================================================
+
+Task( "RunIntegrationTests" )
+   .IsDependentOn( "RunUnitTests" )
+   .Does( () =>
+{
+    XUnit2( "./src/GitWrite.IntegrationTests/bin/" + Directory( configuration ) + "/GitWrite.IntegrationTests.dll" );
 } );
 
 //===========================================================================
@@ -53,6 +64,6 @@ Task( "RunUnitTests" )
 //===========================================================================
 
 Task( "Default" )
-   .IsDependentOn( "RunUnitTests" );
+   .IsDependentOn( "RunIntegrationTests" );
 
 RunTarget( target );
