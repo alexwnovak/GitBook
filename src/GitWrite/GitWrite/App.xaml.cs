@@ -9,7 +9,7 @@ namespace GitWrite
       private void Application_OnStartup( object sender, StartupEventArgs e )
       {
          ServiceLocator.SetLocatorProvider( () => SimpleIoc.Default );
-         StartupUri = new CommitController( e.Args[0] ).GetStartupUri();
+         StartupUri = AppControllerFactory.GetController( e ).GetStartupUri();
       }
    }
 }
