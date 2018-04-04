@@ -96,36 +96,19 @@
     <Compile Include="IObjectComposer.cs" />
     <Compile Include="Models\CommitModel.cs" />
     <Compile Include="Views\FrameworkElementExtensions.cs" />
-    <Compile Include="Messages\AcceptChangesMessage.cs" />
-    <Compile Include="Messages\CollapseRequestedMessage.cs" />
-    <Compile Include="Messages\DiscardChangesMessage.cs" />
-    <Compile Include="Messages\ExitApplicationMessage.cs" />
-    <Compile Include="Messages\ExpansionRequestedMessage.cs" />
-    <Compile Include="Messages\ShowSettingsMessage.cs" />
-    <Compile Include="Messages\ShutdownRequestedMessage.cs" />
-    <Compile Include="Messages\WriteCommitDocumentMessage.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="RebaseItemActionExtensions.cs" />
-    <Compile Include="ReceiverManager.cs" />
-    <Compile Include="Receivers\AcceptChangesReceiver.cs" />
-    <Compile Include="Receivers\DiscardChangesReceiver.cs" />
-    <Compile Include="Receivers\ExitApplicationReceiver.cs" />
-    <Compile Include="Receivers\IMessageReceiver.cs" />
-    <Compile Include="Receivers\ShowSettingsReceiver.cs" />
-    <Compile Include="Receivers\ShutdownRequestedMessageReceiver.cs" />
     <Compile Include="Services\ApplicationSettings.cs" />
     <Compile Include="Services\IApplicationSettings.cs" />
     <Compile Include="Services\IRegistryService.cs" />
     <Compile Include="Services\RegistryService.cs" />
     <Compile Include="Services\ViewService.cs" />
     <Compile Include="ViewModels\GitWriteViewModelBase.cs" />
-    <Compile Include="Receivers\MessageReceiver.cs" />
     <Compile Include="ViewModels\RebaseViewModel.cs" />
-    <Compile Include="Receivers\WriteCommitDocumentMessageReceiver.cs" />
     <Compile Include="Views\Controls\DialogButtons.cs" />
     <Compile Include="Services\DialogResult.cs" />
     <Compile Include="Views\Controls\ItemSelectionAdorner.cs" />
@@ -137,7 +120,6 @@
     </Compile>
     <Compile Include="Views\Converters\StringLengthToProgressConverter.cs" />
     <Compile Include="Views\Converters\StringToStringArrayConverter.cs" />
-    <Compile Include="GitFileLoadException.cs" />
     <Compile Include="Views\Converters\RemainingCharactersConverter.cs" />
     <Compile Include="ViewModels\CommitViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
