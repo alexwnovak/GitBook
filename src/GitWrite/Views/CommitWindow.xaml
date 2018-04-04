@@ -48,7 +48,7 @@
       <Grid Grid.Row="1"
          Background="{StaticResource BackgroundBrush}">
 
-         <Grid Margin="30">
+         <Grid Margin="30,18,30,30">
             <Grid.ColumnDefinitions>
                <ColumnDefinition />
                <ColumnDefinition Width="50" />
