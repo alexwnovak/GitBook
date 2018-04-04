@@ -84,6 +84,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AppController.cs" />
+    <Compile Include="AppControllerFactory.cs" />
     <Compile Include="ApplicationMode.cs" />
     <Compile Include="ApplicationModeInterpreter.cs" />
     <Compile Include="Behaviors\CommitKeyPressBehavior.cs" />
