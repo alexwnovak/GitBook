@@ -16,9 +16,9 @@
    <Color x:Key="AccentLightColor2">#44FFFFFF</Color>
    <SolidColorBrush x:Key="AccentLightBrush2" Color="{StaticResource AccentLightColor2}" />
 
-   <Color x:Key="TitleBarColor">#DDD</Color>
+   <Color x:Key="TitleBarColor">#222</Color>
    <SolidColorBrush x:Key="TitleBarBrush" Color="{StaticResource TitleBarColor}" />
 
-   <Color x:Key="TitleBarForegroundColor">#000</Color>
+   <Color x:Key="TitleBarForegroundColor">#DDD</Color>
    <SolidColorBrush x:Key="TitleBarForegroundBrush" Color="{StaticResource TitleBarForegroundColor}" />
 </ResourceDictionary>
