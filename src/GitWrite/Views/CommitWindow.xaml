@@ -13,7 +13,8 @@
    Height="450">
 
    <WindowChrome.WindowChrome>
-      <WindowChrome ResizeBorderThickness="6" GlassFrameThickness="1" />
+      <WindowChrome ResizeBorderThickness="6"
+         GlassFrameThickness="1" />
    </WindowChrome.WindowChrome>
 
    <Window.InputBindings>
@@ -36,81 +37,95 @@
       </i:EventTrigger>
    </i:Interaction.Triggers>
 
-   <Grid x:Name="MainGrid"
-      Background="{StaticResource BackgroundBrush}">
+   <Grid>
+      <Grid.RowDefinitions>
+         <RowDefinition Height="30" />
+         <RowDefinition />
+      </Grid.RowDefinitions>
 
-      <Grid Margin="30">
-         <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition Width="50" />
-            <ColumnDefinition Width="50" />
-         </Grid.ColumnDefinitions>
+      <Grid Background="{StaticResource TitleBarBrush}">
+         <TextBlock Text="{x:Static p:Resources.ApplicationName}"
+            Foreground="{StaticResource TitleBarForegroundBrush}"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center" />
+      </Grid>
 
-         <Grid>
-            <Grid.RowDefinitions>
-               <RowDefinition Height="50" />
-               <RowDefinition Height="30" />
-               <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
+      <Grid Grid.Row="1"
+         Background="{StaticResource BackgroundBrush}">
 
-            <TextBox x:Name="SubjectTextBox"
-               v:LaunchFocus.IsFocusTarget="True"
-               v:HintManager.HintText="{x:Static p:Resources.CommitSubjectHint}"
-               v:HintManager.HintForeground="{StaticResource AccentLightBrush}"
-               VerticalContentAlignment="Center"
-               MaxLength="{v:Settings MaxCommitLength}"
-               Text="{Binding CommitModel.Subject,
-                  Mode=TwoWay,
-                  UpdateSourceTrigger=PropertyChanged}">
-               <TextBox.InputBindings>
-                  <KeyBinding Key="Enter" Command="{Binding AcceptCommand, Mode=OneTime}" />
-               </TextBox.InputBindings>
-            </TextBox>
+         <Grid Margin="30">
+            <Grid.ColumnDefinitions>
+               <ColumnDefinition />
+               <ColumnDefinition Width="50" />
+               <ColumnDefinition Width="50" />
+            </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Row="0"
-               Margin="0,0,6,0"
-               HorizontalAlignment="Right"
-               VerticalAlignment="Center"
-               Text="{Binding Text.Length,
-                  ElementName=SubjectTextBox,
-                  Converter={cnv:RemainingCharactersConverter},
-                  Mode=OneWay}" />
+            <Grid>
+               <Grid.RowDefinitions>
+                  <RowDefinition Height="50" />
+                  <RowDefinition Height="30" />
+                  <RowDefinition Height="*" />
+               </Grid.RowDefinitions>
 
-            <Rectangle Grid.Row="1"
-               Height="1"
-               Fill="{StaticResource AccentLightBrush}" />
+               <TextBox x:Name="SubjectTextBox"
+                  v:LaunchFocus.IsFocusTarget="True"
+                  v:HintManager.HintText="{x:Static p:Resources.CommitSubjectHint}"
+                  v:HintManager.HintForeground="{StaticResource AccentLightBrush}"
+                  VerticalContentAlignment="Center"
+                  MaxLength="{v:Settings MaxCommitLength}"
+                  Text="{Binding CommitModel.Subject,
+                     Mode=TwoWay,
+                     UpdateSourceTrigger=PropertyChanged}">
+                  <TextBox.InputBindings>
+                     <KeyBinding Key="Enter" Command="{Binding AcceptCommand, Mode=OneTime}" />
+                  </TextBox.InputBindings>
+               </TextBox>
 
-            <TextBox Grid.Row="2"
-               Margin="0,12,0,0"
-               AcceptsReturn="True"
-               v:HintManager.HintText="{x:Static p:Resources.CommitBodyHint}"
-               v:HintManager.HintForeground="{StaticResource AccentLightBrush}"
-               Text="{Binding CommitModel.Body,
-                  Mode=TwoWay,
-                  UpdateSourceTrigger=PropertyChanged,
-                  Converter={cnv:StringToStringArrayConverter}}">
-            </TextBox>
+               <TextBlock Grid.Row="0"
+                  Margin="0,0,6,0"
+                  HorizontalAlignment="Right"
+                  VerticalAlignment="Center"
+                  Text="{Binding Text.Length,
+                     ElementName=SubjectTextBox,
+                     Converter={cnv:RemainingCharactersConverter},
+                     Mode=OneWay}" />
+
+               <Rectangle Grid.Row="1"
+                  Height="1"
+                  Fill="{StaticResource AccentLightBrush}" />
+
+               <TextBox Grid.Row="2"
+                  Margin="0,12,0,0"
+                  AcceptsReturn="True"
+                  v:HintManager.HintText="{x:Static p:Resources.CommitBodyHint}"
+                  v:HintManager.HintForeground="{StaticResource AccentLightBrush}"
+                  Text="{Binding CommitModel.Body,
+                     Mode=TwoWay,
+                     UpdateSourceTrigger=PropertyChanged,
+                     Converter={cnv:StringToStringArrayConverter}}">
+               </TextBox>
+            </Grid>
+
+            <Rectangle Grid.Column="1"
+               Fill="{StaticResource AccentLightBrush}"
+               Width="1" />
+
+            <StackPanel Grid.Column="2"
+               Orientation="Vertical">
+
+               <Button x:Name="AcceptButton"
+                  Content="{StaticResource AcceptGlyph}"
+                  Command="{Binding AcceptCommand, Mode=OneTime}" />
+
+               <Button x:Name="DiscardButton"
+                  Content="{StaticResource DiscardGlyph}"
+                  Command="{Binding DiscardCommand, Mode=OneTime}" />
+
+               <Button x:Name="SettingsButton"
+                  Content="{StaticResource SettingsGlyph}"
+                  Command="{Binding SettingsCommand, Mode=OneTime}" />
+            </StackPanel>
          </Grid>
-
-         <Rectangle Grid.Column="1"
-            Fill="{StaticResource AccentLightBrush}"
-            Width="1" />
-
-         <StackPanel Grid.Column="2"
-            Orientation="Vertical">
-
-            <Button x:Name="AcceptButton"
-               Content="{StaticResource AcceptGlyph}"
-               Command="{Binding AcceptCommand, Mode=OneTime}" />
-
-            <Button x:Name="DiscardButton"
-               Content="{StaticResource DiscardGlyph}"
-               Command="{Binding DiscardCommand, Mode=OneTime}" />
-
-            <Button x:Name="SettingsButton"
-               Content="{StaticResource SettingsGlyph}"
-               Command="{Binding SettingsCommand, Mode=OneTime}" />
-         </StackPanel>
       </Grid>
    </Grid>
 </Window>
