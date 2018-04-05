@@ -26,11 +26,6 @@
       <TranslateTransform x:Name="TranslateTransform" />
    </Window.RenderTransform>
 
-   <i:Interaction.Behaviors>
-      <b:WindowDragBehavior />
-      <b:WindowPlacementBehavior />
-   </i:Interaction.Behaviors>
-
    <i:Interaction.Triggers>
       <i:EventTrigger EventName="Loaded">
          <i:InvokeCommandAction Command="{Binding InitializeCommand, Mode=OneTime}" />
