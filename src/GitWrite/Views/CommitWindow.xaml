@@ -12,6 +12,17 @@
    Width="1000"
    Height="450">
 
+   <Window.Resources>
+      <Storyboard x:Key="SubjectHint">
+         <ColorAnimation Storyboard.TargetName="SubjectTextBox"
+            Storyboard.TargetProperty="(v:HintManager.HintForeground).(SolidColorBrush.Color)"
+            To="{StaticResource TextColor}"
+            AutoReverse="True"
+            RepeatBehavior="2x"
+            Duration="0:0:0.15" />
+      </Storyboard>
+   </Window.Resources>
+
    <WindowChrome.WindowChrome>
       <WindowChrome ResizeBorderThickness="6"
          GlassFrameThickness="1" />
