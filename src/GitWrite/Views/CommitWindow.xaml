@@ -7,14 +7,14 @@
    xmlns:cnv="clr-namespace:GitWrite.Views.Converters"
    xmlns:p="clr-namespace:GitWrite.Properties"
    xmlns:v="clr-namespace:GitWrite.Views"
-   AllowsTransparency="True"
-   Background="Transparent"
    DataContext="{Binding CommitViewModel, Source={StaticResource ViewModelLocator}}"
-   ResizeMode="NoResize"
    Title="{x:Static p:Resources.ApplicationName}"
    Width="1000"
-   Height="450"
-   WindowStyle="None">
+   Height="450">
+
+   <WindowChrome.WindowChrome>
+      <WindowChrome ResizeBorderThickness="6" GlassFrameThickness="1" />
+   </WindowChrome.WindowChrome>
 
    <Window.InputBindings>
       <KeyBinding Key="Enter" Modifiers="Control" Command="{Binding AcceptCommand, Mode=OneTime}" />
@@ -37,12 +37,7 @@
    </i:Interaction.Triggers>
 
    <Grid x:Name="MainGrid"
-      Margin="30"
       Background="{StaticResource BackgroundBrush}">
-
-      <Grid.Effect>
-         <DropShadowEffect BlurRadius="16" ShadowDepth="1" />
-      </Grid.Effect>
 
       <Grid Margin="30">
          <Grid.ColumnDefinitions>
