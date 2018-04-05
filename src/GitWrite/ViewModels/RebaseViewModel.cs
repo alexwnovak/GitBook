@@ -1,13 +1,14 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 using GitModel;
 using GitWrite.Services;
 
 namespace GitWrite.ViewModels
 {
-   public class RebaseViewModel : GitWriteViewModelBase
+   public class RebaseViewModel : ViewModelBase
    {
       private readonly IRebaseFileWriter _rebaseFileWriter;
       private readonly RebaseDocument _document;
@@ -23,7 +24,7 @@ namespace GitWrite.ViewModels
          IRebaseFileWriter rebaseFileWriter, 
          RebaseDocument document,
          IMessenger messenger )
-         : base( viewService, messenger )
+         : base( messenger )
       {
          _rebaseFileWriter = rebaseFileWriter;
          _document = document;
