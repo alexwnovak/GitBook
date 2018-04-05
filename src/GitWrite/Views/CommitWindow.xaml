@@ -22,10 +22,6 @@
       <KeyBinding Key="Escape" Command="{Binding DiscardCommand, Mode=OneTime}" />
    </Window.InputBindings>
 
-   <Window.RenderTransform>
-      <TranslateTransform x:Name="TranslateTransform" />
-   </Window.RenderTransform>
-
    <i:Interaction.Triggers>
       <i:EventTrigger EventName="Loaded">
          <i:InvokeCommandAction Command="{Binding InitializeCommand, Mode=OneTime}" />
