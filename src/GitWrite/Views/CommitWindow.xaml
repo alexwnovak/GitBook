@@ -11,7 +11,7 @@
    Title="{x:Static p:Resources.ApplicationName}"
    Width="1000"
    Height="450"
-   Background="{StaticResource BackgroundBrush}"
+   Background="{v:Settings MainColor}"
    WindowStartupLocation="CenterScreen">
 
    <Window.Resources>
