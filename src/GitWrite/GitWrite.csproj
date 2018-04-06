@@ -88,8 +88,6 @@
     <Compile Include="Behaviors\SuppressAltBehavior.cs" />
     <Compile Include="Behaviors\SuppressAltLogic.cs" />
     <Compile Include="Behaviors\TripleClickSelectionBehavior.cs" />
-    <Compile Include="Behaviors\WindowDragBehavior.cs" />
-    <Compile Include="Behaviors\WindowPlacementBehavior.cs" />
     <Compile Include="CommitController.cs" />
     <Compile Include="CommitObjectComposer.cs" />
     <Compile Include="IAppController.cs" />
