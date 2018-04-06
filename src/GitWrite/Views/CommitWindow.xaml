@@ -54,7 +54,6 @@
       </Grid>
 
       <Grid Grid.Row="1">
-
          <Grid Margin="30,18,30,30">
             <Grid.ColumnDefinitions>
                <ColumnDefinition />
