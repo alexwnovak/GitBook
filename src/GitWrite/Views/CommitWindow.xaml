@@ -11,6 +11,7 @@
    Title="{x:Static p:Resources.ApplicationName}"
    Width="1000"
    Height="450"
+   Background="{StaticResource BackgroundBrush}"
    WindowStartupLocation="CenterScreen">
 
    <Window.Resources>
@@ -53,8 +54,7 @@
             HorizontalAlignment="Center" />
       </Grid>
 
-      <Grid Grid.Row="1"
-         Background="{StaticResource BackgroundBrush}">
+      <Grid Grid.Row="1">
 
          <Grid Margin="30,18,30,30">
             <Grid.ColumnDefinitions>
