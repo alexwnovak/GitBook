@@ -4,14 +4,6 @@
          <ResourceDictionary.MergedDictionaries>
             <ResourceDictionary>
                <viewModels:ViewModelLocator x:Key="ViewModelLocator" d:IsDataSource="True" />
-               <ContextMenu x:Key="TextBoxContextMenu">
-                  <MenuItem Header="{x:Static res:Resources.CutText}" InputGestureText="{x:Static res:Resources.CutShortcutText}" Command="Cut" />
-                  <MenuItem Header="{x:Static res:Resources.CopyText}" InputGestureText="{x:Static res:Resources.CopyShortcutText}" Command="Copy" />
-                  <MenuItem Header="{x:Static res:Resources.PasteText}" InputGestureText="{x:Static res:Resources.PasteShortcutText}" Command="Paste" />
-                  <Separator />
-                  <MenuItem Header="{x:Static res:Resources.AcceptText}" InputGestureText="{x:Static res:Resources.AcceptShortcutText}" Command="{Binding SaveCommand, Mode=OneTime}" />
-                  <MenuItem Header="{x:Static res:Resources.DiscardText}" InputGestureText="{x:Static res:Resources.DiscardShortcutText}" Command="{Binding AbortCommand, Mode=OneTime}" />
-               </ContextMenu>
             </ResourceDictionary>
             <ResourceDictionary Source="/Styles/Colors.xaml" />
             <ResourceDictionary Source="/Styles/Glyphs.xaml" />
