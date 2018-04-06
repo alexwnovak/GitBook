@@ -10,7 +10,8 @@
    DataContext="{Binding CommitViewModel, Source={StaticResource ViewModelLocator}}"
    Title="{x:Static p:Resources.ApplicationName}"
    Width="1000"
-   Height="450">
+   Height="450"
+   WindowStartupLocation="CenterScreen">
 
    <Window.Resources>
       <Storyboard x:Key="SubjectHint">
