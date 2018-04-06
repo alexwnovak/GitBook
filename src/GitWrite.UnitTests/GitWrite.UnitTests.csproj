@@ -138,6 +138,7 @@
     <Compile Include="Views\Converters\RemainingCharactersConverterTests.cs" />
     <Compile Include="Views\Converters\TextLengthToColorConverterTests.cs" />
     <Compile Include="Views\Converters\TextLengthToVisibilityConverterTests.cs" />
+    <Compile Include="Views\SettingsExtensionTests.cs" />
     <Compile Include="Views\TextBoxAttachedPropertiesTests.cs" />
   </ItemGroup>
   <ItemGroup>
