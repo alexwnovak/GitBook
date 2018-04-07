@@ -7,33 +7,43 @@ namespace GitWrite.UnitTests.Views.Converters
    public class RemainingCharactersConverterTests
    {
       [Fact]
-      public void Convert_InputIsZero_TheMaximumRemains()
+      public void Convert_SomeTextExists_CalculatesTheRemainingSize()
       {
-         var converter = new RemainingCharactersConverter( 100 );
+         var converter = new RemainingCharactersConverter();
 
-         int invertedLength = (int) converter.Convert( 20, null, null, null );
+         string invertedLength = (string) converter.Convert( new object[] { 100, 20 }, null, null, null );
 
-         invertedLength.Should().Be( 80 );
+         invertedLength.Should().Be( "80" );
       }
 
       [Fact]
-      public void Convert_InputIsMaximum_NoCharactersRemain()
+      public void Convert_TextIsFull_NoCharactersRemain()
       {
-         var converter = new RemainingCharactersConverter( 100 );
+         var converter = new RemainingCharactersConverter();
 
-         int invertedLength = (int) converter.Convert( 100, null, null, null );
+         string invertedLength = (string) converter.Convert( new object[] { 100, 100 }, null, null, null );
 
-         invertedLength.Should().Be( 0 );
+         invertedLength.Should().Be( "0" );
       }
 
       [Fact]
-      public void Convert_InputIsGreaterThanTheMaximum_CalculatesNegative()
+      public void Convert_ThereIsNoText_AllCharactersRemain()
       {
-         var converter = new RemainingCharactersConverter( 100 );
+         var converter = new RemainingCharactersConverter();
 
-         int invertedLength = (int) converter.Convert( 101, null, null, null );
+         string invertedLength = (string) converter.Convert( new object[] { 100, 0 }, null, null, null );
 
-         invertedLength.Should().Be( -1 );
+         invertedLength.Should().Be( "100" );
+      }
+
+      [Fact]
+      public void Convert_MoreTextThanAvailableSpace_CalculatesNegativeSpaceRemaining()
+      {
+         var converter = new RemainingCharactersConverter();
+
+         string invertedLength = (string) converter.Convert( new object[] { 100, 101 }, null, null, null );
+
+         invertedLength.Should().Be( "-1" );
       }
    }
 }
