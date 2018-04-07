@@ -6,7 +6,6 @@
       <Setter Property="CaretBrush" Value="{StaticResource TextBrush}" />
       <Setter Property="SelectionBrush" Value="{StaticResource TextSelectionBrush}" />
       <Setter Property="SelectionOpacity" Value="0.5" />
-      <Setter Property="Foreground" Value="{StaticResource TextBrush}" />
       <Setter Property="FontFamily" Value="Inconsolata" />
       <Setter Property="FontSize" Value="21" />
       <Setter Property="Template">

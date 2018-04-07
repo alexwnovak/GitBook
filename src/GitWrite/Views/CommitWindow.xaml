@@ -11,6 +11,7 @@
    Title="{x:Static p:Resources.ApplicationName}"
    Width="1000"
    Height="450"
+   TextBlock.Foreground="{v:Settings ForegroundColor}"
    Background="{v:Settings BackgroundColor}"
    WindowStartupLocation="CenterScreen">
 
@@ -73,6 +74,7 @@
                   v:HintManager.HintText="{x:Static p:Resources.CommitSubjectHint}"
                   v:HintManager.HintForeground="{StaticResource AccentLightBrush}"
                   VerticalContentAlignment="Center"
+                  Foreground="{v:Settings ForegroundColor}"
                   MaxLength="{v:Settings MaxCommitLength}"
                   Text="{Binding CommitModel.Subject,
                      Mode=TwoWay,
@@ -101,6 +103,7 @@
                <TextBox Grid.Row="2"
                   Margin="0,12,0,0"
                   AcceptsReturn="True"
+                  Foreground="{v:Settings ForegroundColor}"
                   v:HintManager.HintText="{x:Static p:Resources.CommitBodyHint}"
                   v:HintManager.HintForeground="{StaticResource AccentLightBrush}"
                   Text="{Binding CommitModel.Body,
@@ -118,14 +121,17 @@
                Orientation="Vertical">
 
                <Button x:Name="AcceptButton"
+                  Foreground="{v:Settings ForegroundColor}"
                   Content="{StaticResource AcceptGlyph}"
                   Command="{Binding AcceptCommand, Mode=OneTime}" />
 
                <Button x:Name="DiscardButton"
+                  Foreground="{v:Settings ForegroundColor}"
                   Content="{StaticResource DiscardGlyph}"
                   Command="{Binding DiscardCommand, Mode=OneTime}" />
 
                <Button x:Name="SettingsButton"
+                  Foreground="{v:Settings ForegroundColor}"
                   Content="{StaticResource SettingsGlyph}"
                   Command="{Binding SettingsCommand, Mode=OneTime}" />
             </StackPanel>
