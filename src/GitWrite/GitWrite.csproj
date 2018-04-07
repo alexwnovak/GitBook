@@ -127,6 +127,7 @@
       <DependentUpon>RebaseWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Services\IViewService.cs" />
+    <Compile Include="Messages\RefreshSettingsMessage.cs" />
     <Compile Include="Views\SettingsExtension.cs" />
     <Compile Include="Views\TextBoxAttachedProperties.cs" />
     <Compile Include="Views\TextBoxExtensions.cs" />
