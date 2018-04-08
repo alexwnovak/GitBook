@@ -101,7 +101,7 @@
 
                <Rectangle Grid.Row="1"
                   Height="1"
-                  Fill="{StaticResource AccentLightBrush}" />
+                  Fill="{v:AccentColor Opacity=0.25}" />
 
                <TextBox Grid.Row="2"
                   Margin="0,12,0,0"
@@ -119,8 +119,8 @@
             </Grid>
 
             <Rectangle Grid.Column="1"
-               Fill="{StaticResource AccentLightBrush}"
-               Width="1" />
+               Width="1"
+               Fill="{v:AccentColor Opacity=0.25}" />
 
             <StackPanel Grid.Column="2"
                Orientation="Vertical">
