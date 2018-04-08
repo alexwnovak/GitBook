@@ -2,34 +2,23 @@
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Markup;
-using GalaSoft.MvvmLight.Ioc;
-using GitWrite.Services;
 
 namespace GitWrite.Views.Converters
 {
-   public class RemainingCharactersConverter : MarkupExtension, IValueConverter
+   public class RemainingCharactersConverter : MarkupExtension, IMultiValueConverter
    {
-      private readonly int _maxLength;
+      private static readonly RemainingCharactersConverter _instance = new RemainingCharactersConverter();
+      public override object ProvideValue( IServiceProvider serviceProvider ) => _instance;
 
-      public RemainingCharactersConverter()
+      public object Convert( object[] values, Type targetType, object parameter, CultureInfo culture )
       {
-         var appSettings = SimpleIoc.Default.GetInstance<IApplicationSettings>();
-         _maxLength = (int) appSettings.GetSetting( "MaxCommitLength" );
+         int maxLength = (int) values[0];
+         int currentLength = (int) values[1];
+
+         return ( maxLength - currentLength ).ToString();
       }
 
-      public RemainingCharactersConverter( int maxLength )
-      {
-         _maxLength = maxLength;
-      }
-
-      public override object ProvideValue( IServiceProvider serviceProvider ) => this;
-
-      public object Convert( object value, Type targetType, object parameter, CultureInfo culture )
-      {
-         return _maxLength - (int) value;
-      }
-
-      public object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture )
+      public object[] ConvertBack( object value, Type[] targetTypes, object parameter, CultureInfo culture )
       {
          throw new NotImplementedException();
       }

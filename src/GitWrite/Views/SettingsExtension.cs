@@ -1,21 +1,70 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Globalization;
+using System.Windows;
+using System.Windows.Data;
 using System.Windows.Markup;
 using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Messaging;
 using GitWrite.Services;
+using GitWrite.Views.Converters;
 
 namespace GitWrite.Views
 {
+   [MarkupExtensionReturnType( typeof( object ) )]
    public class SettingsExtension : MarkupExtension
    {
-      private readonly IApplicationSettings _applicationSettings = SimpleIoc.Default.GetInstance<IApplicationSettings>();
-      private readonly string _name;
+      private readonly IApplicationSettings _applicationSettings;
+
+      private DependencyObject _targetObject;
+      private DependencyProperty _targetProperty;
+
+      public string Name { get; set; }
+      public IValueConverter Converter { get; set; } = DefaultConverter.Instance;
 
       public SettingsExtension( string name )
+         : this( SimpleIoc.Default.GetInstance<IApplicationSettings>(), Messenger.Default, name )
       {
-         _name = name;
       }
 
-      public override object ProvideValue( IServiceProvider serviceProvider ) =>
-         _applicationSettings.GetSetting( _name );
+      internal SettingsExtension( IApplicationSettings applicationSettings,
+         IMessenger messenger,
+         string name )
+      {
+         _applicationSettings = applicationSettings;
+         Name = name;
+
+         messenger.Register<RefreshSettingsMessage>( this, name, _ => OnRefreshSettings(), true );
+      }
+
+      private object GetSettingValue()
+      {
+         object value = _applicationSettings.GetSetting( Name );
+
+         if ( value.GetType() == _targetProperty.PropertyType )
+         {
+            return Converter.Convert( value, _targetProperty.PropertyType, null, CultureInfo.DefaultThreadCurrentUICulture );
+         }
+
+         var valueConverter = TypeDescriptor.GetConverter( _targetProperty.PropertyType );
+         var parsedValue = valueConverter.ConvertFrom( value );
+
+         return Converter.Convert( parsedValue, _targetProperty.PropertyType, null, CultureInfo.DefaultThreadCurrentUICulture );
+      }
+
+      private void OnRefreshSettings()
+      {
+         var settingValue = GetSettingValue();
+         _targetObject.SetValue( _targetProperty, settingValue );
+      }
+
+      public override object ProvideValue( IServiceProvider serviceProvider )
+      {
+         var valueTarget = (IProvideValueTarget) serviceProvider.GetService( typeof( IProvideValueTarget ) );
+         _targetObject = (DependencyObject) valueTarget.TargetObject;
+         _targetProperty = (DependencyProperty) valueTarget.TargetProperty;
+
+         return GetSettingValue();
+      }
    }
 }

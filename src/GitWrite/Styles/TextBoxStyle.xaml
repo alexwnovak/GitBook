@@ -3,10 +3,7 @@
    xmlns:views="clr-namespace:GitWrite.Views"
    xmlns:cnv="clr-namespace:GitWrite.Views.Converters">
    <Style TargetType="TextBox">
-      <Setter Property="CaretBrush" Value="{StaticResource TextBrush}" />
-      <Setter Property="SelectionBrush" Value="{StaticResource TextSelectionBrush}" />
-      <Setter Property="SelectionOpacity" Value="0.5" />
-      <Setter Property="Foreground" Value="{StaticResource TextBrush}" />
+      <Setter Property="SelectionOpacity" Value="0.4" />
       <Setter Property="FontFamily" Value="Inconsolata" />
       <Setter Property="FontSize" Value="21" />
       <Setter Property="Template">

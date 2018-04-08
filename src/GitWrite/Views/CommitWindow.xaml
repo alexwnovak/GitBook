@@ -11,6 +11,8 @@
    Title="{x:Static p:Resources.ApplicationName}"
    Width="1000"
    Height="450"
+   TextBlock.Foreground="{v:Settings ForegroundColor}"
+   Background="{v:Settings BackgroundColor}"
    WindowStartupLocation="CenterScreen">
 
    <Window.Resources>
@@ -25,8 +27,7 @@
    </Window.Resources>
 
    <WindowChrome.WindowChrome>
-      <WindowChrome ResizeBorderThickness="6"
-         GlassFrameThickness="1" />
+      <WindowChrome ResizeBorderThickness="6" GlassFrameThickness="1" />
    </WindowChrome.WindowChrome>
 
    <Window.InputBindings>
@@ -53,9 +54,7 @@
             HorizontalAlignment="Center" />
       </Grid>
 
-      <Grid Grid.Row="1"
-         Background="{StaticResource BackgroundBrush}">
-
+      <Grid Grid.Row="1">
          <Grid Margin="30,18,30,30">
             <Grid.ColumnDefinitions>
                <ColumnDefinition />
@@ -73,12 +72,16 @@
                <TextBox x:Name="SubjectTextBox"
                   v:LaunchFocus.IsFocusTarget="True"
                   v:HintManager.HintText="{x:Static p:Resources.CommitSubjectHint}"
-                  v:HintManager.HintForeground="{StaticResource AccentLightBrush}"
-                  VerticalContentAlignment="Center"
+                  v:HintManager.HintForeground="{v:AccentColor Opacity=0.25}"
                   MaxLength="{v:Settings MaxCommitLength}"
+                  Foreground="{v:Settings ForegroundColor}"
+                  CaretBrush="{v:Settings ForegroundColor}"
+                  SelectionBrush="{v:Settings HighlightColor}"
+                  VerticalContentAlignment="Center"
                   Text="{Binding CommitModel.Subject,
                      Mode=TwoWay,
                      UpdateSourceTrigger=PropertyChanged}">
+
                   <TextBox.InputBindings>
                      <KeyBinding Key="Enter" Command="{Binding AcceptCommand, Mode=OneTime}" />
                   </TextBox.InputBindings>
@@ -87,21 +90,27 @@
                <TextBlock Grid.Row="0"
                   Margin="0,0,6,0"
                   HorizontalAlignment="Right"
-                  VerticalAlignment="Center"
-                  Text="{Binding Text.Length,
-                     ElementName=SubjectTextBox,
-                     Converter={cnv:RemainingCharactersConverter},
-                     Mode=OneWay}" />
+                  VerticalAlignment="Center">
+                  <TextBlock.Text>
+                     <MultiBinding Converter="{cnv:RemainingCharactersConverter}" Mode="OneWay">
+                        <Binding Path="MaxLength" ElementName="SubjectTextBox" />
+                        <Binding Path="Text.Length" ElementName="SubjectTextBox" />
+                     </MultiBinding>
+                  </TextBlock.Text>
+               </TextBlock>
 
                <Rectangle Grid.Row="1"
                   Height="1"
-                  Fill="{StaticResource AccentLightBrush}" />
+                  Fill="{v:AccentColor Opacity=0.25}" />
 
                <TextBox Grid.Row="2"
                   Margin="0,12,0,0"
                   AcceptsReturn="True"
                   v:HintManager.HintText="{x:Static p:Resources.CommitBodyHint}"
-                  v:HintManager.HintForeground="{StaticResource AccentLightBrush}"
+                  v:HintManager.HintForeground="{v:AccentColor Opacity=0.25}"
+                  Foreground="{v:Settings ForegroundColor}"
+                  CaretBrush="{v:Settings ForegroundColor}"
+                  SelectionBrush="{v:Settings HighlightColor}"
                   Text="{Binding CommitModel.Body,
                      Mode=TwoWay,
                      UpdateSourceTrigger=PropertyChanged,
@@ -110,22 +119,25 @@
             </Grid>
 
             <Rectangle Grid.Column="1"
-               Fill="{StaticResource AccentLightBrush}"
-               Width="1" />
+               Width="1"
+               Fill="{v:AccentColor Opacity=0.25}" />
 
             <StackPanel Grid.Column="2"
                Orientation="Vertical">
 
                <Button x:Name="AcceptButton"
                   Content="{StaticResource AcceptGlyph}"
+                  Foreground="{v:Settings ForegroundColor}"
                   Command="{Binding AcceptCommand, Mode=OneTime}" />
 
                <Button x:Name="DiscardButton"
                   Content="{StaticResource DiscardGlyph}"
+                  Foreground="{v:Settings ForegroundColor}"
                   Command="{Binding DiscardCommand, Mode=OneTime}" />
 
                <Button x:Name="SettingsButton"
                   Content="{StaticResource SettingsGlyph}"
+                  Foreground="{v:Settings ForegroundColor}"
                   Command="{Binding SettingsCommand, Mode=OneTime}" />
             </StackPanel>
          </Grid>

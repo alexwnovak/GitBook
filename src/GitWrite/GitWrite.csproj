@@ -88,13 +88,14 @@
     <Compile Include="Behaviors\SuppressAltBehavior.cs" />
     <Compile Include="Behaviors\SuppressAltLogic.cs" />
     <Compile Include="Behaviors\TripleClickSelectionBehavior.cs" />
-    <Compile Include="Behaviors\WindowDragBehavior.cs" />
-    <Compile Include="Behaviors\WindowPlacementBehavior.cs" />
     <Compile Include="CommitController.cs" />
     <Compile Include="CommitObjectComposer.cs" />
     <Compile Include="IAppController.cs" />
     <Compile Include="IObjectComposer.cs" />
     <Compile Include="Models\CommitModel.cs" />
+    <Compile Include="Views\AccentColorExtension.cs" />
+    <Compile Include="Views\Converters\ColorOpacityConverter.cs" />
+    <Compile Include="Views\Converters\DefaultConverter.cs" />
     <Compile Include="Views\FrameworkElementExtensions.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -129,6 +130,7 @@
       <DependentUpon>RebaseWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Services\IViewService.cs" />
+    <Compile Include="Messages\RefreshSettingsMessage.cs" />
     <Compile Include="Views\SettingsExtension.cs" />
     <Compile Include="Views\TextBoxAttachedProperties.cs" />
     <Compile Include="Views\TextBoxExtensions.cs" />
@@ -149,10 +151,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\Glyphs.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Styles\TextBlockStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
