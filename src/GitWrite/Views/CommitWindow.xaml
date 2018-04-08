@@ -46,12 +46,12 @@
          <RowDefinition />
       </Grid.RowDefinitions>
 
-      <Grid Background="{StaticResource TitleBarBrush}">
+      <Border Background="{StaticResource TitleBarBrush}">
          <TextBlock Text="{x:Static p:Resources.ApplicationName}"
             Foreground="{StaticResource TitleBarForegroundBrush}"
             VerticalAlignment="Center"
             HorizontalAlignment="Center" />
-      </Grid>
+      </Border>
 
       <Grid Grid.Row="1">
          <Grid Margin="30,18,30,30">
