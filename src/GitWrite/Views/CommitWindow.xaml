@@ -73,12 +73,14 @@
                   v:LaunchFocus.IsFocusTarget="True"
                   v:HintManager.HintText="{x:Static p:Resources.CommitSubjectHint}"
                   v:HintManager.HintForeground="{StaticResource AccentLightBrush}"
-                  VerticalContentAlignment="Center"
-                  Foreground="{v:Settings ForegroundColor}"
                   MaxLength="{v:Settings MaxCommitLength}"
+                  Foreground="{v:Settings ForegroundColor}"
+                  CaretBrush="{v:Settings ForegroundColor}"
+                  VerticalContentAlignment="Center"
                   Text="{Binding CommitModel.Subject,
                      Mode=TwoWay,
                      UpdateSourceTrigger=PropertyChanged}">
+
                   <TextBox.InputBindings>
                      <KeyBinding Key="Enter" Command="{Binding AcceptCommand, Mode=OneTime}" />
                   </TextBox.InputBindings>
@@ -103,9 +105,9 @@
                <TextBox Grid.Row="2"
                   Margin="0,12,0,0"
                   AcceptsReturn="True"
-                  Foreground="{v:Settings ForegroundColor}"
                   v:HintManager.HintText="{x:Static p:Resources.CommitBodyHint}"
                   v:HintManager.HintForeground="{StaticResource AccentLightBrush}"
+                  Foreground="{v:Settings ForegroundColor}"
                   Text="{Binding CommitModel.Body,
                      Mode=TwoWay,
                      UpdateSourceTrigger=PropertyChanged,
@@ -121,18 +123,18 @@
                Orientation="Vertical">
 
                <Button x:Name="AcceptButton"
-                  Foreground="{v:Settings ForegroundColor}"
                   Content="{StaticResource AcceptGlyph}"
+                  Foreground="{v:Settings ForegroundColor}"
                   Command="{Binding AcceptCommand, Mode=OneTime}" />
 
                <Button x:Name="DiscardButton"
-                  Foreground="{v:Settings ForegroundColor}"
                   Content="{StaticResource DiscardGlyph}"
+                  Foreground="{v:Settings ForegroundColor}"
                   Command="{Binding DiscardCommand, Mode=OneTime}" />
 
                <Button x:Name="SettingsButton"
-                  Foreground="{v:Settings ForegroundColor}"
                   Content="{StaticResource SettingsGlyph}"
+                  Foreground="{v:Settings ForegroundColor}"
                   Command="{Binding SettingsCommand, Mode=OneTime}" />
             </StackPanel>
          </Grid>
