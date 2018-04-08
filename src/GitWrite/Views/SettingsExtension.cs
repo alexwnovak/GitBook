@@ -1,10 +1,13 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Globalization;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Markup;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using GitWrite.Services;
+using GitWrite.Views.Converters;
 
 namespace GitWrite.Views
 {
@@ -12,35 +15,41 @@ namespace GitWrite.Views
    public class SettingsExtension : MarkupExtension
    {
       private readonly IApplicationSettings _applicationSettings;
-      private readonly string _name;
 
       private DependencyObject _targetObject;
       private DependencyProperty _targetProperty;
+
+      public string Name { get; set; }
+      public IValueConverter Converter { get; set; } = DefaultConverter.Instance;
 
       public SettingsExtension( string name )
          : this( SimpleIoc.Default.GetInstance<IApplicationSettings>(), Messenger.Default, name )
       {
       }
 
-      public SettingsExtension( IApplicationSettings applicationSettings, IMessenger messenger, string name )
+      internal SettingsExtension( IApplicationSettings applicationSettings,
+         IMessenger messenger,
+         string name )
       {
          _applicationSettings = applicationSettings;
-         _name = name;
+         Name = name;
 
          messenger.Register<RefreshSettingsMessage>( this, name, _ => OnRefreshSettings(), true );
       }
 
       private object GetSettingValue()
       {
-         object value = _applicationSettings.GetSetting( _name );
+         object value = _applicationSettings.GetSetting( Name );
 
          if ( value.GetType() == _targetProperty.PropertyType )
          {
-            return value;
+            return Converter.Convert( value, _targetProperty.PropertyType, null, CultureInfo.DefaultThreadCurrentUICulture );
          }
 
          var valueConverter = TypeDescriptor.GetConverter( _targetProperty.PropertyType );
-         return valueConverter.ConvertFrom( value );
+         var parsedValue = valueConverter.ConvertFrom( value );
+
+         return Converter.Convert( parsedValue, _targetProperty.PropertyType, null, CultureInfo.DefaultThreadCurrentUICulture );
       }
 
       private void OnRefreshSettings()
