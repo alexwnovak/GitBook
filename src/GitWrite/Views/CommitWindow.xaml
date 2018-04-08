@@ -3,7 +3,6 @@
    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-   xmlns:b="clr-namespace:GitWrite.Behaviors"
    xmlns:cnv="clr-namespace:GitWrite.Views.Converters"
    xmlns:p="clr-namespace:GitWrite.Properties"
    xmlns:v="clr-namespace:GitWrite.Views"
@@ -19,7 +18,7 @@
       <Storyboard x:Key="SubjectHint">
          <ColorAnimation Storyboard.TargetName="SubjectTextBox"
             Storyboard.TargetProperty="(v:HintManager.HintForeground).(SolidColorBrush.Color)"
-            To="{StaticResource TextColor}"
+            To="Transparent"
             AutoReverse="True"
             RepeatBehavior="2x"
             Duration="0:0:0.15" />
@@ -73,6 +72,7 @@
                   v:LaunchFocus.IsFocusTarget="True"
                   v:HintManager.HintText="{x:Static p:Resources.CommitSubjectHint}"
                   v:HintManager.HintForeground="{v:AccentColor Opacity=0.25}"
+                  FontFamily="{v:Settings Font}"
                   MaxLength="{v:Settings MaxCommitLength}"
                   Foreground="{v:Settings ForegroundColor}"
                   CaretBrush="{v:Settings ForegroundColor}"
@@ -108,6 +108,7 @@
                   AcceptsReturn="True"
                   v:HintManager.HintText="{x:Static p:Resources.CommitBodyHint}"
                   v:HintManager.HintForeground="{v:AccentColor Opacity=0.25}"
+                  FontFamily="{v:Settings Font}"
                   Foreground="{v:Settings ForegroundColor}"
                   CaretBrush="{v:Settings ForegroundColor}"
                   SelectionBrush="{v:Settings HighlightColor}"
