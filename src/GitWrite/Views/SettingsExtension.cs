@@ -8,6 +8,7 @@ using GitWrite.Services;
 
 namespace GitWrite.Views
 {
+   [MarkupExtensionReturnType( typeof( object ) )]
    public class SettingsExtension : MarkupExtension
    {
       private readonly IApplicationSettings _applicationSettings;
