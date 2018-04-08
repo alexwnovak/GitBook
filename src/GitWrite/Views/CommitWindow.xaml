@@ -19,7 +19,7 @@
       <Storyboard x:Key="SubjectHint">
          <ColorAnimation Storyboard.TargetName="SubjectTextBox"
             Storyboard.TargetProperty="(v:HintManager.HintForeground).(SolidColorBrush.Color)"
-            To="{StaticResource TextColor}"
+            To="Transparent"
             AutoReverse="True"
             RepeatBehavior="2x"
             Duration="0:0:0.15" />
