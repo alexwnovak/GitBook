@@ -93,6 +93,7 @@
     <Compile Include="IAppController.cs" />
     <Compile Include="IObjectComposer.cs" />
     <Compile Include="Models\CommitModel.cs" />
+    <Compile Include="Views\Converters\ColorOpacityConverter.cs" />
     <Compile Include="Views\Converters\DefaultConverter.cs" />
     <Compile Include="Views\FrameworkElementExtensions.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
