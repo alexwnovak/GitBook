@@ -76,6 +76,7 @@
                   MaxLength="{v:Settings MaxCommitLength}"
                   Foreground="{v:Settings ForegroundColor}"
                   CaretBrush="{v:Settings ForegroundColor}"
+                  SelectionBrush="{v:Settings HighlightColor}"
                   VerticalContentAlignment="Center"
                   Text="{Binding CommitModel.Subject,
                      Mode=TwoWay,
@@ -108,6 +109,8 @@
                   v:HintManager.HintText="{x:Static p:Resources.CommitBodyHint}"
                   v:HintManager.HintForeground="{StaticResource AccentLightBrush}"
                   Foreground="{v:Settings ForegroundColor}"
+                  CaretBrush="{v:Settings ForegroundColor}"
+                  SelectionBrush="{v:Settings HighlightColor}"
                   Text="{Binding CommitModel.Body,
                      Mode=TwoWay,
                      UpdateSourceTrigger=PropertyChanged,
