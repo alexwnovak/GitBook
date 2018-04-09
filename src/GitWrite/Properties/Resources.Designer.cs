@@ -313,6 +313,15 @@ namespace GitWrite.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        public static string SettingsText {
+            get {
+                return ResourceManager.GetString("SettingsText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to _Yes.
         /// </summary>
         public static string YesAcceleratorText {
