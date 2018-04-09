@@ -9,7 +9,19 @@
    Width="800"
    Height="450"
    WindowStartupLocation="CenterScreen">
-   <Grid>
 
-   </Grid>
+   <Window.Resources>
+      <ResourceDictionary>
+         <ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary Source="/Styles/TabControlStyle.xaml" />
+            <ResourceDictionary Source="/Styles/TabItemStyle.xaml" />
+         </ResourceDictionary.MergedDictionaries>
+      </ResourceDictionary>
+   </Window.Resources>
+
+   <TabControl TabStripPlacement="Left">
+      <TabItem Header="Font" />
+      <TabItem Header="Colors" />
+      <TabItem Header="Commit" />
+   </TabControl>
 </Window>

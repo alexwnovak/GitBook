@@ -1,0 +1,21 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+   <Style TargetType="TabItem">
+      <Setter Property="Template">
+         <Setter.Value>
+            <ControlTemplate TargetType="TabItem">
+               <Grid Width="120"
+                  Height="40"
+                  Margin="0,0,2,0"
+                  Background="Transparent">
+
+                  <TextBlock Text="asdf"
+                     Foreground="Orange"
+                     VerticalAlignment="Center"
+                     HorizontalAlignment="Left"
+                     Margin="15,0,0,0" />
+               </Grid>
+            </ControlTemplate>
+         </Setter.Value>
+      </Setter>
+   </Style>
+</ResourceDictionary>
