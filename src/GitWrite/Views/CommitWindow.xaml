@@ -32,6 +32,7 @@
    <Window.InputBindings>
       <KeyBinding Key="Enter" Modifiers="Control" Command="{Binding AcceptCommand, Mode=OneTime}" />
       <KeyBinding Key="Escape" Command="{Binding DiscardCommand, Mode=OneTime}" />
+      <KeyBinding Key="OemComma" Modifiers="Control" Command="{Binding SettingsCommand, Mode=OneTime}" />
    </Window.InputBindings>
 
    <i:Interaction.Triggers>
