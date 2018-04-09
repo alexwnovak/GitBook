@@ -95,6 +95,7 @@ namespace GitWrite.ViewModels
 
       private void OnSettingsCommand()
       {
+         _viewService.DisplaySettings();
       }
    }
 }

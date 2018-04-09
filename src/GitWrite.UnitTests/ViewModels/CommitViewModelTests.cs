@@ -154,5 +154,15 @@ namespace GitWrite.UnitTests.ViewModels
             cd => cd.Subject == "Something different" ) ), Times.Once() );
       }
 
+      [Fact]
+      public void SettingsCommand_DisplayingSettings_SettingsAreDisplayed()
+      {
+         var viewServiceMock = new Mock<IViewService>();
+
+         var viewModel = new CommitViewModel( null, Mock.Of<ICommitFileReader>(), Mock.Of<ICommitFileWriter>(), viewServiceMock.Object );
+         viewModel.SettingsCommand.Execute( null );
+
+         viewServiceMock.Verify( vs => vs.DisplaySettings(), Times.Once() );
+      }
    }
 }
