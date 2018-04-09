@@ -7,5 +7,6 @@ namespace GitWrite.Services
       Task CloseViewAsync( bool acceptChanges );
       void DisplaySubjectHint();
       DialogResult ConfirmDiscard();
+      DialogResult DisplaySettings();
    }
 }

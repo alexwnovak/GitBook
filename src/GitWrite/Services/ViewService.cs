@@ -34,5 +34,14 @@ namespace GitWrite.Services
             default: return DialogResult.Cancel;
          }
       }
+
+      public DialogResult DisplaySettings()
+      {
+         var settingsWindow = new SettingsWindow();
+
+         settingsWindow.ShowDialog();
+
+         return DialogResult.Cancel;
+      }
    }
 }
