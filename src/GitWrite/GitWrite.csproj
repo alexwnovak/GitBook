@@ -93,6 +93,7 @@
     <Compile Include="IAppController.cs" />
     <Compile Include="IObjectComposer.cs" />
     <Compile Include="Models\CommitModel.cs" />
+    <Compile Include="ViewModels\CommitSettingsViewModel.cs" />
     <Compile Include="ViewModels\GeneralSettingsViewModel.cs" />
     <Compile Include="ViewModels\ISettingsSectionViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />

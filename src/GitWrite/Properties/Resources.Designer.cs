@@ -124,6 +124,15 @@ namespace GitWrite.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Commit.
+        /// </summary>
+        public static string CommitText {
+            get {
+                return ResourceManager.GetString("CommitText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Committing.
         /// </summary>
         public static string CommittingHeaderText {

@@ -31,6 +31,7 @@ namespace GitWrite
 
          _container.Register<SettingsViewModel>();
          _container.Register<GeneralSettingsViewModel>();
+         _container.Register<CommitSettingsViewModel>();
 
          _container.Register( () => GenerateSettingsSections( _container ) );
          _container.Register<Func<Window>>( () => () => SimpleIoc.Default.GetInstance<Window>() );
@@ -41,6 +42,7 @@ namespace GitWrite
          return new ISettingsSectionViewModel[]
          {
             container.GetInstance<GeneralSettingsViewModel>(),
+            container.GetInstance<CommitSettingsViewModel>()
          };
       }
    }

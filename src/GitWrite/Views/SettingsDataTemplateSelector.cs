@@ -14,7 +14,10 @@ namespace GitWrite.Views
          {
             return frameworkElement.FindResource( "GeneralSettingsDataTemplate" ) as DataTemplate;
          }
-
+         if ( item is CommitSettingsViewModel )
+         {
+            return frameworkElement.FindResource( "CommitSettingsDataTemplate" ) as DataTemplate;
+         }
          return base.SelectTemplate( item, container );
       }
    }

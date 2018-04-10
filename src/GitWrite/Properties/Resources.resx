@@ -210,4 +210,7 @@
   <data name="GeneralText" xml:space="preserve">
     <value>General</value>
   </data>
+  <data name="CommitText" xml:space="preserve">
+    <value>Commit</value>
+  </data>
 </root>

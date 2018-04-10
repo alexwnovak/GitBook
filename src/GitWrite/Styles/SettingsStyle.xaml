@@ -6,4 +6,8 @@
    <DataTemplate x:Key="GeneralSettingsDataTemplate">
       <TextBlock Text="{Binding Header, Mode=OneTime}" />
    </DataTemplate>
+
+   <DataTemplate x:Key="CommitSettingsDataTemplate">
+      <TextBlock Text="{Binding Header, Mode=OneTime}" />
+   </DataTemplate>
 </ResourceDictionary>
