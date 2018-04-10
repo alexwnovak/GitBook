@@ -1,0 +1,9 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+   xmlns:v="clr-namespace:GitWrite.Views">
+   <v:SettingsDataTemplateSelector x:Key="SettingsDataTemplateSelector" />
+
+   <DataTemplate x:Key="GeneralSettingsDataTemplate">
+      <TextBlock Text="{Binding Header, Mode=OneTime}" />
+   </DataTemplate>
+</ResourceDictionary>
