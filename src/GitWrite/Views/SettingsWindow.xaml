@@ -7,11 +7,13 @@
    mc:Ignorable="d"
    DataContext="{Binding SettingsViewModel, Source={StaticResource ViewModelLocator}}"
    Title="{x:Static p:Resources.SettingsText}"
-   Width="800"
-   Height="450"
+   Width="600"
+   Height="400"
+   ResizeMode="NoResize"
    Style="{StaticResource WindowStyle}"
    WindowStartupLocation="CenterScreen"
-   ShowInTaskbar="False">
+   ShowInTaskbar="False"
+   Background="#DDD">
 
    <Window.Resources>
       <ResourceDictionary>
@@ -23,6 +25,14 @@
       </ResourceDictionary>
    </Window.Resources>
 
-   <TabControl ItemsSource="{Binding Sections}"
-      ContentTemplateSelector="{StaticResource SettingsDataTemplateSelector}" />
+   <Grid>
+      <Grid.RowDefinitions>
+         <RowDefinition />
+         <RowDefinition Height="30" />
+      </Grid.RowDefinitions>
+
+      <TabControl ItemsSource="{Binding Sections}"
+         ContentTemplateSelector="{StaticResource SettingsDataTemplateSelector}" />
+
+   </Grid>
 </Window>
