@@ -95,6 +95,7 @@
     <Compile Include="Models\CommitModel.cs" />
     <Compile Include="ViewModels\GeneralSettingsViewModel.cs" />
     <Compile Include="ViewModels\ISettingsSectionViewModel.cs" />
+    <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="Views\AccentColorExtension.cs" />
     <Compile Include="Views\Converters\ColorOpacityConverter.cs" />
     <Compile Include="Views\Converters\DefaultConverter.cs" />
