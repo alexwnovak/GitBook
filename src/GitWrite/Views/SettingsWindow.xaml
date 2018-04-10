@@ -9,6 +9,7 @@
    Title="{x:Static p:Resources.SettingsText}"
    Width="800"
    Height="450"
+   Style="{StaticResource WindowStyle}"
    WindowStartupLocation="CenterScreen">
 
    <Window.Resources>
