@@ -207,4 +207,7 @@
   <data name="SettingsText" xml:space="preserve">
     <value>Settings</value>
   </data>
+  <data name="GeneralText" xml:space="preserve">
+    <value>General</value>
+  </data>
 </root>

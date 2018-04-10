@@ -259,6 +259,15 @@ namespace GitWrite.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to General.
+        /// </summary>
+        public static string GeneralText {
+            get {
+                return ResourceManager.GetString("GeneralText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to _No.
         /// </summary>
         public static string NoAcceleratorText {
