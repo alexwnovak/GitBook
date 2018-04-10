@@ -20,9 +20,6 @@
       </ResourceDictionary>
    </Window.Resources>
 
-   <TabControl TabStripPlacement="Left">
-      <TabItem Header="Font" />
-      <TabItem Header="Colors" />
-      <TabItem Header="Commit" />
-   </TabControl>
+   <TabControl ItemsSource="{Binding Sections}"
+      ContentTemplateSelector="{StaticResource SettingsDataTemplateSelector}" />
 </Window>
