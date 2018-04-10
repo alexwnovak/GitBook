@@ -6,5 +6,6 @@ namespace GitWrite.ViewModels
    {
       public CommitViewModel CommitViewModel => SimpleIoc.Default.GetInstance<CommitViewModel>();
       public RebaseViewModel RebaseViewModel => SimpleIoc.Default.GetInstance<RebaseViewModel>();
+      public SettingsViewModel SettingsViewModel => SimpleIoc.Default.GetInstance<SettingsViewModel>();
    }
 }

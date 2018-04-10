@@ -5,6 +5,7 @@
    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
    xmlns:p="clr-namespace:GitWrite.Properties"
    mc:Ignorable="d"
+   DataContext="{Binding SettingsViewModel, Source={StaticResource ViewModelLocator}}"
    Title="{x:Static p:Resources.SettingsText}"
    Width="800"
    Height="450"
