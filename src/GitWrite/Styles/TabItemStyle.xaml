@@ -8,7 +8,7 @@
                   Margin="0,0,2,0"
                   Background="Transparent">
 
-                  <TextBlock Text="asdf"
+                  <TextBlock Text="{Binding Header, Mode=OneWay}"
                      Foreground="Orange"
                      VerticalAlignment="Center"
                      HorizontalAlignment="Left"
