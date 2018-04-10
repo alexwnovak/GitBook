@@ -1,11 +1,8 @@
-﻿using System.Linq;
-using System.Runtime.InteropServices;
-using GitModel;
+﻿using GitModel;
 using GitWrite.Services;
 using GitWrite.ViewModels;
 using Xunit;
 using Moq;
-using FluentAssertions;
 
 namespace GitWrite.UnitTests.ViewModels
 {
