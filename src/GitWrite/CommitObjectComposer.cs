@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using GalaSoft.MvvmLight.Ioc;
 using GitModel;
@@ -27,7 +28,20 @@ namespace GitWrite
          _container.Register<IViewService, ViewService>();
          _container.Register<IRegistryService, RegistryService>();
          _container.Register<CommitViewModel>();
+
+         _container.Register<SettingsViewModel>();
+         _container.Register<GeneralSettingsViewModel>();
+
+         _container.Register( () => GenerateSettingsSections( _container ) );
          _container.Register<Func<Window>>( () => () => SimpleIoc.Default.GetInstance<Window>() );
+      }
+
+      private static IEnumerable<ISettingsSectionViewModel> GenerateSettingsSections( ISimpleIoc container )
+      {
+         return new ISettingsSectionViewModel[]
+         {
+            container.GetInstance<GeneralSettingsViewModel>(),
+         };
       }
    }
 }
