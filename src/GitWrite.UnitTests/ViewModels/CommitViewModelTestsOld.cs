@@ -9,12 +9,12 @@ using FluentAssertions;
 
 namespace GitWrite.UnitTests.ViewModels
 {
-   public class CommitViewModelTests
+   public class CommitViewModelTestsOld
    {
       [Fact]
       public void AcceptCommand_CommitDetailsAreNotBlank_SavesCommitDetails()
       {
-         var commitDocument = new CommitDocument( "Subject", new [] { "Body" } );
+         var commitDocument = new CommitDocument( "Subject", new[] { "Body" } );
 
          var commitFileReaderMock = new Mock<ICommitFileReader>();
          commitFileReaderMock.Setup( cfr => cfr.FromFile( It.IsAny<string>() ) ).Returns( commitDocument );
