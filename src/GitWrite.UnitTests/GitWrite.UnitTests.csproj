@@ -150,7 +150,6 @@
     <Compile Include="Services\GitRepositoryPathConverterTests.cs" />
     <Compile Include="Infrastructure\AutoMoqDataAttribute.cs" />
     <Compile Include="ViewModels\CommitViewModelTests.cs" />
-    <Compile Include="ViewModels\CommitViewModelTestsOld.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\AccentColorExtensionTests.cs" />
     <Compile Include="Views\Converters\StringLengthToProgressConverterTests.cs" />
