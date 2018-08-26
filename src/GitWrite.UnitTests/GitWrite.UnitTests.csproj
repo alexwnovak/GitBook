@@ -147,7 +147,6 @@
   <ItemGroup>
     <Compile Include="Behaviors\SuppressAltLogicTests.cs" />
     <Compile Include="Services\ApplicationSettingsTests.cs" />
-    <Compile Include="Services\GitRepositoryPathConverterTests.cs" />
     <Compile Include="Infrastructure\AutoMoqDataAttribute.cs" />
     <Compile Include="ViewModels\CommitViewModelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
