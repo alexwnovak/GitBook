@@ -1,158 +1,147 @@
-﻿using System.Linq;
-using System.Runtime.InteropServices;
-using GitModel;
-using GitWrite.Services;
-using GitWrite.ViewModels;
-using Xunit;
+﻿using AutoFixture.Xunit2;
 using Moq;
-using FluentAssertions;
+using Xunit;
+using DeepEqual.Syntax;
+using GitModel;
+using GitWrite.ViewModels;
+using GitWrite.UnitTests.Infrastructure;
+using GitWrite.Services;
 
 namespace GitWrite.UnitTests.ViewModels
 {
    public class CommitViewModelTests
    {
-      [Fact]
-      public void AcceptCommand_CommitDetailsAreNotBlank_SavesCommitDetails()
+      [Theory, AutoMoqData]
+      public void AcceptCommand_CommitDetailsAreNotBlank_SavesCommitDetails(
+         [Frozen] Mock<ICommitFileReader> commitFileReaderMock,
+         [Frozen] Mock<ICommitFileWriter> commitFileWriterMock,
+         CommitDocument commitDocument,
+         CommitViewModel sut )
       {
-         var commitDocument = new CommitDocument( "Subject", new [] { "Body" } );
-
-         var commitFileReaderMock = new Mock<ICommitFileReader>();
          commitFileReaderMock.Setup( cfr => cfr.FromFile( It.IsAny<string>() ) ).Returns( commitDocument );
 
-         var commitFileWriterMock = new Mock<ICommitFileWriter>();
+         sut.InitializeCommand.Execute( null );
+         sut.AcceptCommand.Execute( null );
 
-         var viewModel = new CommitViewModel( "File.txt", commitFileReaderMock.Object, commitFileWriterMock.Object, Mock.Of<IViewService>() );
-         viewModel.InitializeCommand.Execute( null );
-         viewModel.AcceptCommand.Execute( null );
-
-         commitFileWriterMock.Verify( cfw => cfw.ToFile( "File.txt",
-            It.Is<CommitDocument>( cd => cd.Subject == "Subject" && cd.Body[0] == "Body" ) ), Times.Once() );
+         commitFileWriterMock.Verify( cfw => cfw.ToFile(
+            sut.CommitFilePath,
+            It.Is<CommitDocument>( cd => cd.IsDeepEqual( commitDocument, null ) ) ), Times.Once() );
       }
 
-      [Fact]
-      public void AcceptCommand_CommitDetailsAreNotBlank_DismissesTheView()
+      [Theory, AutoMoqData]
+      public void AcceptCommand_CommitDetailsAreNotBlank_DismissesTheView(
+         [Frozen] Mock<ICommitFileReader> commitFileReaderMock,
+         [Frozen] Mock<IViewService> viewServiceMock,
+         CommitDocument commitDocument,
+         CommitViewModel sut )
       {
-         var commitFileReaderMock = new Mock<ICommitFileReader>();
-         commitFileReaderMock.Setup( cfr => cfr.FromFile( It.IsAny<string>() ) ).Returns( new CommitDocument( "Subject", new string[1] ) );
+         commitFileReaderMock.Setup( cfr => cfr.FromFile( It.IsAny<string>() ) ).Returns( commitDocument );
 
-         var viewServiceMock = new Mock<IViewService>();
-
-         var viewModel = new CommitViewModel( null, commitFileReaderMock.Object, Mock.Of<ICommitFileWriter>(), viewServiceMock.Object );
-         viewModel.InitializeCommand.Execute( null );
-         viewModel.AcceptCommand.Execute( null );
+         sut.InitializeCommand.Execute( null );
+         sut.AcceptCommand.Execute( null );
 
          viewServiceMock.Verify( vs => vs.CloseViewAsync( true ), Times.Once() );
       }
 
-      [Fact]
-      public void AcceptCommand_HasNoSubject_DisplaysHint()
+      [Theory, AutoMoqData]
+      public void AcceptCommand_HasNoSubject_DisplaysHint(
+         [Frozen] Mock<ICommitFileReader> commitFileReaderMock,
+         [Frozen] Mock<IViewService> viewServiceMock,
+         CommitViewModel sut )
       {
-         var commitFileReaderMock = new Mock<ICommitFileReader>();
          commitFileReaderMock.Setup( cfr => cfr.FromFile( It.IsAny<string>() ) ).Returns( CommitDocument.Empty );
 
-         var viewServiceMock = new Mock<IViewService>();
-
-         var viewModel = new CommitViewModel( null, commitFileReaderMock.Object, Mock.Of<ICommitFileWriter>(), viewServiceMock.Object );
-         viewModel.InitializeCommand.Execute( null );
-         viewModel.AcceptCommand.Execute( null );
+         sut.InitializeCommand.Execute( null );
+         sut.AcceptCommand.Execute( null );
 
          viewServiceMock.Verify( vs => vs.DisplaySubjectHint(), Times.Once() );
       }
 
-      [Fact]
-      public void DiscardCommand_AbandoningChanges_ClearsTheCommitDetails()
+      [Theory, AutoMoqData]
+      public void DiscardCommand_AbandoningChanges_ClearsTheCommitDetails(
+         [Frozen] Mock<ICommitFileWriter> commitFileWriterMock,
+         CommitViewModel sut )
       {
-         var commitFileWriterMock = new Mock<ICommitFileWriter>();
+         sut.DiscardCommand.Execute( null );
 
-         var viewModel = new CommitViewModel( "File.txt", Mock.Of<ICommitFileReader>(), commitFileWriterMock.Object, Mock.Of<IViewService>() );
-         viewModel.DiscardCommand.Execute( null );
-
-         commitFileWriterMock.Verify( cfw => cfw.ToFile( "File.txt", CommitDocument.Empty ), Times.Once() );
+         commitFileWriterMock.Verify( cfw => cfw.ToFile( sut.CommitFilePath, CommitDocument.Empty ), Times.Once() );
       }
 
-      [Fact]
-      public void DiscardCommand_AbandoningChanges_DismissesTheView()
+      [Theory, AutoMoqData]
+      public void DiscardCommand_AbandoningChanges_DismissesTheView(
+         [Frozen] Mock<IViewService> viewServiceMock,
+         CommitViewModel sut )
       {
-         var viewServiceMock = new Mock<IViewService>();
-
-         var viewModel = new CommitViewModel( null, null, Mock.Of<ICommitFileWriter>(), viewServiceMock.Object );
-         viewModel.DiscardCommand.Execute( null );
+         sut.DiscardCommand.Execute( null );
 
          viewServiceMock.Verify( vs => vs.CloseViewAsync( false ), Times.Once() );
       }
 
-      [Fact]
-      public void DiscardChanges_AbortingTheDiscard_DoesNotExit()
+      [Theory, AutoMoqData]
+      public void DiscardCommand_AbortingTheDiscard_DoesNotExit(
+         [Frozen] Mock<ICommitFileReader> commitFileReaderMock,
+         [Frozen] Mock<IViewService> viewServiceMock,
+         CommitViewModel sut )
       {
-         var commitFileReaderMock = new Mock<ICommitFileReader>();
          commitFileReaderMock.Setup( cfr => cfr.FromFile( It.IsAny<string>() ) ).Returns( CommitDocument.Empty );
-
-         var viewServiceMock = new Mock<IViewService>();
          viewServiceMock.Setup( vs => vs.ConfirmDiscard() ).Returns( DialogResult.Cancel );
 
-         var viewModel = new CommitViewModel( null, commitFileReaderMock.Object, Mock.Of<ICommitFileWriter>(), viewServiceMock.Object );
-         viewModel.InitializeCommand.Execute( null );
-         viewModel.CommitModel.Subject = "Something different";
-         viewModel.DiscardCommand.Execute( null );
+         sut.InitializeCommand.Execute( null );
+         sut.CommitModel.Subject = "Something different";
+         sut.DiscardCommand.Execute( null );
 
          viewServiceMock.Verify( vs => vs.CloseViewAsync( false ), Times.Never() );
       }
 
-      [Fact]
-      public void DiscardChanges_ContinuingWithDiscard_DismissesTheView()
+      [Theory, AutoMoqData]
+      public void DiscardCommand_ContinuingWithDiscard_DismissesTheView(
+         [Frozen] Mock<ICommitFileReader> commitFileReaderMock,
+         [Frozen] Mock<IViewService> viewServiceMock,
+         CommitViewModel sut )
       {
-         var commitFileReaderMock = new Mock<ICommitFileReader>();
          commitFileReaderMock.Setup( cfr => cfr.FromFile( It.IsAny<string>() ) ).Returns( CommitDocument.Empty );
-
-         var viewServiceMock = new Mock<IViewService>();
          viewServiceMock.Setup( vs => vs.ConfirmDiscard() ).Returns( DialogResult.Discard );
 
-         var viewModel = new CommitViewModel( null, commitFileReaderMock.Object, Mock.Of<ICommitFileWriter>(), viewServiceMock.Object );
-         viewModel.InitializeCommand.Execute( null );
-         viewModel.CommitModel.Subject = "Something different";
-         viewModel.DiscardCommand.Execute( null );
+         sut.InitializeCommand.Execute( null );
+         sut.CommitModel.Subject = "Something different";
+         sut.DiscardCommand.Execute( null );
 
          viewServiceMock.Verify( vs => vs.CloseViewAsync( false ), Times.Once() );
       }
 
-      [Fact]
-      public void DiscardChanges_ContinuingWithDiscard_ClearsTheCommitDetails()
+      [Theory, AutoMoqData]
+      public void DiscardCommand_ContinuingWithDiscard_ClearsTheCommitDetails(
+         [Frozen] Mock<ICommitFileReader> commitFileReaderMock,
+         [Frozen] Mock<ICommitFileWriter> commitFileWriterMock,
+         [Frozen] Mock<IViewService> viewServiceMock,
+         CommitViewModel sut )
       {
-         var commitFileReaderMock = new Mock<ICommitFileReader>();
          commitFileReaderMock.Setup( cfr => cfr.FromFile( It.IsAny<string>() ) ).Returns( CommitDocument.Empty );
-
-         var commitFileWriterMock = new Mock<ICommitFileWriter>();
-
-         var viewServiceMock = new Mock<IViewService>();
          viewServiceMock.Setup( vs => vs.ConfirmDiscard() ).Returns( DialogResult.Discard );
 
-         var viewModel = new CommitViewModel( "File.txt", commitFileReaderMock.Object, commitFileWriterMock.Object, viewServiceMock.Object );
-         viewModel.InitializeCommand.Execute( null );
-         viewModel.CommitModel.Subject = "Something different";
-         viewModel.DiscardCommand.Execute( null );
+         sut.InitializeCommand.Execute( null );
+         sut.CommitModel.Subject = "Something different";
+         sut.DiscardCommand.Execute( null );
 
-         commitFileWriterMock.Verify( cfw => cfw.ToFile( "File.txt", CommitDocument.Empty ), Times.Once() );
+         commitFileWriterMock.Verify( cfw => cfw.ToFile( sut.CommitFilePath, CommitDocument.Empty ), Times.Once() );
       }
 
-      [Fact]
-      public void DiscardChanges_SavingChangesAfterall_WritesChanges()
+      [Theory, AutoMoqData]
+      public void DiscardCommand_SavingChangesAfterall_WritesChanges(
+         [Frozen] Mock<ICommitFileReader> commitFileReaderMock,
+         [Frozen] Mock<ICommitFileWriter> commitFileWriterMock,
+         [Frozen] Mock<IViewService> viewServiceMock,
+         CommitViewModel sut )
       {
-         var commitFileReaderMock = new Mock<ICommitFileReader>();
          commitFileReaderMock.Setup( cfr => cfr.FromFile( It.IsAny<string>() ) ).Returns( CommitDocument.Empty );
-
-         var commitFileWriterMock = new Mock<ICommitFileWriter>();
-
-         var viewServiceMock = new Mock<IViewService>();
          viewServiceMock.Setup( vs => vs.ConfirmDiscard() ).Returns( DialogResult.Save );
 
-         var viewModel = new CommitViewModel( "File.txt", commitFileReaderMock.Object, commitFileWriterMock.Object, viewServiceMock.Object );
-         viewModel.InitializeCommand.Execute( null );
-         viewModel.CommitModel.Subject = "Something different";
-         viewModel.DiscardCommand.Execute( null );
+         sut.InitializeCommand.Execute( null );
+         sut.CommitModel.Subject = "Something different";
+         sut.DiscardCommand.Execute( null );
 
-         commitFileWriterMock.Verify( cfw => cfw.ToFile( "File.txt", It.Is<CommitDocument>(
+         commitFileWriterMock.Verify( cfw => cfw.ToFile( sut.CommitFilePath, It.Is<CommitDocument>(
             cd => cd.Subject == "Something different" ) ), Times.Once() );
       }
-
    }
 }
