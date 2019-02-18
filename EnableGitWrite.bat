@@ -1,1 +1,1 @@
-git config --global core.editor "C:/Git/alexwnovak/GitWrite/src/GitWrite/GitWrite/bin/Release/GitWrite.exe"
+git config --global core.editor "C:/Git/alexwnovak/GitWrite/src/GitWrite/bin/Release/GitWrite.exe"
