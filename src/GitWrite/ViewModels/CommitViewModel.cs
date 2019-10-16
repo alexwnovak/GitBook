@@ -1,5 +1,5 @@
 using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.CommandWpf;
 using GitModel;
 using GitWrite.Models;
 using GitWrite.Services;
@@ -39,7 +39,7 @@ namespace GitWrite.ViewModels
          _viewService = viewService;
 
          InitializeCommand = new RelayCommand( OnInitializeCommand );
-         AcceptCommand = new RelayCommand( OnAcceptCommand );
+         AcceptCommand = new RelayCommand( OnAcceptCommand, () => !string.IsNullOrEmpty( CommitModel?.Subject ) );
          DiscardCommand = new RelayCommand( OnDiscardCommand );
          SettingsCommand = new RelayCommand( OnSettingsCommand );
       }
