@@ -85,8 +85,6 @@
     </ApplicationDefinition>
     <Compile Include="AppControllerFactory.cs" />
     <Compile Include="Behaviors\CommitKeyPressBehavior.cs" />
-    <Compile Include="Behaviors\SuppressAltBehavior.cs" />
-    <Compile Include="Behaviors\SuppressAltLogic.cs" />
     <Compile Include="Behaviors\TripleClickSelectionBehavior.cs" />
     <Compile Include="CommitController.cs" />
     <Compile Include="CommitObjectComposer.cs" />

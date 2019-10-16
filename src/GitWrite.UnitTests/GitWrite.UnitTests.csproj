@@ -145,7 +145,6 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="Behaviors\SuppressAltLogicTests.cs" />
     <Compile Include="Services\ApplicationSettingsTests.cs" />
     <Compile Include="Infrastructure\AutoMoqDataAttribute.cs" />
     <Compile Include="ViewModels\CommitViewModelTests.cs" />
