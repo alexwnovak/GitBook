@@ -44,20 +44,6 @@ namespace GitWrite.UnitTests.ViewModels
       }
 
       [Theory, AutoMoqData]
-      public void AcceptCommand_HasNoSubject_DisplaysHint(
-         [Frozen] Mock<ICommitFileReader> commitFileReaderMock,
-         [Frozen] Mock<IViewService> viewServiceMock,
-         CommitViewModel sut )
-      {
-         commitFileReaderMock.Setup( cfr => cfr.FromFile( It.IsAny<string>() ) ).Returns( CommitDocument.Empty );
-
-         sut.InitializeCommand.Execute( null );
-         sut.AcceptCommand.Execute( null );
-
-         viewServiceMock.Verify( vs => vs.DisplaySubjectHint(), Times.Once() );
-      }
-
-      [Theory, AutoMoqData]
       public void DiscardCommand_AbandoningChanges_ClearsTheCommitDetails(
          [Frozen] Mock<ICommitFileWriter> commitFileWriterMock,
          CommitViewModel sut )

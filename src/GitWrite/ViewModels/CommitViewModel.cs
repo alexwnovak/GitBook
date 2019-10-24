@@ -59,16 +59,9 @@ namespace GitWrite.ViewModels
 
       private async void OnAcceptCommand()
       {
-         if ( string.IsNullOrWhiteSpace( CommitModel.Subject ) )
-         {
-            _viewService.DisplaySubjectHint();
-         }
-         else
-         {
-            var commitDocument = new CommitDocument( CommitModel.Subject, CommitModel.Body );
-            _commitFileWriter.ToFile( CommitFilePath, commitDocument );
-            await _viewService.CloseViewAsync( true );
-         }
+         var commitDocument = new CommitDocument( CommitModel.Subject, CommitModel.Body );
+         _commitFileWriter.ToFile( CommitFilePath, commitDocument );
+         await _viewService.CloseViewAsync( true );
       }
 
       private async void OnDiscardCommand()
