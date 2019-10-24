@@ -91,6 +91,7 @@
     <Compile Include="IAppController.cs" />
     <Compile Include="Messaging\IMessageReceiver.cs" />
     <Compile Include="IObjectComposer.cs" />
+    <Compile Include="Messaging\MessageBroker.cs" />
     <Compile Include="Messaging\MessageReceiver.cs" />
     <Compile Include="Models\CommitModel.cs" />
     <Compile Include="Views\AccentColorExtension.cs" />
