@@ -94,6 +94,8 @@
     <Compile Include="Messaging\MessageBroker.cs" />
     <Compile Include="Messaging\MessageReceiver.cs" />
     <Compile Include="Models\CommitModel.cs" />
+    <Compile Include="Receivers\WindowCloserReceiver.cs" />
+    <Compile Include="Messages\CloseWindowMessage.cs" />
     <Compile Include="Views\AccentColorExtension.cs" />
     <Compile Include="Views\Converters\ColorOpacityConverter.cs" />
     <Compile Include="Views\Converters\DefaultConverter.cs" />
