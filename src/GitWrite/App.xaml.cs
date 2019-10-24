@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using CommonServiceLocator;
 using GalaSoft.MvvmLight.Ioc;
+using GitWrite.Messaging;
 
 namespace GitWrite
 {
@@ -10,6 +11,9 @@ namespace GitWrite
       {
          ServiceLocator.SetLocatorProvider( () => SimpleIoc.Default );
          StartupUri = AppControllerFactory.GetController( e ).GetStartupUri();
+
+         var messageBroker = new MessageBroker();
+         messageBroker.Initialize();
       }
    }
 }
