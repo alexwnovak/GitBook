@@ -1,6 +1,7 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GitModel;
+using GitWrite.Messages;
 using GitWrite.Models;
 using GitWrite.Services;
 
@@ -57,11 +58,12 @@ namespace GitWrite.ViewModels
          CommitModel.PropertyChanged += ( _, __ ) => IsDirty = true;
       }
 
-      private async void OnAcceptCommand()
+      private void OnAcceptCommand()
       {
          var commitDocument = new CommitDocument( CommitModel.Subject, CommitModel.Body );
          _commitFileWriter.ToFile( CommitFilePath, commitDocument );
-         await _viewService.CloseViewAsync( true );
+
+         MessengerInstance.Send( new CloseWindowMessage() );
       }
 
       private async void OnDiscardCommand()
