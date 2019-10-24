@@ -89,6 +89,7 @@
     <Compile Include="CommitController.cs" />
     <Compile Include="CommitObjectComposer.cs" />
     <Compile Include="IAppController.cs" />
+    <Compile Include="Messaging\IMessageReceiver.cs" />
     <Compile Include="IObjectComposer.cs" />
     <Compile Include="Models\CommitModel.cs" />
     <Compile Include="Views\AccentColorExtension.cs" />
