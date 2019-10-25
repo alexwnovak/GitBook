@@ -7,8 +7,10 @@
         mc:Ignorable="d"
         Title="CommitView"
         Width="800"
-        Height="50"
+        Height="70"
         WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize"
         >
    <Grid>
 
