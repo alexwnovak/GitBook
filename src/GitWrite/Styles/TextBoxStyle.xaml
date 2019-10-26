@@ -22,5 +22,7 @@
           BasedOn="{StaticResource TextEntryStyle}">
       <Setter Property="VerticalContentAlignment"
               Value="Center" />
+      <Setter Property="Margin"
+              Value="12,0" />
    </Style>
 </ResourceDictionary>
