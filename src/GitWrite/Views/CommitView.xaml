@@ -10,7 +10,8 @@
         Height="70"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
-        Background="#EEE" >
+        Background="#EEE"
+        FocusManager.FocusedElement="{Binding ElementName=Commit_Subject}">
    <Window.Resources>
       <cnv:RemainingCharactersConverter x:Key="RemainingCharactersConverter" />
    </Window.Resources>
