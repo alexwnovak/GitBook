@@ -15,39 +15,6 @@
         Background="#EEE"
         >
    <Window.Resources>
-      <Style x:Key="RadialProgressBar"
-             TargetType="{x:Type ProgressBar}">
-         <Setter Property="Template">
-            <Setter.Value>
-               <ControlTemplate TargetType="{x:Type ProgressBar}">
-                  <Grid>
-                     <Grid.Resources>
-                        <c:ProgressValueToAngleConverter x:Key="ProgressValueToAngleConverter" />
-                     </Grid.Resources>
-
-                     <c:Sector Fill="Orange">
-                        <c:Sector.Angle>
-                           <MultiBinding Converter="{StaticResource ProgressValueToAngleConverter}">
-                              <Binding Path="Value"
-                                       RelativeSource="{RelativeSource AncestorType={x:Type ProgressBar}}" />
-                              <Binding Path="Minimum"
-                                       RelativeSource="{RelativeSource AncestorType={x:Type ProgressBar}}" />
-                              <Binding Path="Maximum"
-                                       RelativeSource="{RelativeSource AncestorType={x:Type ProgressBar}}" />
-                           </MultiBinding>
-                        </c:Sector.Angle>
-                     </c:Sector>
-
-                     <TextBlock HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Foreground="Black"
-                                Text="{Binding Value,
-                                               RelativeSource={RelativeSource AncestorType={x:Type ProgressBar}}}" />
-                  </Grid>
-               </ControlTemplate>
-            </Setter.Value>
-         </Setter>
-      </Style>
 
       <cnv:RemainingCharactersConverter x:Key="RemainingCharactersConverter" />
 
