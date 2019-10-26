@@ -8,13 +8,17 @@
         Title="CommitView"
         Width="812"
         Height="70"
-        WindowStartupLocation="CenterScreen"
-        WindowStyle="None"
         ResizeMode="NoResize"
-        Background="#EEE">
+        WindowStartupLocation="CenterScreen"
+        Background="#EEE" >
    <Window.Resources>
       <cnv:RemainingCharactersConverter x:Key="RemainingCharactersConverter" />
    </Window.Resources>
+
+   <WindowChrome.WindowChrome>
+      <WindowChrome ResizeBorderThickness="6"
+                    GlassFrameThickness="1" />
+   </WindowChrome.WindowChrome>
 
    <Grid>
       <Grid.ColumnDefinitions>
