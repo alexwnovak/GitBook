@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:c="clr-namespace:GitWrite.Controls"
         xmlns:cnv="clr-namespace:GitWrite.Views.Converters"
         mc:Ignorable="d"
         Title="CommitView"
@@ -12,19 +11,16 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         ResizeMode="NoResize"
-        Background="#EEE"
-        >
+        Background="#EEE">
    <Window.Resources>
-
       <cnv:RemainingCharactersConverter x:Key="RemainingCharactersConverter" />
-
    </Window.Resources>
+
    <Grid Margin="16,12">
       <Grid.ColumnDefinitions>
          <ColumnDefinition />
          <ColumnDefinition Width="40" />
       </Grid.ColumnDefinitions>
-
 
       <Border BorderThickness="0,0,1,0"
               BorderBrush="#CCC">
@@ -34,17 +30,16 @@
       </Border>
 
       <ProgressBar Grid.Column="1"
-                   Width="40"
-                   Height="40"
                    Minimum="0"
                    Maximum="{Binding MaxLength, ElementName=Commit_Subject}"
-                   Value="{Binding Text.Length,
-         ElementName=Commit_Subject,
-         Mode=OneWay,
-         Converter={StaticResource RemainingCharactersConverter},
-         UpdateSourceTrigger=PropertyChanged}"
+                   Width="40"
+                   Height="40"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
+                   Value="{Binding Text.Length,
+                                   ElementName=Commit_Subject,
+                                   Mode=OneWay,
+                                   Converter={StaticResource RemainingCharactersConverter}}"
                    Style="{StaticResource RadialProgressBar}" />
    </Grid>
 </Window>
