@@ -1,8 +1,8 @@
-﻿using GalaSoft.MvvmLight.Messaging;
+﻿//using GalaSoft.MvvmLight.Messaging;
 
-namespace GitWrite.Messages
-{
-   public class CloseWindowMessage : MessageBase
-   {
-   }
-}
+//namespace GitWrite.Messages
+//{
+//   public class CloseWindowMessage : MessageBase
+//   {
+//   }
+//}

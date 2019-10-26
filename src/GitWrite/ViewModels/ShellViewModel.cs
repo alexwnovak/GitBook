@@ -4,7 +4,7 @@ using GitWrite.Models;
 
 namespace GitWrite.ViewModels
 {
-   public class CommitViewModel : Screen
+   public class ShellViewModel : Screen
    {
       private CommitModel _commit;
       public CommitModel Commit
@@ -17,11 +17,11 @@ namespace GitWrite.ViewModels
          }
       }
 
-      public CommitViewModel()
+      public ShellViewModel()
       {
          Commit = new CommitModel
          {
-            Subject = "is simply dummy text of the printinindustry. Lorem fud",
+            Subject = "Subject text",
             Body = $"One{Environment.NewLine}Two"
          };
       }

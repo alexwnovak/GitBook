@@ -91,12 +91,12 @@
                   Margin="0,0,6,0"
                   HorizontalAlignment="Right"
                   VerticalAlignment="Center">
-                  <TextBlock.Text>
+                  <!--<TextBlock.Text>
                      <MultiBinding Converter="{cnv:RemainingCharactersConverter}" Mode="OneWay">
                         <Binding Path="MaxLength" ElementName="SubjectTextBox" />
                         <Binding Path="Text.Length" ElementName="SubjectTextBox" />
                      </MultiBinding>
-                  </TextBlock.Text>
+                  </TextBlock.Text>-->
                </TextBlock>
 
                <Rectangle Grid.Row="1"

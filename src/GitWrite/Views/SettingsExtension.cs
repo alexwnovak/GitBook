@@ -4,8 +4,6 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Markup;
-using GalaSoft.MvvmLight.Ioc;
-using GalaSoft.MvvmLight.Messaging;
 using GitWrite.Services;
 using GitWrite.Views.Converters;
 
@@ -23,18 +21,18 @@ namespace GitWrite.Views
       public IValueConverter Converter { get; set; } = DefaultConverter.Instance;
 
       public SettingsExtension( string name )
-         : this( SimpleIoc.Default.GetInstance<IApplicationSettings>(), Messenger.Default, name )
+         //: this( SimpleIoc.Default.GetInstance<IApplicationSettings>(), Messenger.Default, name )
       {
       }
 
       internal SettingsExtension( IApplicationSettings applicationSettings,
-         IMessenger messenger,
+         //IMessenger messenger,
          string name )
       {
          _applicationSettings = applicationSettings;
          Name = name;
 
-         messenger.Register<RefreshSettingsMessage>( this, name, _ => OnRefreshSettings(), true );
+         //messenger.Register<RefreshSettingsMessage>( this, name, _ => OnRefreshSettings(), true );
       }
 
       private object GetSettingValue()

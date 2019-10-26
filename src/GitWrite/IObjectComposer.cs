@@ -1,10 +1,10 @@
-﻿using GalaSoft.MvvmLight.Ioc;
+﻿//using GalaSoft.MvvmLight.Ioc;
 
-namespace GitWrite
-{
-   public interface IObjectComposer
-   {
-      ISimpleIoc Container { get; }
-      void Compose();
-   }
-}
+//namespace GitWrite
+//{
+//   public interface IObjectComposer
+//   {
+//      ISimpleIoc Container { get; }
+//      void Compose();
+//   }
+//}
