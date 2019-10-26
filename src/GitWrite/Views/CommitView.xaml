@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:cnv="clr-namespace:GitWrite.Views.Converters"
         mc:Ignorable="d"
         Title="CommitView"
@@ -30,7 +31,15 @@
 
       <TextBox x:Name="Commit_Subject"
                Style="{StaticResource CommitEntryStyle}"
-               MaxLength="72" />
+               MaxLength="72">
+         <Behaviors:Interaction.Triggers>
+            <Behaviors:EventTrigger EventName="Loaded">
+               <Behaviors:ChangePropertyAction Value="{Binding Text.Length, ElementName=Commit_Subject}"
+                                               PropertyName="SelectionStart"
+                                               TargetName="Commit_Subject" />
+            </Behaviors:EventTrigger>
+         </Behaviors:Interaction.Triggers>
+      </TextBox>
 
       <Rectangle Grid.Column="1"
                  Width="1"
