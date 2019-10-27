@@ -11,7 +11,10 @@ namespace GitWrite.ViewModels
    public class CommitViewModel : Screen
    {
       private Action<CommitDocument> _writeCommitFile;
-      private Func<CommitDocument> _getPendingDocument = () => CommitDocument.Empty;
+      private ConfirmExitFunction _confirmExit;
+
+      private bool _isDirty;
+      private CloseAction _closeAction;
 
       private CommitModel _commit;
       public CommitModel Commit
@@ -27,9 +30,11 @@ namespace GitWrite.ViewModels
       public CommitViewModel(
          GetCommitFilePathFunction getCommitFilePath,
          ReadCommitFileFunction readCommitFile,
-         WriteCommitFileFunction writeCommitFile )
+         WriteCommitFileFunction writeCommitFile,
+         ConfirmExitFunction confirmExit )
       {
          _writeCommitFile = d => writeCommitFile( getCommitFilePath(), d );
+         _confirmExit = confirmExit;
 
          string filePath = getCommitFilePath();
          var commitDocument = readCommitFile( filePath );
@@ -39,29 +44,59 @@ namespace GitWrite.ViewModels
             Subject = commitDocument.Subject,
             Body = commitDocument.Body.Aggregate( ( acc, line ) => acc += $"{Environment.NewLine}{line}" )
          };
+
+         Commit.PropertyChanged += ( _, __ ) => _isDirty = true;
       }
 
       public async Task Save()
       {
-         _getPendingDocument = () => new CommitDocument
-         {
-            Subject = Commit.Subject,
-            Body = Commit.Body.Split( Environment.NewLine )
-         };
-
+         _closeAction = CloseAction.Save;
          await TryCloseAsync();
       }
 
       public async Task Discard()
       {
+         _closeAction = CloseAction.Discard;
          await TryCloseAsync();
+      }
+
+      public override Task<bool> CanCloseAsync( CancellationToken cancellationToken )
+      {
+         bool canClose = true;
+
+         if ( _isDirty )
+         {
+            var confirmResult = _confirmExit();
+            canClose = confirmResult != ConfirmResult.Cancel;
+
+            if ( confirmResult == ConfirmResult.Yes )
+            {
+               _closeAction = CloseAction.Save;
+            }
+            else
+            {
+               _closeAction =  CloseAction.Discard;
+            }
+         }
+
+         return Task.FromResult( canClose );
       }
 
       protected override Task OnDeactivateAsync( bool close, CancellationToken cancellationToken )
       {
          if ( close )
          {
-            var document = _getPendingDocument();
+            CommitDocument document = CommitDocument.Empty;
+
+            if ( _closeAction == CloseAction.Save )
+            {
+               document = new CommitDocument
+               {
+                  Subject = Commit.Subject,
+                  Body = Commit.Body.Split( Environment.NewLine )
+               };
+            }
+
             _writeCommitFile( document );
          }
 

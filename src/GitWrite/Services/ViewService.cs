@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Windows;
+using GitWrite.ViewModels;
 using GitWrite.Views;
 using Resx = GitWrite.Properties.Resources;
 
@@ -33,6 +34,22 @@ namespace GitWrite.Services
             case MessageBoxResult.No: return DialogResult.Discard;
             default: return DialogResult.Cancel;
          }
+      }
+
+      public static ConfirmResult ConfirmExit()
+      {
+         var result = MessageBox.Show(
+            Resx.ExitConfirmationBodyText,
+            Resx.ExitConfirmationHeaderText,
+            MessageBoxButton.YesNoCancel,
+            MessageBoxImage.Question );
+
+         return result switch
+         {
+            MessageBoxResult.Yes => ConfirmResult.Yes,
+            MessageBoxResult.No => ConfirmResult.No,
+            _ => ConfirmResult.Cancel
+         };
       }
    }
 }

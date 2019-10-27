@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using Caliburn.Micro;
 using GitModel;
+using GitWrite.Services;
 using GitWrite.ViewModels;
 
 namespace GitWrite
@@ -29,6 +30,7 @@ namespace GitWrite
          _container.Handler<GetCommitFilePathFunction>( c => new GetCommitFilePathFunction( () => Environment.GetCommandLineArgs().Last() ) );
          _container.Handler<ReadCommitFileFunction>( c => new ReadCommitFileFunction( filePath => new CommitFileReader().FromFile( filePath ) ) );
          _container.Handler<WriteCommitFileFunction>( c => new WriteCommitFileFunction( ( filePath, document ) => new CommitFileWriter().ToFile( filePath, document ) ) );
+         _container.Handler<ConfirmExitFunction>( c => new ConfirmExitFunction( ViewService.ConfirmExit ) );
       }
 
       protected override void OnStartup( object sender, StartupEventArgs e )
