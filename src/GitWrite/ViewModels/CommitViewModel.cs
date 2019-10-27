@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Caliburn.Micro;
 using GitWrite.Models;
 
@@ -17,12 +18,17 @@ namespace GitWrite.ViewModels
          }
       }
 
-      public CommitViewModel()
+      public CommitViewModel(
+         GetCommitFilePathFunction getCommitFilePath,
+         ReadCommitFileFunction readCommitFile )
       {
+         string filePath = getCommitFilePath();
+         var commitDocument = readCommitFile( filePath );
+
          Commit = new CommitModel
          {
-            Subject = "is simply dummy text of the printinindustry. Lorem fud",
-            Body = $"One{Environment.NewLine}Two"
+            Subject = commitDocument.Subject,
+            Body = commitDocument.Body.Aggregate( ( acc, line ) => acc += $"{Environment.NewLine}{line}" )
          };
       }
 
