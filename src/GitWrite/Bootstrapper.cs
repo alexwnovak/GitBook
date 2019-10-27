@@ -8,11 +8,11 @@ using GitWrite.ViewModels;
 
 namespace GitWrite
 {
-   public class AppBootstrapper : BootstrapperBase
+   public class Bootstrapper : BootstrapperBase
    {
       private SimpleContainer _container = new SimpleContainer();
 
-      public AppBootstrapper()
+      public Bootstrapper()
       {
          Initialize();
       }

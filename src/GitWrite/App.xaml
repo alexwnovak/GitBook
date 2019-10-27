@@ -15,7 +15,7 @@
       <ResourceDictionary>
          <ResourceDictionary.MergedDictionaries>
             <ResourceDictionary>
-               <gitWrite:AppBootstrapper x:Key="Bootstrapper" />
+               <gitWrite:Bootstrapper x:Key="Bootstrapper" />
                <!--<viewModels:ViewModelLocator x:Key="ViewModelLocator"
                                             d:IsDataSource="True" />-->
             </ResourceDictionary>
