@@ -4,7 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:cal="http://www.caliburnproject.org"
         xmlns:cnv="clr-namespace:GitWrite.Views.Converters"
+        xmlns:t="clr-namespace:GitWrite.Triggers"
         mc:Ignorable="d"
         Title="CommitView"
         Width="812"
@@ -38,6 +40,9 @@
                                                PropertyName="SelectionStart"
                                                TargetName="Commit_Subject" />
             </Behaviors:EventTrigger>
+            <t:KeyTrigger Key="Return">
+               <cal:ActionMessage MethodName="Save" />
+            </t:KeyTrigger>
          </Behaviors:Interaction.Triggers>
       </TextBox>
 
