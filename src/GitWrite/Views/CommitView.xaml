@@ -43,6 +43,9 @@
             <t:KeyTrigger Key="Return">
                <cal:ActionMessage MethodName="Save" />
             </t:KeyTrigger>
+            <t:KeyTrigger Key="Esc">
+               <cal:ActionMessage MethodName="Discard" />
+            </t:KeyTrigger>
          </Behaviors:Interaction.Triggers>
       </TextBox>
 

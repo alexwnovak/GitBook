@@ -52,5 +52,11 @@ namespace GitWrite.ViewModels
 
          await TryCloseAsync();
       }
+
+      public async Task Discard()
+      {
+         _writeCommitFile( CommitDocument.Empty );
+         await TryCloseAsync();
+      }
    }
 }
