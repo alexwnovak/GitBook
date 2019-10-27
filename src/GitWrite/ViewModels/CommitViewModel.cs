@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Caliburn.Micro;
 using GitModel;
 using GitWrite.Models;
@@ -39,7 +40,7 @@ namespace GitWrite.ViewModels
          };
       }
 
-      public void Save()
+      public async Task Save()
       {
          var commitDocument = new CommitDocument
          {
@@ -48,6 +49,8 @@ namespace GitWrite.ViewModels
          };
 
          _writeCommitFile( commitDocument );
+
+         await TryCloseAsync();
       }
    }
 }
