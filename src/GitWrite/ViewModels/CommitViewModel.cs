@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Linq;
 using Caliburn.Micro;
+using GitModel;
 using GitWrite.Models;
+using Action = System.Action;
 
 namespace GitWrite.ViewModels
 {
    public class CommitViewModel : Screen
    {
+      private Action<CommitDocument> _writeCommitFile;
+
       private CommitModel _commit;
       public CommitModel Commit
       {
@@ -20,8 +24,11 @@ namespace GitWrite.ViewModels
 
       public CommitViewModel(
          GetCommitFilePathFunction getCommitFilePath,
-         ReadCommitFileFunction readCommitFile )
+         ReadCommitFileFunction readCommitFile,
+         WriteCommitFileFunction writeCommitFile )
       {
+         _writeCommitFile = d => writeCommitFile( getCommitFilePath(), d );
+
          string filePath = getCommitFilePath();
          var commitDocument = readCommitFile( filePath );
 
@@ -34,6 +41,13 @@ namespace GitWrite.ViewModels
 
       public void Save()
       {
+         var commitDocument = new CommitDocument
+         {
+            Subject = Commit.Subject,
+            Body = Commit.Body.Split( Environment.NewLine )
+         };
+
+         _writeCommitFile( commitDocument );
       }
    }
 }

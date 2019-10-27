@@ -28,6 +28,7 @@ namespace GitWrite
          _container.PerRequest<CommitViewModel>();
          _container.Handler<GetCommitFilePathFunction>( c => new GetCommitFilePathFunction( () => Environment.GetCommandLineArgs().Last() ) );
          _container.Handler<ReadCommitFileFunction>( c => new ReadCommitFileFunction( filePath => new CommitFileReader().FromFile( filePath ) ) );
+         _container.Handler<WriteCommitFileFunction>( c => new WriteCommitFileFunction( ( filePath, document ) => new CommitFileWriter().ToFile( filePath, document ) ) );
       }
 
       protected override void OnStartup( object sender, StartupEventArgs e )
