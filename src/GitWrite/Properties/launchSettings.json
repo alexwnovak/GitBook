@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "GitWrite": {
+      "commandName": "Project",
+      "commandLineArgs": "C:\\temp\\COMMIT_EDITMSG"
+    }
+  }
+}
