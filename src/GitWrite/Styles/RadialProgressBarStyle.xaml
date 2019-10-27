@@ -11,7 +11,9 @@
                      <c:ProgressValueToAngleConverter x:Key="ProgressValueToAngleConverter" />
                   </Grid.Resources>
 
-                  <c:Sector Fill="Orange">
+                  <Ellipse Stroke="#CCC" />
+
+                  <c:Sector Fill="#FFCF9E">
                      <c:Sector.Angle>
                         <MultiBinding Converter="{StaticResource ProgressValueToAngleConverter}">
                            <Binding Path="Value"
