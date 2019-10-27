@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Caliburn.Micro;
 using GitModel;
 using GitWrite.Models;
-using Action = System.Action;
 
 namespace GitWrite.ViewModels
 {
    public class CommitViewModel : Screen
    {
       private Action<CommitDocument> _writeCommitFile;
+      private Func<CommitDocument> _getPendingDocument = () => CommitDocument.Empty;
 
       private CommitModel _commit;
       public CommitModel Commit
@@ -42,21 +43,29 @@ namespace GitWrite.ViewModels
 
       public async Task Save()
       {
-         var commitDocument = new CommitDocument
+         _getPendingDocument = () => new CommitDocument
          {
             Subject = Commit.Subject,
             Body = Commit.Body.Split( Environment.NewLine )
          };
-
-         _writeCommitFile( commitDocument );
 
          await TryCloseAsync();
       }
 
       public async Task Discard()
       {
-         _writeCommitFile( CommitDocument.Empty );
          await TryCloseAsync();
+      }
+
+      protected override Task OnDeactivateAsync( bool close, CancellationToken cancellationToken )
+      {
+         if ( close )
+         {
+            var document = _getPendingDocument();
+            _writeCommitFile( document );
+         }
+
+         return Task.CompletedTask;
       }
    }
 }
