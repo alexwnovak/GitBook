@@ -1,100 +1,106 @@
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
+﻿using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using Caliburn.Micro;
 using GitModel;
 using GitWrite.Models;
-using GitWrite.Services;
 
 namespace GitWrite.ViewModels
 {
-   public class CommitViewModel : ViewModelBase
+   public class CommitViewModel : Screen
    {
-      public string CommitFilePath { get; }
-      public bool IsDirty { get; set; }
+      private readonly Action<CommitDocument> _writeCommitFile;
+      private readonly ConfirmExitFunction _confirmExit;
 
-      private readonly ICommitFileReader _commitFileReader;
-      private readonly ICommitFileWriter _commitFileWriter;
-      private readonly IViewService _viewService;
+      private bool _isDirty;
+      private CloseAction _closeAction;
 
-      private CommitModel _commitModel;
-      public CommitModel CommitModel
+      private CommitModel _commit;
+      public CommitModel Commit
       {
-         get => _commitModel;
-         private set => Set( () => CommitModel, ref _commitModel, value );
+         get => _commit;
+         set
+         {
+            _commit = value;
+            NotifyOfPropertyChange( nameof( Commit ) );
+         }
       }
 
-      public RelayCommand InitializeCommand { get; }
-      public RelayCommand AcceptCommand { get; }
-      public RelayCommand DiscardCommand { get; }
-      public RelayCommand SettingsCommand { get; }
-
-      public CommitViewModel( string commitFilePath,
-         ICommitFileReader commitFileReader,
-         ICommitFileWriter commitFileWriter,
-         IViewService viewService )
+      public CommitViewModel(
+         GetCommitFilePathFunction getCommitFilePath,
+         ReadCommitFileFunction readCommitFile,
+         WriteCommitFileFunction writeCommitFile,
+         ConfirmExitFunction confirmExit )
       {
-         CommitFilePath = commitFilePath;
+         _writeCommitFile = d => writeCommitFile( getCommitFilePath(), d );
+         _confirmExit = confirmExit;
 
-         _commitFileReader = commitFileReader;
-         _commitFileWriter = commitFileWriter;
-         _viewService = viewService;
+         string filePath = getCommitFilePath();
+         var commitDocument = readCommitFile( filePath );
 
-         InitializeCommand = new RelayCommand( OnInitializeCommand );
-         AcceptCommand = new RelayCommand( OnAcceptCommand );
-         DiscardCommand = new RelayCommand( OnDiscardCommand );
-         SettingsCommand = new RelayCommand( OnSettingsCommand );
-      }
-
-      private void OnInitializeCommand()
-      {
-         var commitDocument = _commitFileReader.FromFile( CommitFilePath );
-
-         CommitModel = new CommitModel
+         Commit = new CommitModel
          {
             Subject = commitDocument.Subject,
-            Body = commitDocument.Body
+            Body = commitDocument.Body.Aggregate( ( acc, line ) => acc += $"{Environment.NewLine}{line}" )
          };
 
-         CommitModel.PropertyChanged += ( _, __ ) => IsDirty = true;
+         Commit.PropertyChanged += ( _, __ ) => _isDirty = true;
       }
 
-      private async void OnAcceptCommand()
+      public async Task Save()
       {
-         if ( string.IsNullOrWhiteSpace( CommitModel.Subject ) )
-         {
-            _viewService.DisplaySubjectHint();
-         }
-         else
-         {
-            var commitDocument = new CommitDocument( CommitModel.Subject, CommitModel.Body );
-            _commitFileWriter.ToFile( CommitFilePath, commitDocument );
-            await _viewService.CloseViewAsync( true );
-         }
+         _closeAction = CloseAction.Save;
+         await TryCloseAsync();
       }
 
-      private async void OnDiscardCommand()
+      public async Task Discard()
       {
-         var commitDocument = CommitDocument.Empty;
+         _closeAction = CloseAction.Discard;
+         await TryCloseAsync();
+      }
 
-         if ( IsDirty )
+      public override Task<bool> CanCloseAsync( CancellationToken cancellationToken )
+      {
+         bool canClose = true;
+
+         if ( _isDirty )
          {
-            var exitReason = _viewService.ConfirmDiscard();
+            var confirmResult = _confirmExit();
+            canClose = confirmResult != ConfirmResult.Cancel;
 
-            if ( exitReason == DialogResult.Cancel )
+            if ( confirmResult == ConfirmResult.Yes )
             {
-               return;
+               _closeAction = CloseAction.Save;
             }
-            if ( exitReason == DialogResult.Save )
+            else
             {
-               commitDocument = new CommitDocument( CommitModel.Subject, CommitModel.Body );
+               _closeAction =  CloseAction.Discard;
             }
          }
 
-         _commitFileWriter.ToFile( CommitFilePath, commitDocument );
-         await _viewService.CloseViewAsync( false );
+         return Task.FromResult( canClose );
       }
 
-      private void OnSettingsCommand()
+      protected override Task OnDeactivateAsync( bool close, CancellationToken cancellationToken )
       {
+         if ( close )
+         {
+            CommitDocument document = CommitDocument.Empty;
+
+            if ( _closeAction == CloseAction.Save )
+            {
+               document = new CommitDocument
+               {
+                  Subject = Commit.Subject,
+                  Body = Commit.Body.Split( Environment.NewLine )
+               };
+            }
+
+            _writeCommitFile( document );
+         }
+
+         return Task.CompletedTask;
       }
    }
 }

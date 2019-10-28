@@ -1,21 +1,29 @@
-﻿using GalaSoft.MvvmLight;
+﻿using Caliburn.Micro;
 
 namespace GitWrite.Models
 {
-   public class CommitModel : ObservableObject
+   public class CommitModel : PropertyChangedBase
    {
       private string _subject;
       public string Subject
       {
          get => _subject;
-         set => Set( () => Subject, ref _subject, value );
+         set
+         {
+            _subject = value;
+            NotifyOfPropertyChange( nameof( Subject ) );
+         }
       }
 
-      private string[] _body;
-      public string[] Body
+      private string _body;
+      public string Body
       {
          get => _body;
-         set => Set( () => Body, ref _body, value );
+         set
+         {
+            _body = value;
+            NotifyOfPropertyChange( nameof( Body ) );
+         }
       }
    }
 }

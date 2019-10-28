@@ -122,8 +122,8 @@ namespace GitWrite.Views.Controls
 
          await Task.WhenAll( moveDownTask, moveUpTask, moveHighlightTask );
 
-         var viewModel = (RebaseViewModel) DataContext;
-         viewModel.SwapItems( moveDownIndex, moveUpIndex );
+         //var viewModel = (RebaseViewModel) DataContext;
+         //viewModel.SwapItems( moveDownIndex, moveUpIndex );
 
          SetAdorner( nextIndex );
          _isMoving = false;

@@ -1,8 +1,8 @@
-﻿using GalaSoft.MvvmLight.Messaging;
+﻿//using GalaSoft.MvvmLight.Messaging;
 
-namespace GitWrite.Views
-{
-   public class RefreshSettingsMessage : MessageBase
-   {
-   }
-}
+//namespace GitWrite.Views
+//{
+//   public class RefreshSettingsMessage : MessageBase
+//   {
+//   }
+//}

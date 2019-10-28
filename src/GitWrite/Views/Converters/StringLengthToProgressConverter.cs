@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Data;
-using GalaSoft.MvvmLight.Ioc;
 using GitWrite.Services;
 
 namespace GitWrite.Views.Converters
@@ -12,13 +11,10 @@ namespace GitWrite.Views.Converters
 
       public StringLengthToProgressConverter()
       {
-         var appSettings = SimpleIoc.Default.GetInstance<IApplicationSettings>();
-         _maxLength = (int) appSettings.GetSetting( "MaxCommitLength" );
-      }
+         //var appSettings = SimpleIoc.Default.GetInstance<IApplicationSettings>();
+         //_maxLength = (int) appSettings.GetSetting( "MaxCommitLength" );
 
-      public StringLengthToProgressConverter( int maxLength )
-      {
-         _maxLength = maxLength;
+         _maxLength = 72;
       }
 
       public object Convert( object value, Type targetType, object parameter, CultureInfo culture )
@@ -35,7 +31,7 @@ namespace GitWrite.Views.Converters
             return 0.0;
          }
 
-         return doubleValue / _maxLength;
+         return 100 * doubleValue / _maxLength;
       }
 
       public object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture )

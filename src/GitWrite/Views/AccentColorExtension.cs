@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows.Markup;
 using System.Windows.Media;
-using GalaSoft.MvvmLight.Ioc;
 using GitWrite.Services;
 
 namespace GitWrite.Views
@@ -13,10 +12,10 @@ namespace GitWrite.Views
       private readonly IApplicationSettings _appSettings;
 
       public AccentColorExtension()
-         : this( SimpleIoc.Default.GetInstance<IApplicationSettings>() )
+         //: this( SimpleIoc.Default.GetInstance<IApplicationSettings>() )
       {
       }
-         
+
       internal AccentColorExtension( IApplicationSettings appSettings )
       {
          _appSettings = appSettings;
