@@ -1,28 +1,30 @@
-﻿<Window x:Class="GitWrite.Views.CommitView"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
-        xmlns:cal="http://www.caliburnproject.org"
-        xmlns:cnv="clr-namespace:GitWrite.Views.Converters"
-        xmlns:t="clr-namespace:GitWrite.Triggers"
-        mc:Ignorable="d"
-        Title="CommitView"
-        Width="812"
-        Height="70"
-        ResizeMode="NoResize"
-        WindowStartupLocation="CenterScreen"
-        Background="#EEE"
-        FocusManager.FocusedElement="{Binding ElementName=Commit_Subject}">
+﻿<fw:AcrylicWindow x:Class="GitWrite.Views.CommitView"
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                  xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
+                  xmlns:cal="http://www.caliburnproject.org"
+                  xmlns:cnv="clr-namespace:GitWrite.Views.Converters"
+                  xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
+                  xmlns:p="clr-namespace:GitWrite.Properties"
+                  xmlns:t="clr-namespace:GitWrite.Triggers"
+                  mc:Ignorable="d"
+                  Title="{x:Static p:Resources.ApplicationName}"
+                  Width="812"
+                  Height="70"
+                  ResizeMode="NoResize"
+                  AcrylicWindowStyle="None"
+                  BorderThickness="0"
+                  NoiseOpacity="0"
+                  FallbackColor="#EEE"
+                  TintColor="#EEE"
+                  TintOpacity="0.7"
+                  WindowStartupLocation="CenterScreen"
+                  FocusManager.FocusedElement="{Binding ElementName=Commit_Subject}">
    <Window.Resources>
       <cnv:RemainingCharactersConverter x:Key="RemainingCharactersConverter" />
    </Window.Resources>
-
-   <WindowChrome.WindowChrome>
-      <WindowChrome ResizeBorderThickness="6"
-                    GlassFrameThickness="1" />
-   </WindowChrome.WindowChrome>
 
    <Grid>
       <Grid.ColumnDefinitions>
@@ -67,4 +69,4 @@
                                    Mode=OneWay,
                                    Converter={StaticResource RemainingCharactersConverter}}" />
    </Grid>
-</Window>
+</fw:AcrylicWindow>
