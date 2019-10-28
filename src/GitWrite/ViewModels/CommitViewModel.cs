@@ -10,8 +10,8 @@ namespace GitWrite.ViewModels
 {
    public class CommitViewModel : Screen
    {
-      private Action<CommitDocument> _writeCommitFile;
-      private ConfirmExitFunction _confirmExit;
+      private readonly Action<CommitDocument> _writeCommitFile;
+      private readonly ConfirmExitFunction _confirmExit;
 
       private bool _isDirty;
       private CloseAction _closeAction;
