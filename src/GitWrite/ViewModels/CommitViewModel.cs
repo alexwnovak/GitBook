@@ -60,7 +60,7 @@ namespace GitWrite.ViewModels
       {
          bool canClose = true;
 
-         if ( _isDirty )
+         if ( _isDirty && _closeAction == CloseAction.Discard )
          {
             var confirmResult = _confirmExit();
             canClose = confirmResult != ConfirmResult.Cancel;
