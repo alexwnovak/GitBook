@@ -20,11 +20,7 @@ namespace GitWrite.ViewModels
       public CommitModel Commit
       {
          get => _commit;
-         set
-         {
-            _commit = value;
-            NotifyOfPropertyChange( nameof( Commit ) );
-         }
+         set => Set( ref _commit, value );
       }
 
       public CommitViewModel(
