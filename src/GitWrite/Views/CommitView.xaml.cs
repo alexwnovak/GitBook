@@ -1,8 +1,8 @@
-﻿using System.Windows;
+﻿using SourceChord.FluentWPF;
 
 namespace GitWrite.Views
 {
-   public partial class CommitView : Window
+   public partial class CommitView : AcrylicWindow
    {
       public CommitView()
       {
