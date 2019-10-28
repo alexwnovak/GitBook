@@ -14,6 +14,11 @@
                   Height="70"
                   ResizeMode="NoResize"
                   AcrylicWindowStyle="None"
+                  BorderThickness="0"
+                  NoiseOpacity="0"
+                  FallbackColor="#EEE"
+                  TintColor="#EEE"
+                  TintOpacity="0.7"
                   WindowStartupLocation="CenterScreen"
                   FocusManager.FocusedElement="{Binding ElementName=Commit_Subject}">
    <Window.Resources>
