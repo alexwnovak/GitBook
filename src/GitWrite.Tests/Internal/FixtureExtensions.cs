@@ -6,7 +6,7 @@ namespace GitWrite.Tests.Internal
    {
       public static IFixture RegisterFunction<TFunctionType>( this IFixture fixture, TFunctionType function )
       {
-         fixture.Register<TFunctionType>( () => function );
+         fixture.Register( () => function );
          return fixture;
       }
    }
