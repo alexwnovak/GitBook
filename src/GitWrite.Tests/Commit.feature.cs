@@ -171,13 +171,24 @@ this.ScenarioInitialize(scenarioInfo);
 #line 20
    testRunner.And("I have entered Fixing a bug into the subject field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
+                TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Line"});
+                table2.AddRow(new string[] {
+                            "Fixing issue #001"});
+                table2.AddRow(new string[] {
+                            "Fixing issue #002"});
+                table2.AddRow(new string[] {
+                            "Fixing issue #002"});
 #line 21
+   testRunner.And("I have entered the following lines into the body field:", ((string)(null)), table2, "And ");
+#line hidden
+#line 26
    testRunner.When("I discard the commit", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 22
+#line 27
    testRunner.Then("blank commit data is written to the commit file", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 23
+#line 28
    testRunner.And("the window is closed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
