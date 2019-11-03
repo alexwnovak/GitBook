@@ -28,6 +28,12 @@
       <cnv:RemainingCharactersConverter x:Key="RemainingCharactersConverter" />
    </Window.Resources>
 
+   <Behaviors:Interaction.Triggers>
+      <t:KeyTrigger Key="Esc">
+         <cal:ActionMessage MethodName="Discard" />
+      </t:KeyTrigger>
+   </Behaviors:Interaction.Triggers>
+
    <Grid>
       <Grid.RowDefinitions>
          <RowDefinition Height="70" />
@@ -53,9 +59,6 @@
                </Behaviors:EventTrigger>
                <t:KeyTrigger Key="Return">
                   <cal:ActionMessage MethodName="Save" />
-               </t:KeyTrigger>
-               <t:KeyTrigger Key="Esc">
-                  <cal:ActionMessage MethodName="Discard" />
                </t:KeyTrigger>
             </Behaviors:Interaction.Triggers>
          </TextBox>
@@ -101,6 +104,10 @@
                      </Behaviors:ControlStoryboardAction.Storyboard>
                   </Behaviors:ControlStoryboardAction>
                </Behaviors:EventTrigger>
+               <t:KeyTrigger Key="Return"
+                             Modifiers="Control">
+                  <cal:ActionMessage MethodName="Save" />
+               </t:KeyTrigger>
             </Behaviors:Interaction.Triggers>
          </TextBox>
       </Grid>
