@@ -48,14 +48,14 @@ namespace GitWrite.Tests
          await _sut.ActivateAsync();
       }
 
-      [Given( @"I have entered (.*) into the subject field" )]
+      [Given( "I have entered (.*) into the subject field" )]
       public void GivenIHaveEnteredIntoTheSubjectField( string subject )
       {
          _scenarioContext["ExpectedSubject"] = subject;
          _sut.Commit.Subject = subject;
       }
 
-      [When( @"I save the commit" )]
+      [When( "I save the commit" )]
       public async Task WhenISaveTheCommit()
       {
          await _sut.Save();
@@ -68,7 +68,7 @@ namespace GitWrite.Tests
          await _sut.Discard();
       }
 
-      [Then( @"the commit data is written to the commit file" )]
+      [Then( "the commit data is written to the commit file" )]
       public void ThenTheCommitDataIsWrittenToDisk()
       {
          var commitFileReader = new CommitFileReader();
