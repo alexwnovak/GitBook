@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using AutoFixture;
 using Caliburn.Micro;
 using FluentAssertions;
@@ -15,6 +16,8 @@ namespace GitWrite.Tests
       private readonly ScenarioContext _scenarioContext;
       private readonly TemporaryFolder _temporaryFolder;
       private readonly IFixture _fixture;
+
+      private Func<ConfirmResult> _confirmExit;
 
       private CommitViewModel _sut;
 
@@ -36,6 +39,7 @@ namespace GitWrite.Tests
          _fixture.RegisterFunction<GetCommitFilePathFunction>( () => commitFilePath );
          _fixture.RegisterFunction<ReadCommitFileFunction>( filePath => new CommitFileReader().FromFile( filePath ) );
          _fixture.RegisterFunction<WriteCommitFileFunction>( ( filePath, document ) => new CommitFileWriter().ToFile( filePath, document ) );
+         _fixture.RegisterFunction<ConfirmExitFunction>( () => _confirmExit() );
 
          _sut = _fixture.Build<CommitViewModel>()
                         .OmitAutoProperties()
@@ -57,6 +61,13 @@ namespace GitWrite.Tests
          await _sut.Save();
       }
 
+      [When( "I discard the commit" )]
+      public async Task WhenIDiscardTheCommit()
+      {
+         _confirmExit = () => ConfirmResult.No;
+         await _sut.Discard();
+      }
+
       [Then( @"the commit data is written to the commit file" )]
       public void ThenTheCommitDataIsWrittenToDisk()
       {
@@ -64,6 +75,15 @@ namespace GitWrite.Tests
          var commitDocument = commitFileReader.FromFile( (string) _scenarioContext["CommitFilePath"] );
 
          commitDocument.Subject.Should().Be( (string) _scenarioContext["ExpectedSubject"] );
+      }
+
+      [Then( "blank commit data is written to the commit file" )]
+      public void BlankCommitDataIsWrittenToTheCommitFile()
+      {
+         var commitFileReader = new CommitFileReader();
+         var commitDocument = commitFileReader.FromFile( (string) _scenarioContext["CommitFilePath"] );
+
+         commitDocument.Should().BeEquivalentTo( CommitDocument.Empty );
       }
 
       [Then( "the window is closed" )]
