@@ -4,6 +4,8 @@
           TargetType="{x:Type TextBox}">
       <Setter Property="FontFamily"
               Value="Consolas" />
+      <Setter Property="Margin"
+              Value="12,0" />
       <Setter Property="FontSize"
               Value="18" />
       <Setter Property="Template">
@@ -22,7 +24,5 @@
           BasedOn="{StaticResource TextEntryStyle}">
       <Setter Property="VerticalContentAlignment"
               Value="Center" />
-      <Setter Property="Margin"
-              Value="12,0" />
    </Style>
 </ResourceDictionary>
