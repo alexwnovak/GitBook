@@ -11,9 +11,9 @@ namespace GitWrite.Tests.Internal
    {
       public bool WasClosed { get; private set; }
 
-      public bool InDesignMode => throw new NotImplementedException();
-      public bool PropertyChangeNotificationsOnUIThread => throw new NotImplementedException();
-      public void BeginOnUIThread( System.Action action ) => throw new NotImplementedException();
+      public bool InDesignMode => false;
+      public bool PropertyChangeNotificationsOnUIThread => false;
+      public void BeginOnUIThread( Action action ) => action();
       public void ExecuteOnFirstLoad( object view, Action<object> handler ) => throw new NotImplementedException();
       public void ExecuteOnLayoutUpdated( object view, Action<object> handler ) => throw new NotImplementedException();
       public object GetFirstNonGeneratedView( object view ) => throw new NotImplementedException();
