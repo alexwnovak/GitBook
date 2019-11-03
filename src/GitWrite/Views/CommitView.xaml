@@ -81,7 +81,8 @@
 
       <!-- This is the row for the commit body -->
       <Grid Grid.Row="1">
-         <TextBox AcceptsReturn="True"
+         <TextBox x:Name="Commit_Body"
+                  AcceptsReturn="True"
                   Style="{StaticResource CommitBodyEntryStyle}">
             <Behaviors:Interaction.Triggers>
                <Behaviors:EventTrigger EventName="GotFocus">
