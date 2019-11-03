@@ -27,6 +27,20 @@ Scenario: Saving the commit when prompted after discarding with changes
    Then the commit data is written to the commit file
    And the window is closed
 
+Scenario: Amending a commit
+   Given I am amending an existing commit
+   | Field   | Value            |
+   | Subject | Fixng bugs       |
+   | Body    | Fixng issue #001 |
+   And I change the subject to Fixing
+   And I change the body to:
+   | Line              |
+   | Fixing issue #001 |
+   | Fixing issue #002 |
+   When I save the commit
+   Then the commit data is written to the commit file
+   And the window is closed
+
 Scenario: Discarding a new commit
    Given I am editing a new commit
    And I have entered Fixing a bug into the subject field

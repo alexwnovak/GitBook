@@ -8,6 +8,7 @@ using GitModel;
 using GitWrite.Tests.Internal;
 using GitWrite.ViewModels;
 using TechTalk.SpecFlow;
+using TechTalk.SpecFlow.Assist;
 
 namespace GitWrite.Tests
 {
@@ -49,7 +50,29 @@ namespace GitWrite.Tests
          await _sut.ActivateAsync();
       }
 
+      [Given( "I am amending an existing commit" )]
+      public async Task IAmAmendingAnExistingCommit( Table table )
+      {
+         var commit = table.CreateInstance<CommitObject>();
+         string contents = $"{commit.Subject}{Environment.NewLine}{commit.Body}";
+         string commitFilePath = _temporaryFolder.CreateFile( contents );
+
+         _scenarioContext["CommitFilePath"] = commitFilePath;
+
+         _fixture.RegisterFunction<GetCommitFilePathFunction>( () => commitFilePath );
+         _fixture.RegisterFunction<ReadCommitFileFunction>( filePath => new CommitFileReader().FromFile( filePath ) );
+         _fixture.RegisterFunction<WriteCommitFileFunction>( ( filePath, document ) => new CommitFileWriter().ToFile( filePath, document ) );
+         _fixture.RegisterFunction<ConfirmExitFunction>( () => _confirmExit() );
+
+         _sut = _fixture.Build<CommitViewModel>()
+                        .OmitAutoProperties()
+                        .Create();
+
+         await _sut.ActivateAsync();
+      }
+
       [Given( "I have entered (.*) into the subject field" )]
+      [Given( "I change the subject to (.*)" )]
       public void GivenIHaveEnteredIntoTheSubjectField( string subject )
       {
          _scenarioContext["ExpectedSubject"] = subject;
@@ -57,6 +80,7 @@ namespace GitWrite.Tests
       }
 
       [Given( "I have entered the following lines into the body field:" )]
+      [Given( "I change the body to:" )]
       public void IHaveEnteredTheFollowingLinesIntoTheBodyField( Table table )
       {
          var body = table.Rows.Select( r => r.Values.First().ToString() ).ToArray();

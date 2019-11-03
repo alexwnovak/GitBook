@@ -195,13 +195,13 @@ this.ScenarioInitialize(scenarioInfo);
             this.ScenarioCleanup();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="Discarding a new commit")]
+        [Xunit.SkippableFactAttribute(DisplayName="Amending a commit")]
         [Xunit.TraitAttribute("FeatureTitle", "Editing commits")]
-        [Xunit.TraitAttribute("Description", "Discarding a new commit")]
-        public virtual void DiscardingANewCommit()
+        [Xunit.TraitAttribute("Description", "Amending a commit")]
+        public virtual void AmendingACommit()
         {
             string[] tagsOfScenario = ((string[])(null));
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Discarding a new commit", null, ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Amending a commit", null, ((string[])(null)));
 #line 30
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -222,30 +222,94 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 31
-   testRunner.Given("I am editing a new commit", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 32
-   testRunner.And("I have entered Fixing a bug into the subject field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
                 TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Field",
+                            "Value"});
+                table3.AddRow(new string[] {
+                            "Subject",
+                            "Fixng bugs"});
+                table3.AddRow(new string[] {
+                            "Body",
+                            "Fixng issue #001"});
+#line 31
+   testRunner.Given("I am amending an existing commit", ((string)(null)), table3, "Given ");
+#line hidden
+#line 35
+   testRunner.And("I change the subject to Fixing", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+                TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
                             "Line"});
-                table3.AddRow(new string[] {
+                table4.AddRow(new string[] {
                             "Fixing issue #001"});
-                table3.AddRow(new string[] {
+                table4.AddRow(new string[] {
                             "Fixing issue #002"});
-                table3.AddRow(new string[] {
-                            "Fixing issue #002"});
-#line 33
-   testRunner.And("I have entered the following lines into the body field:", ((string)(null)), table3, "And ");
-#line hidden
-#line 38
-   testRunner.When("I discard the commit", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 39
-   testRunner.Then("blank commit data is written to the commit file", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 36
+   testRunner.And("I change the body to:", ((string)(null)), table4, "And ");
 #line hidden
 #line 40
+   testRunner.When("I save the commit", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 41
+   testRunner.Then("the commit data is written to the commit file", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 42
+   testRunner.And("the window is closed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.SkippableFactAttribute(DisplayName="Discarding a new commit")]
+        [Xunit.TraitAttribute("FeatureTitle", "Editing commits")]
+        [Xunit.TraitAttribute("Description", "Discarding a new commit")]
+        public virtual void DiscardingANewCommit()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Discarding a new commit", null, ((string[])(null)));
+#line 44
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 45
+   testRunner.Given("I am editing a new commit", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 46
+   testRunner.And("I have entered Fixing a bug into the subject field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+                TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Line"});
+                table5.AddRow(new string[] {
+                            "Fixing issue #001"});
+                table5.AddRow(new string[] {
+                            "Fixing issue #002"});
+                table5.AddRow(new string[] {
+                            "Fixing issue #002"});
+#line 47
+   testRunner.And("I have entered the following lines into the body field:", ((string)(null)), table5, "And ");
+#line hidden
+#line 52
+   testRunner.When("I discard the commit", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 53
+   testRunner.Then("blank commit data is written to the commit file", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 54
    testRunner.And("the window is closed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
