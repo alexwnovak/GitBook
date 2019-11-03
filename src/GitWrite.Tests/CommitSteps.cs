@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoFixture;
 using Caliburn.Micro;
@@ -55,6 +56,15 @@ namespace GitWrite.Tests
          _sut.Commit.Subject = subject;
       }
 
+      [Given( "I have entered the following lines into the body field:" )]
+      public void IHaveEnteredTheFollowingLinesIntoTheBodyField( Table table )
+      {
+         var body = table.Rows.Select( r => r.Values.First().ToString() ).ToArray();
+         _scenarioContext["ExpectedBody"] = body;
+
+         _sut.Commit.Body = string.Join( Environment.NewLine, body );
+      }
+
       [When( "I save the commit" )]
       public async Task WhenISaveTheCommit()
       {
@@ -75,6 +85,7 @@ namespace GitWrite.Tests
          var commitDocument = commitFileReader.FromFile( (string) _scenarioContext["CommitFilePath"] );
 
          commitDocument.Subject.Should().Be( (string) _scenarioContext["ExpectedSubject"] );
+         commitDocument.Body.Should().BeEquivalentTo( (string[]) _scenarioContext["ExpectedBody"] );
       }
 
       [Then( "blank commit data is written to the commit file" )]
