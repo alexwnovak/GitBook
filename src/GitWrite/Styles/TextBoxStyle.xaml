@@ -19,10 +19,17 @@
       </Setter>
    </Style>
 
-   <Style x:Key="CommitEntryStyle"
+   <Style x:Key="CommitSubjectEntryStyle"
           TargetType="{x:Type TextBox}"
           BasedOn="{StaticResource TextEntryStyle}">
       <Setter Property="VerticalContentAlignment"
               Value="Center" />
+   </Style>
+
+   <Style x:Key="CommitBodyEntryStyle"
+          TargetType="{x:Type TextBox}"
+          BasedOn="{StaticResource TextEntryStyle}">
+      <Setter Property="TextWrapping"
+              Value="Wrap" />
    </Style>
 </ResourceDictionary>
