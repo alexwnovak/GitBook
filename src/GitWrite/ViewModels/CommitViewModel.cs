@@ -20,11 +20,7 @@ namespace GitWrite.ViewModels
       public CommitModel Commit
       {
          get => _commit;
-         set
-         {
-            _commit = value;
-            NotifyOfPropertyChange( nameof( Commit ) );
-         }
+         set => Set( ref _commit, value );
       }
 
       public CommitViewModel(
@@ -42,7 +38,7 @@ namespace GitWrite.ViewModels
          Commit = new CommitModel
          {
             Subject = commitDocument.Subject,
-            Body = commitDocument.Body.Aggregate( ( acc, line ) => acc += $"{Environment.NewLine}{line}" )
+            Body = string.Join( Environment.NewLine, commitDocument.Body )
          };
 
          Commit.PropertyChanged += ( _, __ ) => _isDirty = true;
@@ -64,7 +60,7 @@ namespace GitWrite.ViewModels
       {
          bool canClose = true;
 
-         if ( _isDirty )
+         if ( _isDirty && _closeAction == CloseAction.Discard )
          {
             var confirmResult = _confirmExit();
             canClose = confirmResult != ConfirmResult.Cancel;
