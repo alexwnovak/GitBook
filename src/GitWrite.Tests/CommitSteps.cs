@@ -78,6 +78,13 @@ namespace GitWrite.Tests
          await _sut.Discard();
       }
 
+      [When( "I discard the commit and press (.*)" )]
+      public async Task WhenIDiscardTheCommitAndPress( ConfirmResult confirmResult )
+      {
+         _confirmExit = () => confirmResult;
+         await _sut.Discard();
+      }
+
       [Then( "the commit data is written to the commit file" )]
       public void ThenTheCommitDataIsWrittenToDisk()
       {
