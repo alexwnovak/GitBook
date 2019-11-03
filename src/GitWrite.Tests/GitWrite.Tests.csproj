@@ -33,4 +33,11 @@
     <ProjectReference Include="..\GitWrite\GitWrite.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Commit.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Commit.feature.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
 </Project>

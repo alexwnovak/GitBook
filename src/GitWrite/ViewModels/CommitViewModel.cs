@@ -38,7 +38,7 @@ namespace GitWrite.ViewModels
          Commit = new CommitModel
          {
             Subject = commitDocument.Subject,
-            Body = commitDocument.Body.Aggregate( ( acc, line ) => acc += $"{Environment.NewLine}{line}" )
+            Body = string.Join( Environment.NewLine, commitDocument.Body )
          };
 
          Commit.PropertyChanged += ( _, __ ) => _isDirty = true;
