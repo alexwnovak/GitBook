@@ -37,6 +37,7 @@
    <Grid>
       <Grid.RowDefinitions>
          <RowDefinition Height="70" />
+         <RowDefinition Height="1" />
          <RowDefinition />
       </Grid.RowDefinitions>
 
@@ -82,34 +83,37 @@
                                       Converter={StaticResource RemainingCharactersConverter}}" />
       </Grid>
 
+      <Rectangle Grid.Row="1"
+                 Height="1"
+                 Margin="12,0"
+                 Fill="#CCC" />
+
       <!-- This is the row for the commit body -->
-      <Grid Grid.Row="1">
-         <TextBox x:Name="Commit_Body"
-                  AcceptsReturn="True"
-                  Style="{StaticResource CommitBodyEntryStyle}">
-            <Behaviors:Interaction.Triggers>
-               <Behaviors:EventTrigger EventName="GotFocus">
-                  <Behaviors:ControlStoryboardAction ControlStoryboardOption="Play">
-                     <Behaviors:ControlStoryboardAction.Storyboard>
-                        <Storyboard>
-                           <DoubleAnimation Storyboard.TargetName="LayoutRoot"
-                                            Storyboard.TargetProperty="Height"
-                                            To="300"
-                                            Duration="0:0:0.35">
-                              <DoubleAnimation.EasingFunction>
-                                 <CircleEase />
-                              </DoubleAnimation.EasingFunction>
-                           </DoubleAnimation>
-                        </Storyboard>
-                     </Behaviors:ControlStoryboardAction.Storyboard>
-                  </Behaviors:ControlStoryboardAction>
-               </Behaviors:EventTrigger>
-               <t:KeyTrigger Key="Return"
-                             Modifiers="Control">
-                  <cal:ActionMessage MethodName="Save" />
-               </t:KeyTrigger>
-            </Behaviors:Interaction.Triggers>
-         </TextBox>
-      </Grid>
+      <TextBox x:Name="Commit_Body"
+               Grid.Row="2"
+               Style="{StaticResource CommitBodyEntryStyle}">
+         <Behaviors:Interaction.Triggers>
+            <Behaviors:EventTrigger EventName="GotFocus">
+               <Behaviors:ControlStoryboardAction ControlStoryboardOption="Play">
+                  <Behaviors:ControlStoryboardAction.Storyboard>
+                     <Storyboard>
+                        <DoubleAnimation Storyboard.TargetName="LayoutRoot"
+                                         Storyboard.TargetProperty="Height"
+                                         To="300"
+                                         Duration="0:0:0.35">
+                           <DoubleAnimation.EasingFunction>
+                              <CircleEase />
+                           </DoubleAnimation.EasingFunction>
+                        </DoubleAnimation>
+                     </Storyboard>
+                  </Behaviors:ControlStoryboardAction.Storyboard>
+               </Behaviors:ControlStoryboardAction>
+            </Behaviors:EventTrigger>
+            <t:KeyTrigger Key="Return"
+                          Modifiers="Control">
+               <cal:ActionMessage MethodName="Save" />
+            </t:KeyTrigger>
+         </Behaviors:Interaction.Triggers>
+      </TextBox>
    </Grid>
 </fw:AcrylicWindow>
