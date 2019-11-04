@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Caliburn.Micro;
@@ -21,6 +20,13 @@ namespace GitWrite.ViewModels
       {
          get => _commit;
          set => Set( ref _commit, value );
+      }
+
+      private bool _isExpanded;
+      public bool IsExpanded
+      {
+         get => _isExpanded;
+         set => Set( ref _isExpanded, value );
       }
 
       public CommitViewModel(

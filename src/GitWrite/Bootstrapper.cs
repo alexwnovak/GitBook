@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Windows;
 using Caliburn.Micro;
@@ -35,7 +36,15 @@ namespace GitWrite
 
       protected override void OnStartup( object sender, StartupEventArgs e )
       {
-         DisplayRootViewFor<CommitViewModel>();
+         dynamic settings = new ExpandoObject();
+         settings.ResizeMode = ResizeMode.NoResize;
+         settings.WindowStartupLocation = WindowStartupLocation.Manual;
+         settings.Width = 812;
+         settings.Height = 70;
+         settings.Top = 0.3 * SystemParameters.PrimaryScreenHeight;
+         settings.Left = ( SystemParameters.PrimaryScreenWidth - settings.Width ) / 2;
+
+         DisplayRootViewFor<CommitViewModel>( settings );
       }
    }
 }

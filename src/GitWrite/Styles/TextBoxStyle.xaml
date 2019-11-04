@@ -17,12 +17,23 @@
       </Setter>
    </Style>
 
-   <Style x:Key="CommitEntryStyle"
+   <Style x:Key="CommitSubjectEntryStyle"
           TargetType="{x:Type TextBox}"
           BasedOn="{StaticResource TextEntryStyle}">
       <Setter Property="VerticalContentAlignment"
               Value="Center" />
       <Setter Property="Margin"
               Value="12,0" />
+   </Style>
+
+   <Style x:Key="CommitBodyEntryStyle"
+          TargetType="{x:Type TextBox}"
+          BasedOn="{StaticResource TextEntryStyle}">
+      <Setter Property="AcceptsReturn"
+              Value="True" />
+      <Setter Property="TextWrapping"
+              Value="Wrap" />
+      <Setter Property="Margin"
+              Value="12" />
    </Style>
 </ResourceDictionary>
