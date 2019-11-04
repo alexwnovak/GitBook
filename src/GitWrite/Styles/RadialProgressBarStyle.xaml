@@ -17,7 +17,9 @@
                                             Source={StaticResource Settings},
                                             Converter={StaticResource ColorToSolidBrushConverter}}" />
 
-                  <c:Sector Fill="#FFCF9E">
+                  <c:Sector Fill="{Binding RadialColor,
+                                           Source={StaticResource Settings},
+                                           Converter={StaticResource ColorToSolidBrushConverter}}">
                      <c:Sector.Angle>
                         <MultiBinding Converter="{StaticResource ProgressValueToAngleConverter}">
                            <Binding Path="Value"
