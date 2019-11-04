@@ -11,5 +11,6 @@ namespace GitWrite
       public Color SubjectTextColor { get; set; } = (Color) ColorConverter.ConvertFromString( "#000" );
       public Color BodyTextColor { get; set; } = (Color) ColorConverter.ConvertFromString( "#000" );
       public Color CounterTextColor { get; set; } = (Color) ColorConverter.ConvertFromString( "#000" );
+      public Color SelectedColor { get; set; } = (Color) ColorConverter.ConvertFromString( "Orange" );
    }
 }

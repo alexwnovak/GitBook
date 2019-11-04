@@ -3,10 +3,18 @@
                     xmlns:cnv="clr-namespace:GitWrite.Views.Converters">
    <Style x:Key="TextEntryStyle"
           TargetType="{x:Type TextBox}">
+      <Style.Resources>
+         <cnv:ColorToSolidBrushConverter x:Key="ColorToSolidBrushConverter" />
+      </Style.Resources>
+
       <Setter Property="FontFamily"
               Value="Consolas" />
       <Setter Property="FontSize"
               Value="18" />
+      <Setter Property="SelectionBrush"
+              Value="{Binding SelectedColor,
+                              Source={StaticResource Settings},
+                              Converter={StaticResource ColorToSolidBrushConverter}}" />
       <Setter Property="Template">
          <Setter.Value>
             <ControlTemplate TargetType="TextBox">
