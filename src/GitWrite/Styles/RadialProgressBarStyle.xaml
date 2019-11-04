@@ -34,7 +34,9 @@
 
                   <TextBlock HorizontalAlignment="Center"
                              VerticalAlignment="Center"
-                             Foreground="Black"
+                             Foreground="{Binding CounterTextColor,
+                                                  Source={StaticResource Settings},
+                                                  Converter={StaticResource ColorToSolidBrushConverter}}"
                              Text="{Binding Value,
                                             RelativeSource={RelativeSource AncestorType={x:Type ProgressBar}}}" />
                </Grid>

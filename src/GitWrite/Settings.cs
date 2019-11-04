@@ -10,5 +10,6 @@ namespace GitWrite
       public Color RadialColor { get; set; } = (Color) ColorConverter.ConvertFromString( "#FFCF9E" );
       public Color SubjectTextColor { get; set; } = (Color) ColorConverter.ConvertFromString( "#000" );
       public Color BodyTextColor { get; set; } = (Color) ColorConverter.ConvertFromString( "#000" );
+      public Color CounterTextColor { get; set; } = (Color) ColorConverter.ConvertFromString( "#000" );
    }
 }
