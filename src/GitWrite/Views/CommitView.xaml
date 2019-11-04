@@ -11,18 +11,15 @@
                   xmlns:p="clr-namespace:GitWrite.Properties"
                   xmlns:t="clr-namespace:GitWrite.Triggers"
                   mc:Ignorable="d"
-                  d:DesignHeight="400"
+                  d:DesignWidth="812"
+                  d:DesignHeight="300"
                   Title="{x:Static p:Resources.ApplicationName}"
-                  Width="812"
-                  Height="70"
-                  ResizeMode="NoResize"
                   AcrylicWindowStyle="None"
                   BorderThickness="0"
                   NoiseOpacity="0"
                   FallbackColor="#EEE"
                   TintColor="#EEE"
                   TintOpacity="0.7"
-                  WindowStartupLocation="CenterScreen"
                   FocusManager.FocusedElement="{Binding ElementName=Commit_Subject}">
    <Window.Resources>
       <cnv:RemainingCharactersConverter x:Key="RemainingCharactersConverter" />
