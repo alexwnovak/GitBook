@@ -46,9 +46,9 @@
                   <DoubleAnimation Storyboard.TargetName="LayoutRoot"
                                    Storyboard.TargetProperty="Height"
                                    To="300"
-                                   Duration="0:0:0.35">
+                                   Duration="0:0:1">
                      <DoubleAnimation.EasingFunction>
-                        <CircleEase />
+                        <CircleEase EasingMode="EaseOut" />
                      </DoubleAnimation.EasingFunction>
                   </DoubleAnimation>
                </Storyboard>
