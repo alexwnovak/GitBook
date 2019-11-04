@@ -18,12 +18,13 @@
                   BorderThickness="0"
                   AcrylicWindowStyle="None"
                   NoiseOpacity="0"
-                  FallbackColor="#EEE"
-                  TintColor="#EEE"
-                  TintOpacity="0.7"
+                  FallbackColor="{Binding WindowTintColor, Source={StaticResource Settings}}"
+                  TintColor="{Binding WindowTintColor, Source={StaticResource Settings}}"
+                  TintOpacity="{Binding WindowTintOpacity, Source={StaticResource Settings}}"
                   FocusManager.FocusedElement="{Binding ElementName=Commit_Subject}">
    <Window.Resources>
       <cnv:RemainingCharactersConverter x:Key="RemainingCharactersConverter" />
+      <cnv:ColorToSolidBrushConverter x:Key="ColorToSolidBrushConverter" />
    </Window.Resources>
 
    <Behaviors:Interaction.Triggers>
@@ -45,9 +46,9 @@
                   <DoubleAnimation Storyboard.TargetName="LayoutRoot"
                                    Storyboard.TargetProperty="Height"
                                    To="300"
-                                   Duration="0:0:0.35">
+                                   Duration="0:0:1">
                      <DoubleAnimation.EasingFunction>
-                        <CircleEase />
+                        <CircleEase EasingMode="EaseOut" />
                      </DoubleAnimation.EasingFunction>
                   </DoubleAnimation>
                </Storyboard>
@@ -94,7 +95,9 @@
          <Rectangle Grid.Column="1"
                     Width="1"
                     Height="50"
-                    Fill="#CCC" />
+                    Fill="{Binding SeparatorColor,
+                                   Source={StaticResource Settings},
+                                   Converter={StaticResource ColorToSolidBrushConverter}}" />
 
          <ProgressBar Grid.Column="2"
                       Minimum="0"
@@ -112,7 +115,9 @@
 
       <Rectangle Grid.Row="1"
                  Margin="12,0"
-                 Fill="#CCC" />
+                 Fill="{Binding SeparatorColor,
+                                Source={StaticResource Settings},
+                                Converter={StaticResource ColorToSolidBrushConverter}}" />
 
       <!-- This is the row for the commit body -->
       <TextBox x:Name="Commit_Body"
