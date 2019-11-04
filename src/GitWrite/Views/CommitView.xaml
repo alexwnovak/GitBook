@@ -29,6 +29,30 @@
       <t:KeyTrigger Key="Esc">
          <cal:ActionMessage MethodName="Discard" />
       </t:KeyTrigger>
+      <Behaviors:DataTrigger Binding="{Binding Text.Length, ElementName=Commit_Body}"
+                             Comparison="GreaterThan"
+                             Value="0">
+         <Behaviors:ChangePropertyAction PropertyName="IsExpanded"
+                                         TargetObject="{Binding DataContext, ElementName=LayoutRoot}"
+                                         Value="True" />
+      </Behaviors:DataTrigger>
+      <Behaviors:DataTrigger Binding="{Binding IsExpanded}"
+                             Value="True">
+         <Behaviors:ControlStoryboardAction ControlStoryboardOption="Play">
+            <Behaviors:ControlStoryboardAction.Storyboard>
+               <Storyboard>
+                  <DoubleAnimation Storyboard.TargetName="LayoutRoot"
+                                   Storyboard.TargetProperty="Height"
+                                   To="300"
+                                   Duration="0:0:0.35">
+                     <DoubleAnimation.EasingFunction>
+                        <CircleEase />
+                     </DoubleAnimation.EasingFunction>
+                  </DoubleAnimation>
+               </Storyboard>
+            </Behaviors:ControlStoryboardAction.Storyboard>
+         </Behaviors:ControlStoryboardAction>
+      </Behaviors:DataTrigger>
    </Behaviors:Interaction.Triggers>
 
    <Grid>
@@ -90,20 +114,9 @@
                Style="{StaticResource CommitBodyEntryStyle}">
          <Behaviors:Interaction.Triggers>
             <Behaviors:EventTrigger EventName="GotFocus">
-               <Behaviors:ControlStoryboardAction ControlStoryboardOption="Play">
-                  <Behaviors:ControlStoryboardAction.Storyboard>
-                     <Storyboard>
-                        <DoubleAnimation Storyboard.TargetName="LayoutRoot"
-                                         Storyboard.TargetProperty="Height"
-                                         To="300"
-                                         Duration="0:0:0.35">
-                           <DoubleAnimation.EasingFunction>
-                              <CircleEase />
-                           </DoubleAnimation.EasingFunction>
-                        </DoubleAnimation>
-                     </Storyboard>
-                  </Behaviors:ControlStoryboardAction.Storyboard>
-               </Behaviors:ControlStoryboardAction>
+               <Behaviors:ChangePropertyAction PropertyName="IsExpanded"
+                                               TargetObject="{Binding}"
+                                               Value="True" />
             </Behaviors:EventTrigger>
             <t:KeyTrigger Key="Return"
                           Modifiers="Control">

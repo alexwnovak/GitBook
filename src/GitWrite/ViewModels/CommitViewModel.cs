@@ -22,6 +22,13 @@ namespace GitWrite.ViewModels
          set => Set( ref _commit, value );
       }
 
+      private bool _isExpanded;
+      public bool IsExpanded
+      {
+         get => _isExpanded;
+         set => Set( ref _isExpanded, value );
+      }
+
       public CommitViewModel(
          GetCommitFilePathFunction getCommitFilePath,
          ReadCommitFileFunction readCommitFile,
