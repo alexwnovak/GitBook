@@ -16,6 +16,7 @@
          <ResourceDictionary.MergedDictionaries>
             <ResourceDictionary>
                <gitWrite:Bootstrapper x:Key="Bootstrapper" />
+               <gitWrite:Settings x:Key="Settings" />
                <!--<viewModels:ViewModelLocator x:Key="ViewModelLocator"
                                             d:IsDataSource="True" />-->
             </ResourceDictionary>

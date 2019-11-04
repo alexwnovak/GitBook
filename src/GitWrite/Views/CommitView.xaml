@@ -18,9 +18,9 @@
                   BorderThickness="0"
                   AcrylicWindowStyle="None"
                   NoiseOpacity="0"
-                  FallbackColor="#EEE"
-                  TintColor="#EEE"
-                  TintOpacity="0.7"
+                  FallbackColor="{Binding WindowTintColor, Source={StaticResource Settings}}"
+                  TintColor="{Binding WindowTintColor, Source={StaticResource Settings}}"
+                  TintOpacity="{Binding WindowTintOpacity, Source={StaticResource Settings}}"
                   FocusManager.FocusedElement="{Binding ElementName=Commit_Subject}">
    <Window.Resources>
       <cnv:RemainingCharactersConverter x:Key="RemainingCharactersConverter" />
