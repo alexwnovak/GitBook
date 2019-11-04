@@ -8,6 +8,7 @@
                   xmlns:cal="http://www.caliburnproject.org"
                   xmlns:cnv="clr-namespace:GitWrite.Views.Converters"
                   xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
+                  xmlns:b="clr-namespace:GitWrite.Behaviors"
                   xmlns:p="clr-namespace:GitWrite.Properties"
                   xmlns:t="clr-namespace:GitWrite.Triggers"
                   mc:Ignorable="d"
@@ -56,6 +57,11 @@
    </Behaviors:Interaction.Triggers>
 
    <Grid>
+      <!-- Use a dirty hack to prevent the window itself from being focusable in the tab order -->
+      <Behaviors:Interaction.Behaviors>
+         <b:SuppressTabStopHackBehavior />
+      </Behaviors:Interaction.Behaviors>
+
       <Grid.RowDefinitions>
          <RowDefinition Height="70" />
          <RowDefinition Height="1" />
