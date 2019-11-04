@@ -1,5 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" >
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:cnv="clr-namespace:GitWrite.Views.Converters">
    <Style x:Key="TextEntryStyle"
           TargetType="{x:Type TextBox}">
       <Setter Property="FontFamily"
@@ -20,10 +21,18 @@
    <Style x:Key="CommitSubjectEntryStyle"
           TargetType="{x:Type TextBox}"
           BasedOn="{StaticResource TextEntryStyle}">
+      <Style.Resources>
+         <cnv:ColorToSolidBrushConverter x:Key="ColorToSolidBrushConverter" />
+      </Style.Resources>
+
       <Setter Property="VerticalContentAlignment"
               Value="Center" />
       <Setter Property="Margin"
               Value="12,0" />
+      <Setter Property="Foreground"
+              Value="{Binding SubjectTextColor,
+                              Source={StaticResource Settings},
+                              Converter={StaticResource ColorToSolidBrushConverter}}" />
    </Style>
 
    <Style x:Key="CommitBodyEntryStyle"
