@@ -9,5 +9,6 @@ namespace GitWrite
       public Color SeparatorColor { get; set; } = (Color) ColorConverter.ConvertFromString( "#CCC" );
       public Color RadialColor { get; set; } = (Color) ColorConverter.ConvertFromString( "#FFCF9E" );
       public Color SubjectTextColor { get; set; } = (Color) ColorConverter.ConvertFromString( "#000" );
+      public Color BodyTextColor { get; set; } = (Color) ColorConverter.ConvertFromString( "#000" );
    }
 }

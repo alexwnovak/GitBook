@@ -38,11 +38,19 @@
    <Style x:Key="CommitBodyEntryStyle"
           TargetType="{x:Type TextBox}"
           BasedOn="{StaticResource TextEntryStyle}">
+      <Style.Resources>
+         <cnv:ColorToSolidBrushConverter x:Key="ColorToSolidBrushConverter" />
+      </Style.Resources>
+
       <Setter Property="AcceptsReturn"
               Value="True" />
       <Setter Property="TextWrapping"
               Value="Wrap" />
       <Setter Property="Margin"
               Value="12" />
+      <Setter Property="Foreground"
+              Value="{Binding BodyTextColor,
+                              Source={StaticResource Settings},
+                              Converter={StaticResource ColorToSolidBrushConverter}}" />
    </Style>
 </ResourceDictionary>
